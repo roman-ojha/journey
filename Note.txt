@@ -1,0 +1,13 @@
+*) Functional Requirement:
+    -> User can be able to Register & logged into the system
+    -> User can be able to Pick From & To Places to find the best possible Vehicle.
+    -> User can View all the seats which are available and are already booked
+    -> User can book the seats with given price by paying through payment gateway service
+    -> User can view all the reviews done for that specific Vehicle.
+    -> User can review the specific Vehicle after they have take the service.
+    -> Merchant can Register with given minimal charge and logged into the Merchant Site.
+    -> Merchant can list all the available Vehicle with required details.
+    -> Merchant can update the listed vehicles or remove it from the list.
+    -> Admin can logged into the Admin Site.
+    -> Admin can approved & Disapprove the merchant who are trying to register.
+    -> Admin can do have control of any sort of Users, Merchants & Admin data as per their permissions.
