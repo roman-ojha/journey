@@ -1,3 +1,6 @@
+*) Journey:
+    -> Service/Platform help user to buy ticket online for Bus, Hiace, Cars etc.. for long distance travel.
+    
 *) Functional Requirement:
     -> User can be able to Register & logged into the system
     -> User can be able to Pick From & To Places to find the best possible Vehicle.
