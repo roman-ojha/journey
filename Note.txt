@@ -14,3 +14,9 @@
     -> Admin can logged into the Admin Site.
     -> Admin can approved & Disapprove the merchant who are trying to register.
     -> Admin can do have control of any sort of Users, Merchants & Admin data as per their permissions.
+
+*) Non Functional Requirement:
+    -> Scalability
+    -> Availability
+    -> Consistency
+    -> Security
