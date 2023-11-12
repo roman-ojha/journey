@@ -20,3 +20,18 @@
     -> Availability
     -> Consistency
     -> Security
+
+
+*) Backend Framework for all Services:
+    1) User:
+        1> Auth Service : Django
+        2> User Service: Express
+        3> Vehicle Service: Express
+        4> Booking Service: Express
+        5> Review Service: FastAPI
+    2) Merchant:
+        1> Auth Service: Django
+        2> Merchant Service: Laravel
+        3> Vehicle & Travel Service: Laravel
+    3) Vehicle Booking Service: Django
+    4) Admin: Django
