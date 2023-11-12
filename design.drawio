@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2023-11-12T16:15:55.620Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.5 Chrome/114.0.5735.243 Electron/25.3.1 Safari/537.36" etag="by18UNM-LyVcuJ1YkD_L" version="21.6.5" type="device" pages="5">
+<mxfile host="Electron" modified="2023-11-12T17:18:00.277Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.5 Chrome/114.0.5735.243 Electron/25.3.1 Safari/537.36" etag="jUHagbOIyOASuGej_W0h" version="21.6.5" type="device" pages="4">
   <diagram name="System Design" id="v8atC4LrwgWgsppYc6KF">
-    <mxGraphModel dx="10303" dy="6567" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="3428" dy="2591" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -62,7 +62,7 @@
             <mxPoint x="910" y="330" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="RX8F57HBemChYUWMWMmz-47" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;MySQL&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#6a00ff;fontColor=#ffffff;strokeColor=#3700CC;" parent="1" vertex="1">
+        <mxCell id="RX8F57HBemChYUWMWMmz-47" value="&lt;span style=&quot;font-size: 16px;&quot;&gt;PostgreSQL&lt;/span&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#6a00ff;fontColor=#ffffff;strokeColor=#3700CC;" parent="1" vertex="1">
           <mxGeometry x="915" y="140" width="110" height="100" as="geometry" />
         </mxCell>
         <mxCell id="RX8F57HBemChYUWMWMmz-48" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Redis&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#6a00ff;fontColor=#ffffff;strokeColor=#3700CC;" parent="1" vertex="1">
@@ -168,7 +168,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="RX8F57HBemChYUWMWMmz-89" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;MySQL&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#6a00ff;fontColor=#ffffff;strokeColor=#3700CC;" parent="1" vertex="1">
+        <mxCell id="RX8F57HBemChYUWMWMmz-89" value="&lt;span style=&quot;font-size: 16px;&quot;&gt;PostgreSQL&lt;/span&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#6a00ff;fontColor=#ffffff;strokeColor=#3700CC;" parent="1" vertex="1">
           <mxGeometry x="725" y="1700" width="110" height="100" as="geometry" />
         </mxCell>
         <mxCell id="RX8F57HBemChYUWMWMmz-90" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Redis&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#6a00ff;fontColor=#ffffff;strokeColor=#3700CC;" parent="1" vertex="1">
@@ -1857,14 +1857,6 @@
         <mxCell id="00iVHM3ktKZfyNC6W95F-48" value="SUPER_DELUX_BUS" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="925" y="818" width="140" height="30" as="geometry" />
         </mxCell>
-      </root>
-    </mxGraphModel>
-  </diagram>
-  <diagram id="-7gKYfuko0IdpShyRQmG" name="CI / CD Pipeline">
-    <mxGraphModel dx="2578" dy="1491" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
-      <root>
-        <mxCell id="0" />
-        <mxCell id="1" parent="0" />
       </root>
     </mxGraphModel>
   </diagram>
