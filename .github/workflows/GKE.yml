@@ -26,17 +26,17 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build image
-        run: docker compose -f docker-compose.dev.yml build
+        run: docker compose -f docker-compose.prod.yml build
 
       - name: Push image to DO Container Registry
-        run: docker compose -f docker-compose.dev.yml push
+        run: docker compose -f docker-compose.prod.yml push
 
   deploy-to-gke:
     runs-on: ubuntu-latest
     env:
       GCP_PROJECT_ID: roman-personal-398809
       GKE_CLUSTER_NAME: autopilot-cluster-1
-      GKE_CLUSTER_ZONE: asia-south1-a
+      GKE_CLUSTER_ZONE: asia-south1
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
