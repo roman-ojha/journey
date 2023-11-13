@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: journey-api-docs-service
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: journey-api-docs-service
