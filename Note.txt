@@ -22,16 +22,27 @@
     -> Security
 
 
-*) Backend Framework for all Services:
+*) Backend Framework for all MicroServices:
     1) User:
-        1> Auth Service : Django
+        1> Auth Service: Express
+        1> Gateway : Express
         2> User Service: Express
-        3> Vehicle Service: Express
+        3> Vehicle Service: Laravel
         4> Booking Service: Express
         5> Review Service: FastAPI
     2) Merchant:
         1> Auth Service: Django
+        1> Gateway: Django
         2> Merchant Service: Laravel
         3> Vehicle & Travel Service: Laravel
     3) Vehicle Booking Service: Django
     4) Admin: Django
+    
+*) FrontEnd Framework for all Client Application:
+    1) User Application: NextJS, SCSS
+    2) Merchant Application: Flutter
+    3) Admin Application: ReactJS
+
+    
+*) CDN (Content Delivery Network for Client Application):
+    -> Amazon CloudFront to speed up the load time of client application
