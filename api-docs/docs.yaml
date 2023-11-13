@@ -6,9 +6,15 @@ servers:
   - url: "http://localhost:8080"
 paths:
   /user:
-    get:
+    post:
       summary: Get user information
       description: Retrieve information about a user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              username: "john_doe"
       responses:
         "200":
           description: Successful response
