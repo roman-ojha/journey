@@ -47,3 +47,12 @@
     
 *) CDN (Content Delivery Network for Client Application):
     -> Amazon CloudFront to speed up the load time of client application
+    
+
+*) Git Branches:
+    1. development
+        -> development happen in local machine
+    2. main
+        -> pushed to main brach so that developer can see the preview deployment of the application deployed on cloud service for preview
+    3. production
+        -> pushed to prod branch so that End user can access the application

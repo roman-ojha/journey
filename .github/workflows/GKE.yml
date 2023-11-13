@@ -57,4 +57,6 @@ jobs:
           gcloud container clusters get-credentials ${{ env.GKE_CLUSTER_NAME }} --region=${{ env.GKE_CLUSTER_ZONE }}
 
       - name: Apply Kubernetes Manifests
-        run: kubectl apply -f ./manifests
+        run: |
+          kubectl apply -f ./manifests
+          kubectl delete pods --all -n default
