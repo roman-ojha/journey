@@ -33,6 +33,7 @@ jobs:
 
   deploy-to-gke:
     runs-on: ubuntu-latest
+    needs: build-push-docker-images
     env:
       GCP_PROJECT_ID: roman-personal-398809
       GKE_CLUSTER_NAME: autopilot-cluster-1
@@ -52,6 +53,7 @@ jobs:
 
       - name: Configure kubectl
         run: |
+          gcloud components install gke-gcloud-auth-plugin
           gcloud container clusters get-credentials ${{ env.GKE_CLUSTER_NAME }} --region=${{ env.GKE_CLUSTER_ZONE }}
 
       - name: Apply Kubernetes Manifests
