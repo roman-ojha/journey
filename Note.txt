@@ -25,18 +25,19 @@
 *) Backend Framework for all MicroServices:
     1) User:
         1> Auth Service: Express
-        1> Gateway : Express
-        2> User Service: Express
-        3> Vehicle Service: Laravel
-        4> Booking Service: Express
-        5> Review Service: FastAPI
+        2> Gateway : Express
+        3> User Service: Express
+        4> Vehicle Service: Laravel
+        5> Booking Service: Express
+        6> Review Service: FastAPI
     2) Merchant:
         1> Auth Service: Django
-        1> Gateway: Django
-        2> Merchant Service: Laravel
-        3> Vehicle & Travel Service: Laravel
+        2> Gateway: Django
+        3> Merchant Service: Laravel
+        4> Vehicle & Travel Service: Laravel
     3) Vehicle Booking Service: Django
     4) Admin: Django
+    5) Swagger Docs Service: Express
     
 *) FrontEnd Framework for all Client Application:
     1) User Application: NextJS, SCSS
