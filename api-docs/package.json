@@ -1,0 +1,13 @@
+{
+  "name": "api-docs",
+  "version": "1.0.0",
+  "description": "API Documentation for This project\"",
+  "main": "index.js",
+  "author": "roman-ojha",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "swagger-ui-express": "^5.0.0",
+    "yamljs": "^0.3.0"
+  }
+}
