@@ -21,4 +21,6 @@ async function disconnect() {
     });
 }
 
-export { connect, disconnect, prisma };
+const User = prisma.user;
+
+export { connect, disconnect, User };
