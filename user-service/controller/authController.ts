@@ -6,21 +6,23 @@ import {
   check,
   query,
   validationResult,
+  matchedData,
 } from "express-validator";
 
 class AuthController {
   validateRegistration = [
     body("email").isEmail().withMessage("Invalid Email Address"),
-    check("f_name").trim().notEmpty().withMessage("First name is required"),
+    check("email").isLength({ min: 3, max: 25 }).withMessage("3 to 25"),
+    check("f_name")
+      .trim()
+      .notEmpty()
+      .withMessage("First name is required")
+      .isLength({ min: 3, max: 25 }),
+    check("l_name").trim().notEmpty().withMessage("Last name is required"),
   ];
 
   registerUser(req: Request, res: Response) {
-    const validationErr = validationResult(req);
-    console.log(validationErr.array());
-    const validationMsg = validationErr.formatWith((error) => error.msg);
-    console.log(validationMsg.array());
-
-    console.log(req.body);
+    // console.log(req.body);
     const { email, password, gender, number, f_name, l_name } = req.body;
     if (!email || !password || !gender || !number || !f_name || !l_name) {
       return res

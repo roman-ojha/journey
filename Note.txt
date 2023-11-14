@@ -54,3 +54,27 @@
         -> pushed to main brach so that developer can see the preview deployment of the application deployed on cloud service for preview
     3. production
         -> pushed to prod branch so that End user can access the application
+        
+
+Django error format:
+{
+  "detail": "Invalid input.",
+  "errors": {
+    "field_name": ["Error message 1.", "Error message 2."],
+    "another_field": ["Another error message."]
+  }
+}
+
+Laravel Error format:
+{
+    "message": "The given data was invalid.",
+    "errors": {
+        "field_name": [
+            "Error message 1.",
+            "Error message 2."
+        ],
+        "another_field": [
+            "Another error message."
+        ]
+    }
+}
