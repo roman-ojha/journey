@@ -72,7 +72,7 @@ jobs:
 
       - name: Update kubectl config
         run: |
-          aws eks --region ${{ env.EKS_CLUSTER_REGION }} update-kubeconfig --name ${{ env.EKS_CLUSTER_NAME }}
+          aws eks update-kubeconfig --name ${{ env.EKS_CLUSTER_NAME }}
           cat $HOME/.kube/config
 
       - name: Check AWS CLI login status
