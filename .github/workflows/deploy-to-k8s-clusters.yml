@@ -52,14 +52,8 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Install kubectl
-        uses: azure/setup-kubectl@v3
-        with:
-          version: "v1.24.0"
-        id: install
-
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -69,6 +63,12 @@ jobs:
       #   run: |
       #     mkdir ~/.aws
       #     echo -e "[default]\naws_access_key_id = ${{ secrets.AWS_ACCESS_KEY_ID }}\naws_secret_access_key = ${{ secrets.AWS_SECRET_ACCESS_KEY }}" > ~/.aws/credentials
+
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: "latest"
+        id: install
 
       - name: Update kubectl config
         run: |
@@ -81,3 +81,4 @@ jobs:
       - name: Apply Kubernetes Manifests to EKS
         run: |
           kubectl apply -f ./manifests
+          kubectl delete pods --all -n default
