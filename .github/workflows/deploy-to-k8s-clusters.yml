@@ -65,9 +65,9 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.EKS_CLUSTER_REGION }}
 
-      # - name: Add Credential file under "~/.aws" Folder
-      #   run: |
-      #     echo -e "[default]\naws_access_key_id=xxxxxxxxxxxxxxxxxxxxxxxxx\naws_secret_access_key=xxxxxxxxxxxxxxxxxxxxxxxx" > ~/.aws/credentials
+      - name: Add Credential file under "~/.aws" Folder
+        run: |
+          echo -e "[default]\naws_access_key_id = ${{ secrets.AWS_ACCESS_KEY_ID }}\naws_secret_access_key = ${{ secrets.AWS_SECRET_ACCESS_KEY }}" > ~/.aws/credentials
 
       - name: Update kube config
         run: |
