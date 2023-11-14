@@ -1,13 +1,14 @@
-name: Deploy Project Into Kubernetes Clusters
+name: Deploy Microservices Into Kubernetes Clusters
 on:
   workflow_run:
     workflows: ["Build and Push Applications Images on Docker Registries"]
     types:
       - completed
-
+# env:
+#   APPLY_K8S_MANIFESTS_COMMAND: kubectl apply -f ./manifests & kubectl delete pods --all -n default
 jobs:
   deploy-to-gke:
-    name: Deploy Project Into Google Kubernetes Engine(GKE)
+    name: Deploy Microservices to Google Kubernetes Engine(GKE)
     runs-on: ubuntu-latest
     # needs: build-push-docker-images
     env:
@@ -16,9 +17,9 @@ jobs:
       GKE_CLUSTER_ZONE: asia-south1
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: "Auth Google Cloud SDK"
+      - name: Auth Google Cloud SDK
         uses: "google-github-actions/auth@v1"
         with:
           credentials_json: "${{ secrets.GCP_SERVICE_ACCOUNT_CREDENTIALS }}"
@@ -32,7 +33,42 @@ jobs:
           gcloud components install gke-gcloud-auth-plugin
           gcloud container clusters get-credentials ${{ env.GKE_CLUSTER_NAME }} --region=${{ env.GKE_CLUSTER_ZONE }}
 
-      - name: Apply Kubernetes Manifests
+      - name: Apply Kubernetes Manifests to GKE
+        run: |
+          kubectl apply -f ./manifests
+          kubectl delete pods --all -n default
+
+  deploy-to-eks:
+    name: Deploy Microservices to AWS EKS Nodes
+    runs-on: ubuntu-latest
+    env:
+      EKS_CLUSTER_NAME: journey
+      EKS_CLUSTER_REGION: ap-south-1
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: "v1.24.0"
+        id: install
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-south-1
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Update kube config
+        run: aws eks update-kubeconfig --name ${{ env.EKS_CLUSTER_NAME }} --region ${{ env.EKS_CLUSTER_REGION }}
+
+      - name: Apply Kubernetes Manifests to EKS
         run: |
           kubectl apply -f ./manifests
           kubectl delete pods --all -n default
