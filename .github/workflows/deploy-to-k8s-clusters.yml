@@ -69,7 +69,7 @@ jobs:
         run: |
           aws eks update-kubeconfig --name ${{ env.EKS_CLUSTER_NAME }} --region ${{ env.EKS_CLUSTER_REGION }}
           cat $HOME/.kube/config
-          cd $HOME/.aws & ls
+          ls $HOME/.aws/
 
       - name: Check AWS CLI login status
         run: aws sts get-caller-identity
