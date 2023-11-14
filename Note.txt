@@ -24,14 +24,12 @@
 
 *) Backend Framework for all MicroServices:
     1) User:
-        1> Auth Service: Express
         2> Gateway : Express
         3> User Service: Express
         4> Vehicle Service: Laravel
         5> Booking Service: Express
         6> Review Service: FastAPI
     2) Merchant:
-        1> Auth Service: Django
         2> Gateway: Django
         3> Merchant Service: Laravel
         4> Vehicle & Travel Service: Laravel
