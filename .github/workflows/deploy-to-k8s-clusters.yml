@@ -1,9 +1,13 @@
 name: Deploy Microservices Into Kubernetes Clusters
+# on:
+#   workflow_run:
+#     workflows: ["Build and Push Microservice Images on Docker Registries"]
+#     types:
+#       - completed
 on:
-  workflow_run:
-    workflows: ["Build and Push Microservice Images on Docker Registries"]
-    types:
-      - completed
+  push:
+    branches:
+      - "main"
 # env:
 #   APPLY_K8S_MANIFESTS_COMMAND: kubectl apply -f ./manifests & kubectl delete pods --all -n default
 jobs:
@@ -65,6 +69,9 @@ jobs:
         run: |
           aws eks update-kubeconfig --name ${{ env.EKS_CLUSTER_NAME }} --region ${{ env.EKS_CLUSTER_REGION }}
           cat $HOME/.kube/config
+
+      - name: Check AWS CLI login status
+        run: aws sts get-caller-identity
 
       - name: Apply Kubernetes Manifests to EKS
         run: |
