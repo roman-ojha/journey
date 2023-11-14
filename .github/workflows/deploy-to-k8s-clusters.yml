@@ -55,14 +55,16 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          # aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          # aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-access-key-id: AKIAZ5LMIPVXHZOKY3NR
+          aws-secret-access-key: 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
           aws-region: ${{ env.EKS_CLUSTER_REGION }}
 
       - name: Add Credential file under "~/.aws" Folder
         run: |
           mkdir ~/.aws
-          echo -e "[default]\naws_access_key_id = ${{ secrets.AWS_ACCESS_KEY_ID }}\naws_secret_access_key = ${{ secrets.AWS_SECRET_ACCESS_KEY }}" > ~/.aws/credentials
+          echo -e "[default]\naws_access_key_id = AKIAZ5LMIPVXHZOKY3NR\naws_secret_access_key = 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" > ~/.aws/credentials
 
       - name: Install kubectl
         uses: azure/setup-kubectl@v3
