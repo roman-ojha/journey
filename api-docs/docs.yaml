@@ -16,6 +16,7 @@ paths:
             example:
               email: "roman@gmail.com"
               password: "roman123"
+              c_password: "roman123"
               gender: "MALE"
               number: 9843124323
               f_name: "Roman"
@@ -28,16 +29,26 @@ paths:
               example:
                 status: true
                 data:
-                  id: 2
-                  username: "new_user"
-                  email: "new_user@example.com"
+                  id: 1
+                  username: "<username>"
+                  email: "<email>"
+                  f_name: "<f_name>"
+                  l_name: "<l_name>"
+                  gender: "<gender>"
         "406":
           description: Invalid Credentials
           content:
             application/json:
               example:
-                status: false
-                msg: "Please provide all credentials"
+                message: "The given data was invalid"
+                errors:
+                  email: ["<error_message>"]
+                  password: ["<error_message>"]
+                  c_password: ["<error_message>"]
+                  gender: ["<error_message>"]
+                  number: ["<error_message>"]
+                  f_name: ["<error_message"]
+                  l_name: ["<error_message>"]
   # /user:
   #   get:
   #     summary: Get user information
