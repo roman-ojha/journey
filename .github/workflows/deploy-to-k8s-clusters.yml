@@ -11,36 +11,36 @@ on:
 # env:
 #   APPLY_K8S_MANIFESTS_COMMAND: kubectl apply -f ./manifests & kubectl delete pods --all -n default
 jobs:
-  deploy-to-gke:
-    name: Deploy Microservices to Google Kubernetes Engine(GKE)
-    runs-on: ubuntu-latest
-    # needs: build-push-docker-images
-    env:
-      GCP_PROJECT_ID: roman-personal-398809
-      GKE_CLUSTER_NAME: autopilot-cluster-1
-      GKE_CLUSTER_ZONE: asia-south1
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+  # deploy-to-gke:
+  #   name: Deploy Microservices to Google Kubernetes Engine(GKE)
+  #   runs-on: ubuntu-latest
+  #   # needs: build-push-docker-images
+  #   env:
+  #     GCP_PROJECT_ID: roman-personal-398809
+  #     GKE_CLUSTER_NAME: autopilot-cluster-1
+  #     GKE_CLUSTER_ZONE: asia-south1
+  #   steps:
+  #     - name: Checkout Repository
+  #       uses: actions/checkout@v4
 
-      - name: Auth Google Cloud SDK
-        uses: "google-github-actions/auth@v1"
-        with:
-          credentials_json: "${{ secrets.GCP_SERVICE_ACCOUNT_CREDENTIALS }}"
-          project_id: ${{ env.GCP_PROJECT_ID }}
+  #     - name: Auth Google Cloud SDK
+  #       uses: "google-github-actions/auth@v1"
+  #       with:
+  #         credentials_json: "${{ secrets.GCP_SERVICE_ACCOUNT_CREDENTIALS }}"
+  #         project_id: ${{ env.GCP_PROJECT_ID }}
 
-      - name: Set up Google Cloud CLI
-        uses: google-github-actions/setup-gcloud@v1
+  #     - name: Set up Google Cloud CLI
+  #       uses: google-github-actions/setup-gcloud@v1
 
-      - name: Configure kubectl
-        run: |
-          gcloud components install gke-gcloud-auth-plugin
-          gcloud container clusters get-credentials ${{ env.GKE_CLUSTER_NAME }} --region=${{ env.GKE_CLUSTER_ZONE }}
+  #     - name: Configure kubectl
+  #       run: |
+  #         gcloud components install gke-gcloud-auth-plugin
+  #         gcloud container clusters get-credentials ${{ env.GKE_CLUSTER_NAME }} --region=${{ env.GKE_CLUSTER_ZONE }}
 
-      - name: Apply Kubernetes Manifests to GKE
-        run: |
-          kubectl apply -f ./manifests
-          kubectl delete pods --all -n default
+  #     - name: Apply Kubernetes Manifests to GKE
+  #       run: |
+  #         kubectl apply -f ./manifests
+  #         kubectl delete pods --all -n default
 
   deploy-to-eks:
     name: Deploy Microservices to AWS EKS Nodes
@@ -69,6 +69,7 @@ jobs:
         run: |
           aws eks update-kubeconfig --name ${{ env.EKS_CLUSTER_NAME }} --region ${{ env.EKS_CLUSTER_REGION }}
           cat $HOME/.kube/config
+          cd $HOME/.aws & ls
 
       - name: Check AWS CLI login status
         run: aws sts get-caller-identity
