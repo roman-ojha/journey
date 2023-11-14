@@ -1,0 +1,34 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+model User {
+  id                 Int      @id @default(autoincrement())
+  email              String   @unique
+  number             BigInt   @unique
+  f_name             String
+  l_name             String
+  password           String
+  photo_url          String?
+  gender             Gender
+  is_verified        Boolean  @default(false)
+  verification_token String?
+  created_at         DateTime @default(now())
+  updated_at         DateTime @updatedAt
+
+  @@index([email])
+}
