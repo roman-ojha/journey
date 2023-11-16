@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "env-cmd -f .env.dev nodemon index.ts",
     "prisma:migrate": "env-cmd -f .env.dev npx prisma migrate dev --name",
-    "prisma:studio": "env-cmd -f .env.dev npx prisma studio"
+    "prisma:studio": "env-cmd -f .env.dev npx prisma studio",
+    "prisma:generate": "env-cmd -f .env.dev npx prisma generate"
   },
   "author": "roman-ojha",
   "license": "MIT",

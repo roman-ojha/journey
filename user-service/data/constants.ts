@@ -8,4 +8,6 @@ const STATUS_CODES = {
   INTERNAL_ERROR: 500,
 };
 
+const APPLICATION_NAME = "<app_name>";
+
 export { STATUS_CODES };
