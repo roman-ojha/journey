@@ -33,6 +33,7 @@ jobs:
       - name: Build image
         run: |
           npm install
+          npm install -g yarn
           npm run docker-build:dev
 
       - name: Push image to DO Container Registry
