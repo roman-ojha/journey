@@ -1,3 +1,5 @@
+import { User } from "../config/prisma";
+
 enum UserGender {
   "MALE",
   "FEMALE",
@@ -7,14 +9,14 @@ enum UserGender {
 interface IUser {
   id: number;
   email: string;
-  number: number;
+  number: bigint;
   f_name: string;
   l_name: string;
   password: string;
-  photo_url: string;
-  gender: UserGender;
+  photo_url: string | null;
+  gender: "MALE" | "FEMALE" | "OTHER";
   is_verified: boolean;
-  verification_token?: string;
+  verification_token: string | null;
   created_at: Date;
   updated_at: Date;
 }

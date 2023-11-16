@@ -3,11 +3,13 @@ import { User } from "../config/prisma";
 import { body, check } from "express-validator";
 import { UserGender } from "../model/User";
 import {
+  failResponse,
   successResponse,
   validationErrorResponse,
 } from "../utils/createResponseObject";
 import { STATUS_CODES } from "../data/constants";
-import { generatePassword } from "../utils/userAuth";
+import { generatePassword, issuedJWT, validPassword } from "../utils/userAuth";
+import { IUser } from "../model/User";
 
 class AuthController {
   validateRegistration = [
@@ -124,6 +126,52 @@ class AuthController {
           number: Number(newUser.number),
         })
       );
+    } catch (err) {
+      return next(err);
+    }
+  }
+
+  loginValidation = [
+    check("password").trim().notEmpty().withMessage("Password is required"),
+    check("email").trim().notEmpty().withMessage("Email is required"),
+  ];
+  async loginUser(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { email, password } = req.body;
+
+      const getUser = await User.findFirst({
+        where: {
+          email: email,
+        },
+      });
+
+      if (!getUser) {
+        return res
+          .status(STATUS_CODES.UNAUTHORIZED)
+          .json(failResponse("Given credentials doesn't exist"));
+      }
+      if (!validPassword(password, getUser.password, getUser.salt)) {
+        return res
+          .status(STATUS_CODES.VALIDATION_ERROR)
+          .json(failResponse("Given credentials doesn't exist"));
+      }
+
+      const token = issuedJWT(getUser);
+      res.status(STATUS_CODES.OK);
+      return res.json(
+        successResponse("Login Successfully", {
+          token: token.token,
+          expires_in: token.expiresIn,
+        })
+      );
+    } catch (err) {
+      return next(err);
+    }
+  }
+
+  async checkAuth(req: Request, res: Response, next: NextFunction) {
+    try {
+      return res.json(successResponse("Auth user", {}));
     } catch (err) {
       return next(err);
     }

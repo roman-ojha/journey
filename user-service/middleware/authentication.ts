@@ -22,3 +22,5 @@ const passportStrategy = new JwtStrategy(
     return done(null, { msg: "success" });
   }
 );
+
+export default passportStrategy;

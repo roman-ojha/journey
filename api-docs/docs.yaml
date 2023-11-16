@@ -40,7 +40,7 @@ paths:
           content:
             application/json:
               example:
-                message: "The given data was invalid"
+                message: "<message>"
                 errors:
                   email: ["<error_message>"]
                   password: ["<error_message>"]
@@ -49,55 +49,63 @@ paths:
                   number: ["<error_message>"]
                   f_name: ["<error_message"]
                   l_name: ["<error_message>"]
-  # /user:
-  #   get:
-  #     summary: Get user information
-  #     description: Retrieve information about a user.
-  #     responses:
-  #       "200":
-  #         description: Successful response
-  #         content:
-  #           application/json:
-  #             example:
-  #               id: 1
-  #               username: "john_doe"
-  #               email: "john@example.com"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              example:
+                message: "<message>"
 
-  # /login:
-  #   post:
-  #     summary: User login
-  #     description: Log in a user.
-  #     requestBody:
-  #       required: true
-  #       content:
-  #         application/json:
-  #           example:
-  #             username: "john_doe"
-  #             password: "secure_password"
-  #     responses:
-  #       "200":
-  #         description: Successful login
-  #         content:
-  #           application/json:
-  #             example:
-  #               token: "jwt_token"
+  /user/auth/login:
+    post:
+      summary: User Login
+      description: Log in a user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              email: "roman@gmail.com"
+              password: "roman123"
+      responses:
+        "200":
+          description: Successful login
+          content:
+            application/json:
+              example:
+                message: "<message>"
+                data:
+                  token: "<token>"
+                  expires_in: "<Date>"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              example:
+                message: "<message>"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              example:
+                message: "<message>"
 
-  # /post:
-  #   get:
-  #     summary: Get posts
-  #     description: Retrieve a list of posts.
-  #     responses:
-  #       "200":
-  #         description: Successful response
-  #         content:
-  #           application/json:
-  #             example:
-  #               - id: 1
-  #                 title: "First Post"
-  #                 content: "This is the content of the first post."
-  #               - id: 2
-  #                 title: "Second Post"
-  #                 content: "This is the content of the second post."
+  /user/auth/check:
+    get:
+      summary: Get posts
+      description: Retrieve a list of posts.
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              example:
+                - id: 1
+                  title: "First Post"
+                  content: "This is the content of the first post."
+                - id: 2
+                  title: "Second Post"
+                  content: "This is the content of the second post."
 
   # /comment:
   #   post:
@@ -119,3 +127,17 @@ paths:
   #               id: 1
   #               postId: 1
   #               text: "Great post!"
+
+  # /user:
+  #   get:
+  #     summary: Get user information
+  #     description: Retrieve information about a user.
+  #     responses:
+  #       "200":
+  #         description: Successful response
+  #         content:
+  #           application/json:
+  #             example:
+  #               id: 1
+  #               username: "john_doe"
+  #               email: "john@example.com"

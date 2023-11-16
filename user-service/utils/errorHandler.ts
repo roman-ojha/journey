@@ -43,24 +43,28 @@ const ErrorHandler = async (
   res: Response,
   next: NextFunction
 ) => {
-  const errorLogger = new ErrorLogger();
+  try {
+    const errorLogger = new ErrorLogger();
 
-  process.on("uncaughtException", (reason, promise) => {
-    console.log(reason, "UNHANDLED");
-    throw reason; // need to take care
-  });
+    process.on("uncaughtException", (reason, promise) => {
+      console.log(reason, "UNHANDLED");
+      throw reason; // need to take care
+    });
 
-  process.on("uncaughtException", (error) => {
-    errorLogger.logError(error);
-    if (errorLogger.isTrustError(err)) {
-      //process exist // need restart
-    }
-  });
+    process.on("uncaughtException", (error) => {
+      errorLogger.logError(error);
+      if (errorLogger.isTrustError(err)) {
+        //process exist // need restart
+      }
+    });
 
-  await errorLogger.logError(err);
-  return res
-    .status(STATUS_CODES.INTERNAL_ERROR)
-    .json({ message: "Internal Server Error" });
+    await errorLogger.logError(err);
+    return res
+      .status(STATUS_CODES.INTERNAL_ERROR)
+      .json({ message: "Internal Server Error" });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export default ErrorHandler;
