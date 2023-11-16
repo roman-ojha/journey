@@ -4,9 +4,9 @@ services:
     container_name: journey-api-docs-service
     image: romanojha/journey-api-docs-service
     build:
-      context: ./api-docs
+      context: ./api-docs-service
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
     env_file:
-      - ./api-docs/.env.development
+      - ./api-docs-service/.env.development
