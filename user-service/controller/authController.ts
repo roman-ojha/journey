@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction, response } from "express";
 import { User } from "../config/prisma";
 import { body, check } from "express-validator";
-import { UserGender } from "../../model/User";
+import { UserGender } from "../../models/User";
 import {
   failResponse,
   successResponse,

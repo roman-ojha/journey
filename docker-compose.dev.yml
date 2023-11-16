@@ -13,11 +13,22 @@ services:
 
   main-proxy:
     container_name: journey-main-proxy
-    image: roman-ojha/journey-temp-main-proxy
+    image: romanojha/journey-temp-main-proxy
     build:
       context: ./temp-main-proxy
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    env_file:
+      - ./.env.dev
+
+  user-api-gateway:
+    container_name: journey-user-api-gateway
+    image: romanojha/journey-user-api-gateway
+    build:
+      context: ./user-api-gateway
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8001"
     env_file:
       - ./.env.dev

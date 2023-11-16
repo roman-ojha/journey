@@ -5,7 +5,7 @@ import passport from "passport";
 import { Request, Response, NextFunction } from "express";
 import { STATUS_CODES } from "../../data/constants";
 import { failResponse } from "../../utils/responseObject";
-import { IUser } from "../../model/User";
+import { IUser } from "../../models/User";
 
 const PUBLIC_KEY = process.env.USER_SERVICE_PUBLIC_SECRET_KEY;
 

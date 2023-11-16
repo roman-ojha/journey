@@ -1,0 +1,39 @@
+{
+  "name": "journey",
+  "version": "1.0.0",
+  "description": "online bus, hiace, car tiket booking system",
+  "main": "index.js",
+  "scripts": {
+    "copy-for-docker-build": "copyfiles -u 1 ./models/**/* ./user-api-gateway/temp/models && copyfiles -u 1 ./@types/**/* ./user-api-gateway/temp/@types && copyfiles -u 1 ./data/**/* ./user-api-gateway/temp/data && copyfiles -u 1 ./utils/**/* ./user-api-gateway/temp/utils",
+    "delete-after-docker-build": "rimraf ./user-api-gateway/temp",
+    "docker-build:dev": "yarn copy-for-docker-build && docker compose -f .\\docker-compose.dev.yml build && yarn delete-after-docker-build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roman-ojha/journey.git"
+  },
+  "keywords": [
+    "microservice",
+    "nodejs",
+    "expressjs",
+    "reactjs",
+    "nextjs",
+    "flutter",
+    "django",
+    "laravel",
+    "fastapi",
+    "mongodb",
+    "mysql",
+    "postgresql"
+  ],
+  "author": "roman-ojha",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/roman-ojha/journey/issues"
+  },
+  "homepage": "https://github.com/roman-ojha/journey#readme",
+  "dependencies": {
+    "copyfiles": "^2.4.1",
+    "rimraf": "^5.0.5"
+  }
+}
