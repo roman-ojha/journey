@@ -37,7 +37,6 @@ const authenticate = (req: Request, res: Response, next: NextFunction) => {
           .json(failResponse("Unauthorized"));
       }
 
-      console.log(user);
       req.headers["x-user-id"] = user.id.toString();
       req.headers["x-user-email"] = user.email;
       req.headers["x-user-number"] = user.number.toString();

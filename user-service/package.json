@@ -4,11 +4,11 @@
   "description": "User Microservice",
   "main": "index.js",
   "scripts": {
-    "dev": "dotenv -e .env.dev nodemon index.ts",
-    "env": "dotenv -e .env.dev env",
-    "prisma:migrate": "dotenv -e .env.dev -- npx prisma migrate dev --name",
-    "prisma:studio": "dotenv -e .env.dev -- npx prisma studio",
-    "prisma:generate": "dotenv -e .env.dev -- npx prisma generate"
+    "dev": "dotenv -e ../.env.dev nodemon index.ts",
+    "env": "dotenv -e ../.env.dev env",
+    "prisma:migrate": "dotenv -e ../.env.dev -- npx prisma migrate dev --name",
+    "prisma:studio": "dotenv -e ../.env.dev -- npx prisma studio",
+    "prisma:generate": "dotenv -e ../.env.dev -- npx prisma generate"
   },
   "author": "roman-ojha",
   "license": "MIT",

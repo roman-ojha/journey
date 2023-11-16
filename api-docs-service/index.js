@@ -4,7 +4,7 @@ import YAML from "yamljs";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 
-const PORT = process.env.PORT;
+const PORT = process.env.API_DOCS_SERVICE_PORT;
 const app = express();
 const currentFileUrl = import.meta.url;
 const currentFilePath = fileURLToPath(currentFileUrl);

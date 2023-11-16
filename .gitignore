@@ -3,3 +3,5 @@
 gcp-service-account-key.json
 aws-iam-github-action_accessKeys.csv
 *.pem
+.env.dev
+.env.prod

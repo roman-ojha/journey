@@ -4,8 +4,8 @@
   "description": "Gateway for microservice application",
   "main": "index.js",
   "scripts": {
-    "dev": "dotenv -e .env.dev nodemon ./index.ts",
-    "prisma:generate": "copyfiles -f ../user-service/prisma/schema.prisma ./prisma && dotenv -e .env.dev npx prisma generate"
+    "dev": "dotenv -e ../.env.dev nodemon ./index.ts",
+    "prisma:generate": "copyfiles -f ../user-service/prisma/schema.prisma ./prisma && dotenv -e ../env.dev npx prisma generate"
   },
   "author": "roman-ojha",
   "license": "MIT",
