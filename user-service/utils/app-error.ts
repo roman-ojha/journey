@@ -1,4 +1,4 @@
-import { STATUS_CODES } from "../data/constants";
+import { STATUS_CODES } from "../../data/constants";
 
 class AppError extends Error {
   statusCode: number;

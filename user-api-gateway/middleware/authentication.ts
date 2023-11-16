@@ -30,7 +30,7 @@ const passportStrategy = new JwtStrategy(
           gender: true,
         },
       });
-
+      console.log(getUser);
       if (!getUser) return done(null, false);
       return done(null, { ...getUser, number: Number(getUser.number) });
     } catch (err) {

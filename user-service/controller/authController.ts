@@ -7,9 +7,8 @@ import {
   successResponse,
   validationErrorResponse,
 } from "../utils/createResponseObject";
-import { STATUS_CODES } from "../data/constants";
+import { STATUS_CODES } from "../../data/constants";
 import { generatePassword, issuedJWT, validPassword } from "../utils/userAuth";
-import { IUser } from "../model/User";
 
 class AuthController {
   validateRegistration = [
@@ -171,9 +170,10 @@ class AuthController {
 
   async checkAuth(req: Request, res: Response, next: NextFunction) {
     try {
-      if (req.isAuthenticated()) {
-        return res.json(successResponse("Auth user", req.user));
-      }
+      // if (req.isAuthenticated()) {
+      //   return res.json(successResponse("Auth user", req.user));
+      // }
+      return res.json(successResponse("Auth user", {}));
     } catch (err) {
       return next(err);
     }

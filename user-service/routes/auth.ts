@@ -22,7 +22,7 @@ router.post(
 
 router.get(
   "/check",
-  passport.authenticate("jwt", { session: false }),
+  // passport.authenticate("jwt", { session: false }),
   authController.checkAuth
 );
 
