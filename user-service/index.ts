@@ -5,6 +5,7 @@ import { connect as dbConnect } from "./config/prisma";
 import ErrorHandler from "./utils/errorHandler";
 import passport from "passport";
 import passportStrategy from "./middleware/authentication";
+import parseUserCredential from "./middleware/parseUserCredential";
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(passport.initialize());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+app.use(parseUserCredential);
 app.use(router);
 app.use(ErrorHandler);
 

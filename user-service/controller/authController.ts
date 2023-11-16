@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction, response } from "express";
 import { User } from "../config/prisma";
 import { body, check } from "express-validator";
-import { UserGender } from "../model/User";
+import { UserGender } from "../../model/User";
 import {
   failResponse,
   successResponse,
@@ -170,12 +170,8 @@ class AuthController {
 
   async checkAuth(req: Request, res: Response, next: NextFunction) {
     try {
-      // if (req.isAuthenticated()) {
-      //   return res.json(successResponse("Auth user", req.user));
-      // }
       console.log(req.user);
-      console.log(req.body);
-      console.log(req.headers["x-user-email"]);
+      console.log(req.isAuthenticated());
       return res.json(successResponse("Auth user", {}));
     } catch (err) {
       return next(err);

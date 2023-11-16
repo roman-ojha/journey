@@ -1,5 +1,3 @@
-import { User } from "../config/prisma";
-
 enum UserGender {
   "MALE",
   "FEMALE",

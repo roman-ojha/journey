@@ -5,6 +5,7 @@ import passport from "passport";
 import { Request, Response, NextFunction } from "express";
 import { STATUS_CODES } from "../../data/constants";
 import { failResponse } from "../../utils/responseObject";
+import { IUser } from "../../model/User";
 
 const PUBLIC_KEY = process.env.USER_SERVICE_PUBLIC_SECRET_KEY;
 
@@ -25,22 +26,29 @@ const authenticate = (req: Request, res: Response, next: NextFunction) => {
   }
 
   // Authenticate User
-  passport.authenticate("jwt", { session: false }, (err: any, user: any) => {
-    if (err || !user) {
-      // If authentication fails, respond with an unauthorized status
-      return res
-        .status(STATUS_CODES.UNAUTHORIZED)
-        .json(failResponse("Unauthorized"));
+  passport.authenticate(
+    "jwt",
+    { session: false },
+    (err: any, user: IUser | null) => {
+      if (err || !user) {
+        // If authentication fails, respond with an unauthorized status
+        return res
+          .status(STATUS_CODES.UNAUTHORIZED)
+          .json(failResponse("Unauthorized"));
+      }
+
+      console.log(user);
+      req.headers["x-user-id"] = user.id.toString();
+      req.headers["x-user-email"] = user.email;
+      req.headers["x-user-number"] = user.number.toString();
+      req.headers["x-user-f_name"] = user.f_name;
+      req.headers["x-user-l_name"] = user.l_name;
+      if (user.photo_url) req.headers["x-user-photo_url"] = user.photo_url;
+      req.headers["x-user-gender"] = user.gender;
+
+      return next();
     }
-    req.headers["x-user-id"] = user.id;
-    req.headers["x-user-email"] = user.email;
-    req.headers["x-user-number"] = user.number;
-    req.headers["x-user-f_name"] = user.f_name;
-    req.headers["x-user-l_name"] = user.l_name;
-    req.headers["x-user-photo_url"] = user.photo_url;
-    req.headers["x-user-gender"] = user.gender;
-    return next();
-  })(req, res, next);
+  )(req, res, next);
 };
 
 const passportStrategy = new JwtStrategy(
