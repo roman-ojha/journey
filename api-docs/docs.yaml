@@ -27,7 +27,7 @@ paths:
           content:
             application/json:
               example:
-                status: true
+                message: "<message>"
                 data:
                   id: 1
                   username: "<username>"

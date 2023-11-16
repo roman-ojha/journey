@@ -2,8 +2,12 @@ import { Request, Response, NextFunction, response } from "express";
 import { User } from "../config/prisma";
 import { body, check } from "express-validator";
 import { UserGender } from "../model/User";
-import { validationErrorResponse } from "../utils/createResponseObject";
+import {
+  successResponse,
+  validationErrorResponse,
+} from "../utils/createResponseObject";
 import { STATUS_CODES } from "../data/constants";
+import { generatePassword } from "../utils/userAuth";
 
 class AuthController {
   validateRegistration = [
@@ -93,10 +97,13 @@ class AuthController {
         );
       }
 
+      const hashedPassword = generatePassword(password);
+
       const newUser = await User.create({
         data: {
           email: email,
-          password: password,
+          password: hashedPassword.hash,
+          salt: hashedPassword.salt,
           gender: gender,
           f_name: f_name,
           l_name: l_name,
@@ -111,10 +118,12 @@ class AuthController {
           gender: true,
         },
       });
-
-      return res.status(201).json({
-        data: { ...newUser, number: Number(newUser.number) },
-      });
+      return res.status(STATUS_CODES.CREATED).json(
+        successResponse("User Registration Successfully", {
+          ...newUser,
+          number: Number(newUser.number),
+        })
+      );
     } catch (err) {
       return next(err);
     }

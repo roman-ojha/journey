@@ -2,7 +2,7 @@ import crypto from "crypto";
 import jsonwebtoken from "jsonwebtoken";
 import { IUser } from "../model/User";
 
-const PRIVATE_KEY = process.env.USER_SERVICE_PRIVATE_SECRET_KEY;
+const PRIVATE_KEY = process.env.USER_SERVICE_PRIVATE_SECRET_KEY as string;
 
 // Function to check validation of password
 function validPassword(password: string, hash: string, salt: string) {

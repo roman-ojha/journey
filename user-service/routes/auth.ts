@@ -9,7 +9,7 @@ router.post(
   "/register",
   authController.validateRegistration,
   checkValidationError,
-  authController.registerUser as any
+  authController.registerUser
 );
 
 export default router;
