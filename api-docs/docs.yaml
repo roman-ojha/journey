@@ -4,6 +4,12 @@ info:
   version: "1.0.0"
 servers:
   - url: "http://localhost:3000/api"
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: Authorization
 paths:
   /user/auth/register:
     post:
@@ -94,6 +100,8 @@ paths:
     get:
       summary: Get posts
       description: Retrieve a list of posts.
+      security:
+        - apiKey: []
       responses:
         "200":
           description: Successful response

@@ -171,7 +171,9 @@ class AuthController {
 
   async checkAuth(req: Request, res: Response, next: NextFunction) {
     try {
-      return res.json(successResponse("Auth user", {}));
+      if (req.isAuthenticated()) {
+        return res.json(successResponse("Auth user", req.user));
+      }
     } catch (err) {
       return next(err);
     }

@@ -24,6 +24,12 @@ function generatePassword(password: string) {
   };
 }
 
+interface JWTPayload {
+  sub: number;
+  email: string;
+  iat: Date;
+}
+
 // Function which will generate a JWT token
 function issuedJWT(user: IUser) {
   const id = user.id;
@@ -47,4 +53,4 @@ function issuedJWT(user: IUser) {
   };
 }
 
-export { validPassword, generatePassword, issuedJWT };
+export { validPassword, generatePassword, issuedJWT, JWTPayload };
