@@ -4,7 +4,7 @@ enum UserGender {
   "OTHER",
 }
 
-interface User {
+interface IUser {
   id: number;
   email: string;
   number: number;
@@ -19,4 +19,4 @@ interface User {
   updated_at: Date;
 }
 
-export { UserGender };
+export { UserGender, IUser };

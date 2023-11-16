@@ -53,9 +53,6 @@ class AuthController {
     try {
       const { email, password, c_password, gender, number, f_name, l_name } =
         req.body;
-
-      const a = email.fdsaf.fdsaf;
-
       const getUserByEmail = await User.findFirst({
         where: {
           email: {
