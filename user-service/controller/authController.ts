@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction, response } from "express";
 import { User } from "../config/prisma";
 import { body, check } from "express-validator";
 import { UserGender } from "../model/User";
@@ -47,74 +47,80 @@ class AuthController {
     check("number").trim().notEmpty().withMessage("Number is required"),
   ];
 
-  async registerUser(req: Request, res: Response) {
-    const { email, password, c_password, gender, number, f_name, l_name } =
-      req.body;
+  async registerUser(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { email, password, c_password, gender, number, f_name, l_name } =
+        req.body;
 
-    const getUserByEmail = await User.findFirst({
-      where: {
-        email: {
-          equals: email,
-        },
-      },
-    });
+      const a = email.fdsaf.fdsaf;
 
-    if (getUserByEmail) {
-      return res.status(406).json({
-        message: "The given data was invalid",
-        errors: {
-          email: ["Given email already exist, Please try another one"],
+      const getUserByEmail = await User.findFirst({
+        where: {
+          email: {
+            equals: email,
+          },
         },
       });
-    }
 
-    const getUserByNumber = await User.findFirst({
-      where: {
-        number: {
-          equals: number,
-        },
-      },
-    });
+      if (getUserByEmail) {
+        return res.status(406).json({
+          message: "The given data was invalid",
+          errors: {
+            email: ["Given email already exist, Please try another one"],
+          },
+        });
+      }
 
-    if (getUserByNumber) {
-      return res.status(406).json({
-        message: "The given data was invalid",
-        errors: {
-          email: ["Given Number already exist, Please try another one"],
+      const getUserByNumber = await User.findFirst({
+        where: {
+          number: {
+            equals: number,
+          },
         },
       });
-    }
 
-    if (password !== c_password) {
-      return res.status(406).json({
-        message: "The given data was invalid",
-        errors: { c_password: ["Password & confirm password did not match"] },
+      if (getUserByNumber) {
+        return res.status(406).json({
+          message: "The given data was invalid",
+          errors: {
+            email: ["Given Number already exist, Please try another one"],
+          },
+        });
+      }
+
+      if (password !== c_password) {
+        return res.status(406).json({
+          message: "The given data was invalid",
+          errors: { c_password: ["Password & confirm password did not match"] },
+        });
+      }
+
+      const newUser = await User.create({
+        data: {
+          email: email,
+          password: password,
+          gender: gender,
+          f_name: f_name,
+          l_name: l_name,
+          number: typeof number === "string" ? parseInt(number) : number,
+        },
+        select: {
+          id: true,
+          f_name: true,
+          l_name: true,
+          email: true,
+          number: true,
+          gender: true,
+        },
       });
+
+      return res.status(201).json({
+        status: true,
+        data: { ...newUser, number: Number(newUser.number) },
+      });
+    } catch (err) {
+      return next(err);
     }
-
-    const newUser = await User.create({
-      data: {
-        email: email,
-        password: password,
-        gender: gender,
-        f_name: f_name,
-        l_name: l_name,
-        number: typeof number === "string" ? parseInt(number) : number,
-      },
-      select: {
-        id: true,
-        f_name: true,
-        l_name: true,
-        email: true,
-        number: true,
-        gender: true,
-      },
-    });
-
-    return res.status(201).json({
-      status: true,
-      data: { ...newUser, number: Number(newUser.number) },
-    });
   }
 }
 
