@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "dev": "dotenv -e ../.env.dev nodemon index.ts",
-    "env": "dotenv -e ../.env.dev env",
+    "start": "node ./dist/user-service/index.js",
     "prisma:migrate": "dotenv -e ../.env.dev -- npx prisma migrate dev --name",
     "prisma:studio": "dotenv -e ../.env.dev -- npx prisma studio",
-    "prisma:generate": "dotenv -e ../.env.dev -- npx prisma generate"
+    "prisma:generate": "npx prisma generate"
   },
   "author": "roman-ojha",
   "license": "MIT",

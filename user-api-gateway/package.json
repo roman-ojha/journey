@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "dotenv -e ../.env.dev nodemon ./index.ts",
     "start": "dotenv -e ../.env.dev node ./dist/user-api-gateway/index.js",
-    "prisma:generate": "copyfiles -f ../user-service/prisma/schema.prisma ./prisma && dotenv -e ../env.dev npx prisma generate",
+    "prisma:generate": "copyfiles -f ../user-service/prisma/schema.prisma ./prisma && npx prisma generate",
     "delete-after-docker-build": "rimraf ./temp"
   },
   "author": "roman-ojha",

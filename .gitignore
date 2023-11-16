@@ -5,6 +5,7 @@ aws-iam-github-action_accessKeys.csv
 *.pem
 .env.dev
 .env.prod
+docker.env
 
 # Logs
 logs
