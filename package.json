@@ -7,7 +7,8 @@
     "merge-folders-for-docker-build": "copyfiles -u 1 ./models/**/* ./temp/models && copyfiles -u 1 ./@types/**/* ./temp/@types && copyfiles -u 1 ./data/**/* ./temp/data && copyfiles -u 1 ./utils/**/* ./temp/utils",
     "copy-folders-for-docker-build": "copyfiles -u 1 ./temp/**/* ./user-api-gateway/temp && copyfiles -u 1 ./temp/**/* ./user-service/temp",
     "delete-folders-after-docker-build": "rimraf ./temp && rimraf ./user-api-gateway/temp && rimraf ./user-service/temp",
-    "docker-build:dev": "yarn merge-folders-for-docker-build && yarn copy-folders-for-docker-build && docker compose -f ./docker-compose.dev.yml build && yarn delete-folders-after-docker-build"
+    "docker-build:dev": "yarn merge-folders-for-docker-build && yarn copy-folders-for-docker-build && docker compose -f ./docker-compose.dev.yml build && yarn delete-folders-after-docker-build",
+    "docker-build:prod": "yarn merge-folders-for-docker-build && yarn copy-folders-for-docker-build && docker compose -f ./docker-compose.prod.yml build && yarn delete-folders-after-docker-build"
   },
   "repository": {
     "type": "git",

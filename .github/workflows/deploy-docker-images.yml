@@ -34,7 +34,7 @@ jobs:
         run: |
           npm install
           npm install -g yarn
-          npm run docker-build:dev
+          npm run docker-build:prod
 
       - name: Push image to DO Container Registry
         run: docker compose -f docker-compose.prod.yml push

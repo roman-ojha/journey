@@ -8,3 +8,30 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
+
+  main-proxy:
+    container_name: journey-main-proxy
+    image: romanojha/journey-temp-main-proxy
+    build:
+      context: ./temp-main-proxy
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+
+  user-api-gateway:
+    container_name: journey-user-api-gateway
+    image: romanojha/journey-user-api-gateway
+    build:
+      context: ./user-api-gateway
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8001"
+
+  user-service:
+    container_name: journey-user-service
+    image: romanojha/journey-user-service
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    ports:
+      - "8002:8002"
