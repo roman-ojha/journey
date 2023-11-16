@@ -6,7 +6,7 @@ import {
   failResponse,
   successResponse,
   validationErrorResponse,
-} from "../utils/createResponseObject";
+} from "../../utils/responseObject";
 import { STATUS_CODES } from "../../data/constants";
 import { generatePassword, issuedJWT, validPassword } from "../utils/userAuth";
 
@@ -173,6 +173,9 @@ class AuthController {
       // if (req.isAuthenticated()) {
       //   return res.json(successResponse("Auth user", req.user));
       // }
+      console.log(req.user);
+      console.log(req.body);
+      console.log(req.headers["x-user-email"]);
       return res.json(successResponse("Auth user", {}));
     } catch (err) {
       return next(err);
