@@ -2,6 +2,8 @@ import { Request, Response, NextFunction, response } from "express";
 import { User } from "../config/prisma";
 import { body, check } from "express-validator";
 import { UserGender } from "../model/User";
+import { validationErrorResponse } from "../utils/createResponseObject";
+import { STATUS_CODES } from "../data/constants";
 
 class AuthController {
   validateRegistration = [
@@ -63,12 +65,11 @@ class AuthController {
       });
 
       if (getUserByEmail) {
-        return res.status(406).json({
-          message: "The given data was invalid",
-          errors: {
+        return res.status(STATUS_CODES.VALIDATION_ERROR).json(
+          validationErrorResponse({
             email: ["Given email already exist, Please try another one"],
-          },
-        });
+          })
+        );
       }
 
       const getUserByNumber = await User.findFirst({
@@ -80,19 +81,19 @@ class AuthController {
       });
 
       if (getUserByNumber) {
-        return res.status(406).json({
-          message: "The given data was invalid",
-          errors: {
+        return res.status(STATUS_CODES.VALIDATION_ERROR).json(
+          validationErrorResponse({
             email: ["Given Number already exist, Please try another one"],
-          },
-        });
+          })
+        );
       }
 
       if (password !== c_password) {
-        return res.status(406).json({
-          message: "The given data was invalid",
-          errors: { c_password: ["Password & confirm password did not match"] },
-        });
+        return res.status(406).json(
+          validationErrorResponse({
+            c_password: ["Password & confirm password did not match"],
+          })
+        );
       }
 
       const newUser = await User.create({
@@ -115,7 +116,6 @@ class AuthController {
       });
 
       return res.status(201).json({
-        status: true,
         data: { ...newUser, number: Number(newUser.number) },
       });
     } catch (err) {

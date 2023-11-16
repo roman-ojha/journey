@@ -23,7 +23,7 @@ paths:
               l_name: "Ojha"
       responses:
         "201":
-          description: User registered successfully
+          description: User Registered Successfully
           content:
             application/json:
               example:
@@ -35,8 +35,8 @@ paths:
                   f_name: "<f_name>"
                   l_name: "<l_name>"
                   gender: "<gender>"
-        "406":
-          description: Invalid Credentials
+        "422":
+          description: Validation Error
           content:
             application/json:
               example:

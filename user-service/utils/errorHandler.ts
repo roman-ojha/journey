@@ -1,6 +1,7 @@
 import { createLogger, transports } from "winston";
-import { APIError, AppError, STATUS_CODES } from "./app-error";
+import { APIError, AppError } from "./app-error";
 import { Request, Response, NextFunction } from "express";
+import { STATUS_CODES } from "../data/constants";
 
 const LogErrors = createLogger({
   transports: [

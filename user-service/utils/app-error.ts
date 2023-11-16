@@ -1,10 +1,4 @@
-const STATUS_CODES = {
-  OK: 200,
-  BAD_REQUEST: 400,
-  UNAUTHORIZED: 403,
-  NOT_FOUND: 404,
-  INTERNAL_ERROR: 500,
-};
+import { STATUS_CODES } from "../data/constants";
 
 class AppError extends Error {
   statusCode: number;
@@ -64,4 +58,4 @@ class APIError extends AppError {
 //   }
 // }
 
-export { AppError, APIError, STATUS_CODES };
+export { AppError, APIError };
