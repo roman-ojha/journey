@@ -9,4 +9,15 @@ services:
     ports:
       - "8000:8000"
     env_file:
-      - ./api-docs-service/.env.development
+      - ./.env.dev
+
+  main-proxy:
+    container_name: journey-main-proxy
+    image: roman-ojha/journey-temp-main-proxy
+    build:
+      context: ./temp-main-proxy
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./.env.dev
