@@ -3,7 +3,7 @@ info:
   title: "Application API Docs"
   version: "1.0.0"
 servers:
-  - url: "http://localhost:3000/api"
+  - url: "http://localhost:8003/api"
 components:
   securitySchemes:
     apiKey:

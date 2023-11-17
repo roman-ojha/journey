@@ -18,7 +18,7 @@ services:
       context: ./temp-main-proxy
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "8003:8003"
     env_file:
       - docker.env
 
@@ -43,3 +43,14 @@ services:
       - "8002:8002"
     env_file:
       - docker.env
+
+  admin-client:
+    container_name: journey-admin-client
+    image: romanojha/journey-admin-client
+    build:
+      context: ./admin-client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./admin-client/.env

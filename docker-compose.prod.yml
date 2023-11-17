@@ -35,3 +35,14 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8002:8002"
+
+  # admin-client:
+  #   container_name: journey-admin-client
+  #   image: romanojha/journey-admin-client
+  #   build:
+  #     context: ./admin-client
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "3000:3000"
+  #   env_file:
+  #     - ./admin-client/.env
