@@ -9,7 +9,7 @@ services:
     ports:
       - "8000:8000"
     env_file:
-      - .env
+      - docker.env
 
   main-proxy:
     container_name: journey-main-proxy
@@ -20,7 +20,7 @@ services:
     ports:
       - "3000:3000"
     env_file:
-      - .env
+      - docker.env
 
   user-api-gateway:
     container_name: journey-user-api-gateway
@@ -31,7 +31,7 @@ services:
     ports:
       - "8001:8001"
     env_file:
-      - .env
+      - docker.env
 
   user-service:
     container_name: journey-user-service
@@ -42,4 +42,4 @@ services:
     ports:
       - "8002:8002"
     env_file:
-      - .env
+      - docker.env

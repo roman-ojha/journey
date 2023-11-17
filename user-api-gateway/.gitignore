@@ -1,5 +1,13 @@
 .env.dev
 .env.prod
+.env.prod
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # Logs
 logs

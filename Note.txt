@@ -26,16 +26,17 @@
     1) User:
         2> Gateway : Express
         3> User Service: Express
-        4> Vehicle Service: Laravel
+        4> Vehicle Service: Django
         5> Booking Service: Express
         6> Review Service: FastAPI
     2) Merchant:
-        2> Gateway: Django
+        2> Gateway: Laravel
         3> Merchant Service: Laravel
         4> Vehicle & Travel Service: Laravel
     3) Vehicle Booking Service: Django
     4) Admin: Django
     5) Swagger Docs Service: Express
+    6) Main Proxy Server: Nginx
     
 *) FrontEnd Framework for all Client Application:
     1) User Application: NextJS, SCSS
