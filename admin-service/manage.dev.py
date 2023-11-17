@@ -8,6 +8,10 @@ from dotenv import load_dotenv
 def main():
     """Run administrative tasks."""
 
+    # Loading .env file values
+    load_dotenv(os.path.join(
+        os.path.dirname(os.path.dirname(__file__)), '.env.dev'))
+
     # Override default port for 'runserver' command
     from django.core.management.commands.runserver import Command as runserver
     runserver.default_port = os.environ.get("ADMIN_SERVICE_PORT")
