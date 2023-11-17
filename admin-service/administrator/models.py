@@ -17,8 +17,6 @@ class AdminManager(BaseUserManager):
     def create_superuser(self, email, password, **extra_fields):
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
-        number = input("Mobile Number: ")
-        extra_fields.setdefault('number', number)
 
         if extra_fields.get("is_staff") is not True:
             raise ValueError("Superuser has to have is_staff being true")
@@ -37,7 +35,7 @@ class Admin(AbstractUser):
     # first_name
     # last_name
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ['email', 'company_name', '']
+    REQUIRED_FIELDS = ['number', 'first_name', 'last_name']
 
     objects = AdminManager()
 
