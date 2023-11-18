@@ -2,11 +2,7 @@ from rest_framework import serializers
 from administrator.models import Admin
 
 
-class CustomValidationError(serializers.ValidationError):
-    status_code = 422
-
-
-class RegisterAdminSerializer(serializers.ModelSerializer):
+class AdminSerializer(serializers.ModelSerializer):
     c_password = serializers.CharField(write_only=True)
 
     class Meta:
@@ -16,7 +12,7 @@ class RegisterAdminSerializer(serializers.ModelSerializer):
 
     def validate(self, attrs):
         if attrs['password'] != attrs['c_password']:
-            raise CustomValidationError({
+            raise serializers.ValidationError({
                 "c_password": ["password doesn't match"]
             })
         return super().validate(attrs)
@@ -25,8 +21,7 @@ class RegisterAdminSerializer(serializers.ModelSerializer):
         validated_data.pop('c_password', None)
         return Admin.objects.create_admin(**validated_data)
 
-
-class SendAdminSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Admin
-        fields = ['id', 'email', 'first_name', 'last_name', 'number']
+    def to_representation(self, instance):
+        data = super().to_representation(instance=instance)
+        data.pop('password', None)
+        return data

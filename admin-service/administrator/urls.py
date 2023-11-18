@@ -1,6 +1,6 @@
 from django.urls import path, include
 from administrator import views
-from administrator.views import authView, adminView
+from administrator.views import authView, adminView, profileView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
 auth_pattern = [
@@ -12,5 +12,6 @@ auth_pattern = [
 
 urlpatterns = [
     path('', view=adminView.AdminView.as_view(), name='list-of-admin'),
+    path('profile/', profileView.AdminProfileView.as_view(), name='admin-profile'),
     path('auth/', include(auth_pattern)),
 ]

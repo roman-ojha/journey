@@ -253,10 +253,73 @@ paths:
             application/json:
               example:
                 detail: "Authentication credentials were not provided."
-    # patch:
-    #   requestBody:
-    #     content:
-    #       application/json:
-    #         example:
-    #           - id: 1
-    #           - email: ""
+    patch:
+      summary: Update admin detail
+      description: Update single admin detail using id
+      security:
+        - apiKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                email:
+                  type: string
+                  example: "razz@gmail.com"
+                first_name:
+                  type: string
+                  example: "Roman"
+                last_name:
+                  type: string
+                  example: "Ojha"
+                number:
+                  type: integer
+                  example: 9779843212343
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              example:
+                id: 1
+                email: "razz@gmail.com"
+                first_name: "Roman"
+                last_name: "Ojha"
+                number: 9779843212343
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              example:
+                detail: "Authentication credentials were not provided."
+
+  /admin/profile/:
+    get:
+      summary: Admin Detail
+      description: Get Authenticated Admin Detail
+      security:
+        - apiKey: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              example:
+                id: 1
+                email: "<email>"
+                first_name: "<first_name>"
+                last_name: "<last_name>"
+                number: "<number>"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              example:
+                detail: "Authentication credentials were not provided."
