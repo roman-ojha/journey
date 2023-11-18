@@ -21,6 +21,20 @@ components:
       type: apiKey
       in: header
       name: Authorization
+  responses:
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          example:
+            detail: "Authentication credentials were not provided."
+
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          example:
+            message: "<message>"
   schemas:
     # D_: For Admin Dashboard ==================================
     IUser:
@@ -356,11 +370,10 @@ paths:
                 items:
                   $ref: "#/components/schemas/D_AdminOutput"
         "401":
-          description: Unauthorized
-          content:
-            application/json:
-              example:
-                detail: "Authentication credentials were not provided."
+          $ref: "#/components/responses/Unauthorized"
+
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       summary: Update admin detail
       description: Update single admin detail using id
@@ -373,7 +386,15 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/AdminOutput"
+              allOf:
+                - $ref: "#/components/schemas/AdminInput"
+              type: object
+              required:
+                - id
+              properties:
+                id:
+                  type: number
+
       responses:
         "200":
           description: Successful response
@@ -382,11 +403,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/AdminOutput"
         "401":
-          description: Unauthorized
-          content:
-            application/json:
-              example:
-                detail: "Authentication credentials were not provided."
+          $ref: "#/components/responses/Unauthorized"
+
+        "404":
+          $ref: "#/components/responses/NotFound"
 
     delete:
       summary: Delete Admin record
@@ -394,12 +414,12 @@ paths:
       tags:
         - "Admin.CRUD"
       security:
-        - apiKey: [""]
+        - apiKey: []
       parameters:
         - name: id
           in: query
           description: Id of the admin
-          required: false
+          required: true
           schema:
             type: integer
       responses:
@@ -410,17 +430,10 @@ paths:
               example:
                 message: "Record has been deleted"
         "401":
-          description: Unauthorized
-          content:
-            application/json:
-              example:
-                - detail: "Authentication credentials were not provided."
+          $ref: "#/components/responses/Unauthorized"
+
         "404":
-          description: Not Found
-          content:
-            application/json:
-              example:
-                - message: "<message>"
+          $ref: "#/components/responses/NotFound"
 
   /admin/profile/:
     get:
@@ -439,11 +452,10 @@ paths:
                 $ref: "#/components/schemas/AdminOutput"
 
         "401":
-          description: Unauthorized
-          content:
-            application/json:
-              example:
-                detail: "<message>"
+          $ref: "#/components/responses/Unauthorized"
+
+        "404":
+          $ref: "#/components/responses/NotFound"
 
   /admin/user:
     get:
@@ -460,6 +472,95 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/D_UserOutput"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    post:
+      summary: Add new user
+      description: Add new user from admin dashboard
+      tags:
+        - "Admin.UserService.CRUD"
+      security:
+        - apiKey: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserInput"
+      responses:
+        "200":
+          description: Successful Added
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/D_UserOutput"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    patch:
+      summary: Update user
+      description: Update user from admin dashboard
+      tags:
+        - "Admin.UserService.CRUD"
+      security:
+        - apiKey: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/UserInput"
+              type: object
+              required:
+                - id
+              properties:
+                id:
+                  type: number
+      responses:
+        "200":
+          description: Successfully Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/D_UserOutput"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    delete:
+      summary: Delete User record
+      description: Delete Single User record using it's id
+      tags:
+        - "Admin.UserService.CRUD"
+      security:
+        - apiKey: []
+      parameters:
+        - name: id
+          in: query
+          description: Id of the admin
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Successfully deleted admin
+          content:
+            application/json:
+              example:
+                message: "Record has been deleted"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+        "404":
+          $ref: "#/components/responses/NotFound"
 
   # /api/posts/{id}:
   #   get:
