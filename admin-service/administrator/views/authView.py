@@ -1,7 +1,5 @@
 from django.shortcuts import render
-from rest_framework.generics import ListAPIView
-from administrator.models import Admin
-from administrator.serializer import GetAdminSerializer, RegisterAdminSerializer
+from administrator.serializer import SendAdminSerializer, RegisterAdminSerializer
 from rest_framework.views import APIView
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -30,10 +28,5 @@ class AdminAuthCheck(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request: Request, *args, **kwargs):
-        serializedAdmin = GetAdminSerializer(request.user)
+        serializedAdmin = SendAdminSerializer(request.user)
         return Response({'message': "Auth User", "data": serializedAdmin.data})
-
-
-class AdminListAPIView(ListAPIView):
-    queryset = Admin.objects.all()
-    serializer_class = GetAdminSerializer

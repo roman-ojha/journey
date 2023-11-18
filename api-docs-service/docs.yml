@@ -172,7 +172,7 @@ paths:
   /admin/auth/login:
     post:
       requestBody:
-        required: True
+        required: true
         content:
           application/json:
             example:
@@ -194,6 +194,24 @@ paths:
               example:
                 detail: "<message>"
 
+  /admin/auth/refresh:
+    post:
+      summary: Refresh Auth Token
+      description: Get Access Token using Refresh Token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              refresh: "refresh token"
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              example:
+                access: "<access_token>"
+
   /admin/auth/check:
     get:
       summary: Get user
@@ -211,6 +229,38 @@ paths:
                 first_name: "<first_name>"
                 last_name: "<last_name>"
                 number: "<number>"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              example:
+                detail: "Authentication credentials were not provided."
+
+  /admin/list/:
+    get:
+      security:
+        - apiKey: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              example:
+                - id: 1
+                  email: "<email>"
+                  first_name: "<first_name>"
+                  last_name: "<last_name>"
+                  number: "<number>"
+                - id: 2
+                  email: "<email>"
+                  first_name: "<first_name>"
+                  last_name: "<last_name>"
+                  number: "<number>"
+                - id: 3
+                  email: "<email>"
+                  first_name: "<first_name>"
+                  last_name: "<last_name>"
+                  number: "<number>"
         "401":
           description: Unauthorized
           content:

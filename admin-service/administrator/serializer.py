@@ -26,7 +26,7 @@ class RegisterAdminSerializer(serializers.ModelSerializer):
         return Admin.objects.create_admin(**validated_data)
 
 
-class GetAdminSerializer(serializers.ModelSerializer):
+class SendAdminSerializer(serializers.ModelSerializer):
     class Meta:
         model = Admin
         fields = ['id', 'email', 'first_name', 'last_name', 'number']
