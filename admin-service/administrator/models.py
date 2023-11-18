@@ -31,7 +31,7 @@ class Admin(AbstractUser):
     username = None
     is_verified = models.BooleanField(default=False)
     verification_token = models.TextField(default="")
-    number = models.BigIntegerField(null=False)
+    number = models.BigIntegerField(null=False, unique=True)
     # first_name
     # last_name
     USERNAME_FIELD = "email"

@@ -15,6 +15,8 @@ paths:
     post:
       summary: User registration
       description: Register a new user.
+      tags:
+        - "User"
       requestBody:
         required: true
         content:
@@ -66,6 +68,8 @@ paths:
     post:
       summary: User Login
       description: Log in a user.
+      tags:
+        - "User"
       requestBody:
         required: true
         content:
@@ -100,6 +104,8 @@ paths:
     get:
       summary: Get posts
       description: Retrieve a list of posts.
+      tags:
+        - "User"
       security:
         - apiKey: []
       responses:
@@ -119,6 +125,8 @@ paths:
     post:
       summary: Register new admin
       description: ""
+      tags:
+        - "Admin.Auth"
       requestBody:
         required: true
         content:
@@ -155,6 +163,10 @@ paths:
 
   /admin/auth/login:
     post:
+      summary: Login Admin
+      description: Login Admin with given credentials
+      tags:
+        - "Admin.Auth"
       requestBody:
         required: true
         content:
@@ -182,6 +194,8 @@ paths:
     post:
       summary: Refresh Auth Token
       description: Get Access Token using Refresh Token
+      tags:
+        - "Admin.Auth"
       requestBody:
         required: true
         content:
@@ -196,34 +210,12 @@ paths:
               example:
                 access: "<access_token>"
 
-  /admin/auth/check:
-    get:
-      summary: Get user
-      description: Retrieve a user detail
-      security:
-        - apiKey: []
-      responses:
-        "200":
-          description: Successful response
-          content:
-            application/json:
-              example:
-                id: 1
-                email: "<email>"
-                first_name: "<first_name>"
-                last_name: "<last_name>"
-                number: "<number>"
-        "401":
-          description: Unauthorized
-          content:
-            application/json:
-              example:
-                detail: "Authentication credentials were not provided."
-
   /admin:
     get:
       summary: Admin Details
       description: Get List of Admin Details
+      tags:
+        - "Admin.CRUD"
       security:
         - apiKey: []
       responses:
@@ -256,10 +248,12 @@ paths:
     patch:
       summary: Update admin detail
       description: Update single admin detail using id
+      tags:
+        - "Admin.CRUD"
       security:
         - apiKey: []
       requestBody:
-        required: true
+        # required: true
         content:
           application/json:
             schema:
@@ -300,10 +294,46 @@ paths:
               example:
                 detail: "Authentication credentials were not provided."
 
+    delete:
+      summary: Delete Admin record
+      description: Delete Admin record using it's id
+      tags:
+        - "Admin.CRUD"
+      security:
+        - apiKey: [""]
+      parameters:
+        - name: id
+          in: query
+          description: Id of the admin
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Successfully deleted admin
+          content:
+            application/json:
+              example:
+                message: "Record has been deleted"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              example:
+                - detail: "Authentication credentials were not provided."
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              example:
+                - message: "<message>"
+
   /admin/profile/:
     get:
       summary: Admin Detail
       description: Get Authenticated Admin Detail
+      tags:
+        - "Admin.Profile"
       security:
         - apiKey: []
       responses:
@@ -322,4 +352,16 @@ paths:
           content:
             application/json:
               example:
-                detail: "Authentication credentials were not provided."
+                detail: "<message>"
+
+  # /api/posts/{id}:
+  #   get:
+  #     summary: Get a post by ID
+  #     tags:
+  #       - Posts
+  #     parameters:
+  #       - name: id
+  #         in: path
+  #         required: true
+  #         schema:
+  #           type: integer

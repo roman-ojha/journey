@@ -14,7 +14,15 @@ const __dirname = dirname(currentFilePath);
 const swaggerDocument = YAML.load(path.join(__dirname, "docs.yml"));
 
 // Configure Swagger UI Middleware
-app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use(
+  "/",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument, {
+    swaggerOptions: {
+      persistAuthorization: true,
+    },
+  })
+);
 
 app.listen(PORT, () => {
   console.log(`Server is running: http://localhost:${PORT}`);

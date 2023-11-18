@@ -20,12 +20,3 @@ class RegisterAdmin(APIView):
 class LoginAdmin(APIView):
     def post(self, request: Request, *args, **kwargs):
         pass
-
-
-class AdminAuthCheck(APIView):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
-
-    def get(self, request: Request, *args, **kwargs):
-        serializedAdmin = AdminSerializer(request.user)
-        return Response({'message': "Auth User", "data": serializedAdmin.data})

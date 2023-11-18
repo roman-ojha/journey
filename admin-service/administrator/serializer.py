@@ -11,7 +11,7 @@ class AdminSerializer(serializers.ModelSerializer):
                   'first_name', 'last_name', 'number']
 
     def validate(self, attrs):
-        if attrs['password'] != attrs['c_password']:
+        if attrs.get('c_password') is not None and attrs['password'] != attrs['c_password']:
             raise serializers.ValidationError({
                 "c_password": ["password doesn't match"]
             })
