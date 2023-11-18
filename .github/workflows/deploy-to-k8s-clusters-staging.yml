@@ -1,7 +1,8 @@
-name: Deploy Microservices Into Kubernetes Clusters
+name: (Staging) Deploy Microservices Into Kubernetes Clusters
 on:
   workflow_run:
-    workflows: ["Build and Push Microservice Images on Docker Registries"]
+    workflows:
+      ["(Staging) Build and Push Microservice Images on Docker Registries"]
     types:
       - completed
 # env:

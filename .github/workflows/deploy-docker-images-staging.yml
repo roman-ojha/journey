@@ -1,8 +1,8 @@
-name: Build and Push Microservice Images on Docker Registries
+name: (Staging) Build and Push Microservice Images on Docker Registries
 on:
   push:
     branches:
-      - "main"
+      - "staging"
 jobs:
   build-push-docker-images:
     name: Build Docker Images and Push into Docker Hub
