@@ -16,3 +16,10 @@ class UserView(APIView):
         users = User.objects.all()
         serializedUser = UserSerializer(users, many=True)
         return Response(serializedUser.data)
+
+    def post(self, request: Request, *args, **kwargs):
+        userSerializer = UserSerializer(data=request.data)
+        if userSerializer.is_valid(raise_exception=True):
+            print(userSerializer.data)
+            return Response(userSerializer.data)
+        return Response(userSerializer.errors)

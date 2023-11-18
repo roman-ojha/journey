@@ -35,6 +35,21 @@ components:
         application/json:
           example:
             message: "<message>"
+
+    BadRequest:
+      description: Bad Request Or Validation Error
+      content:
+        application/json:
+          example:
+            <field>: ["<error_message>"]
+
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          example:
+            message: Internal Server Error
+
   schemas:
     # D_: For Admin Dashboard ==================================
     IUser:
@@ -292,16 +307,9 @@ paths:
                 $ref: "#/components/schemas/AdminOutput"
 
         "400":
-          description: Validation Error
-          content:
-            application/json:
-              example:
-                email: ["<error_message>"]
-                password: ["<error_message>"]
-                c_password: ["<error_message>"]
-                first_name: ["<error_message>"]
-                last_name: ["<error_message>"]
-                number: ["<error_message"]
+          $ref: "#/components/responses/BadRequest"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
 
   /admin/auth/login:
     post:
@@ -331,6 +339,8 @@ paths:
             application/json:
               example:
                 detail: "<message>"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
 
   /admin/auth/refresh:
     post:
@@ -351,6 +361,8 @@ paths:
             application/json:
               example:
                 access: "<access_token>"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
 
   /admin:
     get:
@@ -374,6 +386,8 @@ paths:
 
         "404":
           $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
     patch:
       summary: Update admin detail
       description: Update single admin detail using id
@@ -407,6 +421,10 @@ paths:
 
         "404":
           $ref: "#/components/responses/NotFound"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
 
     delete:
       summary: Delete Admin record
@@ -434,6 +452,8 @@ paths:
 
         "404":
           $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
 
   /admin/profile/:
     get:
@@ -456,6 +476,8 @@ paths:
 
         "404":
           $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
 
   /admin/user:
     get:
@@ -474,9 +496,10 @@ paths:
                 $ref: "#/components/schemas/D_UserOutput"
         "401":
           $ref: "#/components/responses/Unauthorized"
-
         "404":
           $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
 
     post:
       summary: Add new user
@@ -502,6 +525,10 @@ paths:
 
         "404":
           $ref: "#/components/responses/NotFound"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
 
     patch:
       summary: Update user
@@ -535,6 +562,11 @@ paths:
         "404":
           $ref: "#/components/responses/NotFound"
 
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
     delete:
       summary: Delete User record
       description: Delete Single User record using it's id
@@ -558,9 +590,10 @@ paths:
                 message: "Record has been deleted"
         "401":
           $ref: "#/components/responses/Unauthorized"
-
         "404":
           $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
 
   # /api/posts/{id}:
   #   get:
