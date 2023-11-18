@@ -46,3 +46,12 @@ services:
   #     - "3000:3000"
   #   env_file:
   #     - ./admin-client/.env
+
+  admin-service:
+    container_name: journey-admin-service
+    image: romanojha/journey-admin-service
+    build:
+      context: ./admin-service
+      dockerfile: Dockerfile
+    ports:
+      - "8004:8004"

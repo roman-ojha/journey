@@ -28,18 +28,21 @@ class AdminView(APIView):
         return Response(serializedAdmins.data)
 
     def patch(self, request: Request, *args, **kwargs):
-        if request.data.get('id') is None:
-            raise ValidationError({
-                "id": ["id field is required"]
-            })
-        id = request.data['id']
-        admin = Admin.objects.get(id=id)
-        serializedAdmin = AdminSerializer(
-            instance=admin, data=request.data, partial=True)
-        if serializedAdmin.is_valid(raise_exception=True):
-            serializedAdmin.save()
-            return Response(serializedAdmin.data)
-        return Response(serializedAdmin.errors)
+        try:
+            if request.data.get('id') is None:
+                raise ValidationError({
+                    "id": ["id field is required"]
+                })
+            id = request.data['id']
+            admin = Admin.objects.get(id=id)
+            serializedAdmin = AdminSerializer(
+                instance=admin, data=request.data, partial=True)
+            if serializedAdmin.is_valid(raise_exception=True):
+                serializedAdmin.save()
+                return Response(serializedAdmin.data)
+            return Response(serializedAdmin.errors)
+        except Admin.DoesNotExist:
+            return Response({"message": "User with given id doesn't exist"}, status=status.HTTP_404_NOT_FOUND)
 
     def delete(self, request: Request, *args, **kwargs):
         try:

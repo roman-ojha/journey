@@ -1,6 +1,7 @@
 .env.dev
 .env.prod
 .env.prod
+/temp
 
 # Logs
 logs
