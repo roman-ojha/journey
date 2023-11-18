@@ -23,7 +23,7 @@ class User(models.Model):
     salt = models.TextField()
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'User'
 
 
@@ -38,5 +38,5 @@ class PrismaMigrations(models.Model):
     applied_steps_count = models.IntegerField()
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = '_prisma_migrations'

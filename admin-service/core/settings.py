@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get("ADMIN_SERVICE_SECRET")
 DEBUG = True
 
 # Allow docker container to request on this service
-ALLOWED_HOSTS = ["host.docker.internal"]
+ALLOWED_HOSTS = ["host.docker.internal", '127.0.0.1', '0.0.0.0']
 
 
 # Application definition
