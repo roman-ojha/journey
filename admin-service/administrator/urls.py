@@ -11,6 +11,6 @@ auth_pattern = [
 ]
 
 urlpatterns = [
-    path('list/', view=adminView.AdminListAPIView.as_view(), name='list-of-admin'),
+    path('', view=adminView.AdminView.as_view(), name='list-of-admin'),
     path('auth/', include(auth_pattern)),
 ]

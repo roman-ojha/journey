@@ -12,9 +12,9 @@ class RegisterAdmin(APIView):
     def post(self, request: Request, format=None):
         serializedAdmin = RegisterAdminSerializer(data=request.data)
         if serializedAdmin.is_valid(raise_exception=True):
-            # print(serializedAdmin.data)
             serializedAdmin.save()
-            return Response({"message": "Admin registered successfully", 'data': serializedAdmin.data}, status=status.HTTP_201_CREATED)
+            admin = SendAdminSerializer(serializedAdmin.instance)
+            return Response({"message": "Admin registered successfully", 'data': admin.data}, status=status.HTTP_201_CREATED)
         return Response(serializedAdmin.errors, status=status.HTTP_200_OK)
 
 

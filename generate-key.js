@@ -1,7 +1,7 @@
 const crypto = require("crypto");
 const fs = require("fs");
 
-function genKeyPair() {
+function genAsymmetricKey() {
   const keyPair = crypto.generateKeyPairSync("rsa", {
     // using RSA algorithm
     modulusLength: 4096, // bits - standard for RSA keys
@@ -25,4 +25,17 @@ function genKeyPair() {
   fs.writeFileSync(__dirname + "/id_rsa_priv.pem", privateKey);
 }
 
-genKeyPair();
+function genSymmetricKey() {
+  // Generate a random 256-bit (32-byte) key
+  const symmetricKey = crypto.randomBytes(56);
+
+  // Convert the key to a hex string for storage or transmission
+  const symmetricKeyHex = symmetricKey.toString("hex");
+
+  // Store or use the symmetricKeyHex as needed
+  console.log("Generated Symmetric Key:", symmetricKeyHex);
+}
+
+// genAsymmetricKey();
+
+genSymmetricKey();

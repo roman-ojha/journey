@@ -115,22 +115,6 @@ paths:
                   title: "Second Post"
                   content: "This is the content of the second post."
   # Admin Service
-  /admin:
-    get:
-      summary: Get Admins Details
-      description: Retrieve a list of Admins
-      responses:
-        "200":
-          description: Successful response
-          content:
-            application/json:
-              example:
-                id: 1
-                email: "<email>"
-                first_name: "<first_name>"
-                last_name: "<last_name>"
-                number: "<number>"
-
   /admin/auth/register:
     post:
       summary: Register new admin
@@ -236,8 +220,10 @@ paths:
               example:
                 detail: "Authentication credentials were not provided."
 
-  /admin/list/:
+  /admin:
     get:
+      summary: Admin Details
+      description: Get List of Admin Details
       security:
         - apiKey: []
       responses:
@@ -267,3 +253,10 @@ paths:
             application/json:
               example:
                 detail: "Authentication credentials were not provided."
+    # patch:
+    #   requestBody:
+    #     content:
+    #       application/json:
+    #         example:
+    #           - id: 1
+    #           - email: ""
