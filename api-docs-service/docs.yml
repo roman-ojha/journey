@@ -4,12 +4,153 @@ info:
   version: "1.0.0"
 servers:
   - url: "http://localhost:8003/api"
+tags:
+  - name: "User"
+    description: User Service Paths
+  - name: "Admin.Auth"
+    description: Admin Auth Related Paths
+  - name: "Admin.CRUD"
+    description: Admins CRUD operation from admin dashboard
+  - name: "Admin.Profile"
+    description: Admin CRUD operation for auth admin on dashboard
+  - name: "Admin.UserService.CRUD"
+    description: Users CRUD operation from admin dashboard
 components:
   securitySchemes:
     apiKey:
       type: apiKey
       in: header
       name: Authorization
+  schemas:
+    # D_: For Admin Dashboard ==================================
+    IUser:
+      type: object
+      description: User Interface
+      required:
+        - email
+        - number
+        - f_name
+        - l_name
+        - gender
+      properties:
+        email:
+          type: string
+          example: "roman@gmail.com"
+        number:
+          type: number
+          example: 9843124323
+        f_name:
+          type: string
+          example: "Roman"
+        l_name:
+          type: string
+          example: "Ojha"
+        gender:
+          type: string
+          example: "MALE"
+
+    UserOutput:
+      description: User Detail for Response
+      allOf:
+        - $ref: "#/components/schemas/IUser"
+      type: object
+      properties:
+        id:
+          type: number
+        photo_url:
+          type: string
+
+    UserInput:
+      description: User detail for Request
+      allOf:
+        - $ref: "#/components/schemas/IUser"
+      type: object
+      required:
+        - password
+        - c_password
+      properties:
+        password:
+          type: string
+          example: "roman123"
+        c_password:
+          type: string
+          example: "roman123"
+
+    D_UserOutput:
+      description: Response User for Admin Dashboard
+      allOf:
+        - $ref: "#/components/schemas/UserOutput"
+      type: object
+      properties:
+        is_verified:
+          type: boolean
+        created_at:
+          type: string
+        updated_at:
+          type: string
+
+    IAdmin:
+      type: object
+      description: Admin Interface
+      required:
+        - email
+        - number
+        - first_name
+        - last_name
+      properties:
+        email:
+          type: string
+          example: "razz@gmail.com"
+        first_name:
+          type: string
+          example: "Roman"
+        last_name:
+          type: string
+          example: "Ojha"
+        number:
+          type: integer
+          example: 9779843212343
+
+    AdminInput:
+      description: Admin detail for Request
+      allOf:
+        - $ref: "#/components/schemas/IAdmin"
+      type: object
+      required:
+        - password
+        - c_password
+      properties:
+        password:
+          type: string
+          example: "razzroman@123"
+        c_password:
+          type: string
+          example: "razzroman@123"
+
+    AdminOutput:
+      allOf:
+        - $ref: "#/components/schemas/IAdmin"
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+          example: 1
+
+    D_AdminOutput:
+      description: Response Admin for Admin Dashboard
+      allOf:
+        - $ref: "#/components/schemas/AdminOutput"
+      type: object
+      properties:
+        is_superuser:
+          type: boolean
+        is_staff:
+          type: boolean
+        is_verified:
+          type: boolean
+
 paths:
   /user/auth/register:
     post:
@@ -21,14 +162,8 @@ paths:
         required: true
         content:
           application/json:
-            example:
-              email: "roman@gmail.com"
-              password: "roman123"
-              c_password: "roman123"
-              gender: "MALE"
-              number: 9843124323
-              f_name: "Roman"
-              l_name: "Ojha"
+            schema:
+              $ref: "#/components/schemas/UserInput"
       responses:
         "201":
           description: User Registered Successfully
@@ -132,24 +267,16 @@ paths:
         required: true
         content:
           application/json:
-            example:
-              email: "razz@gmail.com"
-              password: "razzroman@123"
-              c_password: "razzroman@123"
-              first_name: "Roman"
-              last_name: "Ojha"
-              number: +9779843212343
+            schema:
+              $ref: "#/components/schemas/AdminInput"
       responses:
         "201":
           description: Successful Registered
           content:
             application/json:
-              example:
-                id: 1
-                email: "razz@gmail.com"
-                first_name: "Roman"
-                last_name: "Ojha"
-                number: +9779843212343
+              schema:
+                $ref: "#/components/schemas/AdminOutput"
+
         "400":
           description: Validation Error
           content:
@@ -224,22 +351,10 @@ paths:
           description: Successful response
           content:
             application/json:
-              example:
-                - id: 1
-                  email: "<email>"
-                  first_name: "<first_name>"
-                  last_name: "<last_name>"
-                  number: "<number>"
-                - id: 2
-                  email: "<email>"
-                  first_name: "<first_name>"
-                  last_name: "<last_name>"
-                  number: "<number>"
-                - id: 3
-                  email: "<email>"
-                  first_name: "<first_name>"
-                  last_name: "<last_name>"
-                  number: "<number>"
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/D_AdminOutput"
         "401":
           description: Unauthorized
           content:
@@ -258,36 +373,14 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              required:
-                - id
-              properties:
-                id:
-                  type: integer
-                  example: 1
-                email:
-                  type: string
-                  example: "razz@gmail.com"
-                first_name:
-                  type: string
-                  example: "Roman"
-                last_name:
-                  type: string
-                  example: "Ojha"
-                number:
-                  type: integer
-                  example: 9779843212343
+              $ref: "#/components/schemas/AdminOutput"
       responses:
         "200":
           description: Successful response
           content:
             application/json:
-              example:
-                id: 1
-                email: "razz@gmail.com"
-                first_name: "Roman"
-                last_name: "Ojha"
-                number: 9779843212343
+              schema:
+                $ref: "#/components/schemas/AdminOutput"
         "401":
           description: Unauthorized
           content:
@@ -342,18 +435,31 @@ paths:
           description: Successful response
           content:
             application/json:
-              example:
-                id: 1
-                email: "<email>"
-                first_name: "<first_name>"
-                last_name: "<last_name>"
-                number: "<number>"
+              schema:
+                $ref: "#/components/schemas/AdminOutput"
+
         "401":
           description: Unauthorized
           content:
             application/json:
               example:
                 detail: "<message>"
+
+  /admin/user:
+    get:
+      summary: Get list of users
+      description: Read list of all users
+      tags:
+        - "Admin.UserService.CRUD"
+      security:
+        - apiKey: []
+      responses:
+        "200":
+          description: Successfully Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/D_UserOutput"
 
   # /api/posts/{id}:
   #   get:
