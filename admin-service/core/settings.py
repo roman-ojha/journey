@@ -27,7 +27,8 @@ SECRET_KEY = os.environ.get("ADMIN_SERVICE_SECRET")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# Allow docker container to request on this service
+ALLOWED_HOSTS = ["host.docker.internal"]
 
 
 # Application definition
