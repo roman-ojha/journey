@@ -157,37 +157,63 @@ paths:
                 first_name: "Roman"
                 last_name: "Ojha"
                 number: +9779843212343
-  # /comment:
-  #   post:
-  #     summary: Add a comment
-  #     description: Add a comment to a post.
-  #     requestBody:
-  #       required: true
-  #       content:
-  #         application/json:
-  #           example:
-  #             postId: 1
-  #             text: "Great post!"
-  #     responses:
-  #       "201":
-  #         description: Comment added successfully
-  #         content:
-  #           application/json:
-  #             example:
-  #               id: 1
-  #               postId: 1
-  #               text: "Great post!"
+        "400":
+          description: Validation Error
+          content:
+            application/json:
+              example:
+                email: ["<error_message>"]
+                password: ["<error_message>"]
+                c_password: ["<error_message>"]
+                first_name: ["<error_message>"]
+                last_name: ["<error_message>"]
+                number: ["<error_message"]
 
-  # /user:
-  #   get:
-  #     summary: Get user information
-  #     description: Retrieve information about a user.
-  #     responses:
-  #       "200":
-  #         description: Successful response
-  #         content:
-  #           application/json:
-  #             example:
-  #               id: 1
-  #               username: "john_doe"
-  #               email: "john@example.com"
+  /admin/auth/login:
+    post:
+      requestBody:
+        required: True
+        content:
+          application/json:
+            example:
+              email: "razz@gmail.com"
+              password: "razzroman@123"
+
+      responses:
+        "200":
+          description: Successfully Logged in
+          content:
+            application/json:
+              example:
+                refresh: "<token>"
+                access: "<token>"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              example:
+                detail: "<message>"
+
+  /admin/auth/check:
+    get:
+      summary: Get user
+      description: Retrieve a user detail
+      security:
+        - apiKey: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              example:
+                id: 1
+                email: "<email>"
+                first_name: "<first_name>"
+                last_name: "<last_name>"
+                number: "<number>"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              example:
+                detail: "Authentication credentials were not provided."

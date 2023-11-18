@@ -1,0 +1,3 @@
+{
+  "watch": ["*.json", "docs.yml", "*.js"]
+}

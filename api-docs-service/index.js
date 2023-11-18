@@ -11,7 +11,7 @@ const currentFilePath = fileURLToPath(currentFileUrl);
 const __dirname = dirname(currentFilePath);
 
 // Load Swagger YAML File
-const swaggerDocument = YAML.load(path.join(__dirname, "docs.yaml"));
+const swaggerDocument = YAML.load(path.join(__dirname, "docs.yml"));
 
 // Configure Swagger UI Middleware
 app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
