@@ -17,7 +17,11 @@ tags:
     description: Users CRUD operation from admin dashboard
 components:
   securitySchemes:
-    apiKey:
+    adminAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+    userAuth:
       type: apiKey
       in: header
       name: Authorization
@@ -271,7 +275,7 @@ paths:
       tags:
         - "User"
       security:
-        - apiKey: []
+        - userAuth: []
       responses:
         "200":
           description: Successful response
@@ -371,7 +375,7 @@ paths:
       tags:
         - "Admin.CRUD"
       security:
-        - apiKey: []
+        - adminAuth: []
       responses:
         "200":
           description: Successful response
@@ -394,7 +398,7 @@ paths:
       tags:
         - "Admin.CRUD"
       security:
-        - apiKey: []
+        - adminAuth: []
       requestBody:
         # required: true
         content:
@@ -432,7 +436,7 @@ paths:
       tags:
         - "Admin.CRUD"
       security:
-        - apiKey: []
+        - adminAuth: []
       parameters:
         - name: id
           in: query
@@ -462,7 +466,7 @@ paths:
       tags:
         - "Admin.Profile"
       security:
-        - apiKey: []
+        - adminAuth: []
       responses:
         "200":
           description: Successful response
@@ -486,7 +490,7 @@ paths:
       tags:
         - "Admin.UserService.CRUD"
       security:
-        - apiKey: []
+        - adminAuth: []
       responses:
         "200":
           description: Successfully Response
@@ -507,7 +511,7 @@ paths:
       tags:
         - "Admin.UserService.CRUD"
       security:
-        - apiKey: []
+        - adminAuth: []
       requestBody:
         content:
           application/json:
@@ -536,7 +540,7 @@ paths:
       tags:
         - "Admin.UserService.CRUD"
       security:
-        - apiKey: []
+        - adminAuth: []
       requestBody:
         content:
           application/json:
@@ -573,7 +577,7 @@ paths:
       tags:
         - "Admin.UserService.CRUD"
       security:
-        - apiKey: []
+        - adminAuth: []
       parameters:
         - name: id
           in: query

@@ -85,7 +85,7 @@ class AuthController {
       if (getUserByNumber) {
         return res.status(STATUS_CODES.VALIDATION_ERROR).json(
           validationErrorResponse({
-            email: ["Given Number already exist, Please try another one"],
+            number: ["Given Number already exist, Please try another one"],
           })
         );
       }
