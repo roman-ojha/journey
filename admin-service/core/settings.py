@@ -151,3 +151,8 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=5),
 }
+
+REST_FRAMEWORK = {
+    'EXCEPTION_HANDLER': 'utils.errorHandler.custom_exception_handler',
+    # other DRF settings...
+}

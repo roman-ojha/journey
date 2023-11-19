@@ -7,7 +7,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.exceptions import ValidationError
-from rest_framework import status
+from data.status_code import StatusCode
+from utils.responseDict import CreateResponse
 
 
 # class AdminListAPIView(ListAPIView):
@@ -25,7 +26,7 @@ class AdminView(APIView):
     def get(self, request: Request, *args, **kwargs):
         admins = Admin.objects.all()
         serializedAdmins = AdminSerializer(admins, many=True)
-        return Response(serializedAdmins.data)
+        return Response(CreateResponse.successResponse(data=serializedAdmins.data))
 
     def patch(self, request: Request, *args, **kwargs):
         try:
@@ -39,10 +40,10 @@ class AdminView(APIView):
                 instance=admin, data=request.data, partial=True)
             if serializedAdmin.is_valid(raise_exception=True):
                 serializedAdmin.save()
-                return Response(serializedAdmin.data)
-            return Response(serializedAdmin.errors)
+                return Response(CreateResponse.successResponse(data=serializedAdmin.data))
+            return Response(CreateResponse.validationError(errors=serializedAdmin.errors), status=StatusCode.BAD_REQUEST)
         except Admin.DoesNotExist:
-            return Response({"message": "User with given id doesn't exist"}, status=status.HTTP_404_NOT_FOUND)
+            return Response(CreateResponse.failResponse(message="Admin with given id doesn't exist"), status=StatusCode.NOT_FOUND)
 
     def delete(self, request: Request, *args, **kwargs):
         try:
@@ -52,7 +53,8 @@ class AdminView(APIView):
                 })
             id = request.query_params.get('id')
             admin = Admin.objects.get(id=id)
-            admin.delete()
-            return Response({"message": "Record has been deleted"})
+            if admin.delete():
+                return Response(CreateResponse.successResponse(message="Record has been deleted"))
+            return Response(CreateResponse.failResponse(), status=StatusCode.INTERNAL_SERVER_ERROR)
         except Admin.DoesNotExist:
-            return Response({"message": "User with given id doesn't exist"}, status=status.HTTP_404_NOT_FOUND)
+            return Response(CreateResponse.failResponse(message="User with given id doesn't exist"), status=StatusCode.NOT_FOUND)

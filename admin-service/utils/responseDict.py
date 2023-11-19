@@ -1,21 +1,25 @@
 from typing import List, Dict
+from rest_framework.response import Response
 
 
-def validationError(message: str, errors: Dict[str, List[str]]):
-    return {
-        'message': message,
-        'errors': errors
-    }
+class CreateResponse:
+    def validationError(errors: Dict[str, List[str]], message: str = "The given data was invalid"):
+        return {
+            'message': message,
+            'errors': errors
+        }
 
+    def successResponse(message: str = "Response Successfully", data: Dict = None):
+        if data == None:
+            return {
+                'message': message
+            }
+        return {
+            'message': message,
+            'data': data
+        }
 
-def successResponse(message: str, data: Dict):
-    return {
-        'message': message,
-        'data': data
-    }
-
-
-def failResponse(message: str):
-    return {
-        'message': message,
-    }
+    def failResponse(message: str = "Internal Server Error"):
+        return {
+            'message': message,
+        }
