@@ -4,8 +4,8 @@ from rest_framework.views import APIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.permissions import IsAuthenticated
+from utils.responseDict import CreateResponse
+from data.status_code import StatusCode
 
 
 class RegisterAdmin(APIView):
@@ -13,7 +13,7 @@ class RegisterAdmin(APIView):
         serializedAdmin = AdminSerializer(data=request.data)
         if serializedAdmin.is_valid(raise_exception=True):
             serializedAdmin.save()
-            return Response({"message": "Admin registered successfully", 'data': serializedAdmin.data}, status=status.HTTP_201_CREATED)
+            return Response(CreateResponse.successResponse(message="Admin registered successfully", data=serializedAdmin.data))
         return Response(serializedAdmin.errors, status=status.HTTP_200_OK)
 
 

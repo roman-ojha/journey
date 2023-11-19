@@ -17,7 +17,7 @@ class AdminProfileView(APIView):
 
     def get(self, request: Request, *args, **kwargs):
         serializedAdmin = AdminSerializer(request.user)
-        return Response(serializedAdmin.data)
+        return Response(CreateResponse.successResponse(data=serializedAdmin.data))
 
     def delete(self, request: Request, *args, **kwargs):
         if request.user.delete():
@@ -31,7 +31,8 @@ class AdminProfileView(APIView):
             serializedAdmin = AdminSerializer(
                 request.user, data=request.data, partial=True)
             if serializedAdmin.is_valid(raise_exception=True):
-                return Response(CreateResponse.successResponse(message="Your Admin account have deleted successfully"))
+                serializedAdmin.save()
+                return Response(CreateResponse.successResponse(message="Your Admin account have deleted successfully", data=serializedAdmin.data))
             return Response(serializedAdmin.errors, status=StatusCode.BAD_REQUEST)
         except Admin.DoesNotExist:
             return Response(CreateResponse.failResponse(message="Admin with given id doesn't exist"), status=status.HTTP_404_NOT_FOUND)

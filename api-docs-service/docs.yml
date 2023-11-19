@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: "Application API Docs"
+  title: "Journey API Documentation"
   version: "1.0.0"
 servers:
   - url: "http://localhost:8003/api"
@@ -33,6 +33,13 @@ components:
           example:
             message: "Authentication credentials were not provided."
 
+    Successful:
+      description: Successful Response
+      content:
+        application/json:
+          example:
+            message: "<message>"
+
     NotFound:
       description: Not Found
       content:
@@ -45,7 +52,9 @@ components:
       content:
         application/json:
           example:
-            <field>: ["<error_message>"]
+            message: "Invalid Input"
+            errors:
+              <field>: ["<error_message>"]
 
     InternalServerError:
       description: Internal Server Error
@@ -83,15 +92,26 @@ components:
           example: "MALE"
 
     UserOutput:
-      description: User Detail for Response
+      description: User Detail that get output for the client
       allOf:
         - $ref: "#/components/schemas/IUser"
       type: object
       properties:
         id:
           type: number
+          example: 1
         photo_url:
           type: string
+
+    UserResponse:
+      description: User object that get as a response body
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Successful Response"
+        data:
+          $ref: "#/components/schemas/UserOutput"
 
     UserInput:
       description: User detail for Request
@@ -110,17 +130,38 @@ components:
           example: "roman123"
 
     D_UserOutput:
-      description: Response User for Admin Dashboard
+      description: User Details for Admin Dashboard
       allOf:
         - $ref: "#/components/schemas/UserOutput"
       type: object
+      required:
+        - email
+        - number
+        - f_name
+        - l_name
+        - gender
       properties:
         is_verified:
           type: boolean
+          example: true
         created_at:
           type: string
+          example: "2023-08-17 15:42:29"
         updated_at:
           type: string
+          example: "2023-08-17 15:42:29"
+
+    D_UserResponse:
+      description: Response object about user for Admin Dashboard
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Successful Response"
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/D_UserOutput"
 
     IAdmin:
       type: object
@@ -171,6 +212,16 @@ components:
           type: integer
           example: 1
 
+    AdminResponse:
+      description: Response object with Admin detail
+      type: object
+      properties:
+        message:
+          type: string
+          example: Successful Response
+        data:
+          $ref: "#/components/schemas/AdminOutput"
+
     D_AdminOutput:
       description: Response Admin for Admin Dashboard
       allOf:
@@ -183,6 +234,18 @@ components:
           type: boolean
         is_verified:
           type: boolean
+
+    D_AdminResponse:
+      description: Response object for admin details for Admin Dashboard
+      type: object
+      properties:
+        message:
+          type: string
+          example: Successful Response
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/D_AdminOutput"
 
 paths:
   /user/auth/register:
@@ -202,35 +265,12 @@ paths:
           description: User Registered Successfully
           content:
             application/json:
-              example:
-                message: "<message>"
-                data:
-                  id: 1
-                  username: "<username>"
-                  email: "<email>"
-                  f_name: "<f_name>"
-                  l_name: "<l_name>"
-                  gender: "<gender>"
+              schema:
+                $ref: "#/components/schemas/UserResponse"
         "422":
-          description: Validation Error
-          content:
-            application/json:
-              example:
-                message: "<message>"
-                errors:
-                  email: ["<error_message>"]
-                  password: ["<error_message>"]
-                  c_password: ["<error_message>"]
-                  gender: ["<error_message>"]
-                  number: ["<error_message>"]
-                  f_name: ["<error_message"]
-                  l_name: ["<error_message>"]
+          $ref: "#/components/responses/BadRequest"
         "500":
-          description: Internal Server Error
-          content:
-            application/json:
-              example:
-                message: "<message>"
+          $ref: "#/components/responses/InternalServerError"
 
   /user/auth/login:
     post:
@@ -256,17 +296,9 @@ paths:
                   token: "<token>"
                   expires_in: "<Date>"
         "500":
-          description: Internal Server Error
-          content:
-            application/json:
-              example:
-                message: "<message>"
+          $ref: "#/components/responses/InternalServerError"
         "401":
-          description: Unauthorized
-          content:
-            application/json:
-              example:
-                message: "<message>"
+          $ref: "#/components/responses/Unauthorized"
 
   /user/auth/check:
     get:
@@ -308,7 +340,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AdminOutput"
+                $ref: "#/components/schemas/AdminResponse"
 
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -382,9 +414,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/D_AdminOutput"
+                $ref: "#/components/schemas/D_AdminResponse"
         "401":
           $ref: "#/components/responses/Unauthorized"
 
@@ -419,7 +449,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AdminOutput"
+                $ref: "#/components/schemas/D_AdminResponse"
         "401":
           $ref: "#/components/responses/Unauthorized"
 
@@ -473,7 +503,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AdminOutput"
+                $ref: "#/components/schemas/AdminResponse"
         "401":
           $ref: "#/components/responses/Unauthorized"
         "404":
@@ -501,7 +531,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AdminOutput"
+                $ref: "#/components/schemas/AdminResponse"
         "401":
           $ref: "#/components/responses/Unauthorized"
         "404":
@@ -544,7 +574,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/D_UserOutput"
+                $ref: "#/components/schemas/D_UserResponse"
         "401":
           $ref: "#/components/responses/Unauthorized"
         "404":
@@ -565,12 +595,12 @@ paths:
             schema:
               $ref: "#/components/schemas/UserInput"
       responses:
-        "200":
+        "201":
           description: Successful Added
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/D_UserOutput"
+                $ref: "#/components/schemas/UserResponse"
         "401":
           $ref: "#/components/responses/Unauthorized"
 
@@ -606,7 +636,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/D_UserOutput"
+                $ref: "#/components/schemas/UserResponse"
         "401":
           $ref: "#/components/responses/Unauthorized"
 
@@ -634,11 +664,7 @@ paths:
             type: integer
       responses:
         "200":
-          description: Successfully deleted admin
-          content:
-            application/json:
-              example:
-                message: "Record has been deleted"
+          $ref: "#/components/responses/Successful"
         "401":
           $ref: "#/components/responses/Unauthorized"
         "404":
