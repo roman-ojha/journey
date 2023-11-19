@@ -20,4 +20,4 @@ RUN yarn prisma:generate
 
 EXPOSE 8001
 
-CMD [ "yarn", "start" ]
+CMD ["yarn", "start" ]

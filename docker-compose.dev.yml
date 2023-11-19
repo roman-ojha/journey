@@ -43,6 +43,22 @@ services:
       - "8002:8002"
     env_file:
       - docker.env
+    depends_on:
+      - postgres
+
+  postgres:
+    container_name: journey-postgres-db
+    image: postgres:14
+    ports:
+      - "5433:5432"
+    env_file:
+      - docker.env
+    # environment:
+    #   POSTGRES_DB: ${USER_SERVICE_DATABASE_NAME}
+    #   POSTGRES_USER: ${USER_SERVICE_DATABASE_USER}
+    #   POSTGRES_PASSWORD: ${USER_SERVICE_DATABASE_PASSWORD}
+    volumes:
+      - journey-user-service-data:/var/lib/postgresql
 
   # admin-client:
   #   container_name: journey-admin-client
@@ -65,3 +81,7 @@ services:
       - "8004:8004"
     env_file:
       - docker.env
+
+volumes:
+  journey-user-service-data:
+    driver: local
