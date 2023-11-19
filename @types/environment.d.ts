@@ -20,5 +20,10 @@ declare namespace NodeJS {
     ADMIN_SERVICE_DATABASE_PASSWORD: string;
     ADMIN_SERVICE_DATABASE_HOST: string;
     ADMIN_SERVICE_DATABASE_PORT: number;
+    POSTGRES_DB: string;
+    POSTGRES_USER: string;
+    POSTGRES_PASSWORD: string;
+    USER_SERVICE_PRISMA_STUDIO_PORT: number;
+    USER_SERVICE_PRISMA_STUDIO_URL: string;
   }
 }
