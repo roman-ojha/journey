@@ -28,12 +28,16 @@ SECRET_KEY = os.environ.get("ADMIN_SERVICE_SECRET")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# Allow docker container to request on this service
-ALLOWED_HOSTS = ["host.docker.internal", '127.0.0.1', '0.0.0.0']
+ALLOWED_HOSTS = []
+if os.environ.get('ENVIRONMENT') == "development":
+    ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0']
+elif os.environ.get('ENVIRONMENT') == "docker":
+    # Allow docker container to request on this service
+    # ALLOWED_HOSTS = ["host.docker.internal"]
+    ALLOWED_HOSTS = ["journey-admin-service"]
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',

@@ -19,6 +19,10 @@ services:
       - "8003:8003"
     env_file:
       - docker.env
+    depends_on:
+      - admin-service
+      - user-api-gateway
+      - api-docs
 
   user-api-gateway:
     container_name: journey-user-api-gateway
@@ -48,6 +52,8 @@ services:
       dockerfile: Prisma.Dockerfile
     env_file:
       - docker.env
+    ports:
+      - "5555:5555"
     depends_on:
       - user-service
       - postgres
@@ -57,14 +63,10 @@ services:
     image: postgres:14
     env_file:
       - docker.env
-    ports:
-      - "5433:5432"
-    # environment:
-    #   POSTGRES_DB: ${USER_SERVICE_DATABASE_NAME}
-    #   POSTGRES_USER: ${USER_SERVICE_DATABASE_USER}
-    #   POSTGRES_PASSWORD: ${USER_SERVICE_DATABASE_PASSWORD}
+    # ports:
+    #   - "5432:5432"
     volumes:
-      - journey-user-service-data:/var/lib/postgresql/data
+      - journey-postgresql:/var/lib/postgresql/data
 
   # admin-client:
   #   container_name: journey-admin-client
@@ -85,7 +87,31 @@ services:
       dockerfile: Dockerfile
     env_file:
       - docker.env
+    depends_on:
+      - mysql
+
+  mysql:
+    container_name: journey-mysql-db
+    image: mysql:8.2.0
+    env_file:
+      - docker.env
+    # ports:
+    #   - "3306:3306"
+    volumes:
+      - journey-mysql:/var/lib/mysql
+
+  phpmyadmin:
+    container_name: journey-phpmyadmin
+    image: phpmyadmin:5.2.1-apache
+    ports:
+      - "8080:80"
+    env_file:
+      - docker.env
+    links:
+      - "mysql:db"
 
 volumes:
-  journey-user-service-data:
+  journey-postgresql:
+    driver: local
+  journey-mysql:
     driver: local

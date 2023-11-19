@@ -5,8 +5,6 @@ from rest_framework import status
 
 def custom_exception_handler(exc, context):
     response = exception_handler(exc=exc, context=context)
-    print(response.data)
-    # if response is not None and ''
     if response.status_code == 400:
         response.data = {
             'message': "The given data was invalid",

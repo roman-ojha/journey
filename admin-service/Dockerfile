@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 8004
 
-CMD [ "python", "manage.py", "runserver", "0.0.0.0:8004" ]
+CMD ["sh", "-c", "python manage.py migrate --database=administrator && python manage.py runserver 0.0.0.0:8004"]
