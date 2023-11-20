@@ -48,4 +48,19 @@ class AuthController extends Controller
         }
         return response()->json(ResponseObject::failResponse(), StatusCode::$INTERNAL_SERVER_ERROR);
     }
+
+    public function login(Request $request)
+    {
+        $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        $merchant = Merchant::where('email', $request->email)->first();
+        if ($merchant && Hash::check($request->password, $merchant->password)) {
+            $token = $merchant->createToken($request->email)->plainTextToken;
+            return response(ResponseObject::successResponse("Successfully Logged in", ['token' => $token]), StatusCode::$OK);
+        }
+        return response()->json(ResponseObject::failResponse("given credentials doesn't exist"), StatusCode::$UNAUTHORIZED);
+    }
 }

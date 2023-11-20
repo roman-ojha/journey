@@ -758,6 +758,32 @@ paths:
           $ref: "#/components/responses/BadRequest"
         "500":
           $ref: "#/components/responses/InternalServerError"
+
+  /merchant/auth/login:
+    post:
+      summary: Merchant Login
+      description: Login merchant with given credentials
+      tags:
+        - "Merchant"
+      requestBody:
+        content:
+          application/json:
+            example:
+              email: "roman@gmail.com"
+              password: "roman123"
+      responses:
+        "201":
+          description: Login Successfully
+          content:
+            application/json:
+              example:
+                message: string
+                data:
+                  token: "<token>"
+        "422":
+          $ref: "#/components/responses/BadRequest"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
   # /api/posts/{id}:
   #   get:
   #     summary: Get a post by ID
