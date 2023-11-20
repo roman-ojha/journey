@@ -247,6 +247,68 @@ components:
           items:
             $ref: "#/components/schemas/D_AdminOutput"
 
+    IMerchant:
+      type: object
+      description: Merchant Interface
+      required:
+        - email
+        - first_name
+        - last_name
+        - number
+        - company_name
+      properties:
+        email:
+          type: string
+          example: "roman@gmail.com"
+        first_name:
+          type: string
+          example: "Roman"
+        last_name:
+          type: string
+          example: "Ojha"
+        number:
+          type: number
+          example: 9843212343
+        company_name:
+          type: string
+          example: "Roman PVT. LTD."
+
+    MerchantInput:
+      description: Merchant details for request
+      allOf:
+        - $ref: "#/components/schemas/IMerchant"
+      type: object
+      required:
+        - password
+        - c_password
+      properties:
+        password:
+          type: string
+          example: "roman123"
+        c_password:
+          type: string
+          example: "roman123"
+
+    MerchantOutput:
+      description: Merchant details as a response
+      allOf:
+        - $ref: "#/components/schemas/IMerchant"
+      type: object
+      properties:
+        id:
+          type: number
+          example: 1
+
+    MerchantResponse:
+      description: Merchant object that get as a response body
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Successful Response"
+        data:
+          $ref: "#/components/schemas/MerchantOutput"
+
 paths:
   /user/auth/register:
     post:
@@ -672,6 +734,28 @@ paths:
         "500":
           $ref: "#/components/responses/InternalServerError"
 
+  /merchant/auth/register:
+    post:
+      summary: Merchant registration
+      description: Registering new merchant with given credentials
+      tags:
+        - "Merchant"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MerchantInput"
+      responses:
+        "201":
+          description: Successful Registered
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MerchantResponse"
+        "422":
+          $ref: "#/components/responses/BadRequest"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
   # /api/posts/{id}:
   #   get:
   #     summary: Get a post by ID
