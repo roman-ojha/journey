@@ -6,15 +6,17 @@ servers:
   - url: "http://localhost:8003/api"
 tags:
   - name: "User"
-    description: User Service Paths
+    description: User Service API
   - name: "Admin.Auth"
-    description: Admin Auth Related Paths
+    description: Admin Auth Related API
   - name: "Admin.CRUD"
     description: Admins CRUD operation from admin dashboard
   - name: "Admin.Profile"
     description: Admin CRUD operation for auth admin on dashboard
   - name: "Admin.UserService.CRUD"
     description: Users CRUD operation from admin dashboard
+  - name: "Merchant"
+    description: Merchant Service API
 components:
   securitySchemes:
     adminAuth:

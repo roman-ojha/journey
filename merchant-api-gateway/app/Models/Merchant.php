@@ -11,7 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 class Merchant extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-
+    
     /**
      * The attributes that are mass assignable.
      *
