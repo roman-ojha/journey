@@ -25,5 +25,8 @@ declare namespace NodeJS {
     POSTGRES_PASSWORD: string;
     USER_SERVICE_PRISMA_STUDIO_PORT: number;
     USER_SERVICE_PRISMA_STUDIO_URL: string;
+    ENVIRONMENT: "development" | "docker" | "production";
+    MERCHANT_API_GATEWAY_PORT: string;
+    MERCHANT_API_GATEWAY_URL: string;
   }
 }
