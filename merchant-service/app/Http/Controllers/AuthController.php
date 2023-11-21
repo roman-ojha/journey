@@ -55,12 +55,10 @@ class AuthController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
-
-        $merchant = Merchant::where('email', $request->email)->first();
-        if ($merchant && Hash::check($request->password, $merchant->password)) {
-            $token = $merchant->createToken($request->email)->plainTextToken;
-            return response(ResponseObject::successResponse("Successfully Logged in", ['token' => $token]), StatusCode::$OK);
+        $token = auth()->attempt(request(['email', 'password']));
+        if (!$token) {
+            return response()->json(ResponseObject::failResponse("given credentials doesn't exist"), StatusCode::$UNAUTHORIZED);
         }
-        return response()->json(ResponseObject::failResponse("given credentials doesn't exist"), StatusCode::$UNAUTHORIZED);
+        return response(ResponseObject::successResponse("Successfully Logged in", ['token' => $token]), StatusCode::$OK);
     }
 }

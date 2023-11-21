@@ -1,0 +1,2 @@
+*) Packages:
+    -> JWT: https://jwt-auth.readthedocs.io/en/develop/
