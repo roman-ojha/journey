@@ -27,6 +27,10 @@ components:
       type: apiKey
       in: header
       name: Authorization
+    merchantAuth:
+      type: apiKey
+      in: header
+      name: Authorization
   responses:
     Unauthorized:
       description: Unauthorized
@@ -784,6 +788,22 @@ paths:
           $ref: "#/components/responses/BadRequest"
         "500":
           $ref: "#/components/responses/InternalServerError"
+  /merchant/auth/check:
+    get:
+      tags:
+        - "Merchant"
+      security:
+        - merchantAuth: []
+      responses:
+        "200":
+          description: "Auth user"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MerchantResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
   # /api/posts/{id}:
   #   get:
   #     summary: Get a post by ID

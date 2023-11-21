@@ -61,4 +61,10 @@ class AuthController extends Controller
         }
         return response(ResponseObject::successResponse("Successfully Logged in", ['token' => $token]), StatusCode::$OK);
     }
+
+
+    public function check(Request $request)
+    {
+        // return response(['user' => auth()->user()]);
+    }
 }

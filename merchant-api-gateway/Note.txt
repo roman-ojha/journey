@@ -1,2 +1,3 @@
 *) Packages:
     -> JWT: https://jwt-auth.readthedocs.io/en/develop/
+    -> composer require guzzlehttp/guzzle: for Http proxy
