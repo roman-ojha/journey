@@ -36,6 +36,6 @@ function genSymmetricKey() {
   console.log("Generated Symmetric Key:", symmetricKeyHex);
 }
 
-genAsymmetricKey();
+// genAsymmetricKey();
 
-// genSymmetricKey();
+genSymmetricKey();

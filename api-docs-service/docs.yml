@@ -31,6 +31,10 @@ components:
       type: apiKey
       in: header
       name: Authorization
+    swaggerAuth:
+      type: apiKey
+      in: header
+      name: x-swagger-token
   responses:
     Unauthorized:
       description: Unauthorized
@@ -794,6 +798,7 @@ paths:
         - "Merchant"
       security:
         - merchantAuth: []
+        - swaggerAuth: []
       responses:
         "200":
           description: "Auth user"

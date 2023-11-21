@@ -13,6 +13,18 @@ import {
 const app = express();
 passport.use("user", userPasswordStrategy);
 passport.use("merchant", merchantPassportStrategy);
+
+app.use((req, res, next) => {
+  // Decrypt POST, PATCH, PUT, DELETE Request body which is coming from actual user client like React
+  // And Not decrypt the body that is coming from swagger cause it hasn't been encrypted
+  if (req.header("x-swagger-token") !== process.env.SWAGGER_AUTH_TOKEN) {
+    console.log("Request isn't from swagger");
+    // Decrypt request body here
+  }
+  console.log("Request is from swagger");
+  return next();
+});
+
 app.use(passport.initialize());
 
 const PORT = process.env.API_GATEWAY_PORT;

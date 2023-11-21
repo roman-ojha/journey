@@ -34,5 +34,6 @@ declare namespace NodeJS {
     MERCHANT_SERVICE_DATABASE_HOST: string;
     MERCHANT_SERVICE_DATABASE_PORT: string;
     MERCHANT_SERVICE_JWT_SECRET_KEY: string;
+    SWAGGER_AUTH_TOKEN: string;
   }
 }
