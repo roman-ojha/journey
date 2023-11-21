@@ -6,6 +6,7 @@ import { STATUS_CODES } from "../../data/constants";
 import { failResponse } from "../../utils/responseObject";
 import { IUser } from "../../models/User";
 import merchantDb from "../config/merchantDb";
+import { encryptMessageWithPublicKey } from "../utils/encrypt";
 
 const SECRET_KEY = process.env.MERCHANT_SERVICE_JWT_SECRET_KEY;
 
@@ -40,6 +41,9 @@ const merchantAuthenticate = (
           .status(STATUS_CODES.UNAUTHORIZED)
           .json(failResponse("Unauthorized"));
       }
+
+      const encryptedUser = encryptMessageWithPublicKey(user);
+      req.headers["x-user"] = encryptedUser;
 
       // req.headers["x-user-id"] = user.id.toString();
       // req.headers["x-user-email"] = user.email;

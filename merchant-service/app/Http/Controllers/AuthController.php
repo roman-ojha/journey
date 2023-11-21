@@ -71,6 +71,7 @@ class AuthController extends Controller
 
     public function check(Request $request)
     {
+        $user = $request->user;
         return response(['user' => auth()->user()]);
     }
 }

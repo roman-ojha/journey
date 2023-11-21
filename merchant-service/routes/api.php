@@ -21,5 +21,3 @@ use Illuminate\Support\Facades\Route;
 Route::post('/auth/register', [AuthController::class, 'register']);
 Route::post('/auth/login', [AuthController::class, 'login']);
 Route::get('/auth/check', [AuthController::class, 'check']);
-// Route::group(['middleware' => 'api', 'prefix' => 'auth'], function () {
-// });
