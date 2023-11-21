@@ -9,6 +9,7 @@ require_once base_path('data/constants.php');
 
 use Data\Constants\StatusCode;
 use Illuminate\Support\Facades\Hash;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 require_once base_path('utils/response.php');
 
@@ -31,6 +32,11 @@ class AuthController extends Controller
                 'gmail' => ["Given email already exist, please try another one"]
             ]), StatusCode::$VALIDATION_ERROR);
         }
+        if (Merchant::query()->where('number', $request->number)->exists()) {
+            return response()->json(ResponseObject::validationError([
+                'gmail' => ["Given number already exist, please try another one"]
+            ]), StatusCode::$VALIDATION_ERROR);
+        }
         if ($request->password != $request->c_password) {
             return response()->json(ResponseObject::validationError([
                 'c_password' => ["Password and confirm password doesn't match"]
@@ -44,7 +50,7 @@ class AuthController extends Controller
         $merchant->company_name = $request->company_name;
         $merchant->password = Hash::make($request->password);
         if ($merchant->save()) {
-            return response()->json(ResponseObject::successResponse("Successfully register a new user"), StatusCode::$CREATED);
+            return response()->json(ResponseObject::successResponse("Successfully register a new user", $merchant), StatusCode::$CREATED);
         }
         return response()->json(ResponseObject::failResponse(), StatusCode::$INTERNAL_SERVER_ERROR);
     }
@@ -65,6 +71,6 @@ class AuthController extends Controller
 
     public function check(Request $request)
     {
-        // return response(['user' => auth()->user()]);
+        return response(['user' => auth()->user()]);
     }
 }

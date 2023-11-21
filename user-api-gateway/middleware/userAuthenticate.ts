@@ -17,7 +17,7 @@ const strategyOption: StrategyOptions = {
   algorithms: ["RS256"],
 };
 
-const authenticate = (req: Request, res: Response, next: NextFunction) => {
+const userAuthenticate = (req: Request, res: Response, next: NextFunction) => {
   const urlWithOutAuth = ["/auth/register", "/auth/login"];
 
   if (urlWithOutAuth.includes(req.url)) {
@@ -27,7 +27,7 @@ const authenticate = (req: Request, res: Response, next: NextFunction) => {
 
   // Authenticate User
   passport.authenticate(
-    "jwt",
+    "user",
     { session: false },
     (err: any, user: IUser | null) => {
       if (err || !user) {
@@ -50,9 +50,10 @@ const authenticate = (req: Request, res: Response, next: NextFunction) => {
   )(req, res, next);
 };
 
-const passportStrategy = new JwtStrategy(
+const userPasswordStrategy = new JwtStrategy(
   strategyOption,
   async (payload: JWTPayload, done: Function) => {
+    console.log("User Passport");
     try {
       const getUser = await User.findFirst({
         where: {
@@ -76,4 +77,4 @@ const passportStrategy = new JwtStrategy(
   }
 );
 
-export { authenticate, passportStrategy };
+export { userAuthenticate, userPasswordStrategy };
