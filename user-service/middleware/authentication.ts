@@ -2,7 +2,7 @@ import passportJWT, { ExtractJwt, StrategyOptions } from "passport-jwt";
 import { User } from "../config/prisma";
 import { JWTPayload } from "../utils/userAuth";
 
-const PUBLIC_KEY = process.env.USER_SERVICE_PUBLIC_SECRET_KEY;
+const PUBLIC_KEY = process.env.PROJECT_PUBLIC_KEY;
 
 const JwtStrategy = passportJWT.Strategy;
 

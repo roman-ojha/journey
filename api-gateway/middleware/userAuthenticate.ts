@@ -2,12 +2,13 @@ import passportJWT, { ExtractJwt, StrategyOptions } from "passport-jwt";
 import { User } from "../config/prisma";
 import JWTPayload from "../interface/JWTPayload";
 import passport from "passport";
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction, json } from "express";
 import { STATUS_CODES } from "../../data/constants";
 import { failResponse } from "../../utils/responseObject";
 import { IUser } from "../../models/User";
+import { encryptMessageWithPublicKey } from "../utils/encrypt";
 
-const PUBLIC_KEY = process.env.USER_SERVICE_PUBLIC_SECRET_KEY;
+const PUBLIC_KEY = process.env.PROJECT_PUBLIC_KEY;
 
 const JwtStrategy = passportJWT.Strategy;
 
@@ -37,6 +38,11 @@ const userAuthenticate = (req: Request, res: Response, next: NextFunction) => {
           .json(failResponse("Unauthorized"));
       }
 
+      const encryptedUser = encryptMessageWithPublicKey(JSON.stringify(user));
+
+      console.log(encryptedUser.toString());
+
+      req.headers["x-user"] = encryptedUser.toString();
       req.headers["x-user-id"] = user.id.toString();
       req.headers["x-user-email"] = user.email;
       req.headers["x-user-number"] = user.number.toString();

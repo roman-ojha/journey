@@ -8,8 +8,8 @@ declare namespace NodeJS {
     API_GATEWAY_URL: string;
     USER_SERVICE_DATABASE_URL: string;
     API_GATEWAY_PORT: number;
-    USER_SERVICE_PUBLIC_SECRET_KEY: string;
-    USER_SERVICE_PRIVATE_SECRET_KEY: string;
+    PROJECT_PUBLIC_KEY: string;
+    PROJECT_PRIVATE_KEY: string;
     ADMIN_CLIENT_PORT: number;
     ADMIN_CLIENT_URL: string;
     ADMIN_SERVICE_PORT: number;
