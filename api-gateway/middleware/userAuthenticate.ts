@@ -38,19 +38,8 @@ const userAuthenticate = (req: Request, res: Response, next: NextFunction) => {
           .json(failResponse("Unauthorized"));
       }
 
-      const encryptedUser = encryptMessageWithPublicKey(JSON.stringify(user));
-
-      console.log(encryptedUser.toString());
-
-      req.headers["x-user"] = encryptedUser.toString();
-      req.headers["x-user-id"] = user.id.toString();
-      req.headers["x-user-email"] = user.email;
-      req.headers["x-user-number"] = user.number.toString();
-      req.headers["x-user-f_name"] = user.f_name;
-      req.headers["x-user-l_name"] = user.l_name;
-      if (user.photo_url) req.headers["x-user-photo_url"] = user.photo_url;
-      req.headers["x-user-gender"] = user.gender;
-
+      const encryptedUser = encryptMessageWithPublicKey(user);
+      req.headers["x-user"] = encryptedUser;
       return next();
     }
   )(req, res, next);

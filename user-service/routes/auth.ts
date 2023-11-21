@@ -20,10 +20,6 @@ router.post(
   authController.loginUser
 );
 
-router.get(
-  "/check",
-  // passport.authenticate("jwt", { session: false }),
-  authController.checkAuth
-);
+router.get("/check", authController.checkAuth);
 
 export default router;

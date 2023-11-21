@@ -170,8 +170,8 @@ class AuthController {
 
   async checkAuth(req: Request, res: Response, next: NextFunction) {
     try {
-      console.log(req.user);
-      console.log(req.isAuthenticated());
+      // console.log(req.user);
+      // console.log(req.isAuthenticated());
       return res.json(successResponse("Auth user", {}));
     } catch (err) {
       return next(err);
