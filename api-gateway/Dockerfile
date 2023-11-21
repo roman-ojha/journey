@@ -1,6 +1,6 @@
 FROM node:20.9.0-alpine
 
-WORKDIR /app/user-api-gateway
+WORKDIR /app/api-gateway
 
 COPY ./package.json .
 

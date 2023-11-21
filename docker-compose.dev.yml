@@ -21,17 +21,20 @@ services:
       - docker.env
     depends_on:
       - admin-service
-      - user-api-gateway
+      - api-gateway
       - api-docs
 
-  user-api-gateway:
-    container_name: journey-user-api-gateway
-    image: romanojha/journey-user-api-gateway
+  api-gateway:
+    container_name: journey-api-gateway
+    image: romanojha/journey-api-gateway
     build:
-      context: ./user-api-gateway
+      context: ./api-gateway
       dockerfile: Dockerfile
     env_file:
       - docker.env
+    depends_on:
+      - postgres
+      - mysql
 
   user-service:
     container_name: journey-user-service

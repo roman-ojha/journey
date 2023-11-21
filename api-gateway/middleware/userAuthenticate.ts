@@ -53,7 +53,6 @@ const userAuthenticate = (req: Request, res: Response, next: NextFunction) => {
 const userPasswordStrategy = new JwtStrategy(
   strategyOption,
   async (payload: JWTPayload, done: Function) => {
-    console.log("User Passport");
     try {
       const getUser = await User.findFirst({
         where: {

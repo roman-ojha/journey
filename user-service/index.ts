@@ -11,7 +11,7 @@ const app = express();
 
 const PORT = process.env.USER_SERVICE_PORT;
 
-const allowedDomains = [process.env.USER_API_GATEWAY_URL];
+const allowedDomains = [process.env.API_GATEWAY_URL];
 
 passport.use(passportStrategy);
 app.use(passport.initialize());
@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    // origin: process.env.USER_API_GATEWAY_SERVICE_URL,
+    // origin: process.env.API_GATEWAY_SERVICE_URL,
     // optionsSuccessStatus: 200,
   })
 );

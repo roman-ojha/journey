@@ -48,7 +48,7 @@ const merchantAuthenticate = (
       // req.headers["x-user-l_name"] = user.l_name;
       // if (user.photo_url) req.headers["x-user-photo_url"] = user.photo_url;
       // req.headers["x-user-gender"] = user.gender;
-      console.log(user);
+      // console.log(user);
       return next();
     }
   )(req, res, next);
@@ -57,13 +57,13 @@ const merchantAuthenticate = (
 const merchantPassportStrategy = new JwtStrategy(
   strategyOption,
   async (payload: any, done: Function) => {
-    console.log("Merchant Passport");
     try {
       merchantDb.query(
         `SELECT id, f_name, l_name, email, number, company_name FROM merchants where id=${payload.sub}`,
         function (err, results: any, fields) {
           console.log();
           if (err) {
+            console.log(err);
             // NOTE: Raise Internal Server error
           }
           const merchant = (results as Array<Object>)[0];

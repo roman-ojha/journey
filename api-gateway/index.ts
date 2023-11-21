@@ -15,7 +15,7 @@ passport.use("user", userPasswordStrategy);
 passport.use("merchant", merchantPassportStrategy);
 app.use(passport.initialize());
 
-const PORT = process.env.USER_GATEWAY_PORT;
+const PORT = process.env.API_GATEWAY_PORT;
 
 app.use(
   "/user",
