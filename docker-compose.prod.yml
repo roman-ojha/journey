@@ -1,4 +1,4 @@
-version: "3"
+version: "3.9"
 services:
   api-docs:
     container_name: journey-api-docs-service
@@ -6,8 +6,8 @@ services:
     build:
       context: ./api-docs-service
       dockerfile: Dockerfile
-    ports:
-      - "8000:8000"
+    env_file:
+      - docker.env
 
   main-proxy:
     container_name: journey-main-proxy
@@ -16,7 +16,11 @@ services:
       context: ./temp-main-proxy
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "8003:8003"
+    depends_on:
+      - admin-service
+      - api-gateway
+      - api-docs
 
   api-gateway:
     container_name: journey-api-gateway
@@ -24,8 +28,9 @@ services:
     build:
       context: ./api-gateway
       dockerfile: Dockerfile
-    ports:
-      - "8001:8001"
+    depends_on:
+      - postgres
+      - mysql
 
   user-service:
     container_name: journey-user-service
@@ -33,8 +38,20 @@ services:
     build:
       context: ./user-service
       dockerfile: Dockerfile
+    depends_on:
+      - postgres
+
+  user-service-prisma-studio:
+    container_name: journey-user-service-prisma-studio
+    image: romanojha/journey-user-service-prisma-studio
+    build:
+      context: ./user-service
+      dockerfile: Prisma.Dockerfile
     ports:
-      - "8002:8002"
+      - "5555:5555"
+    depends_on:
+      - user-service
+      - postgres
 
   # admin-client:
   #   container_name: journey-admin-client
@@ -53,5 +70,47 @@ services:
     build:
       context: ./admin-service
       dockerfile: Dockerfile
+    depends_on:
+      - mysql
+
+  merchant-service:
+    container_name: journey-merchant-service
+    image: romanojha/journey-merchant-service
+    build:
+      context: ./merchant-service
+      dockerfile: Dockerfile
+    # restart: unless-stopped
+    volumes:
+      - ./merchant-service:/var/www/html
+    depends_on:
+      - mysql
+
+  phpmyadmin:
+    container_name: journey-phpmyadmin
+    image: phpmyadmin:5.2.1-apache
     ports:
-      - "8004:8004"
+      - "8080:80"
+    links:
+      - "mysql:db"
+
+  postgres:
+    container_name: journey-postgres-db
+    image: postgres:14
+    # ports:
+    #   - "5432:5432"
+    volumes:
+      - journey-postgresql:/var/lib/postgresql/data
+
+  mysql:
+    container_name: journey-mysql-db
+    image: mysql:8.2.0
+    # ports:
+    #   - "3306:3306"
+    volumes:
+      - journey-mysql:/var/lib/mysql
+
+volumes:
+  journey-postgresql:
+    driver: local
+  journey-mysql:
+    driver: local

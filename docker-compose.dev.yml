@@ -1,65 +1,65 @@
 version: "3.9"
 services:
-  # api-docs:
-  #   container_name: journey-api-docs-service
-  #   image: romanojha/journey-api-docs-service
-  #   build:
-  #     context: ./api-docs-service
-  #     dockerfile: Dockerfile
-  #   env_file:
-  #     - docker.env
+  api-docs:
+    container_name: journey-api-docs-service
+    image: romanojha/journey-api-docs-service
+    build:
+      context: ./api-docs-service
+      dockerfile: Dockerfile
+    env_file:
+      - docker.env
 
-  # main-proxy:
-  #   container_name: journey-main-proxy
-  #   image: romanojha/journey-temp-main-proxy
-  #   build:
-  #     context: ./temp-main-proxy
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "8003:8003"
-  #   env_file:
-  #     - docker.env
-  #   depends_on:
-  #     - admin-service
-  #     - api-gateway
-  #     - api-docs
+  main-proxy:
+    container_name: journey-main-proxy
+    image: romanojha/journey-temp-main-proxy
+    build:
+      context: ./temp-main-proxy
+      dockerfile: Dockerfile
+    ports:
+      - "8003:8003"
+    env_file:
+      - docker.env
+    depends_on:
+      - admin-service
+      - api-gateway
+      - api-docs
 
-  # api-gateway:
-  #   container_name: journey-api-gateway
-  #   image: romanojha/journey-api-gateway
-  #   build:
-  #     context: ./api-gateway
-  #     dockerfile: Dockerfile
-  #   env_file:
-  #     - docker.env
-  #   depends_on:
-  #     - postgres
-  #     - mysql
+  api-gateway:
+    container_name: journey-api-gateway
+    image: romanojha/journey-api-gateway
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    env_file:
+      - docker.env
+    depends_on:
+      - postgres
+      - mysql
 
-  # user-service:
-  #   container_name: journey-user-service
-  #   image: romanojha/journey-user-service
-  #   build:
-  #     context: ./user-service
-  #     dockerfile: Dockerfile
-  #   env_file:
-  #     - docker.env
-  #   depends_on:
-  #     - postgres
+  user-service:
+    container_name: journey-user-service
+    image: romanojha/journey-user-service
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    env_file:
+      - docker.env
+    depends_on:
+      - postgres
 
-  # user-service-prisma-studio:
-  #   container_name: journey-user-service-prisma-studio
-  #   image: romanojha/journey-user-service-prisma-studio
-  #   build:
-  #     context: ./user-service
-  #     dockerfile: Prisma.Dockerfile
-  #   env_file:
-  #     - docker.env
-  #   ports:
-  #     - "5555:5555"
-  #   depends_on:
-  #     - user-service
-  #     - postgres
+  user-service-prisma-studio:
+    container_name: journey-user-service-prisma-studio
+    image: romanojha/journey-user-service-prisma-studio
+    build:
+      context: ./user-service
+      dockerfile: Prisma.Dockerfile
+    env_file:
+      - docker.env
+    ports:
+      - "5555:5555"
+    depends_on:
+      - user-service
+      - postgres
 
   # admin-client:
   #   container_name: journey-admin-client
@@ -72,16 +72,16 @@ services:
   #   env_file:
   #     - ./admin-client/.env
 
-  # admin-service:
-  #   container_name: journey-admin-service
-  #   image: romanojha/journey-admin-service
-  #   build:
-  #     context: ./admin-service
-  #     dockerfile: Dockerfile
-  #   env_file:
-  #     - docker.env
-  #   depends_on:
-  #     - mysql
+  admin-service:
+    container_name: journey-admin-service
+    image: romanojha/journey-admin-service
+    build:
+      context: ./admin-service
+      dockerfile: Dockerfile
+    env_file:
+      - docker.env
+    depends_on:
+      - mysql
 
   merchant-service:
     container_name: journey-merchant-service
@@ -107,15 +107,15 @@ services:
     links:
       - "mysql:db"
 
-  # postgres:
-  #   container_name: journey-postgres-db
-  #   image: postgres:14
-  #   env_file:
-  #     - docker.env
-  #   # ports:
-  #   #   - "5432:5432"
-  #   volumes:
-  #     - journey-postgresql:/var/lib/postgresql/data
+  postgres:
+    container_name: journey-postgres-db
+    image: postgres:14
+    env_file:
+      - docker.env
+    # ports:
+    #   - "5432:5432"
+    volumes:
+      - journey-postgresql:/var/lib/postgresql/data
 
   mysql:
     container_name: journey-mysql-db
