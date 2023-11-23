@@ -1,3 +1,8 @@
+# For Docker
+Dockerfile
+.dockerignore
+
+# From .gitignore
 /.phpunit.cache
 /node_modules
 /public/build
@@ -18,3 +23,4 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
