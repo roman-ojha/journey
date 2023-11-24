@@ -1,6 +1,7 @@
 # For Docker
 Dockerfile
 .dockerignore
+*.pem
 
 # From .gitignore
 /.phpunit.cache
@@ -12,8 +13,8 @@ Dockerfile
 /vendor
 .env
 .env.backup
-.env.production
-docke.env
+.env.prod
+docker.env
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml

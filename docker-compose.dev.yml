@@ -35,6 +35,8 @@ services:
     depends_on:
       - postgres
       - mysql
+      - merchant-service
+      - user-service
 
   user-service:
     container_name: journey-user-service
@@ -90,8 +92,8 @@ services:
       context: ./merchant-service
       dockerfile: Dockerfile
     # restart: unless-stopped
-    volumes:
-      - ./merchant-service:/var/www/html
+    # volumes: # for development on docker container
+    #   - ./merchant-service:/var/www/html
     env_file:
       - ./merchant-service/docker.env
     depends_on:

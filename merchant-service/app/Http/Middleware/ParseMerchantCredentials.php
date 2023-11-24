@@ -19,8 +19,8 @@ class ParseMerchantCredentials
         // if (!file_exists($privateKeyPath)) {
         //     error_log("Private key path not found");
         // }
-        $privateKey = openssl_pkey_get_private(file_get_contents($privateKeyPath));
-        // $privateKey = openssl_pkey_get_private(env('PROJECT_PRIVATE_KEY'));
+        // $privateKey = openssl_pkey_get_private(file_get_contents($privateKeyPath));
+        $privateKey = openssl_pkey_get_private(env('PROJECT_PRIVATE_KEY'));
         $encryptedUserBuffer = base64_decode($request->header('x-user'));
         $decryptedUser = '';
         $decryptionResult = openssl_private_decrypt($encryptedUserBuffer, $decryptedUser, $privateKey, OPENSSL_PKCS1_OAEP_PADDING);
