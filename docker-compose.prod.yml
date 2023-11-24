@@ -6,8 +6,6 @@ services:
     build:
       context: ./api-docs-service
       dockerfile: Dockerfile
-    env_file:
-      - docker.env
 
   main-proxy:
     container_name: journey-main-proxy
@@ -80,8 +78,6 @@ services:
       context: ./merchant-service
       dockerfile: Dockerfile
     # restart: unless-stopped
-    volumes:
-      - ./merchant-service:/var/www/html
     depends_on:
       - mysql
 
