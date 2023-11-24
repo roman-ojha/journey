@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: journey-admin-service
+  namespace: journey
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: journey-admin-service
+  template:
+    metadata:
+      labels:
+        app: journey-admin-service
+    spec:
+      containers:
+        - name: journey-admin-service
+          image: romanojha/journey-admin-service
+          envFrom:
+            - configMapRef:
+                name: journey-project-configmap
+            - secretRef:
+                name: journey-project-secret
+          resources: # research on this one about required resources
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8004
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: journey-admin-service
+  namespace: journey
+spec:
+  selector:
+    app: journey-admin-service
+  type: ClusterIP
+  ports:
+    - port: 8004
+      targetPort: 8004
+      protocol: TCP

@@ -73,5 +73,6 @@ jobs:
 
   #     - name: Apply Kubernetes Manifests to EKS
   #       run: |
-  #         kubectl apply -f ./manifests
+  #         kubectl apply -f ./manifests/namespace.yml
+  #         kubectl config set-context --current --namespace=journey
   #         kubectl delete pods --all -n default
