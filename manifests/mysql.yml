@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: journey-mysql
+  namespace: journey
+  labels:
+    name: journey-mysql
+spec:
+  ports:
+    - port: 3306
+      targetPort: 3306
+  clusterIP: None
+  selector:
+    role: journey-mysql
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: journey-mysql
+  namespace: journey
+spec:
+  serviceName: "journey-mysql"
+  replicas: 1
+  selector:
+    matchLabels:
+      role: journey-mysql
+  template:
+    metadata:
+      labels:
+        role: journey-mysql
+        environment: prod
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: journey-mysql
+          image: mysql:8.2.0
+          envFrom:
+            - configMapRef:
+                name: journey-project-configmap
+            - secretRef:
+                name: journey-project-secret
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - name: journey-mysql-persistent-storage
+              mountPath: /var/lib/mysql
+  volumeClaimTemplates:
+    - metadata:
+        name: journey-mysql-persistent-storage
+        annotations:
+          volume.beta.kubernetes.io/storage-class: "fast"
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi

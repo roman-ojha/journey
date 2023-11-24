@@ -12,14 +12,14 @@ data:
   ADMIN_SERVICE_PORT: "8004"
   ADMIN_SERVICE_URL: http://127.0.0.1:8004/ # need to change
   ADMIN_SERVICE_DATABASE_NAME: journey_admin_service
-  ADMIN_SERVICE_DATABASE_HOST: localhost # need to change
+  ADMIN_SERVICE_DATABASE_HOST: journey-mysql
   ADMIN_SERVICE_DATABASE_PORT: "3306"
   ADMIN_CLIENT_PORT: "3000"
   ADMIN_CLIENT_URL: http://localhost:3000 # need to change
   MERCHANT_SERVICE_PORT: "8005"
   MERCHANT_SERVICE_URL: http://localhost:8005 # need to change
   MERCHANT_SERVICE_DATABASE_NAME: journey_merchant_service
-  MERCHANT_SERVICE_DATABASE_HOST: localhost # need to change
+  MERCHANT_SERVICE_DATABASE_HOST: journey-mysql
   MERCHANT_SERVICE_DATABASE_PORT: "3306"
   API_GATEWAY_PORT: "8001"
   API_GATEWAY_URL: http://localhost:8001 # need to change
