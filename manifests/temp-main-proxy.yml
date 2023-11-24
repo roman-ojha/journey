@@ -36,6 +36,7 @@ metadata:
 spec:
   selector:
     app: journey-temp-main-proxy
+  type: LoadBalancer
   ports:
     - port: 8003
       targetPort: 8003

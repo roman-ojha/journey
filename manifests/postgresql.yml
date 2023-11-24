@@ -1,0 +1,115 @@
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: journey-postgresql
+# spec:
+#   selector:
+#     app: journey-postgresql
+#   clusterIP: None
+#   ports:
+#     - port: 5432
+#       targetPort: 5432
+---
+# Firstly claiming the required persistent volume
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: journey-postgresql-volume-claim
+# spec:
+#   storageClassName: "standard"
+#   accessModes:
+#     - ReadWriteOnce
+#   resources:
+#     requests:
+#       storage: 1G
+# ---
+# apiVersion: "apps/v1"
+# kind: "StatefulSet"
+# metadata:
+#   name: "journey-postgresql"
+#   namespace: "default"
+#   labels:
+#     app: "journey-postgresql"
+# spec:
+#   serviceName: "journey-postgresql"
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: "journey-postgresql"
+#   template:
+#     metadata:
+#       labels:
+#         app: "journey-postgresql"
+#     spec:
+#       terminationGracePeriodSeconds: 10
+#       containers:
+#         - name: "journey-postgresql"
+#           image: postgres:14
+#           ports:
+#             - containerPort: 5432
+#               name: journey-postgresql-port
+#           volumeMounts:
+#             - name: journey-postgresql-volume # mounting volume with default postgres path
+#               mountPath: /var/lib/postgresql/data
+#               subPath: data
+#       volumes:
+#         - name: journey-postgresql-volume
+#           persistentVolumeClaim:
+#             claimName: journey-postgresql-volume-claim # using claimed volume here
+apiVersion: v1
+kind: Service
+metadata:
+  name: journey-postgresql
+  namespace: journey
+  labels:
+    name: journey-postgresql
+spec:
+  ports:
+    - port: 5432
+      targetPort: 5432
+  clusterIP: None
+  selector:
+    role: journey-postgresql
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: journey-postgresql
+  namespace: journey
+spec:
+  serviceName: "journey-postgresql"
+  replicas: 1
+  selector:
+    matchLabels:
+      role: journey-postgresql
+  template:
+    metadata:
+      labels:
+        role: journey-postgresql
+        environment: prod
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: journey-postgresql
+          image: postgres:14
+          envFrom:
+            - configMapRef:
+                name: journey-project-configmap
+            - secretRef:
+                name: journey-project-secret
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: journey-postgresql-persistent-storage
+              mountPath: /var/lib/postgresql/data
+              subPath: data
+  volumeClaimTemplates:
+    - metadata:
+        name: journey-postgresql-persistent-storage
+        annotations:
+          volume.beta.kubernetes.io/storage-class: "fast"
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
