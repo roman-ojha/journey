@@ -31,11 +31,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: journey-api-docs-service
+  name: journey-temp-main-proxy
   namespace: journey
 spec:
   selector:
-    app: journey-api-docs-service
+    app: journey-temp-main-proxy
   ports:
     - port: 8003
       targetPort: 8003

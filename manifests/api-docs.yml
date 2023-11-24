@@ -36,9 +36,8 @@ metadata:
 spec:
   selector:
     app: journey-api-docs-service
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - port: 8000
       targetPort: 8000
       protocol: TCP
-      nodePort: 30000
