@@ -4,6 +4,7 @@ info:
   version: "1.0.0"
 servers:
   - url: "http://localhost:8003/api"
+  - url: "http://35.200.204.53:8003/api"
 tags:
   - name: "User"
     description: User Service API

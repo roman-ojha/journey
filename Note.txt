@@ -4,9 +4,9 @@
 *) Functional Requirement:
     -> User can be able to Register & logged into the system
     -> User can be able to Pick From & To Places to find the best possible Vehicle.
-    -> User can View all the seats which are available and are already booked
+    -> User can View all the seats which are available and are already booked.
     -> User can book the seats with given price by paying through payment gateway service
-    -> User can view all the reviews done for that specific Vehicle.
+    -> User can view all the reviews done for that specific Vehicle Service.
     -> User can review the specific Vehicle after they have take the service.
     -> Merchant can Register with given minimal charge and logged into the Merchant Site.
     -> Merchant can list all the available Vehicle with required details.
@@ -23,20 +23,19 @@
 
 
 *) Backend Framework for all MicroServices:
-    1) User:
-        2> Gateway : Express
-        3> User Service: Express
-        4> Vehicle Service: Django
-        5> Booking Service: Express
-        6> Review Service: FastAPI
-    2) Merchant:
-        2> Gateway: Laravel
-        3> Merchant Service: Laravel
-        4> Vehicle & Travel Service: Laravel
-    3) Vehicle Booking Service: Django
-    4) Admin: Django
-    5) Swagger Docs Service: Express
-    6) Main Proxy Server: Nginx
+    1) Gateway : Express
+    2) User:
+        1> User Service: Express
+        2> Vehicle Service: Django
+        3> Booking Service: Express
+        4> Review Service: FastAPI
+    3) Merchant:
+        1> Merchant Service: Laravel
+        2> Vehicle & Travel Service: Laravel
+    4) Vehicle Booking Service: Django
+    5) Admin: Django
+    6) Swagger Docs Service: Express
+    7) Main Proxy Server: Nginx
     
 *) FrontEnd Framework for all Client Application:
     1) User Application: NextJS, SCSS
@@ -49,12 +48,12 @@
     
 
 *) Git Branches:
-    1. development
-        -> development happen in local machine
-    2. staging
-        -> pushed to staging brach so that developer can see the preview deployment of the application deployed on cloud service for preview
-    3. main
-        -> pushed to main branch so that End user can access the application, Production branch
+    1. development:
+        -> development phase
+    2. staging:
+        -> merge to staging brach so that developer can see the preview deployment of the application deployed on cloud service.
+    3. main:
+        -> merge to main branch so that end user can access the application, Also we can called it as production branch.
         
 
 Django error format:
