@@ -31,8 +31,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 if os.environ.get('ENVIRONMENT') == "development":
     ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0']
-elif os.environ.get('ENVIRONMENT') == "docker":
-    # Allow docker container to request on this service
+elif os.environ.get('ENVIRONMENT') == "docker" or os.environ.get('ENVIRONMENT') == "k8s":
+    # Allow docker container and Kubernetes cluster to request on this service
     # ALLOWED_HOSTS = ["host.docker.internal"]
     ALLOWED_HOSTS = ["journey-admin-service"]
 

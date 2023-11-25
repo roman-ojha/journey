@@ -22,7 +22,7 @@ data:
   MERCHANT_SERVICE_DATABASE_HOST: journey-mysql
   MERCHANT_SERVICE_DATABASE_PORT: "3306"
   API_GATEWAY_PORT: "8001"
-  API_GATEWAY_URL: http://localhost:8001 # need to change
+  API_GATEWAY_URL: http://journey-api-gateway:8001 # need to change
   USER_SERVICE_PORT: "8002"
   USER_SERVICE_URL: http://localhost:8002 # need to change
   USER_SERVICE_PRISMA_STUDIO_URL: http://localhost:5555 # need to change

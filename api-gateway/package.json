@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "dotenv -e ../.env.dev nodemon ./index.ts",
-    "start": "dotenv -e ../.env.dev node ./dist/api-gateway/index.js",
+    "start": "node ./dist/api-gateway/index.js",
     "prisma:generate": "copyfiles -f ../user-service/prisma/schema.prisma ./prisma && npx prisma generate",
     "delete-after-docker-build": "rimraf ./temp"
   },
