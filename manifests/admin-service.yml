@@ -4,7 +4,7 @@ metadata:
   name: journey-admin-service
   namespace: journey
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: journey-admin-service

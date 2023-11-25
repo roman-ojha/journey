@@ -4,7 +4,7 @@ metadata:
   name: journey-temp-main-proxy
   namespace: journey
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: journey-temp-main-proxy

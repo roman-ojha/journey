@@ -4,7 +4,7 @@ metadata:
   name: journey-api-gateway
   namespace: journey
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: journey-api-gateway

@@ -42,7 +42,7 @@ spec:
     metadata:
       labels:
         role: journey-mongo
-        environment: prod
+        environment: preview
     spec:
       terminationGracePeriodSeconds: 10
       containers:
@@ -61,7 +61,7 @@ spec:
           image: cvallance/mongo-k8s-sidecar
           env:
             - name: MONGO_SIDECAR_POD_LABELS
-              value: "role=journey-mongo,environment=prod"
+              value: "role=journey-mongo,environment=preview"
   volumeClaimTemplates:
     - metadata:
         name: journey-mongo-persistent-storage
