@@ -9,11 +9,13 @@
     "prisma:migrate": "dotenv -e ../.env.dev -- npx prisma migrate dev --name",
     "prisma:studio": "dotenv -e ../.env.dev -- npx prisma studio",
     "prisma:deploy": "dotenv -e ../.env.dev -- npx prisma migrate deploy",
-    "prisma:generate": "npx prisma generate"
+    "prisma:generate": "npx prisma generate",
+    "prisma:seed": "dotenv -e ../.env.dev -- ts-node ./prisma/seed.ts"
   },
   "author": "roman-ojha",
   "license": "MIT",
   "dependencies": {
+    "@faker-js/faker": "^8.3.1",
     "@google-cloud/storage": "^7.6.0",
     "@prisma/client": "^5.5.2",
     "cors": "^2.8.5",
