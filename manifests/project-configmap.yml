@@ -7,6 +7,7 @@ data:
   ENVIRONMENT: k8s
   POSTGRES_DB: postgres
   MAIN_PROXY_PORT: "8003"
+  MAIN_PROXY_URL: http://journey-main-proxy:8003 # It needs to be External Ip address of the service
   API_DOCS_SERVICE_PORT: "8000"
   API_DOCS_SERVICE_URL: http://journey-api-docs-service:8000 # need to change
   ADMIN_SERVICE_PORT: "8004"

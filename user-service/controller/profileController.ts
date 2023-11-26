@@ -13,6 +13,7 @@ class ProfileController extends Controller {
   constructor() {
     super();
     this.uploadPicture = this.uploadPicture.bind(this);
+    this.sendUserProfile = this.sendUserProfile.bind(this);
   }
 
   async uploadPicture(req: Request, res: Response, next: NextFunction) {
@@ -63,6 +64,18 @@ class ProfileController extends Controller {
       const fileStream = file.createReadStream();
       res.set("Content-Type", "image/jpeg");
       fileStream.pipe(res);
+    } catch (err) {
+      return next(err);
+    }
+  }
+
+  async sendUserProfile(req: Request, res: Response, next: NextFunction) {
+    try {
+      const authenticatedUser = req.user as IUser;
+      const user = await this.repository.findFirstSecureUserUsingEmail(
+        authenticatedUser.email
+      );
+      return res.json(user);
     } catch (err) {
       return next(err);
     }

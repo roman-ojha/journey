@@ -1,6 +1,7 @@
 declare namespace NodeJS {
   interface ProcessEnv {
     MAIN_PROXY_PORT: string;
+    MAIN_PROXY_URL: string;
     API_DOCS_SERVICE_PORT: string;
     API_DOCS_SERVICE_URL: string;
     USER_SERVICE_PORT: string;
