@@ -827,6 +827,38 @@ paths:
           $ref: "#/components/responses/BadRequest"
         "500":
           $ref: "#/components/responses/InternalServerError"
+
+  /merchant/profile/picture:
+    post:
+      summary: Upload merchant picture
+      description: Upload authenticated merchant profile picture
+      tags:
+        - "Merchant"
+      security:
+        - merchantAuth: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              # required:
+              #   - "picture"
+              properties:
+                picture:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MerchantResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
   /merchant/auth/check:
     get:
       tags:

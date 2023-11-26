@@ -1,10 +1,11 @@
-import { PrismaClient, User } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { faker } from "@faker-js/faker";
 import { generatePassword } from "../utils/userAuth";
+import { IUser } from "../../models/User";
 
 const createRandomUser = () => {
   const password = generatePassword(faker.internet.password({ length: 15 }));
-  const gender: User["gender"][] = ["MALE", "FEMALE", "OTHER"];
+  const gender: IUser["gender"][] = ["MALE", "FEMALE", "OTHER"];
   const avatar = [
     // These are the path of avatar exist in GCP cloud storage bucket
     "avatar/random-avatar-1.jpg",
