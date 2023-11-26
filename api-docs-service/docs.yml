@@ -111,8 +111,9 @@ components:
         id:
           type: number
           example: 1
-        photo_url:
+        picture:
           type: string
+          example: "<url>"
 
     UserResponse:
       description: User object that get as a response body

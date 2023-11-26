@@ -1,7 +1,6 @@
 import { Router } from "express";
 import AuthController from "../controller/authController";
 import checkValidationError from "../middleware/checkValidationError";
-import passport from "passport";
 
 const router = Router();
 const authController = new AuthController();
@@ -19,7 +18,5 @@ router.post(
   checkValidationError,
   authController.loginUser
 );
-
-router.get("/check", authController.checkAuth);
 
 export default router;

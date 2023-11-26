@@ -50,7 +50,9 @@ function successResponse(message: string, data: {}) {
   };
 }
 
-function failResponse(message: string) {
+function failResponse(
+  message: string = "Internal server error, please try again later"
+) {
   return <FailResponse>{
     message,
   };

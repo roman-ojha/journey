@@ -167,16 +167,6 @@ class AuthController {
       return next(err);
     }
   }
-
-  async checkAuth(req: Request, res: Response, next: NextFunction) {
-    try {
-      // console.log(req.user);
-      // console.log(req.isAuthenticated());
-      return res.json(successResponse("Auth user", {}));
-    } catch (err) {
-      return next(err);
-    }
-  }
 }
 
 export default AuthController;

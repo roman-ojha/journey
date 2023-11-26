@@ -59,7 +59,7 @@ const userPasswordStrategy = new JwtStrategy(
           number: true,
           f_name: true,
           l_name: true,
-          photo_url: true,
+          picture: true,
           gender: true,
         },
       });

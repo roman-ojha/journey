@@ -24,7 +24,7 @@ model User {
   l_name             String
   password           String
   salt               String
-  photo_url          String?
+  picture            String?
   gender             Gender
   is_verified        Boolean  @default(false)
   verification_token String?

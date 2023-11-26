@@ -35,6 +35,6 @@ declare namespace NodeJS {
     MERCHANT_SERVICE_DATABASE_PORT: string;
     MERCHANT_SERVICE_JWT_SECRET_KEY: string;
     SWAGGER_AUTH_TOKEN: string;
-    GCP_CLOUD_STORAGE_BUCKET_NAME: string;
+    GCP_CLOUD_STORAGE_PUBLIC_BUCKET_NAME: string;
   }
 }

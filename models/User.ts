@@ -11,7 +11,7 @@ interface IUser {
   f_name: string;
   l_name: string;
   password: string;
-  photo_url: string | null;
+  picture: string | null;
   gender: "MALE" | "FEMALE" | "OTHER";
   is_verified: boolean;
   verification_token: string | null;
