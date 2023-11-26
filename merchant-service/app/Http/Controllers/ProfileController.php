@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Merchant;
 use Illuminate\Http\Request;
 
 require_once base_path('data/constants.php');
@@ -23,6 +24,9 @@ class ProfileController extends Controller
             ]), StatusCode::$VALIDATION_ERROR);
         }
         $file = $request->file('picture');
-        // error_log($file->getClientOriginalName());
+        // $file->store('upload',); // upload locally
+        $uploadResponse = CloudStorage::bucket()->upload($file->get(), ['name' => 'merchant/' . $file->hashName()]);
+        error_log($uploadResponse->name());
+        //TODO:  Update merchant picture
     }
 }

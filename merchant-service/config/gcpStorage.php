@@ -10,6 +10,7 @@ class CloudStorage
 
     public static function bucket()
     {
+        $content = file_get_contents(base_path() . '/../gcp-cloud-storage-access-service-account-key.json');
         $storage = new StorageClient([
             'keyFile' => json_decode(file_get_contents(base_path() . '/../gcp-cloud-storage-access-service-account-key.json'), true)
         ]);

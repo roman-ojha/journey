@@ -39,7 +39,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -55,6 +55,15 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw' => false,
         ],
+
+        // 'gcs' => [
+        //     'driver' => 'gcs',
+        //     // 'project_id' => 'your-project-id',
+        //     'key_file' => json_decode(file_get_contents(base_path() . '/../gcp-cloud-storage-access-service-account-key.json'), true),
+        //     'bucket' => env("GCP_CLOUD_STORAGE_PUBLIC_BUCKET_NAME", ""),
+        //     // 'path_prefix' => null,
+        //     // 'storage_api_uri' => null,
+        // ],
 
     ],
 
