@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: journey-temp-main-proxy
+  name: journey-main-proxy
   namespace: journey
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: journey-temp-main-proxy
+      app: journey-main-proxy
   template:
     metadata:
       labels:
-        app: journey-temp-main-proxy
+        app: journey-main-proxy
     spec:
       containers:
-        - name: journey-temp-main-proxy
+        - name: journey-main-proxy
           image: romanojha/journey-temp-main-proxy
           envFrom:
             - configMapRef:
@@ -31,14 +31,14 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: journey-temp-main-proxy
+  name: journey-main-proxy
   namespace: journey
 spec:
   selector:
-    app: journey-temp-main-proxy
+    app: journey-main-proxy
   type: LoadBalancer
   ports:
     - port: 8003
       targetPort: 8003
       protocol: TCP
-      nodePort: 30003
+      nodePort: 0

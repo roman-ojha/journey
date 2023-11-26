@@ -4,7 +4,7 @@ info:
   version: "1.0.0"
 servers:
   - url: "http://localhost:8003/api"
-  - url: "http://35.200.204.53:8003/api"
+  - url: "http://35.200.255.104:8003/api"
 tags:
   - name: "User"
     description: User Service API
@@ -396,8 +396,31 @@ paths:
                   format: binary
       responses:
         "200":
-          description: Successfully uploaded the profile picture
-          $ref: "#/components/responses/Successful"
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /user/profile:
+    get:
+      summary: Get User Data
+      description: Get Authenticated User Information
+      tags:
+        - "User"
+      security:
+        - userAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserResponse"
         "422":
           description: Validation Error
           $ref: "#/components/responses/BadRequest"

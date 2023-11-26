@@ -33,9 +33,10 @@ const userAuthenticate = (req: Request, res: Response, next: NextFunction) => {
     (err: any, user: IUser | null) => {
       if (err || !user) {
         // If authentication fails, respond with an unauthorized status
-        return res
-          .status(STATUS_CODES.UNAUTHORIZED)
-          .json(failResponse("Unauthorized"));
+        // return res
+        //   .status(STATUS_CODES.UNAUTHORIZED)
+        //   .json(failResponse("Unauthorized"));
+        return next();
       }
 
       const encryptedUser = encryptMessageWithPublicKey(user);
