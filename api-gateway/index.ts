@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction, response } from "express";
+import express from "express";
 import proxy from "express-http-proxy";
 import passport from "passport";
 import {
@@ -9,7 +9,6 @@ import {
   merchantPassportStrategy,
   merchantAuthenticate,
 } from "./middleware/merchantAuthenticate";
-import multer from "multer";
 
 const app = express();
 passport.use("user", userPasswordStrategy);

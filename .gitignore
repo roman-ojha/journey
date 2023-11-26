@@ -1,6 +1,7 @@
 .$design.drawio.dtmp
 .$design.drawio.bkp
-gcp-service-account-key.json
+gcp-github-action-service-account-key.json
+gcp-cloud-storage-access-service-account-key.json
 aws-iam-github-action_accessKeys.csv
 *.pem
 .env.dev

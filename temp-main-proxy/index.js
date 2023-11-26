@@ -1,7 +1,6 @@
 import express from "express";
 import proxy from "express-http-proxy";
 import cors from "cors";
-import multer from "multer";
 
 const app = express();
 const PORT = process.env.MAIN_PROXY_PORT;
