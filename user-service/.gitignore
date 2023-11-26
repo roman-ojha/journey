@@ -1,6 +1,7 @@
 .env.dev
 .env.prod
 /temp
+/upload
 
 # Logs
 logs

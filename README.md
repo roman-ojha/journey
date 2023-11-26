@@ -61,3 +61,7 @@
 
 ### System Design
 [<img src="./assets/Design/System-Design.png"></img>](./assets/Design/System-Design.png)
+
+
+### References:
+* MongoDB Integration on Laravel: https://www.mongodb.com/compatibility/mongodb-laravel-integration

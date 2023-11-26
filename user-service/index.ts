@@ -6,6 +6,7 @@ import ErrorHandler from "./utils/errorHandler";
 import passport from "passport";
 import passportStrategy from "./middleware/authentication";
 import parseUserCredential from "./middleware/parseUserCredential";
+import bodyParser from "body-parser";
 
 const app = express();
 
@@ -25,7 +26,7 @@ app.use(
 );
 app.use(parseUserCredential);
 app.use(router);
-app.use(ErrorHandler);
+// app.use(ErrorHandler);
 
 // Database Connection
 dbConnect();

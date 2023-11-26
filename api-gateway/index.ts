@@ -9,6 +9,7 @@ import {
   merchantPassportStrategy,
   merchantAuthenticate,
 } from "./middleware/merchantAuthenticate";
+import multer from "multer";
 
 const app = express();
 passport.use("user", userPasswordStrategy);
@@ -32,12 +33,12 @@ const PORT = process.env.API_GATEWAY_PORT;
 app.use(
   "/user",
   userAuthenticate,
-  proxy(process.env.USER_SERVICE_URL as string)
+  proxy(process.env.USER_SERVICE_URL as string, { parseReqBody: false }) // don't parse the request body which will effect on uploading the file 'multipart/form-data'
 );
 app.use(
   "/merchant",
   merchantAuthenticate,
-  proxy(process.env.MERCHANT_SERVICE_URL as string)
+  proxy(process.env.MERCHANT_SERVICE_URL as string, { parseReqBody: false })
 );
 
 app.listen(PORT, () => {
