@@ -9,8 +9,15 @@ import {
 } from "../../utils/responseObject";
 import { STATUS_CODES } from "../../data/constants";
 import { generatePassword, issuedJWT, validPassword } from "../utils/userAuth";
+import Controller from ".";
 
-class AuthController {
+class AuthController extends Controller {
+  constructor() {
+    super();
+    this.registerUser = this.registerUser.bind(this);
+    this.loginUser = this.loginUser.bind(this);
+  }
+
   validateRegistration = [
     body("email")
       .trim()
@@ -99,26 +106,16 @@ class AuthController {
       }
 
       const hashedPassword = generatePassword(password);
-
-      const newUser = await User.create({
-        data: {
-          email: email,
-          password: hashedPassword.hash,
-          salt: hashedPassword.salt,
-          gender: gender,
-          f_name: f_name,
-          l_name: l_name,
-          number: typeof number === "string" ? parseInt(number) : number,
-        },
-        select: {
-          id: true,
-          f_name: true,
-          l_name: true,
-          email: true,
-          number: true,
-          gender: true,
-        },
+      const newUser = await this.repository.createNewUser({
+        email: email,
+        password: hashedPassword.hash,
+        salt: hashedPassword.salt,
+        gender: gender,
+        f_name: f_name,
+        l_name: l_name,
+        number: typeof number === "string" ? parseInt(number) : number,
       });
+
       return res.status(STATUS_CODES.CREATED).json(
         successResponse("User Registration Successfully", {
           ...newUser,
@@ -138,11 +135,7 @@ class AuthController {
     try {
       const { email, password } = req.body;
 
-      const getUser = await User.findFirst({
-        where: {
-          email: email,
-        },
-      });
+      const getUser = await this.repository.findFirstUserUsingEmail(email);
 
       if (!getUser) {
         return res
