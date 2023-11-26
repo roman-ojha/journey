@@ -2,6 +2,10 @@ import Database from "./index";
 import { IUser } from "../../models/User";
 
 class Repository extends Database {
+  getUserPictureUrl(picturePath: string | null) {
+    if (!picturePath) return null;
+    return `${process.env.MAIN_PROXY_PORT}/api/user/profile/picture/${picturePath}`;
+  }
   async updateUserUsingEmail(
     email: string,
     user: Partial<IUser>
@@ -15,6 +19,7 @@ class Repository extends Database {
     return {
       ...updatedUser,
       number: Number(updatedUser.number),
+      picture: this.getUserPictureUrl(updatedUser.picture),
     };
   }
 }

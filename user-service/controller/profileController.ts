@@ -39,19 +39,30 @@ class ProfileController extends Controller {
       if (!uploadResponse) {
         return res.status(STATUS_CODES.INTERNAL_ERROR).json(failResponse());
       }
-      const updateUser = await this.db.user().update({
-        where: { email: (req.user as IUser).email },
-        data: {
-          picture: uploadResponse[0].name,
-        },
-      });
       const updatedUser = await this.repository.updateUserUsingEmail(
         (req.user as IUser).email,
         {
           picture: uploadResponse[0].name,
         }
       );
-      return res.json(successResponse("SuccessFully uploaded profile picture"));
+      if (!updatedUser) {
+        return res.status(STATUS_CODES.INTERNAL_ERROR).json(failResponse());
+      }
+      return res.json(
+        successResponse("SuccessFully uploaded profile picture", updatedUser)
+      );
+    } catch (err) {
+      return next(err);
+    }
+  }
+
+  async getUserProfilePicture(req: Request, res: Response, next: NextFunction) {
+    try {
+      const filePath = req.params["0"];
+      const file = await gcpStoragePublicBucket.file(filePath);
+      const fileStream = file.createReadStream();
+      res.set("Content-Type", "image/jpeg");
+      fileStream.pipe(res);
     } catch (err) {
       return next(err);
     }

@@ -10,4 +10,6 @@ router.post(
   profileController.uploadPicture
 );
 
+router.get("/picture/*", profileController.getUserProfilePicture);
+
 export default router;

@@ -26,7 +26,7 @@ app.use(
 );
 app.use(parseUserCredential);
 app.use(router);
-// app.use(ErrorHandler);
+app.use(ErrorHandler);
 
 // Database Connection
 dbConnect();
