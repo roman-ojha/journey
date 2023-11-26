@@ -395,10 +395,12 @@ paths:
                   type: string
                   format: binary
       responses:
-        "201":
+        "200":
           description: Successfully uploaded the profile picture
+          $ref: "#/components/responses/Successful"
         "422":
           description: Validation Error
+          $ref: "#/components/responses/BadRequest"
         "401":
           $ref: "#/components/responses/Unauthorized"
         "500":

@@ -3,6 +3,7 @@ import { gcpStoragePublicBucket } from "../config/cloudStorage";
 import { STATUS_CODES } from "../../data/constants";
 import {
   failResponse,
+  successResponse,
   validationErrorResponse,
 } from "../../utils/responseObject";
 import Controller from "./index";
@@ -30,20 +31,27 @@ class ProfileController extends Controller {
           })
         );
       }
-      // const uploadResponse = await gcpStoragePublicBucket.upload(file.path, {
-      //   // https://github.com/googleapis/nodejs-storage/blob/main/samples/uploadFile.js
-      //   destination: `user/${file.filename}`,
-      //   preconditionOpts: { ifGenerationMatch: 0 },
-      // });
-      // console.log(uploadResponse);
-      // console.log(
-      //   `https://storage.cloud.google.com/roman-journey-public-bucket-dev/user/cad46661b6980e85ebf28b8ce5b72659.png?authuser=1`
-      // );
-      const updateUserPicture = await this.db.user().findFirst({
-        where: { email: (req.user as IUser).email },
+      const uploadResponse = await gcpStoragePublicBucket.upload(file.path, {
+        // https://github.com/googleapis/nodejs-storage/blob/main/samples/uploadFile.js
+        destination: `user/${file.filename}`,
+        preconditionOpts: { ifGenerationMatch: 0 },
       });
-      console.log(updateUserPicture);
-      return res.json(req.user);
+      if (!uploadResponse) {
+        return res.status(STATUS_CODES.INTERNAL_ERROR).json(failResponse());
+      }
+      const updateUser = await this.db.user().update({
+        where: { email: (req.user as IUser).email },
+        data: {
+          picture: uploadResponse[0].name,
+        },
+      });
+      const updatedUser = await this.repository.updateUserUsingEmail(
+        (req.user as IUser).email,
+        {
+          picture: uploadResponse[0].name,
+        }
+      );
+      return res.json(successResponse("SuccessFully uploaded profile picture"));
     } catch (err) {
       return next(err);
     }

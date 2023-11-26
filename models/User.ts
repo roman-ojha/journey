@@ -7,7 +7,7 @@ enum UserGender {
 interface IUser {
   id: number;
   email: string;
-  number: bigint;
+  number: bigint | number;
   f_name: string;
   l_name: string;
   password: string;

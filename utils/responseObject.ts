@@ -43,7 +43,12 @@ function validationErrorResponse(
   };
 }
 
-function successResponse(message: string, data: {}) {
+function successResponse(message: string, data: {} | undefined = undefined) {
+  if (!data) {
+    return <SuccessResponse>{
+      message,
+    };
+  }
   return <SuccessResponse>{
     message,
     data,
