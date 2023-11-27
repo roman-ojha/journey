@@ -37,7 +37,8 @@ jobs:
       - name: Apply Kubernetes Manifests to GKE
         run: |
           kubectl apply -f ./manifests
-          kubectl delete pods --all -n default
+          kubectl config set-context --current --namespace=journey
+          kubectl delete pods --all -n journey
 
   # deploy-to-eks:
   #   name: Deploy Microservices to AWS EKS Nodes
