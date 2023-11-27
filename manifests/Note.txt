@@ -1,8 +1,0 @@
-*) apply:
-    -> './namespace.yml'
-    -> './project-configmap.yml'
-    -> './project-secret.yml'
-    -> './googlecloud_ssd.yaml'
-    -> './mongo.yaml'
-    -> './temp-main-proxy.yml'
-    -> './api-docs.yml'
