@@ -12,6 +12,7 @@ require_once base_path('config/gcpStorage.php');
 use Data\Constants\StatusCode;
 use Utils\Response\ResponseObject;
 use Config\GCPCloudStorage\CloudStorage;
+use Exception;
 
 class ProfileController extends Controller
 {
@@ -26,7 +27,11 @@ class ProfileController extends Controller
         $file = $request->file('picture');
         // $file->store('upload',); // upload locally
         $uploadResponse = CloudStorage::bucket()->upload($file->get(), ['name' => 'merchant/' . $file->hashName()]);
-        error_log($uploadResponse->name());
-        //TODO:  Update merchant picture
+        $isUpdated = Merchant::where('email', '=', $request->user['email'])->update(['picture' => $uploadResponse->name()]);
+        if ($isUpdated) {
+            $merchant = Merchant::where('email', '=', $request->user['email'])->first();
+            return response()->json(ResponseObject::successResponse('Successfully Updated profile picture', $merchant), StatusCode::$OK);
+        }
+        return response()->json(ResponseObject::failResponse(), StatusCode::$INTERNAL_SERVER_ERROR);
     }
 }

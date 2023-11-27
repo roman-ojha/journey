@@ -21,8 +21,8 @@ use Illuminate\Support\Facades\Route;
 // });
 Route::post('/auth/register', [AuthController::class, 'register']);
 Route::post('/auth/login', [AuthController::class, 'login']);
-Route::get('/auth/check', [AuthController::class, 'check']);
+Route::get('/auth/check', [AuthController::class, 'check'])->middleware('auth.merchant');
 
 Route::prefix('/profile')->group(function () {
-    Route::post('picture', [ProfileController::class, 'uploadProfilePicture']);
+    Route::post('picture', [ProfileController::class, 'uploadProfilePicture'])->middleware('auth.merchant');
 });

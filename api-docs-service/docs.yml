@@ -311,6 +311,9 @@ components:
         id:
           type: number
           example: 1
+        picture:
+          type: string
+          example: <url>
 
     MerchantResponse:
       description: Merchant object that get as a response body

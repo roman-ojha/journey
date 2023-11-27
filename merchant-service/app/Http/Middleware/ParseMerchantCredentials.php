@@ -26,7 +26,9 @@ class ParseMerchantCredentials
         $decryptionResult = openssl_private_decrypt($encryptedUserBuffer, $decryptedUser, $privateKey, OPENSSL_PKCS1_OAEP_PADDING);
         if ($decryptionResult) {
             $user = json_decode($decryptedUser, true);
-            $request->merge(['user' => $user]);
+            if ($user['email'] && $user['id']) {
+                $request->merge(['user' => $user]);
+            }
         }
         // else{
         //     // $opensslError = openssl_error_string(); // Get the OpenSSL error
