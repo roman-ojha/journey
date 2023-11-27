@@ -841,8 +841,8 @@ paths:
           multipart/form-data:
             schema:
               type: object
-              # required:
-              #   - "picture"
+              required:
+                - "picture"
               properties:
                 picture:
                   type: string

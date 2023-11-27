@@ -23,12 +23,12 @@ const merchantAuthenticate = (
   res: Response,
   next: NextFunction
 ) => {
-  const urlWithOutAuth = ["/auth/register", "/auth/login"];
+  // const urlWithOutAuth = ["/auth/register", "/auth/login"];
 
-  if (urlWithOutAuth.includes(req.url)) {
-    // We don't need to do an authentication
-    return next();
-  }
+  // if (urlWithOutAuth.includes(req.url)) {
+  //   // We don't need to do an authentication
+  //   return next();
+  // }
 
   // Authenticate User
   passport.authenticate(
@@ -37,9 +37,10 @@ const merchantAuthenticate = (
     (err: any, user: IUser | null) => {
       if (err || !user) {
         // If authentication fails, respond with an unauthorized status
-        return res
-          .status(STATUS_CODES.UNAUTHORIZED)
-          .json(failResponse("Unauthorized"));
+        // return res
+        //   .status(STATUS_CODES.UNAUTHORIZED)
+        //   .json(failResponse("Unauthorized"));
+        return next();
       }
 
       const encryptedUser = encryptMessageWithPublicKey(user);
