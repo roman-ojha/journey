@@ -7,5 +7,50 @@ generator client {
 
 datasource db {
   provider = "mongodb"
-  url      = env("MERCHANT_V_AND_T_SERVICE_DATABASE_NAME")
+  url      = env("MERCHANT_V_AND_T_SERVICE_DATABASE_URL")
+}
+
+enum VehicleTypes {
+  SUPER_DELUX_BUS
+  HIASE
+}
+
+model Vehicle {
+  id          String         @id @default(auto()) @map("_id") @db.ObjectId
+  plate_no    String
+  no_of_seats Int
+  type        VehicleTypes
+  images      VehicleImage[]
+  seats       Seat[]
+}
+
+model VehicleImage {
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  image      String
+  vehicles   Vehicle @relation(fields: [vehicle_id], references: [id])
+  vehicle_id String  @unique @db.ObjectId
+}
+
+model Seat {
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  is_booked  Boolean @default(false)
+  name       String
+  price      Int
+  vehicle    Vehicle @relation(fields: [vehicle_id], references: [id])
+  vehicle_id String  @unique @db.ObjectId
+}
+
+model Place {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  travelsFrom Travel[] @relation("FromPlace")
+  travelsTo   Travel[] @relation("ToPlace")
+}
+
+model Travel {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  fromPlace Place  @relation("FromPlace", fields: [from], references: [id])
+  from      String @unique @db.ObjectId
+  toPlace   Place  @relation("ToPlace", fields: [to], references: [id])
+  to        String @unique @db.ObjectId
 }
