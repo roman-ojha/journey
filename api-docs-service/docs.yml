@@ -950,6 +950,22 @@ paths:
         "500":
           $ref: "#/components/responses/InternalServerError"
 
+  /merchant/v-and-t-service/vehicle/model:
+    get:
+      summary: Get List of all Vehicle Model
+      tags:
+        - "Merchant.V_and_T_Service"
+      security:
+        - merchantAuth: []
+        - swaggerAuth: []
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VehicleModel"
+
   /merchant/v-and-t-service/vehicle/add:
     post:
       summary: Add New Vehicle
