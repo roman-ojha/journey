@@ -34,7 +34,7 @@ class ProfileController extends Controller {
       }
       const uploadResponse = await gcpStoragePublicBucket.upload(file.path, {
         // https://github.com/googleapis/nodejs-storage/blob/main/samples/uploadFile.js
-        destination: `user/${file.filename}`,
+        destination: `user/${Date.now()}-${file.filename}`,
         preconditionOpts: { ifGenerationMatch: 0 },
       });
       if (!uploadResponse) {

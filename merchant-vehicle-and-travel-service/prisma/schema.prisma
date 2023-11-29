@@ -17,32 +17,42 @@ enum VehicleModels {
 
 model VehicleModel {
   id          String        @id @default(auto()) @map("_id") @db.ObjectId
-  name        VehicleModels
+  name        VehicleModels @unique
   no_of_seats Int
   Vehicles    Vehicle[]
+  created_at  DateTime      @default(now())
+  updated_at  DateTime      @updatedAt
 }
 
 model VehicleImage {
-  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
   image      String
-  Vehicles   Vehicle @relation(fields: [vehicle_id], references: [id])
-  vehicle_id String  @unique @db.ObjectId
+  Vehicles   Vehicle  @relation(fields: [vehicle_id], references: [id])
+  vehicle_id String   @unique @db.ObjectId
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model VehicleSeat {
-  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
   name       String
-  Vehicle    Vehicle @relation(fields: [vehicle_id], references: [id])
-  vehicle_id String  @unique @db.ObjectId
+  Vehicle    Vehicle  @relation(fields: [vehicle_id], references: [id])
+  vehicle_id String   @unique @db.ObjectId
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model Vehicle {
   id           String         @id @default(auto()) @map("_id") @db.ObjectId
   plate_no     String
+  merchant_id  Int
   Model        VehicleModel   @relation(fields: [model_id], references: [id])
   model_id     String         @unique @db.ObjectId
   Images       VehicleImage[]
   VehicleSeats VehicleSeat[]
+  Travel       Travel[]
+  created_at   DateTime       @default(now())
+  updated_at   DateTime       @updatedAt
 }
 
 model Place {
@@ -50,12 +60,22 @@ model Place {
   name        String
   TravelsFrom Travel[] @relation("FromPlace")
   TravelsTo   Travel[] @relation("ToPlace")
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
 }
 
 model Travel {
-  id        String @id @default(auto()) @map("_id") @db.ObjectId
-  fromPlace Place  @relation("FromPlace", fields: [from], references: [id])
-  from      String @unique @db.ObjectId
-  toPlace   Place  @relation("ToPlace", fields: [to], references: [id])
-  to        String @unique @db.ObjectId
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  fromPlace   Place    @relation("FromPlace", fields: [from], references: [id])
+  from        String   @unique @db.ObjectId
+  toPlace     Place    @relation("ToPlace", fields: [to], references: [id])
+  to          String   @unique @db.ObjectId
+  is_active   Boolean
+  dipature_at DateTime
+  route       String // Might have to create another Model
+  driver_no   BigInt // Might have to create Driver Model
+  Vehicle     Vehicle  @relation(fields: [vehicle_id], references: [id])
+  vehicle_id  String   @unique @db.ObjectId
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
 }

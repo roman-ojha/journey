@@ -325,6 +325,18 @@ components:
         data:
           $ref: "#/components/schemas/MerchantOutput"
 
+    VehicleModelInput:
+      description: Represent type of vehicles
+      type: object
+      required:
+        - model
+        - no_of_seats
+      properties:
+        name:
+          type: string
+        no_of_seats:
+          type: integer
+
     VehicleModel:
       description: Represent type of vehicles
       type: object
@@ -339,6 +351,16 @@ components:
           type: string
         no_of_seats:
           type: integer
+
+    VehicleImageInput:
+      description: Image File on Request
+      type: object
+      required:
+        - image
+      properties:
+        image:
+          type: string
+          format: binary
 
     VehicleImage:
       description: Represent image for Vehicle
@@ -966,7 +988,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/VehicleModel"
 
-  /merchant/v-and-t-service/vehicle/add:
+  /merchant/v-and-t-service/vehicle/create:
     post:
       summary: Add New Vehicle
       description: Add New vehicle with authenticated merchant
@@ -982,6 +1004,8 @@ paths:
               type: object
               required:
                 - "images"
+                - plate_no
+                - model_id
               properties:
                 images:
                   type: array
@@ -990,10 +1014,10 @@ paths:
                     format: binary
                 plate_no:
                   type: string
-                  example: "BA 3 Kha 3233"
-                no_of_seats:
-                  type: integer
-                  example: 32
+                  example: "BA 1 KA 3233"
+                model_id:
+                  type: string
+                  example: 65671b0e8b18150f39b4a041
 
       responses:
         "201":

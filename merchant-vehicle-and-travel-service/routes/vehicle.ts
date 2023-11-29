@@ -8,7 +8,7 @@ const controller = new VehicleController();
 
 router.get("/model", authenticate, controller.getVehicleModels);
 router.post(
-  "/add",
+  "/create",
   authenticate,
   uploadFile.array("images"),
   controller.addVehicle
