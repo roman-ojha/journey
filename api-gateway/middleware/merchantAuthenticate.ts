@@ -23,13 +23,6 @@ const merchantAuthenticate = (
   res: Response,
   next: NextFunction
 ) => {
-  // const urlWithOutAuth = ["/auth/register", "/auth/login"];
-
-  // if (urlWithOutAuth.includes(req.url)) {
-  //   // We don't need to do an authentication
-  //   return next();
-  // }
-
   // Authenticate User
   passport.authenticate(
     "merchant",
