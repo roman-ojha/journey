@@ -10,41 +10,46 @@ datasource db {
   url      = env("MERCHANT_V_AND_T_SERVICE_DATABASE_URL")
 }
 
-enum VehicleTypes {
-  SUPER_DELUX_BUS
-  HIASE
+enum VehicleModels {
+  SUPER_DELUX_BUS // 31
+  HIASE // 15
 }
 
-model Vehicle {
-  id          String         @id @default(auto()) @map("_id") @db.ObjectId
-  plate_no    String
+model VehicleModel {
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  model       VehicleModels
   no_of_seats Int
-  type        VehicleTypes
-  images      VehicleImage[]
-  seats       Seat[]
+  Vehicles    Vehicle[]
 }
 
 model VehicleImage {
   id         String  @id @default(auto()) @map("_id") @db.ObjectId
   image      String
-  vehicles   Vehicle @relation(fields: [vehicle_id], references: [id])
+  Vehicles   Vehicle @relation(fields: [vehicle_id], references: [id])
   vehicle_id String  @unique @db.ObjectId
 }
 
-model Seat {
+model VehicleSeat {
   id         String  @id @default(auto()) @map("_id") @db.ObjectId
-  is_booked  Boolean @default(false)
   name       String
-  price      Int
-  vehicle    Vehicle @relation(fields: [vehicle_id], references: [id])
+  Vehicle    Vehicle @relation(fields: [vehicle_id], references: [id])
   vehicle_id String  @unique @db.ObjectId
+}
+
+model Vehicle {
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  plate_no     String
+  VehicleModel VehicleModel   @relation(fields: [model], references: [id])
+  model        String         @unique @db.ObjectId
+  Images       VehicleImage[]
+  VehicleSeats VehicleSeat[]
 }
 
 model Place {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   name        String
-  travelsFrom Travel[] @relation("FromPlace")
-  travelsTo   Travel[] @relation("ToPlace")
+  TravelsFrom Travel[] @relation("FromPlace")
+  TravelsTo   Travel[] @relation("ToPlace")
 }
 
 model Travel {
