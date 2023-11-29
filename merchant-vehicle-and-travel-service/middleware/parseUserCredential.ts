@@ -11,7 +11,7 @@ const parseUserCredential = (
       decryptMessageWithPrivateKey(req.headers["x-user"])
     );
     if (decryptedUser.id && decryptedUser.email) {
-      (req as any).user = decryptedUser;
+      req.user = decryptedUser;
     }
   }
   return next();

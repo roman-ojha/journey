@@ -34,6 +34,15 @@ app.use(
   userAuthenticate,
   proxy(process.env.USER_SERVICE_URL as string, { parseReqBody: false }) // don't parse the request body which will effect on uploading the file 'multipart/form-data'
 );
+
+app.use(
+  "/merchant/v-and-t-service",
+  merchantAuthenticate,
+  proxy(process.env.MERCHANT_V_AND_T_SERVICE_URL as string, {
+    parseReqBody: false,
+  })
+);
+
 app.use(
   "/merchant",
   merchantAuthenticate,

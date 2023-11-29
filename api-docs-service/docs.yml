@@ -879,6 +879,35 @@ paths:
         "500":
           $ref: "#/components/responses/InternalServerError"
 
+  /merchant/v-and-t-service/vehicle/add:
+    post:
+      summary: Add New Vehicle
+      description: Add New vehicle with authenticated merchant
+      tags:
+        - "Merchant.V_and_T_Service"
+      security:
+        - merchantAuth: []
+        - swaggerAuth: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - "images"
+              properties:
+                images:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        "201":
+          description: New vehicle added
+          # content:
+          #   application/json:
+          #     schema:
+
   # /api/posts/{id}:
   #   get:
   #     summary: Get a post by ID
