@@ -325,6 +325,77 @@ components:
         data:
           $ref: "#/components/schemas/MerchantOutput"
 
+    VehicleModel:
+      description: Represent type of vehicles
+      type: object
+      required:
+        - id
+        - model
+        - no_of_seats
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        no_of_seats:
+          type: integer
+
+    VehicleImage:
+      description: Represent image for Vehicle
+      type: object
+      required:
+        - id
+        - image
+        - vehicle_id
+      properties:
+        id:
+          type: string
+        image:
+          type: string
+        vehicle_id:
+          type: string
+
+    VehicleSeat:
+      description: Represent Vehicle Seats
+      type: object
+      required:
+        - id
+        - name
+        - vehicle_id
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        vehicle_id:
+          type: string
+
+    Vehicle:
+      description: Represent Vehicle
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+        plate_no:
+          type: string
+        model_id:
+          type: string
+
+    Place:
+      description: Represent Places
+      type: object
+      required:
+        - ""
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+
+    # TODO: for Travel
+
 paths:
   /user/auth/register:
     post:
@@ -901,6 +972,13 @@ paths:
                   items:
                     type: string
                     format: binary
+                plate_no:
+                  type: string
+                  example: "BA 3 Kha 3233"
+                no_of_seats:
+                  type: integer
+                  example: 32
+
       responses:
         "201":
           description: New vehicle added

@@ -17,7 +17,7 @@ enum VehicleModels {
 
 model VehicleModel {
   id          String        @id @default(auto()) @map("_id") @db.ObjectId
-  model       VehicleModels
+  name        VehicleModels
   no_of_seats Int
   Vehicles    Vehicle[]
 }
@@ -39,8 +39,8 @@ model VehicleSeat {
 model Vehicle {
   id           String         @id @default(auto()) @map("_id") @db.ObjectId
   plate_no     String
-  VehicleModel VehicleModel   @relation(fields: [model], references: [id])
-  model        String         @unique @db.ObjectId
+  Model        VehicleModel   @relation(fields: [model_id], references: [id])
+  model_id     String         @unique @db.ObjectId
   Images       VehicleImage[]
   VehicleSeats VehicleSeat[]
 }
