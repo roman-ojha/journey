@@ -59,7 +59,16 @@ components:
             message: "<message>"
 
     BadRequest:
-      description: Bad Request Or Validation Error
+      description: Bad Request Error
+      content:
+        application/json:
+          example:
+            message: "Invalid Input"
+            errors:
+              <field>: ["<error_message>"]
+
+    ValidationError:
+      description: Validation Error
       content:
         application/json:
           example:
@@ -397,6 +406,8 @@ components:
       type: object
       required:
         - id
+        - plate_no
+        - model_id
       properties:
         id:
           type: string
@@ -404,6 +415,10 @@ components:
           type: string
         model_id:
           type: string
+        images:
+          type: array
+          items:
+            $ref: "#/components/schemas/VehicleImage"
 
     Place:
       description: Represent Places
@@ -950,6 +965,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/MerchantResponse"
+        "422":
+          $ref: "#/components/responses/ValidationError"
         "401":
           $ref: "#/components/responses/Unauthorized"
         "500":
@@ -988,7 +1005,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/VehicleModel"
 
-  /merchant/v-and-t-service/vehicle/create:
+  /merchant/v-and-t-service/vehicle:
     post:
       summary: Add New Vehicle
       description: Add New vehicle with authenticated merchant
@@ -1022,9 +1039,44 @@ paths:
       responses:
         "201":
           description: New vehicle added
-          # content:
-          #   application/json:
-          #     schema:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Vehicle"
+        "422":
+          $ref: "#/components/responses/ValidationError"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+    get:
+      summary: Get List of added vehicle
+      description: Get List of added vehicle by authenticated merchant
+      tags:
+        - "Merchant.V_and_T_Service"
+      security:
+        - merchantAuth: []
+        - swaggerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: <message>
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Vehicle"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
 
   # /api/posts/{id}:
   #   get:
@@ -1037,3 +1089,38 @@ paths:
   #         required: true
   #         schema:
   #           type: integer
+  /merchant/v-and-t-service/vehicle/{vehicle_id}:
+    get:
+      summary: Get List of added vehicle
+      description: Get List of added vehicle by authenticated merchant
+      tags:
+        - "Merchant.V_and_T_Service"
+      security:
+        - merchantAuth: []
+        - swaggerAuth: []
+      parameters:
+        - name: vehicle_id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: 65672bbc07e97a5c21e5a81c
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: <message>
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Vehicle"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"

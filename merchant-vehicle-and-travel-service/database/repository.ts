@@ -43,6 +43,47 @@ class Repository extends Database {
       },
     });
   }
+
+  public async getListOfVehicles(merchant_id: number) {
+    return await this.vehicle().findMany({
+      where: {
+        merchant_id,
+      },
+      select: {
+        id: true,
+        merchant_id: true,
+        plate_no: true,
+        model_id: true,
+        Images: {
+          select: {
+            id: true,
+            image: true,
+          },
+        },
+      },
+    });
+  }
+
+  public async getVehicle(merchant_id: number, vehicle_id: string) {
+    return await this.vehicle().findFirst({
+      where: {
+        merchant_id,
+        id: vehicle_id,
+      },
+      select: {
+        id: true,
+        merchant_id: true,
+        plate_no: true,
+        model_id: true,
+        Images: {
+          select: {
+            id: true,
+            image: true,
+          },
+        },
+      },
+    });
+  }
 }
 
 export default Repository;

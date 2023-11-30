@@ -7,11 +7,16 @@ const router = Router();
 const controller = new VehicleController();
 
 router.get("/model", authenticate, controller.getVehicleModels);
+
+// Create new vehicle
 router.post(
-  "/create",
+  "/",
   authenticate,
   uploadFile.array("images"),
   controller.addVehicle
 );
+
+// Get Vehicle Details
+router.get("/:vehicle_id?", authenticate, controller.getVehicles);
 
 export default router;

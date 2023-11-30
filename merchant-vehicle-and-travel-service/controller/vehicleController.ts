@@ -2,6 +2,7 @@ import { Request, Response, NextFunction, response } from "express";
 import Controller from ".";
 import { STATUS_CODES } from "../data/constants";
 import {
+  failResponse,
   successResponse,
   validationErrorResponse,
 } from "../utils/responseObject";
@@ -12,6 +13,7 @@ export default class VehicleController extends Controller {
     super();
     this.addVehicle = this.addVehicle.bind(this);
     this.getVehicleModels = this.getVehicleModels.bind(this);
+    this.getVehicles = this.getVehicles.bind(this);
   }
 
   public async getVehicleModels(
@@ -69,13 +71,40 @@ export default class VehicleController extends Controller {
             model_id,
             response
           );
-          return res.json(newVehicleRes);
+          return res.json(
+            successResponse("Successfully add new vehicle", newVehicleRes)
+          );
         })
         .catch((err) => {
           return res
             .status(STATUS_CODES.INTERNAL_ERROR)
             .send("Something when wrong while trying to create new Vehicle.");
         });
+    } catch (err) {
+      return next(err);
+    }
+  }
+
+  public async getVehicles(req: Request, res: Response, next: NextFunction) {
+    try {
+      const vehicle_id = req.params["vehicle_id"];
+      console.log(vehicle_id);
+      if (vehicle_id) {
+        const vehicle = await this.repository.getVehicle(
+          (req.user as any).id,
+          vehicle_id
+        );
+        if (!vehicle) {
+          return res
+            .status(STATUS_CODES.BAD_REQUEST)
+            .json(failResponse("Vehicle doesn't exist, with given detail"));
+        }
+        return res.json(successResponse("Successful Response", vehicle));
+      }
+      const vehicles = await this.repository.getListOfVehicles(
+        (req.user as any).id
+      );
+      return res.json(successResponse("Successful Response", vehicles));
     } catch (err) {
       return next(err);
     }
