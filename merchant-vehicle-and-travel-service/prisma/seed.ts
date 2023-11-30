@@ -1,6 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 import { faker } from "@faker-js/faker";
 import { VehicleModels } from "../model/VehicleModel";
+import { District } from "../model";
+import { Place } from "../model";
 
 const vehicleModels: VehicleModels[] = [
   {
@@ -96,5 +98,21 @@ async function createVehicleModelAndAddSeats() {
     }
   });
 }
+
+const places: Partial<District>[] = [
+  {
+    name: "Jhapa",
+    places: <Place[]>[
+      {
+        name: "Kerkha",
+      },
+      {
+        name: "Kakarvhita",
+      },
+    ],
+  },
+];
+
+async function createPlaces() {}
 
 createVehicleModelAndAddSeats();

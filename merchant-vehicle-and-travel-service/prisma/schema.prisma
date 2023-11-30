@@ -55,13 +55,23 @@ model Vehicle {
   updated_at  DateTime       @updatedAt
 }
 
+model District {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  name       String   @unique
+  places     Place[]
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
 model Place {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  name         String
-  travels_from Travel[] @relation("FromPlace")
-  travels_to   Travel[] @relation("ToPlace")
-  created_at   DateTime @default(now())
-  updated_at   DateTime @updatedAt
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  district    District @relation(fields: [district_id], references: [id])
+  district_id String   @db.ObjectId
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  travel_from Travel[] @relation("FromPlace")
+  travel_to   Travel[] @relation("ToPlace")
 }
 
 model Travel {
