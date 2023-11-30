@@ -70,6 +70,7 @@ model Place {
   district_id String   @db.ObjectId
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
+  // is_active Boolean @default(true)
   travel_from Travel[] @relation("FromPlace")
   travel_to   Travel[] @relation("ToPlace")
 }

@@ -16,7 +16,7 @@ class Repository extends Database {
         merchant_id,
         plate_no,
         model_id,
-        Images: {
+        images: {
           createMany: {
             data: images.map((image) => {
               return {
@@ -34,7 +34,7 @@ class Repository extends Database {
         merchant_id: true,
         plate_no: true,
         model_id: true,
-        Images: {
+        images: {
           select: {
             id: true,
             image: true,
@@ -54,7 +54,7 @@ class Repository extends Database {
         merchant_id: true,
         plate_no: true,
         model_id: true,
-        Images: {
+        images: {
           select: {
             id: true,
             image: true,
@@ -75,7 +75,7 @@ class Repository extends Database {
         merchant_id: true,
         plate_no: true,
         model_id: true,
-        Images: {
+        images: {
           select: {
             id: true,
             image: true,

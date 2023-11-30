@@ -99,7 +99,7 @@ async function createVehicleModelAndAddSeats() {
   });
 }
 
-const places: Partial<District>[] = [
+const address: Partial<District>[] = [
   {
     name: "Jhapa",
     places: <Place[]>[
@@ -109,10 +109,81 @@ const places: Partial<District>[] = [
       {
         name: "Kakarvhita",
       },
+      {
+        name: "Damak",
+      },
+      {
+        name: "Dudee",
+      },
+    ],
+  },
+  {
+    name: "Kathmandu",
+    places: <Place[]>[
+      {
+        name: "Koteshowr",
+      },
+      {
+        name: "Gongabu, New Bus Park",
+      },
     ],
   },
 ];
 
-async function createPlaces() {}
+async function createAddress() {
+  const prisma = new PrismaClient();
+  address.map(async (address) => {
+    try {
+      async function createPlaces(newDistrictId: string) {
+        address.places?.map(async (place) => {
+          if (
+            !(await prisma.place.findFirst({
+              where: {
+                district_id: newDistrictId,
+                name: place.name,
+              },
+            }))
+          ) {
+            // Places have still not created
+            // So create new place
+            const newPlace = await prisma.place.create({
+              data: {
+                name: place.name as string,
+                district_id: newDistrictId,
+              },
+            });
+          }
+        });
+      }
+      const district = await prisma.district.findFirst({
+        where: {
+          name: address.name,
+        },
+      });
 
-createVehicleModelAndAddSeats();
+      if (!district) {
+        //  District doesn't exist
+        const newDistrict = await prisma.district.create({
+          data: {
+            name: address.name as string,
+          },
+        });
+        if (newDistrict) {
+          // District created
+          // Now create places
+          createPlaces(newDistrict.id);
+        }
+      } else {
+        // District has been created now try to create places
+        console.log(`${district.name} Already exist, Creating Places`);
+        createPlaces(district.id);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  });
+}
+
+// createVehicleModelAndAddSeats();
+
+createAddress();
