@@ -40,6 +40,15 @@ export default class VehicleController extends Controller {
           })
         );
       }
+      if (!(await this.repository.getVehicleModels(model_id))) {
+        return res.status(STATUS_CODES.VALIDATION_ERROR).json(
+          validationErrorResponse({
+            model_id: ["Given model of vehicle doesn't exist"],
+          })
+        );
+      }
+      // TODO: Need to check vehicle plate_no as well because it needs to be unique, But you have to thing because merchant could have added fault plate_no and that could match with other vehicle plate_no as well
+
       const uploadPromise = (images as []).map((image) => {
         const destination = `vehicle/${Date.now()}-${(image as any).filename}`;
 
@@ -88,7 +97,6 @@ export default class VehicleController extends Controller {
   public async getVehicles(req: Request, res: Response, next: NextFunction) {
     try {
       const vehicle_id = req.params["vehicle_id"];
-      console.log(vehicle_id);
       if (vehicle_id) {
         const vehicle = await this.repository.getVehicle(
           (req.user as any).id,
