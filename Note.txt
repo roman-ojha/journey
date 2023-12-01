@@ -1,5 +1,18 @@
-*) Journey:
-    -> Service/Platform help user to buy ticket online for Bus, Hiace, Cars etc.. for long distance travel.
+*) Journey (i.e: Sahayatri.com):
+    -> Service/Platform help user to buy ticket online for Long Distance Bus, Hiace, Cars travels.
+    -> Problem:
+        -> People in nepal have physically go to the shop and one some festival like: dashain & tihar people even have to wait in a line for hours to buy bus, Hiace tickets
+        -> Also some people do phone calls to these Bus & Hiace owner and ask to seat and negotiate for the price and is not guarantee that they will going to get the exact same that they ask for.
+        -> Another problem is that it is time consuming process just to buy the ticket and also don't have any reliable virtual process where they can buy authenticate ticket and pay online and no need to worry any other things.
+    -> Solution:
+        -> What we can do is we can create a platform which can help these people to easily buy the ticket online with just searching and finding the best seats that they want with the desired price.
+        -> And after they buy the ticket they will get the virtual ticket for the further verification that might need to be done by the Bus Driver or owner of the bus when they need to.
+        -> We can implement the machine learning algorithm for recommendation system where using reviews of the customer who experience the service can review and according to the those review we can recommend and rank the best vehicles at the top of search list. so, that customer can have the better experience.
+    -> System Overall workflow:
+        -> First merchant have to register into the platform with minimal charge with valid credentials and after that Admin will verify the requested registration and if Admin validate the information and approved the registration then merchant can add all the vehicle that they own.
+        -> After that merchant can create a new Travel where they have to provide the departure place, destination place, departure time, departure date and all the required information.
+        -> After that all those created Travel info will be listed on the User side with recommendation algorithm implement using ML algorithm, and User can search the vehicle listed on User site.
+        -> After that User can Book the seats and do an online payment with desired payment gateway service and will get email or get the virtual ticket in QR format or another other possible options if available, which then Driver of that vehicle can verify the ticket physically on departure time of the bus.
     
 *) Functional Requirement:
     -> User can be able to Register & logged into the system
