@@ -18,6 +18,8 @@ tags:
     description: Users CRUD operation from admin dashboard
   - name: "Merchant"
     description: Merchant Service API
+  - name: "Merchant.V_and_T_Service"
+    description: Merchant Vehicle and Trave Service
 components:
   securitySchemes:
     adminAuth:
@@ -420,15 +422,44 @@ components:
           items:
             $ref: "#/components/schemas/VehicleImage"
 
-    Place:
+    District:
       description: Represent Places
       type: object
       required:
-        - ""
+        - id
+        - name
       properties:
         id:
           type: string
         name:
+          type: string
+
+    DistrictWithPlaces:
+      description: Represent Places
+      allOf:
+        - $ref: "#/components/schemas/District"
+      type: object
+      required:
+        - places
+      properties:
+        places:
+          type: array
+          items:
+            $ref: "#/components/schemas/Place"
+
+    Place:
+      description: Represent Places
+      type: object
+      required:
+        - id
+        - name
+        - district_id
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        district_id:
           type: string
 
     # TODO: for Travel
@@ -1078,17 +1109,6 @@ paths:
         "500":
           $ref: "#/components/responses/InternalServerError"
 
-  # /api/posts/{id}:
-  #   get:
-  #     summary: Get a post by ID
-  #     tags:
-  #       - Posts
-  #     parameters:
-  #       - name: id
-  #         in: path
-  #         required: true
-  #         schema:
-  #           type: integer
   /merchant/v-and-t-service/vehicle/{vehicle_id}:
     get:
       summary: Get List of added vehicle
@@ -1122,5 +1142,28 @@ paths:
                       $ref: "#/components/schemas/Vehicle"
         "401":
           $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /merchant/v-and-t-service/address:
+    get:
+      summary: Get List of all Address
+      description: Get List of address with district and it's places
+      tags:
+        - "Merchant.V_and_T_Service"
+      security:
+        - merchantAuth: []
+        - swaggerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/DistrictWithPlaces"
+        "400":
+          $ref: "#/components/responses/BadRequest"
         "500":
           $ref: "#/components/responses/InternalServerError"

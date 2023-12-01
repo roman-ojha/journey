@@ -1,8 +1,30 @@
 import Database from "./index";
 
 class Repository extends Database {
-  public async getVehicleModels() {
-    return await this.vehicleModel().findMany();
+  public async getDistrictWithPlaces() {
+    return await this.district().findMany({
+      select: {
+        id: true,
+        name: true,
+        places: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
+    });
+  }
+
+  public async getVehicleModels(model_id: string | null = null) {
+    if (!model_id) {
+      return await this.vehicleModel().findMany();
+    }
+    return await this.vehicleModel().findFirst({
+      where: {
+        id: model_id,
+      },
+    });
   }
 
   public async createNewVehicle(

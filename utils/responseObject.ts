@@ -44,13 +44,16 @@ function validationErrorResponse(
 }
 
 function successResponse(
-  message: string,
-  data: {} | undefined | {}[] = undefined
+  message: string | null = "Successful response",
+  data: {} | null | {}[] = null
 ) {
-  if (!data) {
+  if (!data && message) {
     return <SuccessResponse>{
       message,
     };
+  }
+  if (!message && data) {
+    return data;
   }
   return <SuccessResponse>{
     message,
