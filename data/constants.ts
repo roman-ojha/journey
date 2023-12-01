@@ -8,6 +8,13 @@ const STATUS_CODES = {
   INTERNAL_ERROR: 500,
 };
 
+type ERROR_TYPES =
+  | "VALIDATION_ERROR"
+  | "APP_ERROR"
+  | "INTERNAL_SERVER_ERROR"
+  | "BAD_REQUEST_ERROR"
+  | "API_ERROR";
+
 const APPLICATION_NAME = "<app_name>";
 
-export { STATUS_CODES };
+export { STATUS_CODES, ERROR_TYPES };

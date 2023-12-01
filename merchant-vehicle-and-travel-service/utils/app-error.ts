@@ -1,4 +1,4 @@
-import { STATUS_CODES } from "../../data/constants";
+import { STATUS_CODES, ERROR_TYPES } from "../data/constants";
 
 class AppError extends Error {
   statusCode: number;
@@ -7,7 +7,7 @@ class AppError extends Error {
   // logError: any;
 
   constructor(
-    name: string,
+    name: ERROR_TYPES,
     statusCode: number,
     message: any,
     isOperational: boolean
@@ -28,7 +28,7 @@ class AppError extends Error {
 //api Specific Errors
 class APIError extends AppError {
   constructor(
-    name: string,
+    name: ERROR_TYPES,
     statusCode = STATUS_CODES.INTERNAL_ERROR,
     message = "Internal Server Error",
     isOperational = true

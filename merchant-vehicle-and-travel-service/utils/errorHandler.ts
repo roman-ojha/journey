@@ -1,7 +1,7 @@
 import { createLogger, transports } from "winston";
 import { APIError, AppError } from "./app-error";
 import { Request, Response, NextFunction } from "express";
-import { STATUS_CODES } from "../../data/constants";
+import { STATUS_CODES } from "../data/constants";
 
 const LogErrors = createLogger({
   transports: [
@@ -38,7 +38,7 @@ class ErrorLogger {
 }
 
 const ErrorHandler = async (
-  err: Error,
+  err: APIError,
   req: Request,
   res: Response,
   next: NextFunction
@@ -58,10 +58,16 @@ const ErrorHandler = async (
       }
     });
 
-    await errorLogger.logError(err);
-    return res
-      .status(STATUS_CODES.INTERNAL_ERROR)
-      .json({ message: "Internal Server Error" });
+    if (err) {
+      await errorLogger.logError(err);
+      if (err.isOperational) {
+        return res.status(err.statusCode).json({ message: err.message });
+      }
+      return res
+        .status(STATUS_CODES.INTERNAL_ERROR)
+        .json({ message: "Internal Server Error" });
+    }
+    return next();
   } catch (err) {
     console.log(err);
   }
