@@ -61,7 +61,9 @@ const ErrorHandler = async (
     if (err) {
       await errorLogger.logError(err);
       if (err.isOperational) {
-        return res.status(err.statusCode).json({ message: err.message });
+        return res
+          .status(err.statusCode)
+          .json({ message: err.responseMessage });
       }
       return res
         .status(STATUS_CODES.INTERNAL_ERROR)
