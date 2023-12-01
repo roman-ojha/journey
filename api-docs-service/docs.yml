@@ -463,6 +463,65 @@ components:
           type: string
 
     # TODO: for Travel
+    ITravel:
+      description: Represent Travel Interface
+      type: object
+      required:
+        - departure_at
+        - route
+      properties:
+        departure_at:
+          type: string
+          example: "2023-12-01T08:24:00.218Z"
+        route:
+          type: string
+          example: From Bardibash
+        driver_no:
+          type: number
+          example: 9854321234
+
+    TravelInput:
+      description: Travel while Requesting
+      allOf:
+        - $ref: "#/components/schemas/ITravel"
+      type: object
+      required:
+        - from
+        - to
+        - vehicle_id
+      properties:
+        from:
+          type: string
+          example: 656884f6c7bfe7568f651837
+        to:
+          type: string
+          example: 656882c256a3bacd5685ad43
+        vehicle_id:
+          type: string
+          example: 656987f97e59da50840b4b6c
+
+    TravelResponse:
+      description: Trave On Response Object
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/ITravel"
+      required:
+        - id
+        - from_place
+        - to_place
+        - is_active
+      properties:
+        id:
+          type: string
+        from_place:
+          $ref: "#/components/schemas/Place"
+        to_place:
+          $ref: "#/components/schemas/Place"
+        is_active:
+          type: boolean
+          example: true
+        vehicle:
+          $ref: "#/components/schemas/Vehicle"
 
 paths:
   /user/auth/register:
@@ -1151,9 +1210,6 @@ paths:
       description: Get List of address with district and it's places
       tags:
         - "Merchant.V_and_T_Service"
-      security:
-        - merchantAuth: []
-        - swaggerAuth: []
       responses:
         "200":
           description: Successful response
@@ -1163,6 +1219,34 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/DistrictWithPlaces"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /merchant/v-and-t-service/travel:
+    post:
+      summary: Create new travel
+      description: Create new travel
+      tags:
+        - "Merchant.V_and_T_Service"
+      security:
+        - merchantAuth: []
+        - swaggerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TravelInput"
+      responses:
+        "201":
+          description: Successfully Travel created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TravelResponse"
+        "422":
+          $ref: "#/components/responses/ValidationError"
         "400":
           $ref: "#/components/responses/BadRequest"
         "500":
