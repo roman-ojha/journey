@@ -7,7 +7,7 @@ const authenticate = (req: Request, res: Response, next: NextFunction) => {
     if (!req.user) {
       return res
         .status(STATUS_CODES.UNAUTHORIZED)
-        .json(failResponse("Unauthorized"));
+        .json(failResponse("Unauthorized, please login first"));
     }
     req.isAuthenticated = () => true;
     req.isUnauthenticated = () => false;

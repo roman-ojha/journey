@@ -3,13 +3,13 @@ import { STATUS_CODES, ERROR_TYPES } from "../data/constants";
 class AppError extends Error {
   statusCode: number;
   isOperational: boolean;
-  responseMessage: string;
+  responseMessage: any;
 
   constructor(
     name: ERROR_TYPES,
     statusCode: number,
     message: any,
-    responseMessage: string,
+    responseMessage: any,
     isOperational: boolean
   ) {
     super(message);
@@ -28,7 +28,7 @@ class APIError extends AppError {
     name: ERROR_TYPES,
     statusCode = STATUS_CODES.INTERNAL_ERROR,
     message = "Internal Server Error",
-    responseMessage = "Internal Server Error",
+    responseMessage: any = "Internal Server Error",
     isOperational = true
   ) {
     super(name, statusCode, message, responseMessage, isOperational);
@@ -50,12 +50,15 @@ class BadRequestError extends AppError {
 
 //422
 class ValidationError extends AppError {
-  constructor(message = "Validation Error") {
+  constructor(
+    responseMessage: any = "The given data was invalid",
+    message = "Validation Error"
+  ) {
     super(
       "VALIDATION_ERROR",
       STATUS_CODES.VALIDATION_ERROR,
       message,
-      "Validation Error",
+      responseMessage,
       true
     );
   }

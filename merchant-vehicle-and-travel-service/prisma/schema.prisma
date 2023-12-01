@@ -76,17 +76,18 @@ model Place {
 }
 
 model Travel {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  fromPlace   Place    @relation("FromPlace", fields: [from], references: [id])
-  from        String   @unique @db.ObjectId
-  toPlace     Place    @relation("ToPlace", fields: [to], references: [id])
-  to          String   @unique @db.ObjectId
-  is_active   Boolean
-  dipature_at DateTime
-  route       String // Might have to create another Model
-  driver_no   BigInt // Might have to create Driver Model
-  vehicle     Vehicle  @relation(fields: [vehicle_id], references: [id])
-  vehicle_id  String   @unique @db.ObjectId
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  from_place   Place    @relation("FromPlace", fields: [from], references: [id])
+  from         String   @unique @db.ObjectId
+  to_place     Place    @relation("ToPlace", fields: [to], references: [id])
+  to           String   @unique @db.ObjectId
+  is_active    Boolean  @default(true)
+  departure_at DateTime // Store UTC Time
+  route        String // Might have to create another Model
+  driver_no    BigInt // Might have to create Driver Model
+  // description
+  vehicle      Vehicle  @relation(fields: [vehicle_id], references: [id])
+  vehicle_id   String   @unique @db.ObjectId
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
 }

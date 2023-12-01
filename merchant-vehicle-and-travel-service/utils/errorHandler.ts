@@ -38,7 +38,7 @@ class ErrorLogger {
 }
 
 const ErrorHandler = async (
-  err: APIError,
+  err: AppError,
   req: Request,
   res: Response,
   next: NextFunction
@@ -61,6 +61,9 @@ const ErrorHandler = async (
     if (err) {
       await errorLogger.logError(err);
       if (err.isOperational) {
+        if (err.name == "VALIDATION_ERROR") {
+          return res.status(err.statusCode).json(err.responseMessage);
+        }
         return res
           .status(err.statusCode)
           .json({ message: err.responseMessage });
