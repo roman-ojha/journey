@@ -1,14 +1,14 @@
 *) Journey (i.e: Sahayatri.com):
-    -> Service/Platform help user to buy ticket online for Long Distance Bus, Hiace, Cars travels.
-    -> Problem:
-        -> People in nepal have physically go to the shop and one some festival like: dashain & tihar people even have to wait in a line for hours to buy bus, Hiace tickets
+    -> Platform help user to buy ticket online for Long Distance Bus, HiAce's, Cars travels.
+    *> Current Problem:
+        -> People in nepal have to physically go to the ticket counters and on some festival like: dashain & tihar people even have to wait in a line for hours to buy tickets.
         -> Also some people do phone calls to these Bus & Hiace owner and ask to seat and negotiate for the price and is not guarantee that they will going to get the exact same that they ask for.
         -> Another problem is that it is time consuming process just to buy the ticket and also don't have any reliable virtual process where they can buy authenticate ticket and pay online and no need to worry any other things.
-    -> Solution:
+    *> Solution:
         -> What we can do is we can create a platform which can help these people to easily buy the ticket online with just searching and finding the best seats that they want with the desired price.
         -> And after they buy the ticket they will get the virtual ticket for the further verification that might need to be done by the Bus Driver or owner of the bus when they need to.
         -> We can implement the machine learning algorithm for recommendation system where using reviews of the customer who experience the service can review and according to the those review we can recommend and rank the best vehicles at the top of search list. so, that customer can have the better experience.
-    -> System Overall workflow:
+    *> Platform Overall workflow:
         -> First merchant have to register into the platform with minimal charge with valid credentials and after that Admin will verify the requested registration and if Admin validate the information and approved the registration then merchant can add all the vehicle that they own.
         -> After that merchant can create a new Travel where they have to provide the departure place, destination place, departure time, departure date and all the required information.
         -> After that all those created Travel info will be listed on the User side with recommendation algorithm implement using ML algorithm, and User can search the vehicle listed on User site.
@@ -24,6 +24,9 @@
     -> Merchant can Register with given minimal charge and logged into the Merchant Site.
     -> Merchant can list all the available Vehicle with required details.
     -> Merchant can update the listed vehicles or remove it from the list.
+    -> Merchant can create new Travel Info with required details.
+    -> Merchant can update the created Travel Info.
+    -> Super Admin can create a new Admin account.
     -> Admin can logged into the Admin Site.
     -> Admin can approved & Disapprove the merchant who are trying to register.
     -> Admin can do have control of any sort of Users, Merchants & Admin data as per their permissions.
@@ -91,3 +94,122 @@ Laravel Error format:
         ]
     }
 }
+
+*) Information about Implementing ML for recommendation system (Reference: ChatGPT):
+
+    *) Different type of ML algorithm for recommendation system:
+        There are various machine learning algorithms that can be employed for building recommendation systems, each with its strengths and suitability for different types of data and use cases. Here's a list of commonly used machine learning algorithms for recommendation systems:
+
+        1. **Collaborative Filtering:**
+        - **User-Based Collaborative Filtering:**
+            - K-Nearest Neighbors (KNN)
+            - Cosine Similarity
+            - Pearson Correlation
+
+        - **Item-Based Collaborative Filtering:**
+            - K-Nearest Neighbors (KNN)
+            - Cosine Similarity
+            - Pearson Correlation
+
+        2. **Matrix Factorization:**
+        - **Singular Value Decomposition (SVD):**
+            - Regularized SVD
+            - Funk SVD
+        - **Matrix Factorization with Gradient Descent:**
+            - Alternating Least Squares (ALS)
+
+        3. **Content-Based Filtering:**
+        - **TF-IDF (Term Frequency-Inverse Document Frequency):**
+            - Used for text-based recommendations.
+        - **Cosine Similarity with Content Features:**
+            - Compares item features to determine similarity.
+        - **Word Embeddings (e.g., Word2Vec, Doc2Vec):**
+            - Transforms words or documents into dense vectors.
+
+        4. **Hybrid Models:**
+        - Combine collaborative filtering and content-based filtering to leverage the strengths of both approaches.
+        - **Weighted Hybrid Models:**
+            - Assign weights to predictions from different models.
+
+        5. **Deep Learning Approaches:**
+        - **Neural Collaborative Filtering (NCF):**
+            - Combines collaborative and neural network-based methods.
+        - **Autoencoders:**
+            - Unsupervised learning for feature learning.
+        - **Recurrent Neural Networks (RNN) and Long Short-Term Memory (LSTM):**
+            - Useful for sequential recommendation tasks.
+
+        6. **Context-Aware Recommendation:**
+        - **Factorization Machines:**
+            - Takes into account contextual information.
+        - **Contextual Bandits:**
+            - Used in online recommendation scenarios.
+
+        7. **Association Rule Mining:**
+        - **Apriori Algorithm:**
+            - Discovers frequent itemsets and association rules.
+
+        8. **Clustering Algorithms:**
+        - **K-Means Clustering:**
+            - Group items or users based on similar features.
+        - **Hierarchical Clustering:**
+            - Builds a tree of clusters.
+
+        9. **Meta-Learning Models:**
+        - **Multi-Armed Bandits:**
+            - Used for online recommendation and exploration-exploitation trade-offs.
+
+        10. **Factorization Machines:**
+            - Extends linear models for better handling of sparse and high-dimensional data.
+
+        11. **Gradient Boosted Trees:**
+            - **XGBoost, LightGBM, CatBoost:**
+            - Boosted tree models can be used for recommendation tasks.
+
+        Remember that the choice of algorithm depends on factors such as the type of data available, the size of the dataset, the level of sparsity, and the specific requirements of the recommendation system. Often, a combination of multiple algorithms or a hybrid approach is employed to improve the overall performance of the recommendation system.
+    
+    *) Best Algorithm for this system:
+        For the recommendation system in your "Sahayatri.com" platform, the use of a Collaborative Filtering algorithm, particularly User-Based Collaborative Filtering or Item-Based Collaborative Filtering, can be beneficial. Collaborative Filtering methods are well-suited for recommendation systems that rely on user preferences and interactions.
+
+        Here's how Collaborative Filtering can be applied to your scenario:
+
+        ### User-Based Collaborative Filtering:
+
+        1. **User Similarity Calculation:**
+        - Compute the similarity between users based on their past interactions with the system, such as booking history, ratings, or reviews.
+
+        2. **Nearest Neighbors:**
+        - Identify the users who are most similar to the current user in terms of preferences and behaviors.
+
+        3. **Recommendation Generation:**
+        - Recommend items (vehicles in this case) that similar users have liked or positively rated but the current user has not interacted with.
+
+        ### Item-Based Collaborative Filtering:
+
+        1. **Item Similarity Calculation:**
+        - Compute the similarity between items (vehicles) based on the ratings and reviews given by users.
+
+        2. **Nearest Neighbors (Items):**
+        - Identify vehicles that are similar to the ones the user has previously interacted with, either by booking, rating, or reviewing.
+
+        3. **Recommendation Generation:**
+        - Suggest vehicles that are similar to those the user has shown interest in, based on the similarity of items.
+
+        ### Additional Considerations:
+
+        1. **Rating and Review Processing:**
+        - Implement a mechanism to process and analyze user ratings and reviews. Natural Language Processing (NLP) techniques can be applied to extract meaningful insights from textual reviews.
+
+        2. **Handling Sparse Data:**
+        - Collaborative Filtering methods may encounter sparsity issues when dealing with a large number of users and items. Techniques such as matrix factorization or advanced collaborative filtering algorithms like Alternating Least Squares (ALS) can be employed to handle sparsity.
+
+        3. **Cold Start Problem:**
+        - Address the "cold start" problem for new users or vehicles by providing initial recommendations based on other factors like popularity, location, or general preferences until sufficient user interactions are available.
+
+        4. **Scalability:**
+        - Consider the scalability of the recommendation system, especially if the user and item base grows significantly. Techniques like model parallelization or distributed computing can be explored.
+
+        5. **Model Evaluation:**
+        - Regularly evaluate the performance of the recommendation model using metrics such as precision, recall, and Mean Absolute Error (MAE) to ensure the effectiveness of the recommendations.
+
+        By incorporating User-Based or Item-Based Collaborative Filtering, your platform can provide personalized recommendations based on the preferences and experiences of users, ultimately enhancing the overall user experience on Sahayatri.com.
