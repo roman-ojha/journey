@@ -26,6 +26,7 @@
     -> Merchant can update the listed vehicles or remove it from the list.
     -> Merchant can create new Travel Info with required details.
     -> Merchant can update the created Travel Info.
+    -> Merchant can verify the booked ticket.
     -> Super Admin can create a new Admin account.
     -> Admin can logged into the Admin Site.
     -> Admin can approved & Disapprove the merchant who are trying to register.
