@@ -1,1 +1,23 @@
 @use "../utils/" as *;
+
+:root {
+  // primitive-colors
+  @each $colors-type, $colors in $primitive-colors {
+    @each $color-type, $color in $colors {
+      --clr-#{$colors-type}-#{$color-type}: #{$color};
+    }
+  }
+  // light mode color
+  @each $color-type, $color in $light-mode-colors {
+    --clr-#{$color-type}: #{$color};
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    // dark mode color
+    @each $color-type, $color in $dark-mode-colors {
+      --clr-#{$color-type}: #{$color};
+    }
+  }
+}
