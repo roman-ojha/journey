@@ -1,0 +1,110 @@
+$base-colors: (
+  primary: #764af1,
+  secondary: #4b55f2,
+  tertiary: #ae4bf2,
+  white: #ffffff,
+  black: #000000,
+  gray: (
+    gray-50: #f7f8f8,
+    gray-100: #edeef1,
+    gray-200: #d8dbdf,
+    gray-300: #b6bac3,
+    gray-400: #8e95a2,
+    gray-500: #6b7280,
+    gray-600: #5b616e,
+    gray-700: #4a4e5a,
+    gray-800: #383a42,
+    gray-900: #2c2d33,
+    gray-950: #25272c,
+    gray-1000: #141517,
+  ),
+);
+
+$dark-mode-colors: (
+  container-background-primary: #0a1321,
+  container-background-secondary: #172234,
+  container-border: #56657d,
+  container-divider: #26364f,
+  container-bg-op-20:
+    rgba(
+      $color: map-get($base-colors, $key: primary),
+      $alpha: 0.2,
+    ),
+  foreground-primary:
+    map-get(
+      $map: $base-colors,
+      $key: white,
+    ),
+  foreground-secondary:
+    map-get(
+      $map:
+        map-get(
+          $map: $base-colors,
+          $key: gray,
+        ),
+      $key: gray-50,
+    ),
+  foreground-tertiary:
+    map-get(
+      $map:
+        map-get(
+          $map: $base-colors,
+          $key: gray,
+        ),
+      $key: gray-100,
+    ),
+);
+$light-mode-colors: (
+  container-background-primary: #eeeff6,
+  container-background-secondary:
+    map-get(
+      $map: $base-colors,
+      $key: white,
+    ),
+  container-border:
+    map-get(
+      $map:
+        map-get(
+          $map: $base-colors,
+          $key: gray,
+        ),
+      $key: gray-300,
+    ),
+  container-divider: #dddddd,
+  container-bg-op-20:
+    rgba(
+      $color:
+        map-get(
+          $map: $base-colors,
+          $key: white,
+        ),
+      $alpha: 0.2,
+    ),
+  foreground-primary:
+    map-get(
+      $map:
+        map-get(
+          $map: $base-colors,
+          $key: gray,
+        ),
+      $key: gray-1000,
+    ),
+  foreground-secondary:
+    map-get(
+      $map:
+        map-get(
+          $map: $base-colors,
+          $key: gray,
+        ),
+      $key: gray-950,
+    ),
+  foreground-tertiary:
+    map-get(
+      $map:
+        map-get(
+          $map: $base-colors,
+          $key: gray,
+        ),
+      $key: gray-700,
+    ),
+);
