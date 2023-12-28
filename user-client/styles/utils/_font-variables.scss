@@ -1,9 +1,9 @@
 $font: (
-  $font-families: (
+  families: (
     primary: "'Roboto', sans-serif",
     secondary: "'Kalnia', serif",
   ),
-  $font-sizes: (
+  sizes: (
     h1: 3.815rem,
     h2: 3.052rem,
     h3: 2.441rem,
@@ -15,7 +15,7 @@ $font: (
     pxs: 0.64rem,
     pxxs: 0.4rem,
   ),
-  $font-weights: (
+  weights: (
     light: 300,
     regular: 500,
     bold: 700,

@@ -18,6 +18,13 @@
   @each $color-type, $color in $light-mode-colors {
     --clr-#{$color-type}: #{$color};
   }
+
+  // font variables
+  @each $font-type, $values in $font {
+    @each $type-value-key, $value in $values {
+      --font-#{$font-type}-#{$type-value-key}: #{$value};
+    }
+  }
 }
 
 @media (prefers-color-scheme: dark) {
