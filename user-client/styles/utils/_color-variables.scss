@@ -27,6 +27,18 @@ $dark-mode-colors: (
   container-background-secondary: #172234,
   container-border: #56657d,
   container-divider: #26364f,
+  container-background-gradient-1st:
+    linear-gradient(
+      rgba(#ae4bf2, 0.2),
+      rgba(darken(#ae4bf2, 20), 0.2),
+      rgba(#000000, 0.2)
+    ),
+  container-background-gradient-2nd:
+    linear-gradient(
+      rgba(#0a1321, $alpha: 0.57),
+      rgba(#0a1321, $alpha: 0.87),
+      #0a1321
+    ),
   container-bg-op-20:
     rgba(
       $color:
@@ -88,6 +100,13 @@ $light-mode-colors: (
       $key: 300,
     ),
   container-divider: #dddddd,
+  container-background-gradient-1st:
+    linear-gradient(
+      rgba(#ae4bf2, 0.2),
+      rgba(darken(#ae4bf2, 20), 0.2),
+      rgba(#000000, 0.2)
+    ),
+  container-background-gradient-2nd: rgba(#eeeff6, 0.73),
   container-bg-op-20:
     rgba(
       $color:
