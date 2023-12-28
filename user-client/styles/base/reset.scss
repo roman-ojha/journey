@@ -7,16 +7,25 @@
   padding: 0px;
 }
 
+body {
+  background-color: get-color(null, container-background-primary) !important;
+  height: 100vh;
+}
+
+h1 {
+  color: get-color(null, foreground-primary);
+}
+
 :root {
   // primitive-colors
-  @each $colors-type, $colors in $primitive-colors {
-    @each $color-type, $color in $colors {
-      --clr-#{$colors-type}-#{$color-type}: #{$color};
+  @each $group-name, $colors in $primitive-colors {
+    @each $key, $color in $colors {
+      --clr-#{$group-name}-#{$key}: #{$color};
     }
   }
   // light mode color
-  @each $color-type, $color in $light-mode-colors {
-    --clr-#{$color-type}: #{$color};
+  @each $key, $color in $light-mode-colors {
+    --clr-#{$key}: #{$color};
   }
 
   // font variables
@@ -28,10 +37,25 @@
 }
 
 @media (prefers-color-scheme: dark) {
+  // System dark mode
   :root {
     // dark mode color
     @each $color-type, $color in $dark-mode-colors {
       --clr-#{$color-type}: #{$color};
     }
+  }
+}
+
+.light-mode {
+  // light mode color
+  @each $key, $color in $light-mode-colors {
+    --clr-#{$key}: #{$color};
+  }
+}
+
+.dark-mode {
+  // dark mode using toggle button
+  @each $color-type, $color in $dark-mode-colors {
+    --clr-#{$color-type}: #{$color};
   }
 }

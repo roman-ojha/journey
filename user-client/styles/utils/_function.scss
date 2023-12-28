@@ -1,0 +1,12 @@
+@function get-spacing-px($amount) {
+  // Using 4 point system for spacing and sizing
+  @return $amount * 4px;
+}
+
+@function get-color($group-name, $key) {
+  @if ($group-name==null) {
+    @return var(--clr-#{$key});
+  } @else {
+    @return var(--clr-#{$group-name}-#{$key});
+  }
+}
