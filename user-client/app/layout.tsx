@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "../styles/base/reset.scss";
 import NavBar from "@/components/NavBar";
 import { useState, useEffect } from "react";
+import ShadeGradient from "@/components/ShadeGradient";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -58,6 +59,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <ShadeGradient />
         <NavBar
           theme={themeMode}
           setTheme={setThemeMode}

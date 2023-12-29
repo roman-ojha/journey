@@ -1,87 +1,101 @@
 @use "../utils/function" as *;
 @use "../utils/mixins" as *;
 
-.navbar {
-  // border: 1px solid red;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0px get-spacing-px(10);
-  &__logo_container {
-    min-width: get-spacing-px(80);
+.container {
+  position: absolute;
+  .navbar {
+    // border: 1px solid red;
+    width: 100vw;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
-    // border: 1px solid blue;
-    &__logo {
-      height: get-spacing-px(15);
-      width: get-spacing-px(15);
-    }
-    &__text {
-      @include font-style(h5, medium, secondary);
-    }
-  }
-  &__nav_list {
-    list-style-type: none;
-    display: flex;
-    align-items: center;
-    gap: get-spacing-px(4);
-    @include font-style(p, regular, primary);
-  }
-  &__right_part {
-    min-width: get-spacing-px(80);
-    // border: 1px solid green;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: get-spacing-px(5);
-
-    .theme_switcher_dark {
-      justify-content: flex-end;
-    }
-    .theme_switcher_light {
-      justify-content: flex-start;
-    }
-    .theme_switcher {
-      width: get-spacing-px(14);
-      border: 1px solid get-color(null, container-border);
-      border-radius: get-spacing-px(10);
+    padding: get-spacing-px(1) get-spacing-px(10);
+    &__logo_container {
+      min-width: get-spacing-px(80);
       display: flex;
+      justify-content: flex-start;
       align-items: center;
-      padding: get-spacing-px(1);
-      cursor: pointer;
-      &__theme_container {
-        background-color: get-color(base, secondary);
-        height: get-spacing-px(6);
-        width: get-spacing-px(6);
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        &__icon {
-          height: 60%;
-          width: 60%;
-          color: get-color(base, white);
-        }
+      text-decoration: none;
+      &__logo {
+        height: get-spacing-px(15);
+        width: get-spacing-px(15);
+      }
+      &__text {
+        @include font-style(h5, medium, secondary);
+        color: get-color(null, foreground-primary);
       }
     }
-    .theme_switcher:active {
+    &__nav_list {
+      list-style-type: none;
+      display: flex;
+      align-items: center;
+      gap: get-spacing-px(4);
+      a {
+        @include font-style(p, regular, primary);
+        color: get-color(null, foreground-primary);
+        text-decoration: none;
+      }
+    }
+    &__right_part {
+      min-width: get-spacing-px(80);
+      // border: 1px solid green;
+      display: flex;
       justify-content: flex-end;
+      align-items: center;
+      gap: get-spacing-px(5);
+
+      .theme_switcher_dark {
+        justify-content: flex-end;
+      }
+      .theme_switcher_light {
+        justify-content: flex-start;
+      }
+      .theme_switcher {
+        width: get-spacing-px(14);
+        border: 1px solid get-color(null, container-border);
+        border-radius: get-spacing-px(10);
+        display: flex;
+        align-items: center;
+        padding: get-spacing-px(1);
+        cursor: pointer;
+        &__theme_container {
+          background-color: get-color(base, secondary);
+          height: get-spacing-px(6);
+          width: get-spacing-px(6);
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          &__icon {
+            height: 60%;
+            width: 60%;
+            color: get-color(base, white);
+          }
+        }
+      }
+      .theme_switcher:active {
+        justify-content: flex-end;
+      }
+      .login_button {
+        padding: get-spacing-px(1.5) get-spacing-px(4);
+        border-width: 0px;
+        @include font-style(p, regular, primary);
+        background-color: transparent;
+        color: get-color(null, foreground-primary);
+        cursor: pointer;
+      }
+      .sign_up_button {
+        padding: get-spacing-px(1.5) get-spacing-px(4);
+        border-radius: get-spacing-px(2);
+        border-width: 0px;
+        background-color: get-color(base, primary);
+        color: get-color(base, white);
+        @include font-style(p, regular, primary);
+        cursor: pointer;
+      }
     }
-    .login_button {
-      padding: get-spacing-px(1.5) get-spacing-px(4);
-      border-width: 0px;
-      @include font-style(p, regular, primary);
-      background-color: transparent;
-      color: get-color(null, foreground-primary);
-    }
-    .sign_up_button {
-      padding: get-spacing-px(1.5) get-spacing-px(4);
-      border-radius: get-spacing-px(2);
-      border-width: 0px;
-      background-color: get-color(base, primary);
-      color: get-color(base, white);
-      @include font-style(p, regular, primary);
-    }
+  }
+  .navbar_divider {
+    border: 1px solid get-color(null, container-divider);
   }
 }

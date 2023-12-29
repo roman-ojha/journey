@@ -1,10 +1,11 @@
 "use client";
-import React, { Dispatch, SetStateAction, useEffect, useRef } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import Image from "next/image";
 import appIcon from "@/assets/images/appIcon.png";
 import styles from "@/styles/components/navbar.module.scss";
-import { Icon } from "@iconify/react";
+// import { Icon } from "@iconify/react";
 import ThemeSwitcher from "./ThemeSwitcher";
+import Link from "next/link";
 
 interface Props {
   theme: ThemeMode;
@@ -17,22 +18,20 @@ const NavBar: React.FC<Props> = ({
   setTheme,
   localStorageModeKey,
 }): React.JSX.Element => {
-  const themeSwitcher: React.MutableRefObject<null | HTMLButtonElement> =
-    useRef(null);
-  useEffect(() => {
-    console.log(theme);
-    if (theme == "dark") {
-      // themeSwitcher.current?.classList.remove(styles.theme_switcher_light);
-      // themeSwitcher.current?.classList.add(styles.theme_switcher_dark);
-      // (themeSwitcher.current as HTMLButtonElement).style.justifyContent =
-      //   "flex-end";
-    } else {
-      // themeSwitcher.current?.classList.remove(styles.theme_switcher_dark);
-      // themeSwitcher.current?.classList.add(styles.theme_switcher_light);
-      // (themeSwitcher.current as HTMLButtonElement).style.justifyContent =
-      //   "flex-start";
-    }
-  }, [theme]);
+  // useEffect(() => {
+  //   console.log(theme);
+  //   if (theme == "dark") {
+  //     // themeSwitcher.current?.classList.remove(styles.theme_switcher_light);
+  //     // themeSwitcher.current?.classList.add(styles.theme_switcher_dark);
+  //     (themeSwitcher.current as HTMLButtonElement).style.justifyContent =
+  //       "flex-end";
+  //   } else {
+  //     // themeSwitcher.current?.classList.remove(styles.theme_switcher_dark);
+  //     // themeSwitcher.current?.classList.add(styles.theme_switcher_light);
+  //     (themeSwitcher.current as HTMLButtonElement).style.justifyContent =
+  //       "flex-start";
+  //   }
+  // }, [theme]);
 
   const changeMode = () => {
     let modeValue: ThemeMode;
@@ -51,23 +50,32 @@ const NavBar: React.FC<Props> = ({
   };
 
   return (
-    <nav className={styles.navbar}>
-      <div className={styles.navbar__logo_container}>
-        <Image
-          src={appIcon}
-          alt="app icon"
-          className={styles.navbar__logo_container__logo}
-        />
-        <h5 className={styles.navbar__logo_container__text}>Journey</h5>
-      </div>
-      <ul className={styles.navbar__nav_list}>
-        <li>Explorer</li>
-        <li>About Us</li>
-        <li>Contact</li>
-        <li>Be Merchant</li>
-      </ul>
-      <div className={styles.navbar__right_part}>
-        {/* <button
+    <section className={styles.container}>
+      <nav className={styles.navbar}>
+        <Link href="/" className={styles.navbar__logo_container}>
+          <Image
+            src={appIcon}
+            alt="app icon"
+            className={styles.navbar__logo_container__logo}
+          />
+          <h5 className={styles.navbar__logo_container__text}>Journey</h5>
+        </Link>
+        <ul className={styles.navbar__nav_list}>
+          <li>
+            <Link href="/explore">Explore</Link>
+          </li>
+          <li>
+            <Link href="/about-us">About Us</Link>
+          </li>
+          <li>
+            <Link href="/contact">Contact</Link>
+          </li>
+          <li>
+            <Link href="/">Be Merchant</Link>
+          </li>
+        </ul>
+        <div className={styles.navbar__right_part}>
+          {/* <button
           id="theme-switcher"
           className={styles.theme_switcher}
           ref={themeSwitcher}
@@ -87,19 +95,21 @@ const NavBar: React.FC<Props> = ({
             )}
           </span>
         </button> */}
-        {/* <label className={styles.switch}>
+          {/* <label className={styles.switch}>
           <input type={styles.checkbox} />
           <span className={styles.slider}></span>
         </label> */}
-        <ThemeSwitcher
-          sx={{ m: 1 }}
-          onClick={changeMode}
-          defaultChecked={theme == "dark" ? true : false}
-        />
-        <button className={styles.login_button}>Login</button>
-        <button className={styles.sign_up_button}>Sign Up</button>
-      </div>
-    </nav>
+          <ThemeSwitcher
+            sx={{ m: 1 }}
+            onClick={changeMode}
+            defaultChecked={theme == "dark" ? true : false}
+          />
+          <button className={styles.login_button}>Login</button>
+          <button className={styles.sign_up_button}>Sign Up</button>
+        </div>
+      </nav>
+      <div className={styles.navbar_divider}></div>
+    </section>
   );
 };
 
