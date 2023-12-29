@@ -1,0 +1,52 @@
+@use "../utils/function" as *;
+@use "../utils/mixins" as *;
+
+.navbar {
+  // border: 1px solid red;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px get-spacing-px(10);
+  &__logo_container {
+    min-width: get-spacing-px(80);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    // border: 1px solid blue;
+    &__logo {
+      height: get-spacing-px(15);
+      width: get-spacing-px(15);
+    }
+    &__text {
+      @include font-style(h5, medium, secondary);
+    }
+  }
+  &__nav_list {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    gap: get-spacing-px(4);
+    @include font-style(p, regular, primary);
+  }
+  &__right_part {
+    min-width: get-spacing-px(80);
+    // border: 1px solid green;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: get-spacing-px(5);
+    .login_button {
+      padding: get-spacing-px(1.5) get-spacing-px(4);
+      border-width: 0px;
+      @include font-style(p, regular, primary);
+    }
+    .sign_up_button {
+      padding: get-spacing-px(1.5) get-spacing-px(4);
+      border-radius: get-spacing-px(2);
+      border-width: 0px;
+      background-color: get-color(base, primary);
+      color: get-color(base, white);
+      @include font-style(p, regular, primary);
+    }
+  }
+}
