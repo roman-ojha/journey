@@ -1,0 +1,1 @@
+type ThemeMode = "light" | "dark";
