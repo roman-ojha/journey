@@ -35,10 +35,45 @@
     justify-content: flex-end;
     align-items: center;
     gap: get-spacing-px(5);
+
+    .theme_switcher_dark {
+      justify-content: flex-end;
+    }
+    .theme_switcher_light {
+      justify-content: flex-start;
+    }
+    .theme_switcher {
+      width: get-spacing-px(14);
+      border: 1px solid get-color(null, container-border);
+      border-radius: get-spacing-px(10);
+      display: flex;
+      align-items: center;
+      padding: get-spacing-px(1);
+      cursor: pointer;
+      &__theme_container {
+        background-color: get-color(base, secondary);
+        height: get-spacing-px(6);
+        width: get-spacing-px(6);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &__icon {
+          height: 60%;
+          width: 60%;
+          color: get-color(base, white);
+        }
+      }
+    }
+    .theme_switcher:active {
+      justify-content: flex-end;
+    }
     .login_button {
       padding: get-spacing-px(1.5) get-spacing-px(4);
       border-width: 0px;
       @include font-style(p, regular, primary);
+      background-color: transparent;
+      color: get-color(null, foreground-primary);
     }
     .sign_up_button {
       padding: get-spacing-px(1.5) get-spacing-px(4);

@@ -1,0 +1,10 @@
+@use "./color-variables" as *;
+
+:export {
+  // primitive-colors for nextJS application
+  @each $group-name, $colors in $primitive-colors {
+    @each $key, $color in $colors {
+      --clr-#{$group-name}-#{$key}: #{$color};
+    }
+  }
+}
