@@ -14,7 +14,7 @@ export default function Home() {
           Easiest Way to buy ticket Online
         </h1>
         <p className={styles.hero_section__info}>
-          We help you to search best Bus, HiAce's vehicles, and buy long
+          We help you to search best Bus, HiAce&apos;s vehicles, and buy long
           distance travel tickets online
         </p>
       </section>

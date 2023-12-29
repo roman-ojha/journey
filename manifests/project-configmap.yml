@@ -34,3 +34,5 @@ data:
   USER_SERVICE_PRISMA_STUDIO_URL: http://localhost:5555 # need to change
   USER_SERVICE_PRISMA_STUDIO_PORT: "5555"
   user_service_database_name: "journey-user-service"
+  USER_CLIENT_PORT: "3001"
+  USER_CLIENT_URL: "http://localhost:3001"

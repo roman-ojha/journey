@@ -43,5 +43,7 @@ declare namespace NodeJS {
     MERCHANT_V_AND_T_SERVICE_PRISMA_STUDIO_PORT: string;
     MERCHANT_V_AND_T_SERVICE_DATABASE_URL: string;
     MERCHANT_V_AND_T_SERVICE_DATABASE_NAME: string;
+    USER_CLIENT_PORT: string;
+    USER_CLIENT_URL: string;
   }
 }

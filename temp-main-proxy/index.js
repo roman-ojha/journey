@@ -6,6 +6,7 @@ const app = express();
 const PORT = process.env.MAIN_PROXY_PORT;
 
 app.use(cors());
+app.use("/", proxy(process.env.USER_CLIENT_URL));
 app.use("/api/docs", proxy(process.env.API_DOCS_SERVICE_URL));
 app.use(
   "/api/admin",
