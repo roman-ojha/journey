@@ -1,0 +1,30 @@
+@use "../utils" as *;
+
+.home {
+  //   border: 1px solid blue;
+  height: 150vh;
+}
+.hero_section {
+  //   border: 1px solid red;
+  position: relative;
+  top: $navbar-height;
+  padding-top: get-spacing-px(20);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: get-spacing-px(3);
+  &__title {
+    @include font-style(h1, bold, secondary);
+    // border: 1px solid red;
+    width: get-spacing-px(200);
+    text-align: center;
+    line-height: get-spacing-px(18);
+  }
+  &__info {
+    @include font-style(p, regular, primary);
+    width: get-spacing-px(120);
+    text-align: center;
+    line-height: get-spacing-px(5);
+  }
+}

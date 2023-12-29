@@ -1,0 +1,3 @@
+@use "./function" as *;
+
+$navbar-height: get-spacing-px(16);

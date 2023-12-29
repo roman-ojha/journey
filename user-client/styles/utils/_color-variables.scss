@@ -35,9 +35,9 @@ $dark-mode-colors: (
     ),
   container-background-gradient-2nd:
     linear-gradient(
-      rgba(#0a1321, $alpha: 0.57),
-      rgba(#0a1321, $alpha: 0.87),
-      #0a1321
+      rgba(#0a1321, $alpha: 0.3),
+      rgba(#0a1321, $alpha: 0.5),
+      rgba(#0a1321, $alpha: 0.6)
     ),
   container-bg-op-20:
     rgba(
@@ -105,7 +105,7 @@ $light-mode-colors: (
     linear-gradient(
       rgba(#ae4bf2, 0.2),
       rgba(darken(#ae4bf2, 20), 0.2),
-      rgba(#000000, 0.2)
+      rgba(#eeeff6, 0.2)
     ),
   container-background-gradient-2nd: rgba(#eeeff6, 0.73),
   container-bg-op-20:

@@ -1,5 +1,4 @@
-@use "../utils/function" as *;
-@use "../utils/mixins" as *;
+@use "../utils" as *;
 
 .container {
   position: absolute;
@@ -9,7 +8,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: get-spacing-px(1) get-spacing-px(10);
+    padding: 0px get-spacing-px(10);
+    height: $navbar-height;
     &__logo_container {
       min-width: get-spacing-px(80);
       display: flex;
