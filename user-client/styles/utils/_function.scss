@@ -10,3 +10,7 @@
     @return var(--clr-#{$group-name}-#{$key});
   }
 }
+
+@function get-font($type, $key) {
+  @return var(--font-#{$type}-#{$key});
+}

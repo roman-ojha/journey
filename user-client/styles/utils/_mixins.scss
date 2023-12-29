@@ -1,0 +1,7 @@
+@use "./function" as *;
+
+@mixin font-style($size, $weight, $family) {
+  font-size: get-font(size, $size);
+  font-weight: get-font(weight, $weight);
+  font-family: get-font(family, $family);
+}
