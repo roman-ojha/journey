@@ -6,6 +6,7 @@ import styles from "@/styles/components/navbar.module.scss";
 // import { Icon } from "@iconify/react";
 import ThemeSwitcher from "./ThemeSwitcher";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface Props {
   theme: ThemeMode;
@@ -18,6 +19,8 @@ const NavBar: React.FC<Props> = ({
   setTheme,
   localStorageModeKey,
 }): React.JSX.Element => {
+  const pathName = usePathname();
+
   // useEffect(() => {
   //   console.log(theme);
   //   if (theme == "dark") {
@@ -62,16 +65,46 @@ const NavBar: React.FC<Props> = ({
         </Link>
         <ul className={styles.navbar__nav_list}>
           <li>
-            <Link href="/explore">Explore</Link>
+            <Link
+              href="/explore"
+              className={
+                pathName === "/explore" ? styles.navbar__nav_list__active : ""
+              }
+            >
+              Explore
+            </Link>
           </li>
           <li>
-            <Link href="/about-us">About Us</Link>
+            <Link
+              href="/about-us"
+              className={
+                pathName === "/about-us" ? styles.navbar__nav_list__active : ""
+              }
+            >
+              About Us
+            </Link>
           </li>
           <li>
-            <Link href="/contact">Contact</Link>
+            <Link
+              href="/contact"
+              className={
+                pathName === "/contact" ? styles.navbar__nav_list__active : ""
+              }
+            >
+              Contact
+            </Link>
           </li>
           <li>
-            <Link href="/">Be Merchant</Link>
+            <Link
+              href="/be-merchant"
+              className={
+                pathName === "/be-merchant"
+                  ? styles.navbar__nav_list__active
+                  : ""
+              }
+            >
+              Be Merchant
+            </Link>
           </li>
         </ul>
         <div className={styles.navbar__right_part}>
@@ -104,8 +137,12 @@ const NavBar: React.FC<Props> = ({
             onClick={changeMode}
             defaultChecked={theme == "dark" ? true : false}
           />
-          <button className={styles.login_button}>Login</button>
-          <button className={styles.sign_up_button}>Sign Up</button>
+          <Link href="/login" className={styles.login_button}>
+            Login
+          </Link>
+          <Link href="/register" className={styles.sign_up_button}>
+            Sign Up
+          </Link>
         </div>
       </nav>
       <div className={styles.navbar_divider}></div>

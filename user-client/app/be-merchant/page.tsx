@@ -2,11 +2,11 @@ import { APPLICATION_NAME } from "@/constants";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: `About Us | ${APPLICATION_NAME}`,
+  title: `Be Merchant | ${APPLICATION_NAME}`,
 };
 
-const AboutUs = (): React.JSX.Element => {
+const BeMerchant = (): React.JSX.Element => {
   return <></>;
 };
 
-export default AboutUs;
+export default BeMerchant;

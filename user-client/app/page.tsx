@@ -1,9 +1,10 @@
-"use client";
-import NavBar from "@/components/NavBar";
-import { useState, useEffect } from "react";
+import { APPLICATION_NAME } from "@/constants";
 import styles from "@/styles/page/index.module.scss";
+import { Metadata } from "next";
 
-type ThemeMode = "light" | "dark";
+export const metadata: Metadata = {
+  title: APPLICATION_NAME,
+};
 
 export default function Home() {
   return (

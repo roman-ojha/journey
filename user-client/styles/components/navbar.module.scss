@@ -35,6 +35,9 @@
         color: get-color(null, foreground-primary);
         text-decoration: none;
       }
+      &__active {
+        color: get-color(base, secondary) !important;
+      }
     }
     &__right_part {
       min-width: get-spacing-px(80);
@@ -82,7 +85,7 @@
         @include font-style(p, regular, primary);
         background-color: transparent;
         color: get-color(null, foreground-primary);
-        cursor: pointer;
+        text-decoration: none;
       }
       .sign_up_button {
         padding: get-spacing-px(1.5) get-spacing-px(4);
@@ -92,6 +95,7 @@
         color: get-color(base, white);
         @include font-style(p, regular, primary);
         cursor: pointer;
+        text-decoration: none;
       }
     }
   }

@@ -4,8 +4,10 @@ import "../styles/base/reset.scss";
 import NavBar from "@/components/NavBar";
 import { useState, useEffect } from "react";
 import ShadeGradient from "@/components/ShadeGradient";
+import { usePathname } from "next/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
+const noNavbarForRoutes = ["/login", "/register"];
 
 export default function RootLayout({
   children,
@@ -15,6 +17,7 @@ export default function RootLayout({
   const [themeMode, setThemeMode] = useState<ThemeMode>("dark");
   const localStorageModeKey = "theme-mode";
   const [isLoading, setIsLoading] = useState(true);
+  const pathName = usePathname();
 
   // console.log(themeMode);
 
@@ -59,12 +62,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ShadeGradient />
-        <NavBar
-          theme={themeMode}
-          setTheme={setThemeMode}
-          localStorageModeKey={localStorageModeKey}
-        />
+        {!noNavbarForRoutes.includes(pathName) && (
+          <>
+            <ShadeGradient />
+            <NavBar
+              theme={themeMode}
+              setTheme={setThemeMode}
+              localStorageModeKey={localStorageModeKey}
+            />
+          </>
+        )}
         {children}
       </body>
     </html>
