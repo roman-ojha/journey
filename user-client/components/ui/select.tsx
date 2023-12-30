@@ -3,7 +3,6 @@
 import * as React from "react";
 import * as SelectPrimitive from "@radix-ui/react-select";
 import { Check, ChevronDown, ChevronUp } from "lucide-react";
-import cssVariables from "@/styles/utils/_next-variables.module.scss";
 
 import { cn } from "@/lib/utils";
 
@@ -24,10 +23,6 @@ const SelectTrigger = React.forwardRef<
       className
     )}
     {...props}
-    style={{
-      backgroundColor: "var(--clr-container-background-primary)",
-      borderColor: "var(--clr-container-border)",
-    }}
   >
     {children}
     <SelectPrimitive.Icon asChild>

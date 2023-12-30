@@ -3,6 +3,7 @@ import Switch from "@mui/material/Switch";
 import variables from "@/styles/utils/_next-variables.module.scss";
 import useGetTheme from "@/hooks/useGetTheme";
 import { useState } from "react";
+import getCssVariable from "@/lib/getCssVariable";
 
 const GetThemeSwitcher = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -27,7 +28,7 @@ const GetThemeSwitcher = styled(Switch)(({ theme }) => ({
     },
   },
   "& .MuiSwitch-thumb": {
-    backgroundColor: variables["--clr-base-secondary"],
+    backgroundColor: getCssVariable("--clr-base-secondary"),
     width: 32,
     height: 32,
     "&::before": {

@@ -2,7 +2,20 @@
 import SearchingSVG from "@/assets/svgs/searching.svg";
 import Image from "next/image";
 import styles from "@/styles/components/Home/searchBox.module.scss";
-import cssVariables from "@/styles/utils/_next-variables.module.scss";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
   Select,
   SelectContent,
@@ -12,78 +25,135 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { ScrollArea } from "@/components/ui/scroll-area";
+
+import { Button } from "@/components/ui/button";
+import { Icon } from "@iconify/react";
+import { useState } from "react";
 
 const SearchBox = (): React.JSX.Element => {
-  console.log(cssVariables);
+  const [locations, setLocations] = useState<
+    { district: string; places: string[] }[]
+  >([
+    {
+      district: "Jhapa",
+      places: ["kerkha", "dude", "damak", "birathnagar", "kakarvhita"],
+    },
+    {
+      district: "Kathmandu",
+      places: ["Koteswor", "New Bus park"],
+    },
+    {
+      district: "jfdkslfdj",
+      places: ["kerkha", "dude", "damak", "birathnagar", "kakarvhita"],
+    },
+    {
+      district: "jfkdsfdk",
+      places: ["kerkha", "dude", "damak", "birathnagar", "kakarvhita"],
+    },
+    {
+      district: "jfdkdfkj",
+      places: ["kerkha", "dude", "damak", "birathnagar", "kakarvhita"],
+    },
+    {
+      district: "jfdkfjdk",
+      places: ["kerkha", "dude", "damak", "birathnagar", "kakarvhita"],
+    },
+    {
+      district: "urewoi",
+      places: ["kerkha", "dude", "damak", "birathnagar", "kakarvhita"],
+    },
+    {
+      district: "4u3ue",
+      places: ["kerkha", "dude", "damak", "birathnagar", "kakarvhita"],
+    },
+    {
+      district: "vckl",
+      places: ["kerkha", "dude", "damak", "birathnagar", "kakarvhita"],
+    },
+    {
+      district: "jfdksl[jjj",
+      places: ["kerkha", "dude", "damak", "birathnagar", "kakarvhita"],
+    },
+    {
+      district: "ruewio",
+      places: ["kerkha", "dude", "damak", "birathnagar", "kakarvhita"],
+    },
+    {
+      district: "vcmx",
+      places: ["kerkha", "dude", "damak", "birathnagar", "kakarvhita"],
+    },
+    {
+      district: "vcmx",
+      places: ["kerkha", "dude", "damak", "birathnagar", "kakarvhita"],
+    },
+    {
+      district: "vcmx",
+      places: ["kerkha", "dude", "damak", "birathnagar", "kakarvhita"],
+    },
+    {
+      district: "vcmx",
+      places: ["kerkha", "dude", "damak", "birathnagar", "kakarvhita"],
+    },
+    {
+      district: "vcmx",
+      places: ["kerkha", "dude", "damak", "birathnagar", "kakarvhita"],
+    },
+    {
+      district: "vcmx",
+      places: ["kerkha", "dude", "damak", "birathnagar", "kakarvhita"],
+    },
+    {
+      district: "vcmx",
+      places: ["kerkha", "dude", "damak", "birathnagar", "kakarvhita"],
+    },
+  ]);
+
   return (
     <div className={styles.container}>
       <Image src={SearchingSVG} alt="searching" className={styles.image} />
       <div className={styles.container__divider}></div>
       <form>
-        <Select>
-          <SelectTrigger className="w-[280px]" color="black">
-            {/* <SelectValue placeholder="Select a timezone" color="black" /> */}
-            <p>fdsafds</p>
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>North America</SelectLabel>
-              <SelectItem value="est">Eastern Standard Time (EST)</SelectItem>
-              <SelectItem value="cst">Central Standard Time (CST)</SelectItem>
-              <SelectItem value="mst">Mountain Standard Time (MST)</SelectItem>
-              <SelectItem value="pst">Pacific Standard Time (PST)</SelectItem>
-              <SelectItem value="akst">Alaska Standard Time (AKST)</SelectItem>
-              <SelectItem value="hst">Hawaii Standard Time (HST)</SelectItem>
-            </SelectGroup>
-            <SelectGroup>
-              <SelectLabel>Europe & Africa</SelectLabel>
-              <SelectItem value="gmt">Greenwich Mean Time (GMT)</SelectItem>
-              <SelectItem value="cet">Central European Time (CET)</SelectItem>
-              <SelectItem value="eet">Eastern European Time (EET)</SelectItem>
-              <SelectItem value="west">
-                Western European Summer Time (WEST)
-              </SelectItem>
-              <SelectItem value="cat">Central Africa Time (CAT)</SelectItem>
-              <SelectItem value="eat">East Africa Time (EAT)</SelectItem>
-            </SelectGroup>
-            <SelectGroup>
-              <SelectLabel>Asia</SelectLabel>
-              <SelectItem value="msk">Moscow Time (MSK)</SelectItem>
-              <SelectItem value="ist">India Standard Time (IST)</SelectItem>
-              <SelectItem value="cst_china">
-                China Standard Time (CST)
-              </SelectItem>
-              <SelectItem value="jst">Japan Standard Time (JST)</SelectItem>
-              <SelectItem value="kst">Korea Standard Time (KST)</SelectItem>
-              <SelectItem value="ist_indonesia">
-                Indonesia Central Standard Time (WITA)
-              </SelectItem>
-            </SelectGroup>
-            <SelectGroup>
-              <SelectLabel>Australia & Pacific</SelectLabel>
-              <SelectItem value="awst">
-                Australian Western Standard Time (AWST)
-              </SelectItem>
-              <SelectItem value="acst">
-                Australian Central Standard Time (ACST)
-              </SelectItem>
-              <SelectItem value="aest">
-                Australian Eastern Standard Time (AEST)
-              </SelectItem>
-              <SelectItem value="nzst">
-                New Zealand Standard Time (NZST)
-              </SelectItem>
-              <SelectItem value="fjt">Fiji Time (FJT)</SelectItem>
-            </SelectGroup>
-            <SelectGroup>
-              <SelectLabel>South America</SelectLabel>
-              <SelectItem value="art">Argentina Time (ART)</SelectItem>
-              <SelectItem value="bot">Bolivia Time (BOT)</SelectItem>
-              <SelectItem value="brt">Brasilia Time (BRT)</SelectItem>
-              <SelectItem value="clt">Chile Standard Time (CLT)</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline">Open</Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-56">
+            <DropdownMenuLabel>District</DropdownMenuLabel>
+            <ScrollArea className="h-[200px]">
+              {locations.map((location, index) => {
+                return (
+                  <>
+                    <DropdownMenuGroup key={index}>
+                      <DropdownMenuSub>
+                        <DropdownMenuSubTrigger>
+                          {/* <UserPlus className="mr-2 h-4 w-4" /> */}
+                          <span>{location.district}</span>
+                        </DropdownMenuSubTrigger>
+                        <DropdownMenuPortal>
+                          <DropdownMenuSubContent>
+                            <DropdownMenuLabel>Place</DropdownMenuLabel>
+                            <ScrollArea className="max-h-[250px]">
+                              {location.places.map((place, index) => {
+                                return (
+                                  <>
+                                    <DropdownMenuItem>
+                                      <span>{place}</span>
+                                    </DropdownMenuItem>
+                                  </>
+                                );
+                              })}
+                            </ScrollArea>
+                          </DropdownMenuSubContent>
+                        </DropdownMenuPortal>
+                      </DropdownMenuSub>
+                    </DropdownMenuGroup>
+                  </>
+                );
+              })}
+            </ScrollArea>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </form>
     </div>
   );

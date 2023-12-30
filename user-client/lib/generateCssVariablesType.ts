@@ -29,11 +29,16 @@ const interfaceDefinition = `interface CssVariables {\n  ${variableNames
   .map((variable: any) => `'${variable}': string,`)
   .join("\n  ")}\n}`;
 
+// Create TypeScript type definition
+const typeDefinition = `type CssVariables = ${variableNames
+  .map((variable: any) => `'${variable}'`)
+  .join("|")}; export default CssVariables`;
+
 // Write the interface to a TypeScript file
 const outputTsFilePath = path.resolve(
   __dirname,
   "../interfaces/CssVariables.ts"
 );
-fs.writeFileSync(outputTsFilePath, interfaceDefinition);
+fs.writeFileSync(outputTsFilePath, typeDefinition);
 
-console.log(interfaceDefinition);
+console.log(typeDefinition);
