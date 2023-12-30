@@ -1,5 +1,5 @@
 "use client";
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import Image from "next/image";
 import appIcon from "@/assets/images/appIcon.png";
 import styles from "@/styles/components/navbar.module.scss";
@@ -7,19 +7,11 @@ import styles from "@/styles/components/navbar.module.scss";
 import ThemeSwitcher from "./ThemeSwitcher";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import useGetTheme from "@/hooks/useGetTheme";
 
-interface Props {
-  theme: ThemeMode;
-  setTheme: Dispatch<SetStateAction<ThemeMode>>;
-  localStorageModeKey: string;
-}
-
-const NavBar: React.FC<Props> = ({
-  theme,
-  setTheme,
-  localStorageModeKey,
-}): React.JSX.Element => {
+const NavBar = (): React.JSX.Element => {
   const pathName = usePathname();
+  const [theme, setTheme] = useState(useGetTheme());
 
   // useEffect(() => {
   //   console.log(theme);
@@ -38,18 +30,24 @@ const NavBar: React.FC<Props> = ({
 
   const changeMode = () => {
     let modeValue: ThemeMode;
-    if (theme == "light") {
+    if (theme.value == "light") {
       document.body.classList.add("dark-mode");
       document.body.classList.remove("light-mode");
       modeValue = "dark";
-      setTheme("dark");
+      setTheme({
+        ...theme,
+        value: "dark",
+      });
     } else {
       document.body.classList.add("light-mode");
       document.body.classList.remove("dark-mode");
       modeValue = "light";
-      setTheme("light");
+      setTheme({
+        ...theme,
+        value: "light",
+      });
     }
-    localStorage.setItem(localStorageModeKey, modeValue);
+    localStorage.setItem(theme.key, modeValue);
   };
 
   return (
@@ -135,7 +133,7 @@ const NavBar: React.FC<Props> = ({
           <ThemeSwitcher
             sx={{ m: 1 }}
             onClick={changeMode}
-            defaultChecked={theme == "dark" ? true : false}
+            checked={theme.value == "dark" ? true : false}
           />
           <Link href="/login" className={styles.login_button}>
             Login
