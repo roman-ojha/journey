@@ -20,7 +20,6 @@ export default function RootLayout({
   const theme = useGetTheme();
   const pathName = usePathname();
 
-  console.log(isLoading);
   useEffect(() => {
     if (theme.value == "dark") {
       document.body.classList.add("dark-mode");
@@ -29,7 +28,7 @@ export default function RootLayout({
       document.body.classList.add("light-mode");
       setIsLoading(false);
     }
-  }, []);
+  }, [theme]);
 
   if (isLoading) {
     return (
@@ -38,6 +37,7 @@ export default function RootLayout({
       </html>
     );
   }
+
   return (
     <html lang="en">
       <body className={inter.className}>

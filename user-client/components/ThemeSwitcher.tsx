@@ -1,8 +1,10 @@
 import { styled } from "@mui/material/styles";
 import Switch from "@mui/material/Switch";
 import variables from "@/styles/utils/variables.module.scss";
+import useGetTheme from "@/hooks/useGetTheme";
+import { useState } from "react";
 
-const ThemeSwitcher = styled(Switch)(({ theme }) => ({
+const GetThemeSwitcher = styled(Switch)(({ theme }) => ({
   width: 62,
   height: 34,
   padding: 7,
@@ -49,4 +51,35 @@ const ThemeSwitcher = styled(Switch)(({ theme }) => ({
   },
 }));
 
+const ThemeSwitcher = (): React.ReactNode => {
+  const [theme, setTheme] = useState(useGetTheme());
+  const changeMode = () => {
+    let modeValue: ThemeMode;
+    if (theme.value == "light") {
+      document.body.classList.add("dark-mode");
+      document.body.classList.remove("light-mode");
+      modeValue = "dark";
+      setTheme({
+        ...theme,
+        value: "dark",
+      });
+    } else {
+      document.body.classList.add("light-mode");
+      document.body.classList.remove("dark-mode");
+      modeValue = "light";
+      setTheme({
+        ...theme,
+        value: "light",
+      });
+    }
+    localStorage.setItem(theme.key, modeValue);
+  };
+  return (
+    <GetThemeSwitcher
+      sx={{ m: 1 }}
+      onClick={changeMode}
+      checked={theme.value == "dark" ? true : false}
+    />
+  );
+};
 export default ThemeSwitcher;
