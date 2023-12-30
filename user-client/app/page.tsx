@@ -9,6 +9,9 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <main className={styles.home}>
+      {/* <div>
+
+    </div> */}
       <section className={styles.hero_section}>
         <h1 className={styles.hero_section__title}>
           Easiest Way to buy ticket Online

@@ -1,5 +1,18 @@
 @use "../utils/function" as *;
 
+.vehicle_image {
+  position: absolute;
+  top: 0px;
+  background-image: url("../../assets/images/vehicle01.png");
+  width: 100vw;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: 100vw;
+  // opacity: 0.28;
+  opacity: 0.15;
+  background-position: 0px -60px;
+}
+
 .background_1st {
   //   border: 1px solid red;
   position: absolute;
