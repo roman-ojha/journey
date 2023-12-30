@@ -7,6 +7,7 @@ interface Props {
   width: "100%" | "content-width";
   href?: string; // href
   border?: boolean;
+  type?: "submit" | "button";
 }
 
 const Button: React.FC<Props> = ({
@@ -15,6 +16,7 @@ const Button: React.FC<Props> = ({
   width,
   href,
   border,
+  type,
 }): React.JSX.Element => {
   const className = `${styles.base_button} 
   ${
@@ -37,7 +39,11 @@ const Button: React.FC<Props> = ({
       </Link>
     );
   }
-  return <button className={className}>{children}</button>;
+  return (
+    <button type={type} className={className}>
+      {children}
+    </button>
+  );
 };
 
 export default Button;

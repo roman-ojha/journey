@@ -1,22 +1,73 @@
 @use "../../utils" as *;
 
 .container {
-  $container-height: 50;
+  $container-height: 70;
   //   border: 1px solid red;
   border-radius: get-spacing-px(5);
   border: 1px solid get-color(null, container-border);
-  width: get-spacing-px(200);
+  width: get-spacing-px(220);
   background-color: get-color(null, container-bg-secondary-op-50);
-  padding: get-spacing-px(13) get-spacing-px(26);
+  padding: get-spacing-px(8) get-spacing-px(16);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  // gap: get-spacing-px(8);
+  min-height: get-spacing-px($container-height);
   .image {
-    height: get-spacing-px($container-height);
-    width: get-spacing-px($container-height);
+    height: get-spacing-px($container-height - 15);
+    width: get-spacing-px($container-height - 15);
   }
   &__divider {
-    border: 1px solid red;
+    // border: 1px solid red;
     height: get-spacing-px($container-height);
+  }
+  .search_form {
+    // border: 1px solid blue;
+    padding: 0px get-spacing-px(2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: get-spacing-px(4);
+    .select_item {
+      border: 1px solid get-color(null, container-border);
+      border-radius: get-spacing-px(2);
+      background-color: get-color(null, container-background-primary);
+      padding: get-spacing-px(2) get-spacing-px(6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: get-spacing-px(5);
+      &__icon {
+        height: 35px;
+        width: 35px;
+        color: get-color(null, foreground-secondary);
+      }
+      &__info {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-direction: column;
+        p {
+          @include font-style(p, bold, primary);
+          color: get-color(null, foreground-secondary);
+        }
+        &__location {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: get-spacing-px(2);
+          p {
+            @include font-style(ps, regular, primary);
+            color: get-color(gray, 400);
+          }
+        }
+      }
+    }
+    .search_button {
+      &__icon {
+        font-size: get-spacing-px(5);
+      }
+    }
   }
 }
