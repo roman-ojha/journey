@@ -22,6 +22,36 @@ $primitive-colors: (
   ),
 );
 
+$button-hover: (
+  button-hover-primary:
+    lighten(
+      $color:
+        map-get(
+          $map: map-get($primitive-colors, base),
+          $key: primary,
+        ),
+      $amount: 3,
+    ),
+  button-hover-secondary:
+    lighten(
+      $color:
+        map-get(
+          $map: map-get($primitive-colors, base),
+          $key: secondary,
+        ),
+      $amount: 3,
+    ),
+  button-hover-tertiary:
+    lighten(
+      $color:
+        map-get(
+          $map: map-get($primitive-colors, base),
+          $key: tertiary,
+        ),
+      $amount: 3,
+    ),
+);
+
 $dark-mode-colors: (
   container-background-primary: #0a1321,
   container-background-secondary: #172234,

@@ -6,6 +6,7 @@ import styles from "@/styles/components/navbar.module.scss";
 import ThemeSwitcher from "./ThemeSwitcher";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Button from "./Button";
 
 const NavBar = (): React.JSX.Element => {
   const pathName = usePathname();
@@ -67,12 +68,20 @@ const NavBar = (): React.JSX.Element => {
         </ul>
         <div className={styles.navbar__right_part}>
           <ThemeSwitcher />
-          <Link href="/login" className={styles.login_button}>
+          <Button
+            backgroundColor="transparent"
+            href="/login"
+            width="content-width"
+          >
             Login
-          </Link>
-          <Link href="/register" className={styles.sign_up_button}>
+          </Button>
+          <Button
+            backgroundColor="primary"
+            width="content-width"
+            href="/register"
+          >
             Sign Up
-          </Link>
+          </Button>
         </div>
       </nav>
       <div className={styles.navbar_divider}></div>

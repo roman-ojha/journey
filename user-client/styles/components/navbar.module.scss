@@ -79,24 +79,6 @@
       .theme_switcher:active {
         justify-content: flex-end;
       }
-      .login_button {
-        padding: get-spacing-px(1.5) get-spacing-px(4);
-        border-width: 0px;
-        @include font-style(p, regular, primary);
-        background-color: transparent;
-        color: get-color(null, foreground-primary);
-        text-decoration: none;
-      }
-      .sign_up_button {
-        padding: get-spacing-px(1.5) get-spacing-px(4);
-        border-radius: get-spacing-px(2);
-        border-width: 0px;
-        background-color: get-color(base, primary);
-        color: get-color(base, white);
-        @include font-style(p, regular, primary);
-        cursor: pointer;
-        text-decoration: none;
-      }
     }
   }
   .navbar_divider {

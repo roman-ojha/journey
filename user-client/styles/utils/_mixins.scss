@@ -1,7 +1,12 @@
 @use "./function" as *;
+@use "./color-variables" as *;
 
 @mixin font-style($size, $weight, $family) {
   font-size: get-font(size, $size);
   font-weight: get-font(weight, $weight);
   font-family: get-font(family, $family);
+}
+
+@mixin button-hover($type) {
+  background-color: get-color(null, button-hover-#{$type});
 }

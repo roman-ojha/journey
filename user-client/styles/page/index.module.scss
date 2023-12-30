@@ -1,12 +1,12 @@
 @use "../utils" as *;
 
 .home {
-  height: 150vh;
+  // height: 150vh;
   .hero_section {
     // border: 1px solid red;
     position: relative;
     top: $navbar-height;
-    padding-top: get-spacing-px(20);
+    padding-top: get-spacing-px(15);
     display: flex;
     justify-content: center;
     align-items: center;

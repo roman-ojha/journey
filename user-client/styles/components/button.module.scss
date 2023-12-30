@@ -1,0 +1,48 @@
+@use "../utils" as *;
+
+.base_button {
+  padding: get-spacing-px(1.5) get-spacing-px(4);
+  border-radius: get-spacing-px(2);
+  border-width: 0px;
+  @include font-style(p, regular, primary);
+  cursor: pointer;
+  text-decoration: none;
+  transition-duration: 500ms;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: get-spacing-px(4);
+}
+
+.background_primary {
+  background-color: get-color(base, primary);
+  color: get-color(base, white);
+  &:hover {
+    @include button-hover(primary);
+  }
+}
+
+.background_secondary {
+  background-color: get-color(base, secondary);
+  color: get-color(base, white);
+  &:hover {
+    @include button-hover(secondary);
+  }
+}
+
+.background_tertiary {
+  background-color: get-color(base, tertiary);
+  color: get-color(base, white);
+  &:hover {
+    @include button-hover(tertiary);
+  }
+}
+
+.background_transparent {
+  background-color: transparent;
+  color: get-color(null, foreground-primary);
+}
+
+.width_full {
+  width: 100%;
+}

@@ -26,6 +26,11 @@ body {
       --clr-#{$group-name}-#{$key}: #{$color};
     }
   }
+  // button-hover
+  @each $key, $color in $button-hover {
+    --clr-#{$key}: #{$color};
+  }
+
   // light mode color
   @each $key, $color in $light-mode-colors {
     --clr-#{$key}: #{$color};
