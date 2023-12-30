@@ -15,7 +15,7 @@ body {
   overflow-x: hidden;
   background-color: get-color(null, container-background-primary) !important;
   min-height: 100vh;
-  color: get-color(null, foreground-primary);
+  color: get-color(null, foreground-primary) !important;
   //   @include font-style(h1, bold, primary);
 }
 

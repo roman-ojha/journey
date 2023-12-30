@@ -1,6 +1,6 @@
 import { styled } from "@mui/material/styles";
 import Switch from "@mui/material/Switch";
-import variables from "@/styles/utils/variables.module.scss";
+import variables from "@/styles/utils/_next-variables.module.scss";
 import useGetTheme from "@/hooks/useGetTheme";
 import { useState } from "react";
 

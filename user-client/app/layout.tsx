@@ -1,6 +1,7 @@
 "use client";
 import { Inter } from "next/font/google";
 import "../styles/base/reset.scss";
+import "@/styles/base/global.scss";
 import { useState, useEffect } from "react";
 import useGetTheme from "@/hooks/useGetTheme";
 import NavBar from "@/components/NavBar";

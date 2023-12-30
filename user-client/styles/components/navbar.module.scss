@@ -1,7 +1,7 @@
 @use "../utils" as *;
 
 .container {
-  position: absolute;
+  position: relative;
   .navbar {
     // border: 1px solid red;
     width: 100vw;

@@ -12,7 +12,7 @@
   .hero_section {
     // border: 1px solid red;
     top: $navbar-height;
-    padding-top: get-spacing-px(15) + $navbar-height;
+    padding-top: get-spacing-px(15);
     display: flex;
     justify-content: center;
     align-items: center;

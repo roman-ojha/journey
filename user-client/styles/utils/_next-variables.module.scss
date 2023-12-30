@@ -1,0 +1,22 @@
+@use "./index" as *;
+
+:export {
+  // primitive-colors for nextJS application
+  @each $group-name, $colors in $primitive-colors {
+    @each $key, $color in $colors {
+      --clr-#{$group-name}-#{$key}: #{$color};
+    }
+  }
+
+  // button-hover
+  @each $key, $color in $button-hover {
+    --clr-#{$key}: #{$color};
+  }
+
+  // font variables
+  @each $font-type, $values in $font {
+    @each $type-value-key, $value in $values {
+      --font-#{$font-type}-#{$type-value-key}: #{$value};
+    }
+  }
+}
