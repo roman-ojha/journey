@@ -19,4 +19,9 @@
       --font-#{$font-type}-#{$type-value-key}: #{$value};
     }
   }
+
+  // exporting light mode variable but, does not matter whether you export dark mode or light mode because we are using this variable name to generate typescript types
+  @each $key, $color in $light-mode-colors {
+    --clr-#{$key}: #{$color};
+  }
 }
