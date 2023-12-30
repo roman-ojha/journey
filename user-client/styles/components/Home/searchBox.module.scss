@@ -1,0 +1,22 @@
+@use "../../utils" as *;
+
+.container {
+  $container-height: 50;
+  //   border: 1px solid red;
+  border-radius: get-spacing-px(5);
+  border: 1px solid get-color(null, container-border);
+  width: get-spacing-px(200);
+  background-color: get-color(null, container-bg-secondary-op-50);
+  padding: get-spacing-px(13) get-spacing-px(26);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .image {
+    height: get-spacing-px($container-height);
+    width: get-spacing-px($container-height);
+  }
+  &__divider {
+    border: 1px solid red;
+    height: get-spacing-px($container-height);
+  }
+}

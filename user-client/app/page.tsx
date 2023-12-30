@@ -1,9 +1,8 @@
-"use client";
-import Button from "@/components/Button";
+import HeroButtons from "@/components/Home/HeroButtons";
+import SearchBox from "@/components/Home/SearchBox";
 import { APPLICATION_NAME } from "@/constants";
 import styles from "@/styles/page/index.module.scss";
 import { Metadata } from "next";
-import { Icon } from "@iconify/react";
 
 // export const metadata: Metadata = {
 //   title: APPLICATION_NAME,
@@ -23,21 +22,10 @@ export default function Home() {
           </p>
         </div>
         <div className={styles.buttons_container}>
-          <Button backgroundColor="primary" width="content-width">
-            Search Vehicles
-            <Icon icon="icon-park-outline:down-c" />
-          </Button>
-          <Button
-            backgroundColor="transparent"
-            width="content-width"
-            href="/explore"
-            border
-          >
-            Explore Vehicles
-            <Icon icon="icon-park-outline:right-c" />
-          </Button>
+          <HeroButtons />
         </div>
       </section>
+      <SearchBox />
     </main>
   );
 }

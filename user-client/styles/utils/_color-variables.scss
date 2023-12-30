@@ -69,18 +69,8 @@ $dark-mode-colors: (
       rgba(#0a1321, $alpha: 0.5),
       rgba(#0a1321, $alpha: 1)
     ),
-  container-bg-op-20:
-    rgba(
-      $color:
-        map-get(
-          map-get(
-            $map: $primitive-colors,
-            $key: base,
-          ),
-          $key: primary
-        ),
-      $alpha: 0.2,
-    ),
+  container-bg-secondary-op-50: rgba(#172234, $alpha: 0.5),
+  container-bg-primary-op-20: rgba(#0a1321, $alpha: 0.2),
   foreground-primary:
     map-get(
       $map:
@@ -146,17 +136,10 @@ $light-mode-colors: (
       rgba(#eeeff6, 0.7),
       rgba(#eeeff6, 1)
     ),
-  container-bg-op-20:
+  container-bg-secondary-op-50: rgba(#172234, $alpha: 0.5),
+  container-bg-primary-op-20:
     rgba(
-      $color:
-        map-get(
-          $map:
-            map-get(
-              $map: $primitive-colors,
-              $key: base,
-            ),
-          $key: white,
-        ),
+      $color: #eeeff6,
       $alpha: 0.2,
     ),
   foreground-primary:
