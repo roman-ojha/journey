@@ -11,19 +11,32 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: get-spacing-px(3);
-    &__title {
-      @include font-style(h1, bold, secondary);
-      // border: 1px solid red;
-      width: get-spacing-px(200);
-      text-align: center;
-      line-height: get-spacing-px(18);
+    gap: get-spacing-px(8);
+    &__heading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: get-spacing-px(3);
+      &__title {
+        @include font-style(h1, bold, secondary);
+        // border: 1px solid red;
+        width: get-spacing-px(200);
+        text-align: center;
+        line-height: get-spacing-px(18);
+      }
+      &__info {
+        @include font-style(p, regular, primary);
+        width: get-spacing-px(120);
+        text-align: center;
+        line-height: get-spacing-px(5);
+      }
     }
-    &__info {
-      @include font-style(p, regular, primary);
-      width: get-spacing-px(120);
-      text-align: center;
-      line-height: get-spacing-px(5);
-    }
+  }
+  .buttons_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: get-spacing-px(5);
   }
 }

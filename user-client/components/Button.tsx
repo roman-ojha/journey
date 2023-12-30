@@ -6,6 +6,7 @@ interface Props {
   backgroundColor: "primary" | "secondary" | "tertiary" | "transparent";
   width: "100%" | "content-width";
   href?: string; // href
+  border?: boolean;
 }
 
 const Button: React.FC<Props> = ({
@@ -13,13 +14,20 @@ const Button: React.FC<Props> = ({
   backgroundColor,
   width,
   href,
+  border,
 }): React.JSX.Element => {
   const className = `${styles.base_button} 
-  ${backgroundColor == "primary" && styles.background_primary}
-  ${backgroundColor == "secondary" && styles.background_secondary}
-  ${backgroundColor == "tertiary" && styles.background_tertiary}
-  ${backgroundColor == "transparent" && styles.background_transparent}
-  ${width === "100%" && styles.width_full}
+  ${
+    backgroundColor == "primary"
+      ? styles.background_primary
+      : backgroundColor == "secondary"
+      ? styles.background_secondary
+      : backgroundColor == "tertiary"
+      ? styles.background_tertiary
+      : styles.background_transparent
+  }
+  ${border ? styles.border : ""}
+  ${width === "100%" ? styles.width_full : ""}
   `;
 
   if (href) {

@@ -11,7 +11,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: get-spacing-px(4);
+  gap: get-spacing-px(2);
 }
 
 .background_primary {
@@ -45,4 +45,8 @@
 
 .width_full {
   width: 100%;
+}
+
+.border {
+  border: 1px solid get-color(null, foreground-primary);
 }
