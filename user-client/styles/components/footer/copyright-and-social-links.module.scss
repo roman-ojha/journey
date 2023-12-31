@@ -1,0 +1,41 @@
+@use "../../utils" as *;
+
+.container {
+  //   border: 1px solid red;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: get-spacing-px(4) 0px;
+  .left_part {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: get-spacing-px(8);
+    &__copyright {
+      display: flex;
+      gap: get-spacing-px(1);
+      &__icon {
+        font-size: get-spacing-px(5);
+        color: get-color(null, foreground-tertiary);
+      }
+      p {
+        @include font-style(ps, regular, primary);
+        color: get-color(null, foreground-tertiary);
+      }
+    }
+    p {
+      @include font-style(ps, bold, primary);
+      color: get-color(null, foreground-secondary);
+    }
+  }
+  .right_part {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: get-spacing-px(8);
+    &__icon {
+      font-size: get-spacing-px(8);
+      color: get-color(null, foreground-secondary);
+    }
+  }
+}

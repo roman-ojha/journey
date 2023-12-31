@@ -2,6 +2,7 @@ import Logo from "../Logo";
 import styles from "@/styles/components/footer/footer.module.scss";
 import AvailableAppSection from "./AvailableAppSection";
 import LinkSection from "./LinkSection";
+import CopyRightAndSocialLinks from "./CopyRightAndSocialLinks";
 
 const Footer = (): React.JSX.Element => {
   return (
@@ -84,6 +85,7 @@ const Footer = (): React.JSX.Element => {
         </section>
       </section>
       <div className={styles.divider}></div>
+      <CopyRightAndSocialLinks />
     </footer>
   );
 };
