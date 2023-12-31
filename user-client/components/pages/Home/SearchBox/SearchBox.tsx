@@ -10,7 +10,7 @@ import * as z from "zod";
 import { Icon } from "@iconify/react";
 import { cn } from "@/lib/utils";
 import { Calendar } from "@/components/ui/calendar";
-import styles from "@/styles/components/Home/searchBox.module.scss";
+import styles from "@/styles/components/pages/home/searchBox.module.scss";
 import {
   Form,
   FormControl,

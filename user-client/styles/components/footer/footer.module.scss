@@ -1,0 +1,38 @@
+@use "../../utils" as *;
+
+.container {
+  // border: 1px solid red;
+  // margin-top: get-spacing-px(15);
+  //   position: absolute;
+  //   bottom: 0px;
+  //   width: 100vw;
+  margin: 0px get-spacing-px(10);
+  z-index: 10;
+  .divider {
+    border: 1px solid get-color(null, container-divider);
+  }
+  .main_footer_section {
+    // border: 1px solid red;
+    &__left {
+      // border: 1px solid green;
+      padding: get-spacing-px(8) get-spacing-px(16);
+      width: fit-content;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: get-spacing-px(6);
+      .available_on_container {
+        // border: 1px solid red;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: get-spacing-px(3);
+        h6 {
+          @include font-style(h6, bold, primary);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,52 @@
+@use "../../utils" as *;
+
+.available_app_section {
+  // border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  gap: get-spacing-px(2);
+  &__title_container {
+    // border: 1px solid green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: get-spacing-px(3);
+    p {
+      @include font-style(ps, bold, primary);
+      min-width: fit-content;
+    }
+    &__divider {
+      border: 1px solid get-color(null, container-border);
+      width: 100%;
+    }
+  }
+  &__app_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: get-spacing-px(6);
+    .app_download_on {
+      border: 1px solid get-color(null, container-border);
+      border-radius: get-spacing-px(2);
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding: get-spacing-px(2) get-spacing-px(4);
+      &__icon {
+        font-size: get-spacing-px(10);
+      }
+      &__text_container {
+        display: flex;
+        flex-direction: column;
+        p {
+          @include font-style(ps, regular, primary);
+          // line-height: 8px;
+        }
+        h6 {
+          @include font-style(h6, bold, primary);
+          line-height: get-spacing-px(5);
+        }
+      }
+    }
+  }
+}

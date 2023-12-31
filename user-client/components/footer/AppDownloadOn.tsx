@@ -1,4 +1,4 @@
-import styles from "@/styles/components/footer.module.scss";
+import styles from "@/styles/components/footer/available-on.module.scss";
 import { Icon } from "@iconify/react";
 
 interface Props {

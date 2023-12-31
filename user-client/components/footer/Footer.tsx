@@ -1,5 +1,5 @@
 import Logo from "../Logo";
-import styles from "@/styles/components/footer.module.scss";
+import styles from "@/styles/components/footer/footer.module.scss";
 import AvailableAppSection from "./AvailableAppSection";
 
 const Footer = (): React.JSX.Element => {
