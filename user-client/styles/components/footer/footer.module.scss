@@ -1,11 +1,6 @@
 @use "../../utils" as *;
 
 .container {
-  // border: 1px solid red;
-  // margin-top: get-spacing-px(15);
-  //   position: absolute;
-  //   bottom: 0px;
-  //   width: 100vw;
   margin: 0px get-spacing-px(10);
   z-index: 10;
   .divider {
@@ -13,6 +8,9 @@
   }
   .main_footer_section {
     // border: 1px solid red;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
     &__left {
       // border: 1px solid green;
       padding: get-spacing-px(8) get-spacing-px(16);
@@ -33,6 +31,15 @@
           @include font-style(h6, bold, primary);
         }
       }
+    }
+    &__right {
+      padding: get-spacing-px(8) get-spacing-px(16);
+      // border: 1px solid red;
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-start;
+      gap: get-spacing-px(8);
+      width: 60%;
     }
   }
 }

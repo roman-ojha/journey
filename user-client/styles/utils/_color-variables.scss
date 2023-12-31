@@ -87,7 +87,7 @@ $dark-mode-colors: (
           $map: $primitive-colors,
           $key: gray,
         ),
-      $key: 50,
+      $key: 100,
     ),
   foreground-tertiary:
     map-get(
@@ -96,7 +96,7 @@ $dark-mode-colors: (
           $map: $primitive-colors,
           $key: gray,
         ),
-      $key: 100,
+      $key: 200,
     ),
 );
 

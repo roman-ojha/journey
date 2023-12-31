@@ -1,0 +1,28 @@
+@use "../../utils" as *;
+
+.footer_link_section {
+  //   border: 1px solid red;
+  padding: get-spacing-px(4) get-spacing-px(8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: get-spacing-px(5);
+  h6 {
+    @include font-style(h6, bold, primary);
+    color: get-color(null, foreground-secondary);
+  }
+  &__links {
+    @include font-style(p, regular, primary);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: get-spacing-px(0.8);
+    p,
+    a {
+      @include font-style(p, regular, primary);
+      color: get-color(null, foreground-tertiary);
+    }
+  }
+}
