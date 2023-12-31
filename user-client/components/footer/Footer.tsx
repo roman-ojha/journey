@@ -3,8 +3,15 @@ import styles from "@/styles/components/footer/footer.module.scss";
 import AvailableAppSection from "./AvailableAppSection";
 import LinkSection from "./LinkSection";
 import CopyRightAndSocialLinks from "./CopyRightAndSocialLinks";
+import { usePathname } from "next/navigation";
+import { NO_NAVBAR_FOR_ROUTES } from "@/data/constants";
 
 const Footer = (): React.JSX.Element => {
+  const path = usePathname();
+  if (NO_NAVBAR_FOR_ROUTES.includes(path)) {
+    return <></>;
+  }
+
   return (
     <footer className={styles.container}>
       <div className={styles.divider}></div>

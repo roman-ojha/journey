@@ -18,20 +18,17 @@ const LinkSection: React.FC<Props> = ({ title, links }): React.JSX.Element => {
       <h6>{title}</h6>
       <div className={styles.footer_link_section__links}>
         {links.map((link, index) => {
+          if (link.disable) {
+            return <p key={index}>{link.title}</p>;
+          }
           return (
-            <>
-              {link.disable ? (
-                <p>{link.title}</p>
-              ) : (
-                <Link
-                  href={link.href}
-                  key={index}
-                  target={link.target ? link.target : ""}
-                >
-                  {link.title}
-                </Link>
-              )}
-            </>
+            <Link
+              href={link.href}
+              key={index}
+              target={link.target ? link.target : ""}
+            >
+              {link.title}
+            </Link>
           );
         })}
       </div>

@@ -7,10 +7,7 @@ import { useState, useEffect } from "react";
 import useGetTheme from "@/hooks/useGetTheme";
 import NavBar from "@/components/NavBar";
 import ShadeGradient from "@/components/ShadeGradient";
-import { usePathname } from "next/navigation";
 import Footer from "@/components/footer/Footer";
-
-const noNavbarForRoutes = ["/login", "/register"];
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +18,6 @@ export default function RootLayout({
 }) {
   const [isLoading, setIsLoading] = useState(true);
   const theme = useGetTheme();
-  const pathName = usePathname();
 
   useEffect(() => {
     if (theme.value == "dark") {
@@ -40,16 +36,13 @@ export default function RootLayout({
       </html>
     );
   }
+  console.log("hello");
 
   return (
     <html lang="en">
       <body className={inter.className}>
-        {!noNavbarForRoutes.includes(pathName) && (
-          <>
-            <ShadeGradient />
-            <NavBar />
-          </>
-        )}
+        <ShadeGradient />
+        <NavBar />
         {children}
         <Footer />
       </body>

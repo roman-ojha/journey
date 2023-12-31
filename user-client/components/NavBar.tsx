@@ -6,9 +6,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Button from "./Button";
 import Logo from "./Logo";
+import { NO_NAVBAR_FOR_ROUTES } from "@/data/constants";
 
 const NavBar = (): React.JSX.Element => {
   const pathName = usePathname();
+
+  if (NO_NAVBAR_FOR_ROUTES.includes(pathName)) {
+    return <></>;
+  }
 
   return (
     <section className={styles.container}>

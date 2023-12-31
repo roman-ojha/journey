@@ -174,32 +174,28 @@ const SearchBox = (): React.JSX.Element => {
               <ScrollArea className="h-[200px]">
                 {locations.map((location, index) => {
                   return (
-                    <>
-                      <DropdownMenuGroup key={index}>
-                        <DropdownMenuSub>
-                          <DropdownMenuSubTrigger>
-                            {/* <UserPlus className="mr-2 h-4 w-4" /> */}
-                            <span>{location.district}</span>
-                          </DropdownMenuSubTrigger>
-                          <DropdownMenuPortal>
-                            <DropdownMenuSubContent>
-                              <DropdownMenuLabel>Place</DropdownMenuLabel>
-                              <ScrollArea className="max-h-[250px]">
-                                {location.places.map((place, index) => {
-                                  return (
-                                    <>
-                                      <DropdownMenuItem>
-                                        <span>{place}</span>
-                                      </DropdownMenuItem>
-                                    </>
-                                  );
-                                })}
-                              </ScrollArea>
-                            </DropdownMenuSubContent>
-                          </DropdownMenuPortal>
-                        </DropdownMenuSub>
-                      </DropdownMenuGroup>
-                    </>
+                    <DropdownMenuGroup key={index}>
+                      <DropdownMenuSub>
+                        <DropdownMenuSubTrigger>
+                          {/* <UserPlus className="mr-2 h-4 w-4" /> */}
+                          <span>{location.district}</span>
+                        </DropdownMenuSubTrigger>
+                        <DropdownMenuPortal>
+                          <DropdownMenuSubContent>
+                            <DropdownMenuLabel>Place</DropdownMenuLabel>
+                            <ScrollArea className="max-h-[250px]">
+                              {location.places.map((place, index) => {
+                                return (
+                                  <DropdownMenuItem key={index}>
+                                    <span>{place}</span>
+                                  </DropdownMenuItem>
+                                );
+                              })}
+                            </ScrollArea>
+                          </DropdownMenuSubContent>
+                        </DropdownMenuPortal>
+                      </DropdownMenuSub>
+                    </DropdownMenuGroup>
                   );
                 })}
               </ScrollArea>
@@ -227,32 +223,28 @@ const SearchBox = (): React.JSX.Element => {
               <ScrollArea className="h-[200px]">
                 {locations.map((location, index) => {
                   return (
-                    <>
-                      <DropdownMenuGroup key={index}>
-                        <DropdownMenuSub>
-                          <DropdownMenuSubTrigger className="focus:text-accent-foreground">
-                            {/* <UserPlus className="mr-2 h-4 w-4" /> */}
-                            <span>{location.district}</span>
-                          </DropdownMenuSubTrigger>
-                          <DropdownMenuPortal>
-                            <DropdownMenuSubContent>
-                              <DropdownMenuLabel>Place</DropdownMenuLabel>
-                              <ScrollArea className="max-h-[250px]">
-                                {location.places.map((place, index) => {
-                                  return (
-                                    <>
-                                      <DropdownMenuItem>
-                                        <span>{place}</span>
-                                      </DropdownMenuItem>
-                                    </>
-                                  );
-                                })}
-                              </ScrollArea>
-                            </DropdownMenuSubContent>
-                          </DropdownMenuPortal>
-                        </DropdownMenuSub>
-                      </DropdownMenuGroup>
-                    </>
+                    <DropdownMenuGroup key={index}>
+                      <DropdownMenuSub>
+                        <DropdownMenuSubTrigger className="focus:text-accent-foreground">
+                          {/* <UserPlus className="mr-2 h-4 w-4" /> */}
+                          <span>{location.district}</span>
+                        </DropdownMenuSubTrigger>
+                        <DropdownMenuPortal>
+                          <DropdownMenuSubContent>
+                            <DropdownMenuLabel>Place</DropdownMenuLabel>
+                            <ScrollArea className="max-h-[250px]">
+                              {location.places.map((place, index) => {
+                                return (
+                                  <DropdownMenuItem key={index}>
+                                    <span>{place}</span>
+                                  </DropdownMenuItem>
+                                );
+                              })}
+                            </ScrollArea>
+                          </DropdownMenuSubContent>
+                        </DropdownMenuPortal>
+                      </DropdownMenuSub>
+                    </DropdownMenuGroup>
                   );
                 })}
               </ScrollArea>

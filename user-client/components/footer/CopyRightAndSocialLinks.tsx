@@ -1,4 +1,4 @@
-import { APPLICATION_NAME } from "@/constants";
+import { APPLICATION_NAME } from "@/data/constants";
 import { Icon } from "@iconify/react";
 import styles from "@/styles/components/footer/copyright-and-social-links.module.scss";
 import Link from "next/link";

@@ -1,4 +1,4 @@
-import { APPLICATION_NAME } from "@/constants";
+import { APPLICATION_NAME } from "@/data/constants";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
