@@ -1,5 +1,6 @@
 import Link from "next/link";
 import styles from "@/styles/components/footer/link-section.module.scss";
+import { HTMLAttributeAnchorTarget } from "react";
 
 interface Props {
   title: string;
@@ -7,6 +8,7 @@ interface Props {
     title: string;
     href: string;
     disable?: boolean;
+    target?: HTMLAttributeAnchorTarget;
   }[];
 }
 
@@ -21,7 +23,11 @@ const LinkSection: React.FC<Props> = ({ title, links }): React.JSX.Element => {
               {link.disable ? (
                 <p>{link.title}</p>
               ) : (
-                <Link href={link.href} key={index}>
+                <Link
+                  href={link.href}
+                  key={index}
+                  target={link.target ? link.target : ""}
+                >
                   {link.title}
                 </Link>
               )}

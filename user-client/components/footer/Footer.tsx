@@ -70,10 +70,12 @@ const Footer = (): React.JSX.Element => {
               {
                 title: "Changelog",
                 href: "https://github.com/roman-ojha/journey",
+                target: "_blank",
               },
               {
                 title: "Source code",
                 href: "https://github.com/roman-ojha/journey",
+                target: "_blank",
               },
               {
                 title: "Blog",

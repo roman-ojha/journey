@@ -23,9 +23,10 @@
         color: get-color(null, foreground-tertiary);
       }
     }
-    p {
+    a {
       @include font-style(ps, bold, primary);
       color: get-color(null, foreground-secondary);
+      text-decoration: none;
     }
   }
   .right_part {
