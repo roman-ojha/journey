@@ -8,7 +8,7 @@ import useGetTheme from "@/hooks/useGetTheme";
 import NavBar from "@/components/NavBar";
 import ShadeGradient from "@/components/ShadeGradient";
 import { usePathname } from "next/navigation";
-import Footer from "@/components/Footer";
+import Footer from "@/components/footer/Footer";
 
 const noNavbarForRoutes = ["/login", "/register"];
 

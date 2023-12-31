@@ -1,11 +1,13 @@
-@use "../utils/function" as *;
+@use "../utils" as *;
+
+$container-height: 900px;
 
 .vehicle_image {
   position: absolute;
   top: 0px;
   background-image: url("../../assets/images/vehicle01.png");
   width: 100vw;
-  height: 100vh;
+  height: $home-page-hero-section-height;
   background-repeat: no-repeat;
   background-size: 100vw;
   // opacity: 0.28;
@@ -17,11 +19,11 @@
   position: absolute;
   width: 100vw;
   top: 0px;
-  height: 100vh;
+  height: $home-page-hero-section-height;
   background-image: get-color(null, container-background-gradient-1st);
 }
 
 .background_2nd {
-  height: 100vh;
+  height: $home-page-hero-section-height;
   background-image: get-color(null, container-background-gradient-2nd);
 }

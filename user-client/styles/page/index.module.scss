@@ -2,17 +2,18 @@
 
 .home {
   // height: 150vh;
+  height: $home-page-hero-section-height;
   // border: 1px solid green;
   position: relative;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   flex-direction: column;
-  gap: get-spacing-px(15);
+  // gap: get-spacing-px(15);
   .hero_section {
     // border: 1px solid red;
     top: $navbar-height;
-    padding-top: get-spacing-px(15);
+    // padding-top: get-spacing-px(15);
     display: flex;
     justify-content: center;
     align-items: center;
