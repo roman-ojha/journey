@@ -8,6 +8,7 @@ import useGetTheme from "@/hooks/useGetTheme";
 import NavBar from "@/components/NavBar";
 import ShadeGradient from "@/components/ShadeGradient";
 import { usePathname } from "next/navigation";
+import Footer from "@/components/Footer";
 
 const noNavbarForRoutes = ["/login", "/register"];
 
@@ -50,6 +51,7 @@ export default function RootLayout({
           </>
         )}
         {children}
+        <Footer />
       </body>
     </html>
   );

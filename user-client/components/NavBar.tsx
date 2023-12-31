@@ -1,12 +1,11 @@
 "use client";
 import React from "react";
-import Image from "next/image";
-import appIcon from "@/assets/images/appIcon.png";
 import styles from "@/styles/components/navbar.module.scss";
 import ThemeSwitcher from "./ThemeSwitcher";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Button from "./Button";
+import Logo from "./Logo";
 
 const NavBar = (): React.JSX.Element => {
   const pathName = usePathname();
@@ -14,14 +13,9 @@ const NavBar = (): React.JSX.Element => {
   return (
     <section className={styles.container}>
       <nav className={styles.navbar}>
-        <Link href="/" className={styles.navbar__logo_container}>
-          <Image
-            src={appIcon}
-            alt="app icon"
-            className={styles.navbar__logo_container__logo}
-          />
-          <h5 className={styles.navbar__logo_container__text}>Journey</h5>
-        </Link>
+        <div className={styles.navbar__logo}>
+          <Logo />
+        </div>
         <ul className={styles.navbar__nav_list}>
           <li>
             <Link

@@ -25,7 +25,17 @@ module.exports = {
         background: getCssVariableForTailwind(
           "--clr-container-background-primary"
         ),
+        "background-secondary": getCssVariableForTailwind(
+          "--clr-container-background-secondary"
+        ),
         foreground: "hsl(var(--foreground))",
+        "background-secondary-op-50": getCssVariableForTailwind(
+          "--clr-container-bg-secondary-op-50"
+        ),
+        "background-primary-op-20": getCssVariableForTailwind(
+          "--clr-container-bg-primary-op-20"
+        ),
+        "container-border": getCssVariableForTailwind("--clr-container-border"),
         primary: {
           DEFAULT: getCssVariableForTailwind("--clr-base-primary"),
           foreground: getCssVariableForTailwind("--clr-foreground-primary"),

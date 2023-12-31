@@ -10,20 +10,8 @@
     align-items: center;
     padding: 0px get-spacing-px(10);
     height: $navbar-height;
-    &__logo_container {
+    &__logo {
       min-width: get-spacing-px(80);
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      text-decoration: none;
-      &__logo {
-        height: get-spacing-px(15);
-        width: get-spacing-px(15);
-      }
-      &__text {
-        @include font-style(h5, medium, secondary);
-        color: get-color(null, foreground-primary);
-      }
     }
     &__nav_list {
       list-style-type: none;

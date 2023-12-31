@@ -52,14 +52,17 @@ function Calendar({
         day_range_middle:
           "aria-selected:bg-accent aria-selected:text-accent-foreground",
         day_hidden: "invisible",
+        root: "bg-background-primary-op-20",
         ...classNames,
       }}
-      style={{
-        backgroundColor: getCssVariable(
-          "--clr-container-bg-primary-op-20",
-          true
-        ),
-      }}
+      style={
+        {
+          // backgroundColor: getCssVariable(
+          //   "--clr-container-bg-primary-op-20",
+          //   true
+          // ),
+        }
+      }
       components={{
         IconLeft: ({ ...props }) => <ChevronLeft className="h-4 w-4" />,
         IconRight: ({ ...props }) => <ChevronRight className="h-4 w-4" />,
