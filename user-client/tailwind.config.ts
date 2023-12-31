@@ -1,11 +1,12 @@
 /** @type {import('tailwindcss').Config} */
+import getCssVariableForTailwind from "./lib/getCssVariableForTailwind";
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
   ],
   prefix: "",
   theme: {
@@ -21,15 +22,20 @@ module.exports = {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
+        background: getCssVariableForTailwind(
+          "--clr-container-background-primary"
+        ),
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: getCssVariableForTailwind("--clr-base-primary"),
+          foreground: getCssVariableForTailwind("--clr-foreground-primary"),
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
+          DEFAULT: getCssVariableForTailwind("--clr-base-secondary"),
           foreground: "hsl(var(--secondary-foreground))",
+        },
+        tertiary: {
+          DEFAULT: getCssVariableForTailwind("--clr-base-tertiary"),
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
@@ -74,4 +80,4 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};

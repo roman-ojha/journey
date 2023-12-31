@@ -5,7 +5,11 @@ import { Icon } from "@iconify/react";
 const HeroButtons = (): React.JSX.Element => {
   return (
     <>
-      <Button backgroundColor="primary" width="content-width">
+      <Button
+        backgroundColor="primary"
+        width="content-width"
+        href="#search-box"
+      >
         Search Vehicles
         <Icon icon="icon-park-outline:down-c" />
       </Button>

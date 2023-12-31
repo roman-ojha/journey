@@ -1,43 +1,41 @@
 @use "../../utils" as *;
 
 .container {
-  $container-height: 70;
-  //   border: 1px solid red;
+  $container-width: 220;
   border-radius: get-spacing-px(5);
   border: 1px solid get-color(null, container-border);
-  width: get-spacing-px(220);
+  width: get-spacing-px($container-width);
   background-color: get-color(null, container-bg-secondary-op-50);
   padding: get-spacing-px(8) get-spacing-px(16);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  // gap: get-spacing-px(8);
-  min-height: get-spacing-px($container-height);
+  max-height: fit-content;
   .image {
-    height: get-spacing-px($container-height - 15);
-    width: get-spacing-px($container-height - 15);
+    width: 30%;
   }
   &__divider {
-    // border: 1px solid red;
-    height: get-spacing-px($container-height);
+    border: 1px solid get-color(null, container-divider);
+    // height: get-spacing-px($container-height);
+    height: 100%;
   }
   .search_form {
-    // border: 1px solid blue;
     padding: 0px get-spacing-px(2);
+    width: 60%;
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-    gap: get-spacing-px(4);
+    gap: get-spacing-px(3);
     .select_item {
+      cursor: pointer;
       border: 1px solid get-color(null, container-border);
       border-radius: get-spacing-px(2);
       background-color: get-color(null, container-background-primary);
       padding: get-spacing-px(2) get-spacing-px(6);
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
       gap: get-spacing-px(5);
+      width: 100%;
       &__icon {
         height: 35px;
         width: 35px;

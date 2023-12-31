@@ -1,5 +1,5 @@
 import HeroButtons from "@/components/Home/HeroButtons";
-import SearchBox from "@/components/Home/SearchBox";
+import SearchBox from "@/components/Home/SearchBox/SearchBox";
 import { APPLICATION_NAME } from "@/constants";
 import styles from "@/styles/page/index.module.scss";
 import { Metadata } from "next";

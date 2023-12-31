@@ -327,6 +327,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@hookform/resolvers@npm:^3.3.3":
+  version: 3.3.3
+  resolution: "@hookform/resolvers@npm:3.3.3"
+  peerDependencies:
+    react-hook-form: ^7.0.0
+  checksum: 3d86b8226a82bc58b8190d97b5f8ffa8f8f497163f90a6794d605a20eb709068eca4c65014b95f4376f4543ccc3289a4c295c71fc41cbd3b8557fd2711d33e98
+  languageName: node
+  linkType: hard
+
 "@humanwhocodes/config-array@npm:^0.11.13":
   version: 0.11.13
   resolution: "@humanwhocodes/config-array@npm:0.11.13"
@@ -1120,6 +1129,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@radix-ui/react-label@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "@radix-ui/react-label@npm:2.0.2"
+  dependencies:
+    "@babel/runtime": "npm:^7.13.10"
+    "@radix-ui/react-primitive": "npm:1.0.3"
+  peerDependencies:
+    "@types/react": "*"
+    "@types/react-dom": "*"
+    react: ^16.8 || ^17.0 || ^18.0
+    react-dom: ^16.8 || ^17.0 || ^18.0
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    "@types/react-dom":
+      optional: true
+  checksum: a6528735b9f3e15ad83b7a905861bbc5a9b9236716957d6e99902bbfced0472aed4ddbf519bc0e6c41f528986e7acf7270cf0734a2fc380a547a8640809d3a81
+  languageName: node
+  linkType: hard
+
 "@radix-ui/react-menu@npm:2.0.6":
   version: 2.0.6
   resolution: "@radix-ui/react-menu@npm:2.0.6"
@@ -1154,6 +1183,40 @@ __metadata:
     "@types/react-dom":
       optional: true
   checksum: 06926fa59cb8f5614f2e1a085ea1cbf09631ae28fb6e5d6e6d2a0a84d24979e3aca311cdb19dfdb254c1823ff85fd5250c29d4463f8f7622dd523e35df3fce1d
+  languageName: node
+  linkType: hard
+
+"@radix-ui/react-popover@npm:^1.0.7":
+  version: 1.0.7
+  resolution: "@radix-ui/react-popover@npm:1.0.7"
+  dependencies:
+    "@babel/runtime": "npm:^7.13.10"
+    "@radix-ui/primitive": "npm:1.0.1"
+    "@radix-ui/react-compose-refs": "npm:1.0.1"
+    "@radix-ui/react-context": "npm:1.0.1"
+    "@radix-ui/react-dismissable-layer": "npm:1.0.5"
+    "@radix-ui/react-focus-guards": "npm:1.0.1"
+    "@radix-ui/react-focus-scope": "npm:1.0.4"
+    "@radix-ui/react-id": "npm:1.0.1"
+    "@radix-ui/react-popper": "npm:1.1.3"
+    "@radix-ui/react-portal": "npm:1.0.4"
+    "@radix-ui/react-presence": "npm:1.0.1"
+    "@radix-ui/react-primitive": "npm:1.0.3"
+    "@radix-ui/react-slot": "npm:1.0.2"
+    "@radix-ui/react-use-controllable-state": "npm:1.0.1"
+    aria-hidden: "npm:^1.1.1"
+    react-remove-scroll: "npm:2.5.5"
+  peerDependencies:
+    "@types/react": "*"
+    "@types/react-dom": "*"
+    react: ^16.8 || ^17.0 || ^18.0
+    react-dom: ^16.8 || ^17.0 || ^18.0
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    "@types/react-dom":
+      optional: true
+  checksum: ed7abbd61df1e15d62072e214fafbdc4e31942e0ce49665f2045d8279944a0a37762bcd70a36389ed9e43c95797d5acb57f6f5ca5a15b688b1928cfc2b9ce196
   languageName: node
   linkType: hard
 
@@ -1356,6 +1419,37 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 3af6ea4891e6fa8091e666802adffe7718b3cd390a10fa9229a5f40f8efded9f3918ea01b046103d93923d41cc32119505ebb6bde76cad07a87b6cf4f2119347
+  languageName: node
+  linkType: hard
+
+"@radix-ui/react-toast@npm:^1.1.5":
+  version: 1.1.5
+  resolution: "@radix-ui/react-toast@npm:1.1.5"
+  dependencies:
+    "@babel/runtime": "npm:^7.13.10"
+    "@radix-ui/primitive": "npm:1.0.1"
+    "@radix-ui/react-collection": "npm:1.0.3"
+    "@radix-ui/react-compose-refs": "npm:1.0.1"
+    "@radix-ui/react-context": "npm:1.0.1"
+    "@radix-ui/react-dismissable-layer": "npm:1.0.5"
+    "@radix-ui/react-portal": "npm:1.0.4"
+    "@radix-ui/react-presence": "npm:1.0.1"
+    "@radix-ui/react-primitive": "npm:1.0.3"
+    "@radix-ui/react-use-callback-ref": "npm:1.0.1"
+    "@radix-ui/react-use-controllable-state": "npm:1.0.1"
+    "@radix-ui/react-use-layout-effect": "npm:1.0.1"
+    "@radix-ui/react-visually-hidden": "npm:1.0.3"
+  peerDependencies:
+    "@types/react": "*"
+    "@types/react-dom": "*"
+    react: ^16.8 || ^17.0 || ^18.0
+    react-dom: ^16.8 || ^17.0 || ^18.0
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    "@types/react-dom":
+      optional: true
+  checksum: 1263f1fd4b53f563c0eace84582ff0c82b515100230e35a17b95c44ad420a4e9c156be28787398d3a455d699292dde4dd23311e1d8a0c23ec36931ff6e5a6935
   languageName: node
   linkType: hard
 
@@ -2333,6 +2427,13 @@ __metadata:
   version: 1.0.8
   resolution: "damerau-levenshtein@npm:1.0.8"
   checksum: 4c2647e0f42acaee7d068756c1d396e296c3556f9c8314bac1ac63ffb236217ef0e7e58602b18bb2173deec7ec8e0cac8e27cccf8f5526666b4ff11a13ad54a3
+  languageName: node
+  linkType: hard
+
+"date-fns@npm:^3.0.6":
+  version: 3.0.6
+  resolution: "date-fns@npm:3.0.6"
+  checksum: ca6ac81aca623fd6d12a43da59cc216e13a75a2eecf7fac692654524fca625e073f5cd36951ef0deac9621ead564eb06b4c3723f77b34e86f21ca3c0c3b32ff7
   languageName: node
   linkType: hard
 
@@ -3785,12 +3886,16 @@ __metadata:
   dependencies:
     "@emotion/react": "npm:^11.11.3"
     "@emotion/styled": "npm:^11.11.0"
+    "@hookform/resolvers": "npm:^3.3.3"
     "@iconify/react": "npm:^4.1.1"
     "@mui/material": "npm:^5.15.2"
     "@radix-ui/react-dropdown-menu": "npm:^2.0.6"
+    "@radix-ui/react-label": "npm:^2.0.2"
+    "@radix-ui/react-popover": "npm:^1.0.7"
     "@radix-ui/react-scroll-area": "npm:^1.0.5"
     "@radix-ui/react-select": "npm:^2.0.0"
     "@radix-ui/react-slot": "npm:^1.0.2"
+    "@radix-ui/react-toast": "npm:^1.1.5"
     "@types/node": "npm:^20"
     "@types/postcss-css-variables": "npm:^0"
     "@types/react": "npm:^18"
@@ -3798,6 +3903,7 @@ __metadata:
     autoprefixer: "npm:^10.4.16"
     class-variance-authority: "npm:^0.7.0"
     clsx: "npm:^2.1.0"
+    date-fns: "npm:^3.0.6"
     eslint: "npm:^8"
     eslint-config-next: "npm:14.0.4"
     lucide-react: "npm:^0.303.0"
@@ -3805,7 +3911,9 @@ __metadata:
     postcss: "npm:^8.4.32"
     postcss-css-variables: "npm:^0.19.0"
     react: "npm:^18"
+    react-day-picker: "npm:^8.10.0"
     react-dom: "npm:^18"
+    react-hook-form: "npm:^7.49.2"
     sass: "npm:^1.69.5"
     sharp: "npm:^0.33.1"
     tailwind-merge: "npm:^2.2.0"
@@ -3813,6 +3921,7 @@ __metadata:
     tailwindcss-animate: "npm:^1.0.7"
     ts-node: "npm:^10.9.2"
     typescript: "npm:^5"
+    zod: "npm:^3.22.4"
   languageName: unknown
   linkType: soft
 
@@ -4703,6 +4812,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-day-picker@npm:^8.10.0":
+  version: 8.10.0
+  resolution: "react-day-picker@npm:8.10.0"
+  peerDependencies:
+    date-fns: ^2.28.0 || ^3.0.0
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: e9868aced1e40b4cb7d6cf8d50e250226b38ec7ebea944b65aa9db20a0f36d0581b8a501297d09dcbf2d812de852168952b3fb27990915381629d6e314c2a4d8
+  languageName: node
+  linkType: hard
+
 "react-dom@npm:^18":
   version: 18.2.0
   resolution: "react-dom@npm:18.2.0"
@@ -4712,6 +4831,15 @@ __metadata:
   peerDependencies:
     react: ^18.2.0
   checksum: 66dfc5f93e13d0674e78ef41f92ed21dfb80f9c4ac4ac25a4b51046d41d4d2186abc915b897f69d3d0ebbffe6184e7c5876f2af26bfa956f179225d921be713a
+  languageName: node
+  linkType: hard
+
+"react-hook-form@npm:^7.49.2":
+  version: 7.49.2
+  resolution: "react-hook-form@npm:7.49.2"
+  peerDependencies:
+    react: ^16.8.0 || ^17 || ^18
+  checksum: 8e2d3209d49a816f08e61a3b1847e9edff5ecb6e5b3cd056780c2331f8bb32aa0b7a2542bece602b415ddd4009023c5d054a27a021dc5014672623d5990853c8
   languageName: node
   linkType: hard
 
@@ -5922,5 +6050,12 @@ __metadata:
   version: 0.1.0
   resolution: "yocto-queue@npm:0.1.0"
   checksum: dceb44c28578b31641e13695d200d34ec4ab3966a5729814d5445b194933c096b7ced71494ce53a0e8820685d1d010df8b2422e5bf2cdea7e469d97ffbea306f
+  languageName: node
+  linkType: hard
+
+"zod@npm:^3.22.4":
+  version: 3.22.4
+  resolution: "zod@npm:3.22.4"
+  checksum: 7578ab283dac0eee66a0ad0fc4a7f28c43e6745aadb3a529f59a4b851aa10872b3890398b3160f257f4b6817b4ce643debdda4fb21a2c040adda7862cab0a587
   languageName: node
   linkType: hard
