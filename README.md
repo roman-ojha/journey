@@ -38,7 +38,7 @@
   * PostgreSQL
   * MySQL
   * MongoDB
-  
+
 ## 4. [Merchant Service:](https://github.com/roman-ojha/journey/tree/staging/merchant-service)
 * #### Short Explanation: (Todo.)
 * ### Technologies Used:
@@ -88,6 +88,22 @@
 * ### Technologies Used:
   * NodeJS
   * Swagger
+
+## 12. [Admin Client:](https://github.com/roman-ojha/journey/tree/staging/admin-service)
+* #### Short Explanation:
+  * Initial Admin UI template is been fork from [altence/lightence-ant-design-react-template](https://github.com/roman-ojha/journey/tree/staging/admin-client)
+
+## 12. [User Client:](https://github.com/roman-ojha/journey/tree/staging/user-client)
+* #### Short Explanation: (Todo.)
+* #### Technologies and Important Libraries Used:
+  * Next.js 14
+  * Sass
+  * TailwindCSS
+  * ShadCn UI
+  * React Query
+  * Redux Toolkit
+  * React Hook Form
+  * Zod
 
 ### Functional Requirement:
 * User can be able to Register & logged into the system
