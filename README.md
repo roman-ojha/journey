@@ -9,7 +9,7 @@
 </div>
 
 
-## NOTE: Project is still under development Phase
+## Disclaimer: Project is still under development Phase
 
 
 # System Overview:
@@ -18,84 +18,10 @@
 * Building the Docker Images of all the Microservice and pushing into Docker hub public registry.
 * Deploying the Kubernetes Manifests of all the Microservice Applications into Google GKE & AWS EKS Cluster.
 
-# Microservices App Explanation:
-## 1. [API Gateway:](https://github.com/roman-ojha/journey/tree/staging/api-gateway)
-* #### Short Explanation: (Todo.)
-* #### Technologies Used:
-    * NodeJS & Express
-    * PostgreSQL
-    * MySQL
-
-## 2. [Main Proxy:](https://github.com/roman-ojha/journey/tree/staging/temp-main-proxy)
-* #### Short Explanation: (Todo.)
-* #### Technologies Used:
-  * Nginx (for Reverse Proxy)
-  
-## 3. [Admin Service:](https://github.com/roman-ojha/journey/tree/staging/admin-service)
-* #### Short Explanation: (Todo.)
-* #### Technologies Used:
-  * Django Rest Framework
-  * PostgreSQL
-  * MySQL
-  * MongoDB
-
-## 4. [Merchant Service:](https://github.com/roman-ojha/journey/tree/staging/merchant-service)
-* #### Short Explanation: (Todo.)
-* ### Technologies Used:
-  * Laravel
-  * MySQL
-
-## 5. [Merchant Vehicle & Travel Service:](https://github.com/roman-ojha/journey/tree/staging/merchant-vehicle-and-travel-service)
-* #### Short Explanation: (Todo.)
-* ### Technologies Used:
-  * NodeJS/ExpressJS
-  * MongoDB
-  * Prisma ORM
-
-## 6. [User Service:](https://github.com/roman-ojha/journey/tree/staging/user-service)
-* #### Short Explanation: (Todo.)
-* ### Technologies Used:
-  * NodeJS/ExpressJS
-  * PostgreSQL
-
-## 7. User Vehicle Service:
-* #### Short Explanation: (Todo.)
-* ### Technologies Used:
-  * Django
-  * MongoDB
-
-## 8. User Booking Service:
-* #### Short Explanation: (Todo.)
-* ### Technologies Used:
-  * NodeJS/ExpressJS
-  * MongoDB
-
-
-## 9. User Review Service:
-* #### Short Explanation: (Todo.)
-* ### Technologies Used:
-  * FastAPI
-  * MongoDB
-
-## 10. Vehicle Booking Service:
-* #### Short Explanation: (Todo.)
-* ### Technologies Used:
-  * Django
-  * MongoDB
-
-## 11. [API Docs:](https://github.com/roman-ojha/journey/tree/staging/api-docs-service)
-* #### Short Explanation: (Todo.)
-* ### Technologies Used:
-  * NodeJS
-  * Swagger
-
-## 12. [Admin Client:](https://github.com/roman-ojha/journey/tree/staging/admin-service)
-* #### Short Explanation:
-  * Initial Admin UI template is been fork from [altence/lightence-ant-design-react-template](https://github.com/roman-ojha/journey/tree/staging/admin-client)
-
-## 12. [User Client:](https://github.com/roman-ojha/journey/tree/staging/user-client)
-* #### Short Explanation: (Todo.)
-* #### Technologies and Important Libraries Used:
+# Microservices & Application Explanation:
+## 1. [User Client:](https://github.com/roman-ojha/journey/tree/staging/user-client)
+* Short Explanation: (Todo.)
+* Technologies and Important Libraries Used:
   * Next.js 14
   * Sass
   * TailwindCSS
@@ -104,6 +30,93 @@
   * Redux Toolkit
   * React Hook Form
   * Zod
+## 2. [Admin Client:](https://github.com/roman-ojha/journey/tree/staging/admin-service)
+* Short Explanation:
+  * Initial Admin UI template is been fork from [altence/lightence-ant-design-react-template](https://github.com/roman-ojha/journey/tree/staging/admin-client)
+
+## 3. [Merchant Client:](https://github.com/roman-ojha/journey/tree/staging/api-gateway)
+* Short Explanation: (Todo.)
+* Technologies Used:
+    * Flutter | React Native
+## 4. [Main Proxy:](https://github.com/roman-ojha/journey/tree/staging/temp-main-proxy)
+* Short Explanation:
+  * Disclaimer: Haven't implemented main proxy on Nginx, for now we have using Express proxy server
+  * (Todo.)
+* Technologies Used:
+  * Nginx (for Reverse Proxy)
+## 5. [API Gateway:](https://github.com/roman-ojha/journey/tree/staging/api-gateway)
+* Short Explanation: (Todo.)
+* Technologies Used:
+    * NodeJS & Express
+    * PostgreSQL
+    * MySQL
+    * PrismaORM
+## 6. [User Service:](https://github.com/roman-ojha/journey/tree/staging/user-service)
+* #### Short Explanation: (Todo.)
+* ### Technologies Used:
+  * NodeJS/ExpressJS
+  * PostgreSQL
+  * PrismaORM
+  * GCP Storage
+## 7. User Review Service:
+* #### Short Explanation: (Todo.)
+* ### Technologies Used:
+  * FastAPI
+  * MongoDB
+## 8. User Vehicle Service:
+* #### Short Explanation: (Todo.)
+* ### Technologies Used:
+  * Django
+  * MongoDB
+## 9. User Booking Service:
+* #### Short Explanation: (Todo.)
+* ### Technologies Used:
+  * NodeJS/ExpressJS
+  * MongoDB
+## 10. User Vehicle Service:
+* #### Short Explanation: (Todo.)
+* ### Technologies Used:
+  * Django
+  * MongoDB
+## 11. User Booking Service:
+* #### Short Explanation: (Todo.)
+* ### Technologies Used:
+  * NodeJS/ExpressJS
+  * MongoDB
+## 12. [Admin Service:](https://github.com/roman-ojha/journey/tree/staging/admin-service)
+* #### Short Explanation: (Todo.)
+* #### Technologies Used:
+  * Django Rest Framework
+  * PostgreSQL
+  * MySQL
+  * MongoDB
+## 13. [Merchant Service:](https://github.com/roman-ojha/journey/tree/staging/merchant-service)
+* #### Short Explanation: (Todo.)
+* ### Technologies Used:
+  * Laravel
+  * MySQL
+## 14. [Merchant Vehicle & Travel Service:](https://github.com/roman-ojha/journey/tree/staging/merchant-vehicle-and-travel-service)
+* #### Short Explanation: (Todo.)
+* ### Technologies Used:
+  * NodeJS/ExpressJS
+  * MongoDB
+  * Prisma ORM
+## 15. Vehicle Booking Service:
+* #### Short Explanation: (Todo.)
+* ### Technologies Used:
+  * Django
+  * MongoDB
+## 16. [API Docs:](https://github.com/roman-ojha/journey/tree/staging/api-docs-service)
+* #### Short Explanation: (Todo.)
+* ### Technologies Used:
+  * NodeJS
+  * Swagger
+
+### System Design
+[<img src="./assets/Design/System-Design.png"></img>](./assets/Design/System-Design.png)
+
+### ER Diagram
+[<img src="./assets/Design/ER-Diagram.drawio.png"></img>](./assets/Design/ER-Diagram.drawio.png)
 
 ### Functional Requirement:
 * User can be able to Register & logged into the system
@@ -127,12 +140,6 @@
 3. main:
     * merge to main branch so that end user can access the application, Also we can called it as production branch.
 
-### System Design
-[<img src="./assets/Design/System-Design.png"></img>](./assets/Design/System-Design.png)
 
-### ER Diagram
-[<img src="./assets/Design/ER-Diagram.drawio.png"></img>](./assets/Design/ER-Diagram.drawio.png)
-
-
-### References:
-* MongoDB Integration on Laravel: https://www.mongodb.com/compatibility/mongodb-laravel-integration
+<!-- ### References:
+* MongoDB Integration on Laravel: https://www.mongodb.com/compatibility/mongodb-laravel-integration -->
