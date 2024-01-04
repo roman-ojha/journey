@@ -1,4 +1,4 @@
-@use "../utils" as *;
+@use "../../utils" as *;
 
 .explore_page {
   border: 2px solid red;
@@ -7,5 +7,9 @@
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  // height: 1000px;
+  .card_and_filter {
+    border: 1px solid green;
+    width: 90vw;
+    // margin-top: ;
+  }
 }
