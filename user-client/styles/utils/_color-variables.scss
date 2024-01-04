@@ -5,6 +5,7 @@ $primitive-colors: (
     tertiary: #ae4bf2,
     white: #ffffff,
     black: #000000,
+    rating-star: #fd8e1f,
   ),
   gray: (
     50: #f7f8f8,
@@ -98,6 +99,7 @@ $dark-mode-colors: (
         ),
       $key: 200,
     ),
+  // primary-box-shadow:
 );
 
 $light-mode-colors: (
