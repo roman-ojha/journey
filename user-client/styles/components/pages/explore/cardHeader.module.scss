@@ -1,0 +1,38 @@
+@use "../../../utils" as *;
+
+.container {
+  border: 1px solid get-color(null, container-border);
+  display: flex;
+  width: 90vw;
+  padding: get-spacing-px(3) get-spacing-px(4);
+  border-radius: get-spacing-px(4);
+  align-items: center;
+  $right-left-container-width: get-spacing-px(80);
+  .title {
+    @include font-style(p, bold, primary);
+    // border: 1px solid red;
+  }
+  .short_by_container {
+    display: flex;
+    align-items: center;
+    margin-right: auto;
+    gap: get-spacing-px(4);
+    // border: 1px solid red;
+    width: $right-left-container-width;
+    p {
+      @include font-style(p, regular, primary);
+    }
+  }
+  .card_style {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: get-spacing-px(4);
+    margin-left: auto;
+    // border: 1px solid red;
+    width: $right-left-container-width;
+    &__icon {
+      font-size: 1.5rem;
+    }
+  }
+}
