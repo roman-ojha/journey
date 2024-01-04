@@ -43,7 +43,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useState } from "react";
-import Button from "@/components/Button";
+import Button from "@/components/buttons/Button";
 
 const FormSchema = z.object({
   dob: z.date({

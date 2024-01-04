@@ -1,22 +1,23 @@
 import Link from "next/link";
 import styles from "@/styles/components/button.module.scss";
 
-interface Props {
+type BaseProps = {
+  width: "100%" | "content-width";
   children: React.ReactNode;
   backgroundColor: "primary" | "secondary" | "tertiary" | "transparent";
-  width: "100%" | "content-width";
-  href?: string; // href
   border?: boolean;
-  type?: "submit" | "button";
-}
+};
+
+type ButtonProps = {} & React.ComponentProps<"button">;
+type Props = BaseProps & ButtonProps;
 
 const Button: React.FC<Props> = ({
   children,
   backgroundColor,
   width,
-  href,
   border,
   type,
+  ...props
 }): React.JSX.Element => {
   const className = `${styles.base_button} 
   ${
@@ -31,16 +32,8 @@ const Button: React.FC<Props> = ({
   ${border ? styles.border : ""}
   ${width === "100%" ? styles.width_full : ""}
   `;
-
-  if (href) {
-    return (
-      <Link href={href} className={className}>
-        {children}
-      </Link>
-    );
-  }
   return (
-    <button type={type} className={className}>
+    <button className={className} {...props}>
       {children}
     </button>
   );

@@ -1,19 +1,20 @@
 "use client";
-import Button from "@/components/Button";
+import AppLink from "@/components/buttons/AppLink";
+import Button from "@/components/buttons/Button";
 import { Icon } from "@iconify/react";
 
 const HeroButtons = (): React.JSX.Element => {
   return (
     <>
-      <Button
+      <AppLink
         backgroundColor="primary"
         width="content-width"
         href="#search-box"
       >
         Search Vehicles
         <Icon icon="icon-park-outline:down-c" />
-      </Button>
-      <Button
+      </AppLink>
+      <AppLink
         backgroundColor="transparent"
         width="content-width"
         href="/explore"
@@ -21,7 +22,7 @@ const HeroButtons = (): React.JSX.Element => {
       >
         Explore Vehicles
         <Icon icon="icon-park-outline:right-c" />
-      </Button>
+      </AppLink>
     </>
   );
 };

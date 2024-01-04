@@ -43,7 +43,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useState } from "react";
-import Button from "@/components/Button";
+import Button from "@/components/buttons/Button";
 
 const FormSchema = z.object({
   dob: z.date({
@@ -299,7 +299,12 @@ const HorizontalSearchBox = (): React.JSX.Element => {
             );
           }}
         />
-        <Button backgroundColor="primary" width="100%" type="button">
+        <Button
+          backgroundColor="primary"
+          width="100%"
+          type="button"
+          style={{ margin: "auto" }}
+        >
           Search
           <Icon
             icon="fluent:vehicle-car-16-filled"
