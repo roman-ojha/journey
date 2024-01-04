@@ -1,15 +1,19 @@
 @use "../../utils" as *;
 
 .explore_page {
-  border: 2px solid red;
   position: relative;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
   .card_and_filter {
-    border: 1px solid green;
+    // border: 1px solid green;
     width: 90vw;
-    // margin-top: ;
+    margin-top: get-spacing-px(5);
+    display: flex;
+    .card_container {
+      border: 1px solid green;
+      width: 80%;
+    }
   }
 }

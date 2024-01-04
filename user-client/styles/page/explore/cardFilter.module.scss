@@ -1,1 +1,6 @@
-@use "../../../utils" as *;
+@use "../../utils" as *;
+
+.container {
+  border: 1px solid red;
+  width: 20%;
+}

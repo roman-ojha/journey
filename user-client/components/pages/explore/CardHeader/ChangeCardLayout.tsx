@@ -1,6 +1,6 @@
 "use client";
 import { Icon } from "@iconify/react";
-import styles from "@/styles/components/pages/explore/cardHeader.module.scss";
+import styles from "@/styles/page/explore/cardHeader.module.scss";
 import { useState } from "react";
 
 const ChangeCardLayout = (): React.JSX.Element => {

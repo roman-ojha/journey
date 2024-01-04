@@ -6,7 +6,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import getCssVariable from "@/lib/getCssVariable";
-import styles from "@/styles/components/pages/explore/cardHeader.module.scss";
+import styles from "@/styles/page/explore/cardHeader.module.scss";
 import ChangeCardLayout from "./ChangeCardLayout";
 
 const CardHeader = (): React.JSX.Element => {
