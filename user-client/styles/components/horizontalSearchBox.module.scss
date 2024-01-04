@@ -1,0 +1,68 @@
+@use "../utils" as *;
+
+.search_form {
+  padding: get-spacing-px(4) get-spacing-px(8);
+  //   width: 60%;
+  display: flex;
+  background-color: get-color(null, container-bg-primary-op-20);
+  border-radius: get-spacing-px(4);
+  gap: get-spacing-px(5);
+  margin: get-spacing-px(14) 0px;
+  .select_item {
+    cursor: pointer;
+    border-radius: get-spacing-px(2);
+    background-color: get-color(null, container-background-primary);
+    padding: get-spacing-px(2) get-spacing-px(6);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: get-spacing-px(5);
+    // border: 1px solid red;
+    height: 100%;
+    &__icon {
+      font-size: 1.8rem;
+      color: get-color(null, foreground-secondary);
+    }
+    &__info {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      flex-direction: column;
+      //   border: 1px solid blue;
+      p {
+        @include font-style(p, bold, primary);
+        color: get-color(null, foreground-secondary);
+      }
+      &__location {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        // border: 1px solid purple;
+        flex-direction: column;
+        width: max-content;
+        p {
+          @include font-style(ps, regular, primary);
+          color: get-color(gray, 400);
+        }
+      }
+    }
+  }
+  .search_button {
+    &__icon {
+      font-size: get-spacing-px(5);
+    }
+  }
+}
+
+.container {
+  $container-width: 220;
+  border-radius: get-spacing-px(5);
+  border: 1px solid get-color(null, container-border);
+  width: get-spacing-px($container-width);
+  background-color: get-color(null, container-bg-secondary-op-50);
+  padding: get-spacing-px(8) get-spacing-px(16);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-height: fit-content;
+}

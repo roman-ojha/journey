@@ -37,8 +37,7 @@
       gap: get-spacing-px(5);
       width: 100%;
       &__icon {
-        height: 35px;
-        width: 35px;
+        font-size: 1.8rem;
         color: get-color(null, foreground-secondary);
       }
       &__info {

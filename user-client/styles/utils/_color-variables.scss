@@ -70,7 +70,7 @@ $dark-mode-colors: (
       rgba(#0a1321, $alpha: 1)
     ),
   container-bg-secondary-op-50: rgba(#172234, $alpha: 0.5),
-  container-bg-primary-op-20: rgba(#0a1321, $alpha: 0.2),
+  container-bg-primary-op-20: lighten(rgba(#0a1321, $alpha: 0.2), 70),
   foreground-primary:
     map-get(
       $map:
