@@ -36,7 +36,6 @@ export default function RootLayout({
       </html>
     );
   }
-  console.log("hello");
 
   return (
     <html lang="en">
