@@ -3,7 +3,7 @@
 .container {
   margin: 0px get-spacing-px(10);
   margin-top: get-spacing-px(16);
-  z-index: 10;
+  position: relative;
   .divider {
     border: 1px solid get-color(null, container-divider);
   }

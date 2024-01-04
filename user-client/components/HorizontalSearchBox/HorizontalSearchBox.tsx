@@ -159,7 +159,7 @@ const HorizontalSearchBox = (): React.JSX.Element => {
               <span className={styles.select_item__info}>
                 <p>From</p>
                 <span className={styles.select_item__info__location}>
-                  <p>Select departure district</p>
+                  <p>Select departure district ,</p>
                   <p>Select departure place</p>
                 </span>
               </span>
@@ -207,7 +207,7 @@ const HorizontalSearchBox = (): React.JSX.Element => {
               <span className={styles.select_item__info}>
                 <p>From</p>
                 <span className={styles.select_item__info__location}>
-                  <p>Select departure district</p>
+                  <p>Select departure district ,</p>
                   <p>Select departure place</p>
                 </span>
               </span>
@@ -301,7 +301,8 @@ const HorizontalSearchBox = (): React.JSX.Element => {
         />
         <Button
           backgroundColor="primary"
-          width="100%"
+          // width="100%"
+          width="content-width"
           type="button"
           style={{ margin: "auto" }}
         >

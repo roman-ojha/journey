@@ -2,12 +2,14 @@
 
 .search_form {
   padding: get-spacing-px(4) get-spacing-px(8);
-  //   width: 60%;
   display: flex;
+  justify-content: center;
+  max-width: 80vw;
   background-color: get-color(null, container-bg-primary-op-20);
   border-radius: get-spacing-px(4);
   gap: get-spacing-px(5);
   margin: get-spacing-px(14) 0px;
+  flex-wrap: wrap;
   .select_item {
     cursor: pointer;
     border-radius: get-spacing-px(2);
@@ -17,7 +19,6 @@
     justify-content: flex-start;
     align-items: center;
     gap: get-spacing-px(5);
-    // border: 1px solid red;
     height: 100%;
     &__icon {
       font-size: 1.8rem;
@@ -52,17 +53,4 @@
       font-size: get-spacing-px(5);
     }
   }
-}
-
-.container {
-  $container-width: 220;
-  border-radius: get-spacing-px(5);
-  border: 1px solid get-color(null, container-border);
-  width: get-spacing-px($container-width);
-  background-color: get-color(null, container-bg-secondary-op-50);
-  padding: get-spacing-px(8) get-spacing-px(16);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-height: fit-content;
 }

@@ -17,6 +17,7 @@ body {
   min-height: 100vh;
   color: get-color(null, foreground-primary) !important;
   //   @include font-style(h1, bold, primary);
+  // position: relative;
 }
 
 :root {
