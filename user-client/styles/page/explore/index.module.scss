@@ -9,11 +9,15 @@
   .card_and_filter {
     // border: 1px solid green;
     width: 90vw;
-    margin-top: get-spacing-px(5);
+    margin-top: get-spacing-px(2);
     display: flex;
     .card_container {
       // border: 1px solid green;
       width: 80%;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(get-spacing-px(90), 1fr));
+      gap: get-spacing-px(6);
+      padding: get-spacing-px(6);
     }
   }
 }

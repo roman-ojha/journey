@@ -9,6 +9,12 @@ const VehicleCards = (): React.JSX.Element => {
       <VehicleCard />
       <VehicleCard />
       <VehicleCard />
+      <VehicleCard />
+      <VehicleCard />
+      <VehicleCard />
+      <VehicleCard />
+      <VehicleCard />
+      <VehicleCard />
     </section>
   );
 };

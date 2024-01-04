@@ -1,6 +1,6 @@
 @use "../../utils" as *;
 
 .container {
-  border: 1px solid red;
+  border: 1px solid get-color(null, container-border);
   width: 20%;
 }

@@ -2,10 +2,11 @@
 import Image from "next/image";
 import styles from "@/styles/components/vehicleCard.module.scss";
 import { Icon } from "@iconify/react";
+import Link from "next/link";
 
 const VehicleCard = (): React.JSX.Element => {
   return (
-    <div className={styles.container}>
+    <Link href="" className={styles.container}>
       <div className={styles.card_image_container}>
         <Image
           src="https://images.unsplash.com/photo-1557223562-6c77ef16210f?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -66,7 +67,7 @@ const VehicleCard = (): React.JSX.Element => {
           <p data-card-p="value">Deluxe Bus</p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

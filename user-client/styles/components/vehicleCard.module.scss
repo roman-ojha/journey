@@ -1,28 +1,31 @@
 @use "../utils" as *;
 
 .container {
-  //   border: 1px solid purple;
-  width: get-spacing-px(110);
   $card-border-radius: 3;
   border-radius: get-spacing-px($card-border-radius);
-  box-shadow: 0px 6px 20px rgba(#ffffff, 0.06);
+  box-shadow: get-color(null, primary-box-shadow);
+  cursor: pointer;
+  transition-duration: 200ms;
+  &:hover {
+    transform: scale(1.02);
+  }
   .card_image_container {
-    // margin: get-spacing-px(5);
     .card_image {
       border-radius: get-spacing-px($card-border-radius)
         get-spacing-px($card-border-radius) 0px 0px;
-      //   width: 100px;
-      //   height: 100px;
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      object-position: center;
     }
   }
   .card_info {
-    // border: 1px solid red;
     padding: get-spacing-px(5);
     display: flex;
     flex-direction: column;
     gap: get-spacing-px(1);
     .card_title {
-      @include font-style(h6, medium, primary);
+      @include font-style(p, medium, primary);
     }
     .card_rating_review {
       display: flex;
@@ -32,11 +35,11 @@
         display: flex;
         &__icon {
           color: get-color(base, rating-star);
-          font-size: 1.5rem;
+          font-size: 1.3rem;
         }
-        p {
-          @include font-style(ps, regular, primary);
-        }
+      }
+      p {
+        @include font-style(ps, regular, primary);
       }
     }
     .card_departure_at,
@@ -47,18 +50,13 @@
       align-items: center;
       gap: get-spacing-px(2);
       &__icon {
-        font-size: 2rem;
+        font-size: 1.5rem;
       }
       & p[data-card-p="key"] {
-        @include font-style(ps, regular, primary);
+        @include font-style(pxs, regular, primary);
       }
       & p[data-card-p="value"] {
-        @include font-style(p, regular, primary);
-      }
-      // p::first-letter {
-      //   color: blue;
-      // }
-      &:first-child {
+        @include font-style(ps, regular, primary);
       }
     }
   }

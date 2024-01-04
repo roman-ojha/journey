@@ -99,7 +99,7 @@ $dark-mode-colors: (
         ),
       $key: 200,
     ),
-  // primary-box-shadow:
+  primary-box-shadow: 0px 6px 20px rgba(#ffffff, 0.06),
 );
 
 $light-mode-colors: (
@@ -171,4 +171,5 @@ $light-mode-colors: (
         ),
       $key: 700,
     ),
+  primary-box-shadow: -3px 7px 26px rgba(#000000, 0.16),
 );
