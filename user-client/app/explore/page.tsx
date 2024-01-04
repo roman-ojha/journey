@@ -2,7 +2,7 @@ import HorizontalSearchBox from "@/components/HorizontalSearchBox/HorizontalSear
 import { APPLICATION_NAME } from "@/data/constants";
 import { Metadata } from "next";
 import styles from "@/styles/page/explore.module.scss";
-import CardHeader from "@/components/pages/explore/CardHeader";
+import CardHeader from "@/components/pages/explore/CardHeader/CardHeader";
 
 export const metadata: Metadata = {
   title: `Explore | ${APPLICATION_NAME}`,

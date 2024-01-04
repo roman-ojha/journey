@@ -1,4 +1,3 @@
-"use client";
 import {
   Select,
   SelectContent,
@@ -8,7 +7,7 @@ import {
 } from "@/components/ui/select";
 import getCssVariable from "@/lib/getCssVariable";
 import styles from "@/styles/components/pages/explore/cardHeader.module.scss";
-import { Icon } from "@iconify/react";
+import ChangeCardLayout from "./ChangeCardLayout";
 
 const CardHeader = (): React.JSX.Element => {
   return (
@@ -37,10 +36,7 @@ const CardHeader = (): React.JSX.Element => {
         </Select>
       </div>
       <p className={styles.title}>9 Vehicle Found</p>
-      <div className={styles.card_style}>
-        <Icon icon="ion:grid" className={styles.card_style__icon} />
-        <Icon icon="ion:list-sharp" className={styles.card_style__icon} />
-      </div>
+      <ChangeCardLayout />
     </section>
   );
 };

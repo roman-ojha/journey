@@ -23,7 +23,7 @@
       @include font-style(p, regular, primary);
     }
   }
-  .card_style {
+  .card_layout {
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -33,6 +33,10 @@
     width: $right-left-container-width;
     &__icon {
       font-size: 1.5rem;
+      cursor: pointer;
+      &__active {
+        color: get-color(base, secondary);
+      }
     }
   }
 }
