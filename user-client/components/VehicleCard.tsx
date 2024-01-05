@@ -40,6 +40,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
           width={350}
           height={350}
           className={styles.card_image}
+          priority={true}
         />
       </div>
       <div className={styles.card_info}>

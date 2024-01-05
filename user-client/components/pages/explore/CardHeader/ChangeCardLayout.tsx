@@ -1,12 +1,17 @@
 "use client";
 import { Icon } from "@iconify/react";
 import styles from "@/styles/page/explore/cardHeader.module.scss";
-import exploreStyle from "@/styles/page/explore/index.module.scss";
-import vehicleCardStyles from "@/styles/components/vehicleCard.module.scss";
 import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "@/hooks/useAppStore";
+import { setVehicleCardLayout } from "@/services/store/features/vehicleCardLayout/vehicleCardLayoutSlice";
+import { useDispatch } from "react-redux";
 
 const ChangeCardLayout = (): React.JSX.Element => {
   const [layout, setLayout] = useState<"grid" | "list">("list");
+  const vehicleCardLayout = useAppSelector((state) => state.vehicleCardLayout);
+  const dispatch = useAppDispatch();
+  console.log(vehicleCardLayout);
+
   // useEffect(() => {
   //   if (layout == "list") {
   //     document
@@ -33,7 +38,7 @@ const ChangeCardLayout = (): React.JSX.Element => {
             layout == "grid" ? styles.card_layout__icon__active : null
           }`}
           onClick={() => {
-            setLayout("grid");
+            dispatch(setVehicleCardLayout("grid"));
           }}
         />
         <Icon
@@ -42,7 +47,7 @@ const ChangeCardLayout = (): React.JSX.Element => {
             layout == "list" ? styles.card_layout__icon__active : null
           }`}
           onClick={() => {
-            setLayout("list");
+            dispatch(setVehicleCardLayout("list"));
           }}
         />
       </div>
