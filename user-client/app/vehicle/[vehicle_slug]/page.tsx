@@ -1,4 +1,5 @@
 import HorizontalSearchBox from "@/components/HorizontalSearchBox/HorizontalSearchBox";
+import { BuySeatsDrawer } from "@/components/pages/vehicle/BuySeatsDrawer/BuySeatsDrawer";
 import VehicleInfo from "@/components/pages/vehicle/VehicleInfo/VehicleInfo";
 import VehicleSeatsInfo from "@/components/pages/vehicle/VehicleSeatsInfo/VehicleSeatsInfo";
 import styles from "@/styles/page/vehicle/index.module.scss";

@@ -17,45 +17,47 @@
     @include font-style(h5, bold, primary);
     color: get-color(null, foreground-primary);
   }
-  .selected_seats {
+}
+
+.selected_seats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: get-spacing-px(3);
+  width: 100%;
+  .vehicle_seat {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    gap: get-spacing-px(3);
-    .vehicle_seat {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      &__icon {
-        font-size: 4rem;
-        line-height: -10px;
-        color: get-color(null, foreground-secondary);
-        transition-duration: 200ms;
-      }
-      b {
-        line-height: -10px;
-        @include font-style(p, bold, primary);
-        color: get-color(null, foreground-secondary);
-      }
-      p {
-        line-height: -10px;
-        @include font-style(ps, regular, primary);
-        color: get-color(null, foreground-tertiary);
-      }
+    &__icon {
+      font-size: 4rem;
+      line-height: -10px;
+      color: get-color(null, foreground-secondary);
+      transition-duration: 200ms;
     }
-  }
-  .selected_seats_total_price {
-    display: flex;
-    align-items: center;
-    gap: get-spacing-px(2);
     b {
+      line-height: -10px;
       @include font-style(p, bold, primary);
       color: get-color(null, foreground-secondary);
     }
     p {
-      @include font-style(p, regular, primary);
-      color: get-color(null, foreground-secondary);
+      line-height: -10px;
+      @include font-style(ps, regular, primary);
+      color: get-color(null, foreground-tertiary);
     }
+  }
+}
+.selected_seats_total_price {
+  display: flex;
+  align-items: center;
+  gap: get-spacing-px(2);
+  b {
+    @include font-style(p, bold, primary);
+    color: get-color(null, foreground-secondary);
+  }
+  p {
+    @include font-style(p, regular, primary);
+    color: get-color(null, foreground-secondary);
   }
 }

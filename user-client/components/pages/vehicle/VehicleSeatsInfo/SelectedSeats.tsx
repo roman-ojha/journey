@@ -2,6 +2,7 @@ import AppIcon from "@/components/appIcon/AppIcon";
 import Button from "@/components/buttons/Button";
 import getCssVariable from "@/lib/getCssVariable";
 import styles from "@/styles/page/vehicle/selectedSeats.module.scss";
+import { BuySeatsDrawer } from "../BuySeatsDrawer/BuySeatsDrawer";
 
 const SelectedSeats = (): React.JSX.Element => {
   return (
@@ -27,9 +28,7 @@ const SelectedSeats = (): React.JSX.Element => {
         <b>Total Price: </b>
         <p>Rs. 1350/-</p>
       </div>
-      <Button backgroundColor="primary" width="100%">
-        Continue
-      </Button>
+      <BuySeatsDrawer />
     </section>
   );
 };
