@@ -3,7 +3,7 @@ import { APPLICATION_NAME } from "@/data/constants";
 import { Metadata } from "next";
 import styles from "@/styles/page/explore/index.module.scss";
 import CardHeader from "@/components/pages/explore/CardHeader/CardHeader";
-import CardFilter from "@/components/pages/explore/CardFilter";
+import CardFilter from "@/components/pages/explore/CardFilter/CardFilter";
 import VehicleCards from "@/components/pages/explore/VehicleCards";
 
 export const metadata: Metadata = {

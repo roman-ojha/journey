@@ -3,6 +3,7 @@ import Slider from "@mui/material/Slider";
 import { useState } from "react";
 import { styled } from "@mui/material/styles";
 import getCssVariable from "@/lib/getCssVariable";
+import styles from "@/styles/page/explore/cardFilter.module.scss";
 
 function valuetext(value: number) {
   return `${value}`;
@@ -54,8 +55,8 @@ const PriceFilterRangeSlider = (): React.JSX.Element => {
 
   console.log();
   return (
-    <div>
-      <div>
+    <div className={styles.price_range_selector}>
+      <div className={styles.price_range_selector__prices}>
         <p>{getActualPrice(priceRange[0])}</p>
         <p>{getActualPrice(priceRange[1])}</p>
       </div>

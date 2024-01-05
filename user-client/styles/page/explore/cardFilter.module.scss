@@ -1,7 +1,65 @@
 @use "../../utils" as *;
 
 .container {
-  border: 1px solid get-color(null, container-border);
+  // border: 1px solid get-color(null, container-border);
   width: 20%;
   height: fit-content;
+  background-color: get-color(null, container-bg-primary-op-50);
+  box-shadow: get-color(null, primary-box-shadow);
+  border-radius: get-spacing-px(3);
+  padding: get-spacing-px(4) get-spacing-px(4);
+  .filter_divider {
+    // border-bottom: 1px solid get-color(null, container-divider);
+    // margin-bottom: get-spacing-px(2);
+    border: 1px solid get-color(null, container-divider);
+    width: 90%;
+    margin: get-spacing-px(2) auto;
+  }
+  .vehicle_type,
+  .price,
+  .departure_time {
+    // border: 1px solid red;
+    &__header {
+      display: flex;
+      align-items: center;
+      gap: get-spacing-px(2);
+      &__icon {
+        font-size: 1.3rem;
+      }
+      h6 {
+        @include font-style(p, bold, primary);
+      }
+    }
+  }
+  .price_title {
+    display: flex;
+    // border: 1px solid red;
+    p {
+      @include font-style(pxs, regular, primary);
+    }
+  }
+  .price_range_selector {
+    // border: 1px solid red;
+    padding: get-spacing-px(2) get-spacing-px(1);
+    &__prices {
+      display: flex;
+      justify-content: space-between;
+      p {
+        @include font-style(pxs, regular, primary);
+      }
+    }
+  }
+  .check_boxes {
+    margin-top: get-spacing-px(2);
+    gap: get-spacing-px(-2);
+    &__box {
+      display: flex;
+      align-items: center;
+      // border: 1px solid blue;
+      height: get-spacing-px(7);
+      label {
+        @include font-style(ps, regular, primary);
+      }
+    }
+  }
 }

@@ -9,12 +9,12 @@
   .card_and_filter {
     // border: 1px solid green;
     width: 90vw;
-    margin-top: get-spacing-px(2);
+    margin-top: get-spacing-px(6);
     display: flex;
 
     .card_container {
       width: 80%;
-      padding: get-spacing-px(6);
+      padding: 0px get-spacing-px(6);
       gap: get-spacing-px(6);
     }
     .card_container_grid_view {
