@@ -1,11 +1,10 @@
-"use client";
 import styles from "@/styles/components/vehicleCard.module.scss";
 import Link from "next/link";
 import { RatingStar, generateRatingStar } from "@/lib/generateRatingStar";
 import { useAppSelector } from "@/hooks/useAppStore";
 import Image from "next/image";
-import { Icon } from "@iconify/react";
 import { numberWithCommas } from "@/lib/utils";
+import AppIcon from "../appIcon/AppIcon";
 
 export type VehicleCardType = {
   image: string;
@@ -62,14 +61,15 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
           <span className={styles.card_rating}>
             {generateRatingStar(rating).map((star, index) => {
               return (
-                <Icon
-                  icon={
+                <AppIcon
+                  iconName={
                     star == "full"
                       ? "typcn:star-full-outline"
                       : star == "half"
                       ? "ic:round-star-half"
                       : "typcn:star-outline"
                   }
+                  use="iconify"
                   className={styles.card_rating__icon}
                   key={index}
                 />
@@ -79,21 +79,27 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
           <p>{numberWithCommas(no_of_review)}</p>
         </div>
         <div className={styles.card_departure_at}>
-          <Icon
-            icon="carbon:time-filled"
+          <AppIcon
+            iconName="carbon:time-filled"
+            use="iconify"
             className={styles.card_departure_at__icon}
           />
           <p data-card-p="key">Departure AT:</p>
           <p data-card-p="value">{departure_at}</p>
         </div>
         <div className={styles.card_price}>
-          <Icon icon="raphael:dollar" className={styles.card_price__icon} />
+          <AppIcon
+            iconName="raphael:dollar"
+            use="iconify"
+            className={styles.card_price__icon}
+          />
           <p data-card-p="key">Price</p>
           <p data-card-p="value">NRS. {numberWithCommas(price)}/-</p>
         </div>
         <div className={styles.card_vehicle_type}>
-          <Icon
-            icon="fluent:vehicle-cab-16-filled"
+          <AppIcon
+            iconName="fluent:vehicle-cab-16-filled"
+            use="iconify"
             className={styles.card_vehicle_type__icon}
           />
           <p data-card-p="key">Vehicle Type:</p>
