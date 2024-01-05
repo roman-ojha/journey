@@ -2,32 +2,17 @@
 @use "./index.module.scss" as vehicle;
 
 .vehicle_seats_section {
-  $container-width: vehicle.$content-container-width;
-  width: $container-width/2;
+  $container-width: vehicle.$content-container-width/2;
+  width: $container-width;
   display: flex;
   flex-direction: column;
   gap: get-spacing-px(2);
-  .vehicle_seats_status {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: get-spacing-px(2);
-    &__color {
-      width: 1rem;
-      height: 1rem;
-      border-radius: 50%;
-      border-width: 0px;
-    }
-  }
   .vehicle_seats {
     width: 100%;
-    border: 4px solid get-color(null, container-border);
+    border: 3px solid get-color(null, container-border);
     border-radius: get-spacing-px(4);
     display: grid;
-    grid-template-columns: repeat(
-      auto-fill,
-      minmax(($container-width/2)/5.1, 1fr)
-    );
+    grid-template-columns: repeat(auto-fill, minmax($container-width/5.1, 1fr));
     .vehicle_seat {
       // border: 1px solid red;
       display: flex;

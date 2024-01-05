@@ -1,6 +1,6 @@
 @use "../../utils" as *;
 
-$left-right-container-gap: 10;
+$left-right-container-gap: 8;
 $content-container-width: 90vw;
 
 .vehicle_page {
@@ -12,8 +12,25 @@ $content-container-width: 90vw;
   // border: 1px solid red;
   .vehicle_seats_info_section {
     width: $content-container-width;
-    // border: 1px solid red;
     margin-top: get-spacing-px(8);
-    gap: get-spacing-px($left-right-container-gap);
+    display: flex;
+    flex-direction: column;
+    gap: get-spacing-px(2);
+    .vehicle_seats_status {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: get-spacing-px(2);
+      &__color {
+        width: 1rem;
+        height: 1rem;
+        border-radius: 50%;
+        border-width: 0px;
+      }
+    }
+    .vehicle_seats_main {
+      display: flex;
+      gap: get-spacing-px($left-right-container-gap);
+    }
   }
 }

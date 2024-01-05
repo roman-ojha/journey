@@ -1,0 +1,61 @@
+@use "../../utils" as *;
+@use "./index.module.scss" as vehicle;
+
+.selected_seats_section {
+  $container-width: vehicle.$content-container-width/2.2;
+  width: $container-width;
+  flex-grow: 1;
+  border: 3px solid get-color(null, container-border);
+  height: fit-content;
+  border-radius: get-spacing-px(4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: get-spacing-px(5) get-spacing-px(10);
+  gap: get-spacing-px(6);
+  h5 {
+    @include font-style(h5, bold, primary);
+    color: get-color(null, foreground-primary);
+  }
+  .selected_seats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: get-spacing-px(3);
+    .vehicle_seat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      &__icon {
+        font-size: 4rem;
+        line-height: -10px;
+        color: get-color(null, foreground-secondary);
+        transition-duration: 200ms;
+      }
+      b {
+        line-height: -10px;
+        @include font-style(p, bold, primary);
+        color: get-color(null, foreground-secondary);
+      }
+      p {
+        line-height: -10px;
+        @include font-style(ps, regular, primary);
+        color: get-color(null, foreground-tertiary);
+      }
+    }
+  }
+  .selected_seats_total_price {
+    display: flex;
+    align-items: center;
+    gap: get-spacing-px(2);
+    b {
+      @include font-style(p, bold, primary);
+      color: get-color(null, foreground-secondary);
+    }
+    p {
+      @include font-style(p, regular, primary);
+      color: get-color(null, foreground-secondary);
+    }
+  }
+}
