@@ -37,6 +37,12 @@ const PriceSlider = styled(Slider)(({ theme }) => ({
     opacity: 1,
     height: 4,
   },
+  "& .Mui-active": {
+    backgroundColor: "red",
+  },
+  "& .MuiSlider-thumb:is(.Mui-active)": {
+    display: "none",
+  },
 }));
 
 const PriceFilterRangeSlider = (): React.JSX.Element => {

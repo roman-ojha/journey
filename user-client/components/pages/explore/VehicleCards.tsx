@@ -3,6 +3,7 @@ import VehicleCard, {
   VehicleCardType,
 } from "@/components/VehicleCard/VehicleCard";
 import { useAppSelector } from "@/hooks/useAppStore";
+import getFormattedDateFromUTC from "@/lib/getFormattedDateFromUTC";
 import styles from "@/styles/page/explore/index.module.scss";
 import { getYear } from "date-fns";
 import { useRef, useState } from "react";
@@ -10,15 +11,6 @@ import { useRef, useState } from "react";
 const VehicleCards = (): React.JSX.Element => {
   const vehicleCardLayout = useAppSelector((state) => state.vehicleCardLayout);
 
-  function getFormattedDateFromUTC(UTCDate: Date) {
-    return new Intl.DateTimeFormat("en-US", {
-      day: "numeric",
-      month: "short",
-      hour: "numeric",
-      minute: "numeric",
-      hour12: true,
-    }).format(new Date());
-  }
   function shuffleArray(cards: VehicleCardType[]) {
     for (let i = cards.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));

@@ -32,7 +32,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
   const vehicleCardLayout = useAppSelector((state) => state.vehicleCardLayout);
   return (
     <Link
-      href=""
+      href={`/vehicle/${slug}`}
       className={`${styles.container} ${
         vehicleCardLayout.layout == "list" ? styles.container_list_view : null
       }`}

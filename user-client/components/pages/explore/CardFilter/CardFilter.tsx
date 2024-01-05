@@ -7,12 +7,12 @@ import { useState } from "react";
 
 const CardFilter = (): React.JSX.Element => {
   const [vehicleType, setVehicleType] = useState({
-    bus: true,
+    bus: false,
     hiAce: false,
   });
 
   const [departureTime, setDepartureTime] = useState({
-    morning: true,
+    morning: false,
     evening: false,
     night: false,
   });

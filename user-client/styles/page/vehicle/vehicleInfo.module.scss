@@ -1,0 +1,60 @@
+@use "../../utils" as *;
+
+.container {
+  transition-duration: 200ms;
+  flex-grow: 1;
+  $container-width: 90vw;
+  width: $container-width;
+  display: flex;
+  .vehicle_info_image_container {
+    width: $container-width/2;
+    .vehicle_info_image {
+      border-radius: get-spacing-px(1);
+      width: 95%;
+      height: 400px;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+  .vehicle_info_info {
+    padding: get-spacing-px(3);
+    display: flex;
+    flex-direction: column;
+    gap: get-spacing-px(3);
+
+    .vehicle_info_title {
+      @include font-style(h4, bold, primary);
+    }
+    .vehicle_info_rating_review {
+      display: flex;
+      align-items: center;
+      gap: get-spacing-px(2);
+      .vehicle_info_rating {
+        display: flex;
+        &__icon {
+          color: get-color(base, rating-star);
+          font-size: 1.5rem;
+        }
+      }
+      p {
+        @include font-style(p, regular, primary);
+      }
+    }
+    .vehicle_info_departure_at,
+    .vehicle_info_price,
+    .vehicle_info_vehicle_type {
+      display: flex;
+      align-items: center;
+      gap: get-spacing-px(2);
+      &__icon {
+        font-size: 1.7rem;
+      }
+      & p[data-vehicle-info-p="key"] {
+        @include font-style(ps, regular, primary);
+      }
+      & p[data-vehicle-info-p="value"] {
+        @include font-style(p, regular, primary);
+      }
+    }
+  }
+}
