@@ -1,5 +1,6 @@
 import HorizontalSearchBox from "@/components/HorizontalSearchBox/HorizontalSearchBox";
 import VehicleInfo from "@/components/pages/vehicle/VehicleInfo/VehicleInfo";
+import VehicleSeatsInfo from "@/components/pages/vehicle/VehicleSeatsInfo/VehicleSeatsInfo";
 import styles from "@/styles/page/vehicle/index.module.scss";
 
 type VehicleDetailProps = {
@@ -15,6 +16,7 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
     <main className={styles.vehicle_page}>
       <HorizontalSearchBox />
       <VehicleInfo />
+      <VehicleSeatsInfo />
     </main>
   );
 };

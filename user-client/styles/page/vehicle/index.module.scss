@@ -1,5 +1,8 @@
 @use "../../utils" as *;
 
+$left-right-container-gap: 10;
+$content-container-width: 90vw;
+
 .vehicle_page {
   position: relative;
   display: flex;
@@ -7,4 +10,10 @@
   align-items: center;
   flex-direction: column;
   // border: 1px solid red;
+  .vehicle_seats_info_section {
+    width: $content-container-width;
+    // border: 1px solid red;
+    margin-top: get-spacing-px(8);
+    gap: get-spacing-px($left-right-container-gap);
+  }
 }

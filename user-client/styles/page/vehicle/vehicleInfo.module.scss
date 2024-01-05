@@ -1,22 +1,25 @@
 @use "../../utils" as *;
+@use "./index.module.scss" as vehicle;
 
 .container {
   transition-duration: 200ms;
   flex-grow: 1;
-  $container-width: 90vw;
+  $container-width: vehicle.$content-container-width;
   width: $container-width;
   display: flex;
+  gap: get-spacing-px(vehicle.$left-right-container-gap);
   .vehicle_info_image_container {
     width: $container-width/2;
     .vehicle_info_image {
       border-radius: get-spacing-px(1);
-      width: 95%;
+      width: 100%;
       height: 400px;
       object-fit: cover;
       object-position: center;
     }
   }
   .vehicle_info_info {
+    width: $container-width/2;
     padding: get-spacing-px(3);
     display: flex;
     flex-direction: column;

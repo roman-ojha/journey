@@ -1,0 +1,23 @@
+@use "../../utils" as *;
+@use "./index.module.scss" as vehicle;
+
+.bus_seats_section {
+  $container-width: vehicle.$content-container-width;
+  width: $container-width/2;
+  display: flex;
+  flex-direction: column;
+  .bus_seats_status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: get-spacing-px(2);
+    &__color {
+      width: 1rem;
+      height: 1rem;
+      border-radius: 50%;
+      border-width: 0px;
+    }
+  }
+  .bus_seats {
+  }
+}
