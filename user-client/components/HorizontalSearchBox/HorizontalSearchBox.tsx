@@ -1,13 +1,8 @@
 "use client";
-import SearchingSVG from "@/assets/svgs/searching.svg";
-import Image from "next/image";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { Icon } from "@iconify/react";
 import { cn } from "@/lib/utils";
 import { Calendar } from "@/components/ui/calendar";
 import styles from "@/styles/components/horizontalSearchBox.module.scss";
@@ -44,6 +39,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useState } from "react";
 import Button from "@/components/buttons/Button";
+import AppIcon from "../appIcon/AppIcon";
 
 const FormSchema = z.object({
   dob: z.date({
@@ -152,8 +148,9 @@ const HorizontalSearchBox = (): React.JSX.Element => {
         <DropdownMenu>
           <Trigger asChild>
             <div className={styles.select_item}>
-              <Icon
-                icon="fluent:location-12-filled"
+              <AppIcon
+                iconName="fluent:location-12-filled"
+                use="iconify"
                 className={styles.select_item__icon}
               />
               <span className={styles.select_item__info}>
@@ -200,8 +197,9 @@ const HorizontalSearchBox = (): React.JSX.Element => {
         <DropdownMenu>
           <Trigger asChild>
             <div className={styles.select_item}>
-              <Icon
-                icon="fluent:location-12-filled"
+              <AppIcon
+                iconName="fluent:location-12-filled"
+                use="iconify"
                 className={styles.select_item__icon}
               />
               <span className={styles.select_item__info}>
@@ -270,8 +268,9 @@ const HorizontalSearchBox = (): React.JSX.Element => {
                       <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                     </Button> */}
                       <div className={styles.select_item}>
-                        <Icon
-                          icon="ion:calendar"
+                        <AppIcon
+                          iconName="ion:calendar"
+                          use="iconify"
                           className={styles.select_item__icon}
                         />
                         <span className={styles.select_item__info}>
@@ -307,8 +306,9 @@ const HorizontalSearchBox = (): React.JSX.Element => {
           style={{ margin: "auto" }}
         >
           Search
-          <Icon
-            icon="fluent:vehicle-car-16-filled"
+          <AppIcon
+            iconName="fluent:vehicle-car-16-filled"
+            use="iconify"
             className={styles.search_button__icon}
           />
         </Button>
