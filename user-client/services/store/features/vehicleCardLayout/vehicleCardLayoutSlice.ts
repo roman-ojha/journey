@@ -4,8 +4,19 @@ export type VehicleCardLayoutState = {
   layout: "grid" | "list";
 };
 
+function getInitialLayout(): VehicleCardLayoutState["layout"] {
+  const layout =
+    typeof window !== "undefined"
+      ? window.localStorage.getItem("vehicleCardLayout")
+      : "grid";
+  if (layout === "grid" || layout === "list") {
+    return layout;
+  }
+  return "grid";
+}
+
 const initialState: VehicleCardLayoutState = {
-  layout: "grid",
+  layout: getInitialLayout(),
 };
 
 const vehicleCardLayoutSlice = createSlice({
@@ -16,6 +27,7 @@ const vehicleCardLayoutSlice = createSlice({
       state: VehicleCardLayoutState,
       action: PayloadAction<VehicleCardLayoutState["layout"]>
     ) => {
+      window.localStorage.setItem("vehicleCardLayout", action.payload);
       state.layout = action.payload;
     },
   },

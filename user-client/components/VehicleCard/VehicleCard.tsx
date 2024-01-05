@@ -31,7 +31,6 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
   vehicle_type,
 }): React.JSX.Element => {
   const vehicleCardLayout = useAppSelector((state) => state.vehicleCardLayout);
-  console.log(vehicleCardLayout);
   return (
     <Link
       href=""

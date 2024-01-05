@@ -21,6 +21,7 @@
     width: $right-left-container-width;
     p {
       @include font-style(p, regular, primary);
+      color: get-color(null, foreground-secondary);
     }
   }
   .card_layout {
@@ -34,6 +35,7 @@
     &__icon {
       font-size: 1.5rem;
       cursor: pointer;
+      color: get-color(null, foreground-secondary);
       &__active {
         color: get-color(base, secondary);
       }
