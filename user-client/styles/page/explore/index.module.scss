@@ -11,13 +11,21 @@
     width: 90vw;
     margin-top: get-spacing-px(2);
     display: flex;
+
     .card_container {
-      // border: 1px solid green;
       width: 80%;
+      padding: get-spacing-px(6);
+      gap: get-spacing-px(6);
+    }
+    .card_container_grid_view {
+      // grid view
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(get-spacing-px(90), 1fr));
-      gap: get-spacing-px(6);
-      padding: get-spacing-px(6);
+    }
+    .card_container_list_view {
+      // list view
+      display: flex;
+      flex-wrap: wrap;
     }
   }
 }

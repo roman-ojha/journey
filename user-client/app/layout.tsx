@@ -8,6 +8,8 @@ import useGetTheme from "@/hooks/useGetTheme";
 import NavBar from "@/components/NavBar";
 import ShadeGradient from "@/components/ShadeGradient";
 import Footer from "@/components/footer/Footer";
+import { Provider } from "react-redux";
+import { store } from "@/services/store";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -40,10 +42,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ShadeGradient />
-        <NavBar />
-        {children}
-        <Footer />
+        <Provider store={store}>
+          <ShadeGradient />
+          <NavBar />
+          {children}
+          <Footer />
+        </Provider>
       </body>
     </html>
   );

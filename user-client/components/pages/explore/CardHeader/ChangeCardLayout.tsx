@@ -1,10 +1,29 @@
 "use client";
 import { Icon } from "@iconify/react";
 import styles from "@/styles/page/explore/cardHeader.module.scss";
-import { useState } from "react";
+import exploreStyle from "@/styles/page/explore/index.module.scss";
+import vehicleCardStyles from "@/styles/components/vehicleCard.module.scss";
+import { useEffect, useState } from "react";
 
 const ChangeCardLayout = (): React.JSX.Element => {
-  const [layout, setLayout] = useState<"grid" | "list">("grid");
+  const [layout, setLayout] = useState<"grid" | "list">("list");
+  // useEffect(() => {
+  //   if (layout == "list") {
+  //     document
+  //       .getElementsByClassName(exploreStyle.card_container)[0]
+  //       .classList.add(exploreStyle.card_container_list_view);
+  //     document
+  //       .getElementsByClassName(exploreStyle.card_container)[0]
+  //       .classList.remove(exploreStyle.card_container_grid_view);
+  //   } else {
+  //     document
+  //       .getElementsByClassName(exploreStyle.card_container)[0]
+  //       .classList.remove(exploreStyle.card_container_list_view);
+  //     document
+  //       .getElementsByClassName(exploreStyle.card_container)[0]
+  //       .classList.add(exploreStyle.card_container_grid_view);
+  //   }
+  // }, [layout]);
   return (
     <>
       <div className={styles.card_layout}>

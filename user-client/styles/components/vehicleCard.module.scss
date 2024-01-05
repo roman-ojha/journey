@@ -1,16 +1,36 @@
 @use "../utils" as *;
 
+.container_list_view {
+  // list view
+  flex-grow: 1;
+  width: 100%;
+  display: flex;
+}
+
 .container {
+  // grid view default
   $card-border-radius: 3;
   border-radius: get-spacing-px($card-border-radius);
   box-shadow: get-color(null, primary-box-shadow);
   cursor: pointer;
   transition-duration: 200ms;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+
   &:hover {
     transform: scale(1.02);
   }
   .card_image_container {
+    .card_image_list_view {
+      // list view
+      width: 300px;
+      border-radius: get-spacing-px($card-border-radius) 0px 0px
+        get-spacing-px($card-border-radius);
+    }
     .card_image {
+      // grid view default
       border-radius: get-spacing-px($card-border-radius)
         get-spacing-px($card-border-radius) 0px 0px;
       width: 100%;
@@ -19,11 +39,17 @@
       object-position: center;
     }
   }
+  .card_info_list_view {
+    // list view
+    gap: get-spacing-px(2);
+  }
   .card_info {
+    // grid view default
     padding: get-spacing-px(5);
     display: flex;
     flex-direction: column;
     gap: get-spacing-px(1);
+
     .card_title {
       @include font-style(p, medium, primary);
     }
