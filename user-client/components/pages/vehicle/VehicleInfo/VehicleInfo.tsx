@@ -58,6 +58,24 @@ const VehicleInfo = (): React.JSX.Element => {
             {getFormattedDateFromUTC(new Date())}
           </p>
         </div>
+        <div className={styles.vehicle_info_departure_at}>
+          <AppIcon
+            iconName="fluent:location-12-filled"
+            use="iconify"
+            className={styles.vehicle_info_departure_at__icon}
+          />
+          <p data-vehicle-info-p="key">Departure From:</p>
+          <p data-vehicle-info-p="value">Koteshwar, Kathmandu</p>
+        </div>
+        <div className={styles.vehicle_info_departure_at}>
+          <AppIcon
+            iconName="fluent:location-12-filled"
+            use="iconify"
+            className={styles.vehicle_info_departure_at__icon}
+          />
+          <p data-vehicle-info-p="key">Destination Place:</p>
+          <p data-vehicle-info-p="value">Kerkha, Jhapa</p>
+        </div>
         <div className={styles.vehicle_info_price}>
           <AppIcon
             iconName="raphael:dollar"
@@ -75,6 +93,15 @@ const VehicleInfo = (): React.JSX.Element => {
           />
           <p data-vehicle-info-p="key">Vehicle Type:</p>
           <p data-vehicle-info-p="value">Deluxe Bus</p>
+        </div>
+        <div className={styles.vehicle_info_departure_at}>
+          <AppIcon
+            iconName="solar:plate-linear"
+            use="iconify"
+            className={styles.vehicle_info_departure_at__icon}
+          />
+          <p data-vehicle-info-p="key">Plate Number:</p>
+          <p data-vehicle-info-p="value">BA 1 Kha, 3233</p>
         </div>
       </div>
     </div>

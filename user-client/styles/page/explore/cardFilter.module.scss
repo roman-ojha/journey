@@ -28,6 +28,7 @@
       }
       h6 {
         @include font-style(p, bold, primary);
+        color: get-color(null, foreground-primary);
       }
     }
   }
@@ -36,6 +37,7 @@
     // border: 1px solid red;
     p {
       @include font-style(pxs, regular, primary);
+      color: get-color(null, foreground-tertiary);
     }
   }
   .price_range_selector {
@@ -46,6 +48,7 @@
       justify-content: space-between;
       p {
         @include font-style(pxs, regular, primary);
+        color: get-color(null, foreground-secondary);
       }
     }
   }
@@ -59,6 +62,7 @@
       height: get-spacing-px(7);
       label {
         @include font-style(ps, regular, primary);
+        color: get-color(null, foreground-tertiary);
       }
     }
   }

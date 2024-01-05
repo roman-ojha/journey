@@ -49,6 +49,7 @@
 
     .card_title {
       @include font-style(p, medium, primary);
+      color: get-color(null, foreground-primary);
     }
     .card_rating_review {
       display: flex;
@@ -63,6 +64,7 @@
       }
       p {
         @include font-style(ps, regular, primary);
+        color: get-color(null, foreground-primary);
       }
     }
     .card_departure_at,
@@ -74,12 +76,15 @@
       gap: get-spacing-px(2);
       &__icon {
         font-size: 1.5rem;
+        color: get-color(null, foreground-primary);
       }
       & p[data-card-p="key"] {
         @include font-style(pxs, regular, primary);
+        color: get-color(null, foreground-tertiary);
       }
       & p[data-card-p="value"] {
         @include font-style(ps, regular, primary);
+        color: get-color(null, foreground-primary);
       }
     }
   }

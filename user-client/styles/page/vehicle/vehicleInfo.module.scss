@@ -24,6 +24,7 @@
 
     .vehicle_info_title {
       @include font-style(h4, bold, primary);
+      color: get-color(null, foreground-primary);
     }
     .vehicle_info_rating_review {
       display: flex;
@@ -38,6 +39,7 @@
       }
       p {
         @include font-style(p, regular, primary);
+        color: get-color(null, foreground-primary);
       }
     }
     .vehicle_info_departure_at,
@@ -48,12 +50,15 @@
       gap: get-spacing-px(2);
       &__icon {
         font-size: 1.7rem;
+        color: get-color(null, foreground-primary);
       }
       & p[data-vehicle-info-p="key"] {
         @include font-style(ps, regular, primary);
+        color: get-color(null, foreground-tertiary);
       }
       & p[data-vehicle-info-p="value"] {
         @include font-style(p, regular, primary);
+        color: get-color(null, foreground-primary);
       }
     }
   }
