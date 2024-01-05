@@ -2,8 +2,10 @@
 import styles from "@/styles/components/vehicleCard.module.scss";
 import Link from "next/link";
 import { RatingStar, generateRatingStar } from "@/lib/generateRatingStar";
-import VehicleCardChildren from "./VehicleCardChildren";
 import { useAppSelector } from "@/hooks/useAppStore";
+import Image from "next/image";
+import { Icon } from "@iconify/react";
+import { numberWithCommas } from "@/lib/utils";
 
 export type VehicleCardType = {
   image: string;
@@ -18,7 +20,16 @@ export type VehicleCardType = {
 
 type VehicleCardProps = {} & VehicleCardType;
 
-const VehicleCard: React.FC<VehicleCardProps> = (props): React.JSX.Element => {
+const VehicleCard: React.FC<VehicleCardProps> = ({
+  image,
+  title,
+  slug,
+  no_of_review,
+  rating,
+  departure_at,
+  price,
+  vehicle_type,
+}): React.JSX.Element => {
   const vehicleCardLayout = useAppSelector((state) => state.vehicleCardLayout);
   console.log(vehicleCardLayout);
   return (
@@ -28,7 +39,68 @@ const VehicleCard: React.FC<VehicleCardProps> = (props): React.JSX.Element => {
         vehicleCardLayout.layout == "list" ? styles.container_list_view : null
       }`}
     >
-      <VehicleCardChildren {...props} />
+      <div className={styles.card_image_container}>
+        <Image
+          src={image}
+          alt={`${title.slice(0, 20)}...`}
+          width={350}
+          height={350}
+          className={`${styles.card_image} ${
+            vehicleCardLayout.layout == "list"
+              ? styles.card_image_list_view
+              : null
+          }`}
+          priority={true}
+        />
+      </div>
+      <div
+        className={`${styles.card_info} ${
+          vehicleCardLayout.layout == "list" ? styles.card_info_list_view : null
+        }`}
+      >
+        <h6 className={styles.card_title}>{title}</h6>
+        <div className={styles.card_rating_review}>
+          <span className={styles.card_rating}>
+            {generateRatingStar(rating).map((star, index) => {
+              return (
+                <Icon
+                  icon={
+                    star == "full"
+                      ? "typcn:star-full-outline"
+                      : star == "half"
+                      ? "ic:round-star-half"
+                      : "typcn:star-outline"
+                  }
+                  className={styles.card_rating__icon}
+                  key={index}
+                />
+              );
+            })}
+          </span>
+          <p>{numberWithCommas(no_of_review)}</p>
+        </div>
+        <div className={styles.card_departure_at}>
+          <Icon
+            icon="carbon:time-filled"
+            className={styles.card_departure_at__icon}
+          />
+          <p data-card-p="key">Departure AT:</p>
+          <p data-card-p="value">{departure_at}</p>
+        </div>
+        <div className={styles.card_price}>
+          <Icon icon="raphael:dollar" className={styles.card_price__icon} />
+          <p data-card-p="key">Price</p>
+          <p data-card-p="value">NRS. {numberWithCommas(price)}/-</p>
+        </div>
+        <div className={styles.card_vehicle_type}>
+          <Icon
+            icon="fluent:vehicle-cab-16-filled"
+            className={styles.card_vehicle_type__icon}
+          />
+          <p data-card-p="key">Vehicle Type:</p>
+          <p data-card-p="value">{vehicle_type}</p>
+        </div>
+      </div>
     </Link>
   );
 };

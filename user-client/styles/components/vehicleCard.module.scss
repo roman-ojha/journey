@@ -23,12 +23,6 @@
     transform: scale(1.02);
   }
   .card_image_container {
-    .card_image_list_view {
-      // list view
-      width: 300px;
-      border-radius: get-spacing-px($card-border-radius) 0px 0px
-        get-spacing-px($card-border-radius);
-    }
     .card_image {
       // grid view default
       border-radius: get-spacing-px($card-border-radius)
@@ -38,10 +32,12 @@
       object-fit: cover;
       object-position: center;
     }
-  }
-  .card_info_list_view {
-    // list view
-    gap: get-spacing-px(2);
+    .card_image_list_view {
+      // list view
+      width: 300px;
+      border-radius: get-spacing-px($card-border-radius) 0px 0px
+        get-spacing-px($card-border-radius);
+    }
   }
   .card_info {
     // grid view default
@@ -85,5 +81,9 @@
         @include font-style(ps, regular, primary);
       }
     }
+  }
+  .card_info_list_view {
+    // list view
+    gap: get-spacing-px(2);
   }
 }
