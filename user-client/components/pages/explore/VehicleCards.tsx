@@ -1,11 +1,16 @@
 "use client";
-import VehicleCard, { VehicleCardType } from "@/components/VehicleCard";
+import VehicleCard, {
+  VehicleCardType,
+} from "@/components/VehicleCard/VehicleCard";
+import { useAppSelector } from "@/hooks/useAppStore";
 import styles from "@/styles/page/explore/index.module.scss";
 import { getYear } from "date-fns";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const VehicleCards = (): React.JSX.Element => {
-  function getFormattedDateFromUTC(UTCDate: string) {
+  const vehicleCardLayout = useAppSelector((state) => state.vehicleCardLayout);
+
+  function getFormattedDateFromUTC(UTCDate: Date) {
     return new Intl.DateTimeFormat("en-US", {
       day: "numeric",
       month: "short",
@@ -31,7 +36,7 @@ const VehicleCards = (): React.JSX.Element => {
         slug: "a",
         rating: "2.5",
         no_of_review: Math.floor(Math.random() * 100000),
-        departure_at: getFormattedDateFromUTC(new Date().toUTCString()),
+        departure_at: getFormattedDateFromUTC(new Date()),
         price: Math.floor(Math.random() * (2500 - 1500 + 1)) + 1500,
         vehicle_type: "Deluxe Bus",
       },
@@ -42,7 +47,7 @@ const VehicleCards = (): React.JSX.Element => {
         slug: "ab",
         rating: "4.5",
         no_of_review: Math.floor(Math.random() * 100000),
-        departure_at: getFormattedDateFromUTC(new Date().toUTCString()),
+        departure_at: getFormattedDateFromUTC(new Date()),
         price: Math.floor(Math.random() * (2500 - 1500 + 1)) + 1500,
         vehicle_type: "Deluxe Bus",
       },
@@ -53,7 +58,7 @@ const VehicleCards = (): React.JSX.Element => {
         slug: "abc",
         rating: "5",
         no_of_review: Math.floor(Math.random() * 100000),
-        departure_at: getFormattedDateFromUTC(new Date().toUTCString()),
+        departure_at: getFormattedDateFromUTC(new Date()),
         price: Math.floor(Math.random() * (2500 - 1500 + 1)) + 1500,
         vehicle_type: "Deluxe Bus",
       },
@@ -64,7 +69,7 @@ const VehicleCards = (): React.JSX.Element => {
         slug: "abcd",
         rating: "3.5",
         no_of_review: Math.floor(Math.random() * 100000),
-        departure_at: getFormattedDateFromUTC(new Date().toUTCString()),
+        departure_at: getFormattedDateFromUTC(new Date()),
         price: Math.floor(Math.random() * (2500 - 1500 + 1)) + 1500,
         vehicle_type: "Deluxe Bus",
       },
@@ -75,7 +80,7 @@ const VehicleCards = (): React.JSX.Element => {
         slug: "abcde",
         rating: "1.5",
         no_of_review: Math.floor(Math.random() * 100000),
-        departure_at: getFormattedDateFromUTC(new Date().toUTCString()),
+        departure_at: getFormattedDateFromUTC(new Date()),
         price: Math.floor(Math.random() * (2500 - 1500 + 1)) + 1500,
         vehicle_type: "Deluxe Bus",
       },
@@ -86,7 +91,7 @@ const VehicleCards = (): React.JSX.Element => {
         slug: "abcdef",
         rating: "2",
         no_of_review: Math.floor(Math.random() * 100000),
-        departure_at: getFormattedDateFromUTC(new Date().toUTCString()),
+        departure_at: getFormattedDateFromUTC(new Date()),
         price: Math.floor(Math.random() * (2500 - 1500 + 1)) + 1500,
         vehicle_type: "Deluxe Bus",
       },
@@ -97,7 +102,7 @@ const VehicleCards = (): React.JSX.Element => {
         slug: "abcdefg",
         rating: "1",
         no_of_review: Math.floor(Math.random() * 100000),
-        departure_at: getFormattedDateFromUTC(new Date().toUTCString()),
+        departure_at: getFormattedDateFromUTC(new Date()),
         price: Math.floor(Math.random() * (2500 - 1500 + 1)) + 1500,
         vehicle_type: "Deluxe Bus",
       },
@@ -108,7 +113,7 @@ const VehicleCards = (): React.JSX.Element => {
         slug: "abcdefgh",
         rating: "4.5",
         no_of_review: Math.floor(Math.random() * 100000),
-        departure_at: getFormattedDateFromUTC(new Date().toUTCString()),
+        departure_at: getFormattedDateFromUTC(new Date()),
         price: Math.floor(Math.random() * (2500 - 1500 + 1)) + 1500,
         vehicle_type: "Deluxe Bus",
       },
@@ -116,7 +121,13 @@ const VehicleCards = (): React.JSX.Element => {
   );
 
   return (
-    <section className={styles.card_container}>
+    <section
+      className={`${styles.card_container} ${
+        vehicleCardLayout.layout == "grid"
+          ? styles.card_container_grid_view
+          : styles.card_container_list_view
+      }`}
+    >
       {cards.map((card) => (
         <VehicleCard
           image={card.image}

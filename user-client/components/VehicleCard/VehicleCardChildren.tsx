@@ -1,38 +1,25 @@
-"use client";
+import { memo } from "react";
 import Image from "next/image";
 import styles from "@/styles/components/vehicleCard.module.scss";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
-import { useEffect } from "react";
 import { RatingStar, generateRatingStar } from "@/lib/generateRatingStar";
 import { numberWithCommas } from "@/lib/utils";
+import { VehicleCardType } from "./VehicleCard";
 
-export type VehicleCardType = {
-  image: string;
-  title: string;
-  slug: string;
-  no_of_review: number;
-  rating: RatingStar;
-  departure_at: string;
-  price: number;
-  vehicle_type: string;
-};
-
-type VehicleCardProps = {} & VehicleCardType;
-
-const VehicleCard: React.FC<VehicleCardProps> = ({
+const VehicleCardChildren: React.FC<VehicleCardType> = ({
   image,
   title,
   slug,
-  rating,
   no_of_review,
+  rating,
   departure_at,
   price,
   vehicle_type,
 }): React.JSX.Element => {
-  useEffect(() => {});
+  console.log(new Date());
   return (
-    <Link href="" className={styles.container}>
+    <>
       <div className={styles.card_image_container}>
         <Image
           src={image}
@@ -87,8 +74,8 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
           <p data-card-p="value">{vehicle_type}</p>
         </div>
       </div>
-    </Link>
+    </>
   );
 };
 
-export default VehicleCard;
+export default memo(VehicleCardChildren);

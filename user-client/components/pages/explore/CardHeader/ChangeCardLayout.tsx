@@ -10,7 +10,6 @@ const ChangeCardLayout = (): React.JSX.Element => {
   const [layout, setLayout] = useState<"grid" | "list">("list");
   const vehicleCardLayout = useAppSelector((state) => state.vehicleCardLayout);
   const dispatch = useAppDispatch();
-  console.log(vehicleCardLayout);
 
   // useEffect(() => {
   //   if (layout == "list") {
@@ -35,7 +34,9 @@ const ChangeCardLayout = (): React.JSX.Element => {
         <Icon
           icon="ion:grid"
           className={`${styles.card_layout__icon} ${
-            layout == "grid" ? styles.card_layout__icon__active : null
+            vehicleCardLayout.layout == "grid"
+              ? styles.card_layout__icon__active
+              : null
           }`}
           onClick={() => {
             dispatch(setVehicleCardLayout("grid"));
@@ -44,7 +45,9 @@ const ChangeCardLayout = (): React.JSX.Element => {
         <Icon
           icon="ion:list-sharp"
           className={`${styles.card_layout__icon} ${
-            layout == "list" ? styles.card_layout__icon__active : null
+            vehicleCardLayout.layout == "list"
+              ? styles.card_layout__icon__active
+              : null
           }`}
           onClick={() => {
             dispatch(setVehicleCardLayout("list"));
