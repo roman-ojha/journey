@@ -1,12 +1,13 @@
 @use "../../utils" as *;
 @use "./index.module.scss" as vehicle;
 
-.bus_seats_section {
+.vehicle_seats_section {
   $container-width: vehicle.$content-container-width;
   width: $container-width/2;
   display: flex;
   flex-direction: column;
-  .bus_seats_status {
+  gap: get-spacing-px(2);
+  .vehicle_seats_status {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -18,6 +19,46 @@
       border-width: 0px;
     }
   }
-  .bus_seats {
+  .vehicle_seats {
+    width: 100%;
+    border: 4px solid get-color(null, container-border);
+    border-radius: get-spacing-px(4);
+    display: grid;
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(($container-width/2)/5.1, 1fr)
+    );
+    .vehicle_seat {
+      // border: 1px solid red;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition-duration: 200ms;
+      &__icon {
+        font-size: 4rem;
+        line-height: -10px;
+        color: get-color(null, foreground-secondary);
+        transition-duration: 200ms;
+        &:hover {
+          transform: scale(1.05);
+          color: get-color(base, primary);
+        }
+        &:active {
+          transform: scale(1);
+        }
+      }
+      b {
+        line-height: -10px;
+        @include font-style(p, bold, primary);
+        color: get-color(null, foreground-secondary);
+      }
+      p {
+        line-height: -10px;
+        @include font-style(ps, regular, primary);
+        color: get-color(null, foreground-tertiary);
+      }
+    }
   }
 }
