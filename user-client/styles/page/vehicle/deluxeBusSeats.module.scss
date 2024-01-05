@@ -36,6 +36,12 @@
       align-items: center;
       cursor: pointer;
       transition-duration: 200ms;
+      &__driver_icon {
+        font-size: 4rem;
+        line-height: -10px;
+        color: get-color(null, foreground-secondary);
+        transition-duration: 200ms;
+      }
       &__icon {
         font-size: 4rem;
         line-height: -10px;
