@@ -49,6 +49,15 @@ services:
     depends_on:
       - postgres
 
+  user-client:
+    container_name: journey-user-client
+    image: romanojha/journey-user-client
+    build:
+      context: ./user-client
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+
   user-service-prisma-studio:
     container_name: journey-user-service-prisma-studio
     image: romanojha/journey-user-service-prisma-studio
