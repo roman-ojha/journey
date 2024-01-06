@@ -72,7 +72,7 @@ export function BuySeatsDrawer() {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button variant="default" className="w-full">
+        <Button variant="default" className="w-full text-white">
           Continue
         </Button>
       </DrawerTrigger>
@@ -106,7 +106,7 @@ export function BuySeatsDrawer() {
             </div>
           </div>
           <DrawerFooter>
-            <Button className="w-80">Book Seats</Button>
+            <Button className="w-80 text-white">Book Seats</Button>
             <DrawerClose asChild>
               <Button variant="outline">Cancel</Button>
             </DrawerClose>
