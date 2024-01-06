@@ -5,19 +5,14 @@ import Image from "next/image";
 import { numberWithCommas } from "@/lib/utils";
 import AppIcon from "../appIcon/AppIcon";
 import RatingStar from "../RatingStar";
+import { Vehicle } from "@/interface/Vehicle";
 
-export type VehicleCardType = {
-  image: string;
-  title: string;
-  slug: string;
-  no_of_review: number;
-  rating: number;
-  departure_at: string;
-  price: number;
-  vehicle_type: string;
-};
+export type VehicleCardType = Omit<
+  Vehicle,
+  "plate_number" | "departure_from" | "destination_place" | "seats"
+>;
 
-type VehicleCardProps = {} & VehicleCardType;
+type VehicleCardProps = VehicleCardType;
 
 const VehicleCard: React.FC<VehicleCardProps> = ({
   image,

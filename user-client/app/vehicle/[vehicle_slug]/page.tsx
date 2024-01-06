@@ -1,3 +1,4 @@
+"use client";
 import HorizontalSearchBox from "@/components/HorizontalSearchBox/HorizontalSearchBox";
 import VehicleInfo from "@/components/pages/vehicle/VehicleInfo/VehicleInfo";
 import VehicleReviewAndRating from "@/components/pages/vehicle/VehicleReviewAndRating/VehicleReviewAndRating";

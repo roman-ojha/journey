@@ -6,9 +6,7 @@ import { numberWithCommas } from "@/lib/utils";
 import getFormattedDateFromUTC from "@/lib/getFormattedDateFromUTC";
 import RatingStar from "@/components/RatingStar";
 
-type VehicleInfoProps = {};
-
-const VehicleInfo = (): React.JSX.Element => {
+const VehicleInfoSkeleton = (): React.JSX.Element => {
   return (
     <div className={styles.container}>
       <div className={styles.vehicle_info_image_container}>
@@ -98,4 +96,4 @@ const VehicleInfo = (): React.JSX.Element => {
   );
 };
 
-export default VehicleInfo;
+export default VehicleInfoSkeleton;
