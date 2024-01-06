@@ -2,7 +2,6 @@
 import VehicleCard, {
   VehicleCardType,
 } from "@/components/VehicleCard/VehicleCard";
-import VehicleCardSkeleton from "@/components/VehicleCard/VehicleCardSkeleton";
 import { useAppSelector } from "@/hooks/useAppStore";
 import getFormattedDateFromUTC from "@/lib/getFormattedDateFromUTC";
 import styles from "@/styles/page/explore/index.module.scss";
@@ -135,7 +134,7 @@ const VehicleCards = (): React.JSX.Element => {
               isLoading: false,
               vehicles: initialVehicle,
             });
-          }, 2000);
+          }, 1500);
         }
       );
       setCards(await response);
@@ -151,23 +150,20 @@ const VehicleCards = (): React.JSX.Element => {
           : styles.card_container_list_view
       }`}
     >
-      {isLoading
-        ? Array.from({ length: 8 }).map((_, index) => (
-            <VehicleCardSkeleton key={index} />
-          ))
-        : vehicles.map((card, index) => (
-            <VehicleCard
-              image={card.image}
-              title={card.title}
-              rating={card.rating}
-              no_of_review={card.no_of_review}
-              departure_at={card.departure_at}
-              price={card.price}
-              vehicle_type={card.vehicle_type}
-              slug={card.slug}
-              key={card.slug}
-            />
-          ))}
+      {initialVehicle.map((card, index) => (
+        <VehicleCard
+          image={card.image}
+          title={card.title}
+          rating={card.rating}
+          no_of_review={card.no_of_review}
+          departure_at={card.departure_at}
+          price={card.price}
+          vehicle_type={card.vehicle_type}
+          slug={card.slug}
+          key={card.slug}
+          isLoading={isLoading}
+        />
+      ))}
     </section>
   );
 };

@@ -186,7 +186,7 @@ const ReviewAndRating = (): React.JSX.Element => {
               <div
                 className={
                   styles.single_review_and_rating__content +
-                  `${isLoading ? "flex flex-col w-full" : ""}`
+                  `${isLoading ? " flex flex-col w-full" : ""}`
                 }
               >
                 <span
@@ -204,7 +204,7 @@ const ReviewAndRating = (): React.JSX.Element => {
                           ),
                         }}
                         variant="rectangular"
-                        className="h-4 w-28 rounded-sm mb-1"
+                        className="h-4 w-28 rounded-sm"
                       />
                     ) : (
                       `${review.name}`
@@ -244,7 +244,7 @@ const ReviewAndRating = (): React.JSX.Element => {
                         ),
                       }}
                       variant="rectangular"
-                      className="h-4 w-24 rounded-sm mb-1"
+                      className="h-4 w-24 rounded-sm"
                     />
                   ) : (
                     <RatingStar
@@ -265,7 +265,7 @@ const ReviewAndRating = (): React.JSX.Element => {
                         ),
                       }}
                       variant="rectangular"
-                      className="!h-2 w-full rounded-sm mb-1"
+                      className="!h-2 w-full rounded-sm"
                     />
                     <Skeleton
                       sx={{
@@ -275,7 +275,7 @@ const ReviewAndRating = (): React.JSX.Element => {
                         ),
                       }}
                       variant="rectangular"
-                      className="!h-2 w-full rounded-sm mb-1"
+                      className="!h-2 w-full rounded-sm"
                     />
                     <Skeleton
                       sx={{
