@@ -1,0 +1,80 @@
+@use "../utils" as *;
+
+.review_and_rating_container {
+  //   width: 50%;
+}
+
+.rating_summery_container {
+  width: 50%;
+  //   border: 1px solid red;
+  .rating_summery_title {
+    @include font-style(h5, bold, primary);
+    color: get-color(null, foreground-primary);
+  }
+  .rating_summery {
+    // border: 1px solid green;
+    display: flex;
+    margin-top: get-spacing-px(2);
+    flex-wrap: nowrap;
+    gap: get-spacing-px(4);
+    &__average {
+      border: 1px solid get-color(null, container-border);
+      padding: get-spacing-px(4) get-spacing-px(8);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: get-spacing-px(2);
+      //   flex-grow: 0.6;
+      h2 {
+        @include font-style(h3, bold, primary);
+        color: get-color(null, foreground-primary);
+      }
+      &__rating {
+        display: flex;
+      }
+      p {
+        @include font-style(p, regular, primary);
+        color: get-color(null, foreground-tertiary);
+      }
+    }
+    &__rating_detail {
+      //   border: 1px solid yellow;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      &__single {
+        // border: 1px solid red;
+        display: flex;
+        align-items: center;
+        gap: get-spacing-px(4);
+        &__stars {
+          display: flex;
+        }
+        p {
+          @include font-style(ps, regular, primary);
+          color: get-color(null, foreground-tertiary);
+        }
+        &__range_amount {
+          //   border: 1px solid green;
+          height: 0.5rem;
+          flex-grow: 1;
+          background-color: get-color(null, foreground-tertiary);
+          $border-radius: 2;
+          border-radius: get-spacing-px($border-radius);
+          display: flex;
+          &__viewer {
+            border-radius: get-spacing-px($border-radius) get-spacing-px(1)
+              get-spacing-px(1) get-spacing-px($border-radius);
+            height: 100%;
+            background-color: get-color(base, rating-star);
+          }
+        }
+      }
+    }
+  }
+  .rating_star_icon {
+    font-size: 1.3rem;
+    color: get-color(base, rating-star);
+  }
+}
