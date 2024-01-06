@@ -1,7 +1,7 @@
-import SuperDeluxeBusSeats from "@/components/VehicleSeats/SuperDeluxBusSeats/SuperDeluxBusSeats";
 import styles from "@/styles/page/vehicle/index.module.scss";
 import SelectedSeats from "./SelectedSeats";
 import getCssVariable from "@/lib/getCssVariable";
+import VehicleSeats from "@/components/VehicleSeats/VehicleSeats";
 
 const VehicleSeatsInfo = (): React.JSX.Element => {
   return (
@@ -26,7 +26,7 @@ const VehicleSeatsInfo = (): React.JSX.Element => {
         <p>Selected</p>
       </div>
       <div className={styles.vehicle_seats_main}>
-        <SuperDeluxeBusSeats />
+        <VehicleSeats vehicleType="SUPER_DELUXE_BUS" />
         <SelectedSeats />
       </div>
     </section>

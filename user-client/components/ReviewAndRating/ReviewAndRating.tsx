@@ -12,7 +12,8 @@ import Image from "next/image";
 import AppIcon from "../appIcon/AppIcon";
 import RatingStar from "../RatingStar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Skeleton } from "@mui/material";
 
 type ReviewAndRating = {
   name: string;
@@ -23,6 +24,8 @@ type ReviewAndRating = {
 };
 
 const ReviewAndRating = (): React.JSX.Element => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
   const reviews: ReviewAndRating[] = [
     {
       name: "Alice Johnson",
@@ -116,6 +119,15 @@ const ReviewAndRating = (): React.JSX.Element => {
     },
   ];
 
+  useEffect(() => {
+    const tempTimeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+    return () => {
+      clearTimeout(tempTimeout);
+    };
+  }, []);
+
   return (
     <section className={styles.review_and_rating_container}>
       <div className={styles.review_and_rating_heading}>
@@ -145,24 +157,59 @@ const ReviewAndRating = (): React.JSX.Element => {
           <React.Fragment key={i}>
             <div className={styles.single_review_and_rating}>
               <Avatar>
-                {/* <Image
+                {isLoading ? (
+                  <Skeleton
+                    sx={{
+                      bgcolor: getCssVariable(
+                        "--clr-skeleton-background",
+                        true
+                      ),
+                    }}
+                    variant="rectangular"
+                    className="!h-full w-full rounded-sm"
+                  />
+                ) : (
+                  <>
+                    {/* <Image
                   src={review.picture}
                   alt="user"
                   className={`aspect-square h-full w-full ${styles.single_review_and_rating__avatar}`}
                   height={40}
                   width={40}
                 /> */}
-                <AvatarFallback className="capitalize bg-primary">
-                  {review.name.slice(0, 2)}
-                </AvatarFallback>
+                    <AvatarFallback className="capitalize bg-primary">
+                      {review.name.slice(0, 2)}
+                    </AvatarFallback>
+                  </>
+                )}
               </Avatar>
-              <div className={styles.single_review_and_rating__content}>
+              <div
+                className={
+                  styles.single_review_and_rating__content +
+                  `${isLoading ? "flex flex-col w-full" : ""}`
+                }
+              >
                 <span
                   className={
                     styles.single_review_and_rating__content__name_and_date
                   }
                 >
-                  <b>{review.name}</b>
+                  <b>
+                    {isLoading ? (
+                      <Skeleton
+                        sx={{
+                          bgcolor: getCssVariable(
+                            "--clr-skeleton-background",
+                            true
+                          ),
+                        }}
+                        variant="rectangular"
+                        className="h-4 w-28 rounded-sm mb-1"
+                      />
+                    ) : (
+                      `${review.name}`
+                    )}
+                  </b>
                   <AppIcon
                     iconName="radix-icons:dot-filled"
                     use="iconify"
@@ -170,21 +217,84 @@ const ReviewAndRating = (): React.JSX.Element => {
                       styles.single_review_and_rating__content__name_and_date__dot
                     }
                   />
-                  <p>1 day ago</p>
+                  {isLoading ? (
+                    <Skeleton
+                      sx={{
+                        bgcolor: getCssVariable(
+                          "--clr-skeleton-background",
+                          true
+                        ),
+                      }}
+                      variant="rectangular"
+                      className="h-3 w-16 rounded-sm"
+                    />
+                  ) : (
+                    <p>1 day ago</p>
+                  )}
                 </span>
                 <span
                   className={styles.single_review_and_rating__content__star}
                 >
-                  <RatingStar
-                    rating={review.rating}
-                    className={
-                      styles.single_review_and_rating__content__star__icon
-                    }
-                  />
+                  {isLoading ? (
+                    <Skeleton
+                      sx={{
+                        bgcolor: getCssVariable(
+                          "--clr-skeleton-background",
+                          true
+                        ),
+                      }}
+                      variant="rectangular"
+                      className="h-4 w-24 rounded-sm mb-1"
+                    />
+                  ) : (
+                    <RatingStar
+                      rating={review.rating}
+                      className={
+                        styles.single_review_and_rating__content__star__icon
+                      }
+                    />
+                  )}
                 </span>
-                <p className={styles.single_review_and_rating__content__review}>
-                  {review.review}
-                </p>
+                {isLoading ? (
+                  <>
+                    <Skeleton
+                      sx={{
+                        bgcolor: getCssVariable(
+                          "--clr-skeleton-background",
+                          true
+                        ),
+                      }}
+                      variant="rectangular"
+                      className="!h-2 w-full rounded-sm mb-1"
+                    />
+                    <Skeleton
+                      sx={{
+                        bgcolor: getCssVariable(
+                          "--clr-skeleton-background",
+                          true
+                        ),
+                      }}
+                      variant="rectangular"
+                      className="!h-2 w-full rounded-sm mb-1"
+                    />
+                    <Skeleton
+                      sx={{
+                        bgcolor: getCssVariable(
+                          "--clr-skeleton-background",
+                          true
+                        ),
+                      }}
+                      variant="rectangular"
+                      className="!h-2 w-2/3 rounded-sm"
+                    />
+                  </>
+                ) : (
+                  <p
+                    className={styles.single_review_and_rating__content__review}
+                  >
+                    {review.review}
+                  </p>
+                )}
               </div>
             </div>
             <div className={styles.single_review_and_rating__divider}></div>

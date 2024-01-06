@@ -11,8 +11,6 @@ const SuperDeluxeBusSeats = (): React.JSX.Element => {
   const vehicleSeats = useAppSelector((state) => state.vehicleSeats);
   const dispatch = useAppDispatch();
 
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-
   const handleSelectSeat = (rowIndex: number, columnIndex: number) => {
     // setVehicleStructure(
     //   vehicleStructure.map((_, rowI) => {
@@ -33,77 +31,56 @@ const SuperDeluxeBusSeats = (): React.JSX.Element => {
     // );
   };
 
-  useEffect(() => {
-    const tempTimeout = setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-    return () => {
-      clearTimeout(tempTimeout);
-    };
-  }, []);
-
   return (
-    <>
-      {isLoading ? (
-        <div className="w-1/2 h-96">
-          <Skeleton
-            sx={{ bgcolor: getCssVariable("--clr-skeleton-background", true) }}
-            variant="rectangular"
-            className="!h-full rounded-md"
-          />
-        </div>
-      ) : (
-        <section className={styles.vehicle_seats_section}>
-          <div className={styles.vehicle_seats}>
-            {vehicleSeats.map((row, rowIndex) =>
-              row.map((seat, columnIndex) => (
-                <span
-                  className={styles.vehicle_seat}
-                  key={`${rowIndex}-${columnIndex}`}
-                >
-                  {!seat.isSeat ? null : seat.type == "driver" ? (
+    <section className={styles.vehicle_seats_section}>
+      <div className={styles.vehicle_seats}>
+        {vehicleSeats.map((row, rowIndex) =>
+          row.map((seat, columnIndex) => (
+            <span
+              className={styles.vehicle_seat}
+              key={`${rowIndex}-${columnIndex}`}
+            >
+              {!seat.isSeat ? null : seat.type == "driver" ? (
+                <AppIcon
+                  iconName="ph:steering-wheel-fill"
+                  use="iconify"
+                  className={styles.vehicle_seat__driver_icon}
+                />
+              ) : (
+                seat.type == "user" && (
+                  <>
                     <AppIcon
-                      iconName="ph:steering-wheel-fill"
+                      iconName="mdi:seat"
                       use="iconify"
-                      className={styles.vehicle_seat__driver_icon}
+                      className={styles.vehicle_seat__icon}
+                      onClick={() =>
+                        dispatch(
+                          handleSelect({
+                            rowIndex,
+                            columnIndex,
+                          })
+                        )
+                      }
+                      style={
+                        seat.isBooked
+                          ? { color: getCssVariable("--clr-base-tertiary") }
+                          : seat.isSelected
+                          ? {
+                              color: getCssVariable("--clr-base-secondary"),
+                            }
+                          : {}
+                      }
                     />
-                  ) : (
-                    seat.type == "user" && (
-                      <>
-                        <AppIcon
-                          iconName="mdi:seat"
-                          use="iconify"
-                          className={styles.vehicle_seat__icon}
-                          onClick={() =>
-                            dispatch(
-                              handleSelect({
-                                rowIndex,
-                                columnIndex,
-                              })
-                            )
-                          }
-                          style={
-                            seat.isBooked
-                              ? { color: getCssVariable("--clr-base-tertiary") }
-                              : seat.isSelected
-                              ? {
-                                  color: getCssVariable("--clr-base-secondary"),
-                                }
-                              : {}
-                          }
-                        />
-                        <b>{seat.seatNumber}</b>
-                        <p>Rs. {seat.seatPrice}</p>
-                      </>
-                    )
-                  )}
-                </span>
-              ))
-            )}
-          </div>
-        </section>
-      )}
-    </>
+                    <b>{seat.seatNumber}</b>
+                    <p>Rs. {seat.seatPrice}</p>
+                  </>
+                )
+              )}
+            </span>
+          ))
+        )}
+      </div>
+    </section>
   );
 };
 
