@@ -6,7 +6,7 @@ const scssFilePath = path.resolve(
   __dirname,
   "../styles/utils/_next-variables.module.scss"
 );
-const cssFilePath = path.resolve(__dirname, "test.css");
+const cssFilePath = path.resolve(__dirname, "cssVariables.css");
 
 const result = sass.renderSync({
   file: scssFilePath,
@@ -35,10 +35,10 @@ const typeDefinition = `type CssVariables = ${variableNames
   .join("|")}; export default CssVariables`;
 
 // Write the interface to a TypeScript file
-const outputTsFilePath = path.resolve(
-  __dirname,
-  "../interfaces/CssVariables.ts"
-);
+const outputTsFilePath = path.resolve(__dirname, "../types/CssVariables.ts");
 fs.writeFileSync(outputTsFilePath, typeDefinition);
 
-console.log(typeDefinition);
+console.log("Css Variable type definition file generated.");
+
+// delete the css file
+fs.unlinkSync(cssFilePath);
