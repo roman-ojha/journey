@@ -8,11 +8,24 @@ import {
   getSelectedSeats,
   getTotalSeatPrice,
 } from "@/services/store/features/vehicleSeat/vehicleSeatSlice";
+import { useEffect, useState } from "react";
+import { Skeleton } from "@mui/material";
+import Button from "@/components/buttons/Button";
 
 const SelectedSeats = (): React.JSX.Element => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const selectedSeats = getSelectedSeats({
     vehicleSeats: useAppSelector((state) => state.vehicleSeats),
   });
+
+  useEffect(() => {
+    const tempTimeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+    return () => {
+      clearTimeout(tempTimeout);
+    };
+  }, []);
 
   return (
     <section className={styles.selected_seats_section}>
@@ -35,9 +48,9 @@ const SelectedSeats = (): React.JSX.Element => {
       </div>
       <div className={styles.selected_seats_total_price}>
         <b>Total Price: </b>
-        <p>Rs. {getTotalSeatPrice(selectedSeats)}/-</p>
+        <p>Rs. ${getTotalSeatPrice(selectedSeats)}/-</p>
       </div>
-      <BuySeatsDrawer />
+      <BuySeatsDrawer disabled={isLoading} />
     </section>
   );
 };

@@ -64,7 +64,11 @@ const data = [
   },
 ];
 
-export function BuySeatsDrawer() {
+type BuySeatsDrawerProps = {
+  disabled?: boolean;
+};
+
+export function BuySeatsDrawer({ disabled = false }: BuySeatsDrawerProps) {
   const selectedSeats = getSelectedSeats({
     vehicleSeats: useAppSelector((state) => state.vehicleSeats),
   });
@@ -76,7 +80,7 @@ export function BuySeatsDrawer() {
 
   return (
     <Drawer>
-      <DrawerTrigger asChild>
+      <DrawerTrigger asChild disabled={disabled}>
         <Button variant="default" className="w-full text-white">
           Continue
         </Button>
