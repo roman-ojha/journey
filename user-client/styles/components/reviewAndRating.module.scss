@@ -1,7 +1,8 @@
 @use "../utils" as *;
 
-.review_and_rating_container {
-  //   width: 50%;
+@mixin rating-star-icon {
+  font-size: 1.3rem;
+  color: get-color(base, rating-star);
 }
 
 .rating_summery_container {
@@ -74,7 +75,68 @@
     }
   }
   .rating_star_icon {
-    font-size: 1.3rem;
-    color: get-color(base, rating-star);
+    @include rating-star-icon;
+  }
+}
+
+.review_and_rating_container {
+  width: 50%;
+  //   border: 1px solid red;
+  margin-top: get-spacing-px(12);
+  .review_and_rating_heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    h6 {
+      @include font-style(h6, bold, primary);
+      color: get-color(null, foreground-primary);
+    }
+  }
+  .review_and_ratings {
+    margin-top: get-spacing-px(4);
+    .single_review_and_rating {
+      display: flex;
+      gap: get-spacing-px(2);
+      align-items: flex-start;
+      &__avatar {
+        width: get-spacing-px(12);
+        height: get-spacing-px(12);
+      }
+      &__content {
+        display: flex;
+        flex-direction: column;
+        gap: get-spacing-px(1);
+        &__name_and_date {
+          //   border: 1px solid yellow;
+          display: flex;
+          align-items: center;
+          gap: get-spacing-px(2);
+          b {
+            @include font-style(p, bold, primary);
+            color: get-color(null, foreground-secondary);
+          }
+          &__dot {
+            font-size: 0.8rem;
+            color: get-color(null, foreground-tertiary);
+          }
+          p {
+            @include font-style(ps, regular, primary);
+            color: get-color(null, foreground-tertiary);
+          }
+        }
+        &__star {
+          display: flex;
+          gap: get-spacing-px(0.5);
+          &__icon {
+            font-size: 1.2rem;
+            color: get-color(base, rating-star);
+          }
+        }
+        &__review {
+          @include font-style(ps, regular, primary);
+          color: get-color(null, foreground-tertiary);
+        }
+      }
+    }
   }
 }

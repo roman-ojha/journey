@@ -2,6 +2,7 @@
 
 $left-right-container-gap: 8;
 $content-container-width: 90vw;
+$block-margin: 12;
 
 .vehicle_page {
   position: relative;
@@ -12,7 +13,7 @@ $content-container-width: 90vw;
   // border: 1px solid red;
   .vehicle_seats_info_section {
     width: $content-container-width;
-    margin-top: get-spacing-px(8);
+    margin-top: get-spacing-px($block-margin);
     display: flex;
     flex-direction: column;
     gap: get-spacing-px(2);
@@ -32,5 +33,11 @@ $content-container-width: 90vw;
       display: flex;
       gap: get-spacing-px($left-right-container-gap);
     }
+  }
+
+  .vehicle_review_and_rating {
+    // border: 1px solid red;
+    width: $content-container-width;
+    margin-top: get-spacing-px($block-margin);
   }
 }
