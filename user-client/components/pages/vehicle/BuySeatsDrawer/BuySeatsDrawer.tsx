@@ -19,6 +19,8 @@ import {
 } from "@/components/ui/drawer";
 import getCssVariable from "@/lib/getCssVariable";
 import AppIcon from "@/components/appIcon/AppIcon";
+import { getSelectedSeats } from "@/services/store/features/vehicleSeat/vehicleSeatSlice";
+import { useAppSelector } from "@/hooks/useAppStore";
 
 const data = [
   {
@@ -63,6 +65,9 @@ const data = [
 ];
 
 export function BuySeatsDrawer() {
+  const selectedSeats = getSelectedSeats({
+    vehicleSeats: useAppSelector((state) => state.vehicleSeats),
+  });
   const [goal, setGoal] = React.useState(350);
 
   function onClick(adjustment: number) {
@@ -85,7 +90,7 @@ export function BuySeatsDrawer() {
           </DrawerHeader>
           <div className="flex flex-col items-center gap-3 w-full">
             <div className={styles.selected_seats}>
-              {Array.from({ length: 7 }).map((_, index) => (
+              {selectedSeats.map((seat, index) => (
                 <span className={styles.vehicle_seat} key={index}>
                   <AppIcon
                     iconName="mdi:seat"
@@ -95,8 +100,8 @@ export function BuySeatsDrawer() {
                       color: getCssVariable("--clr-base-secondary"),
                     }}
                   />
-                  <b>A9</b>
-                  <p>Rs. 1350</p>
+                  <b>{seat.seatNumber}</b>
+                  <p>Rs. {seat.seatPrice}</p>
                 </span>
               ))}
             </div>

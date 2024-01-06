@@ -1,4 +1,8 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import {
+  PayloadAction,
+  createSlice,
+  createDraftSafeSelector,
+} from "@reduxjs/toolkit";
 
 export type EmptySeat = {
   isSeat: false;
@@ -193,7 +197,31 @@ const vehicleSeatsSlice = createSlice({
       }
     },
   },
+  selectors: {
+    getSelectedSeats: (state) => {
+      const result: VehicleSeat[] = [];
+      state.map((row) => {
+        const r = row.map((seat) => {
+          if (seat.isSelected) {
+            result.push(seat);
+          }
+        });
+      });
+      return result;
+    },
+  },
 });
+
+export const getTotalSeatPrice = (selectedSeats: VehicleSeat[]) => {
+  let total = 0;
+  selectedSeats.map((seat) => {
+    if (seat.isSeat && seat.type == "user") {
+      total += seat.seatPrice;
+    }
+  });
+  return total;
+};
 
 export default vehicleSeatsSlice.reducer;
 export const { handleSelect } = vehicleSeatsSlice.actions;
+export const { getSelectedSeats } = vehicleSeatsSlice.selectors;
