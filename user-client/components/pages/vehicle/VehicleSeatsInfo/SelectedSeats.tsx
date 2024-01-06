@@ -1,5 +1,4 @@
 import AppIcon from "@/components/appIcon/AppIcon";
-import Button from "@/components/buttons/Button";
 import getCssVariable from "@/lib/getCssVariable";
 import styles from "@/styles/page/vehicle/selectedSeats.module.scss";
 import { BuySeatsDrawer } from "../BuySeatsDrawer/BuySeatsDrawer";

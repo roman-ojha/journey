@@ -15,9 +15,9 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
 }): React.JSX.Element => {
   return (
     <main className={styles.vehicle_page}>
-      {/* <HorizontalSearchBox /> */}
-      {/* <VehicleInfo /> */}
-      {/* <VehicleSeatsInfo /> */}
+      <HorizontalSearchBox />
+      <VehicleInfo />
+      <VehicleSeatsInfo />
       <VehicleReviewAndRating />
     </main>
   );

@@ -26,6 +26,7 @@
   * Sass
   * TailwindCSS
   * ShadCn UI
+  * Material UI
   * React Query
   * Redux Toolkit
   * React Hook Form

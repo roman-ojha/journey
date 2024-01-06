@@ -93,6 +93,9 @@
     }
   }
   .review_and_ratings {
+    display: flex;
+    flex-direction: column;
+    gap: get-spacing-px(2);
     margin-top: get-spacing-px(4);
     .single_review_and_rating {
       display: flex;
@@ -136,6 +139,10 @@
           @include font-style(ps, regular, primary);
           color: get-color(null, foreground-tertiary);
         }
+      }
+      &__divider {
+        border: 1px solid get-color(null, container-divider);
+        width: 100%;
       }
     }
   }

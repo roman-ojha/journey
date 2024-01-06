@@ -72,10 +72,9 @@ export function BuySeatsDrawer() {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        {/* <Button variant="outline">Open Drawer</Button> */}
-        <AppButton backgroundColor="primary" width="100%">
+        <Button variant="default" className="w-full">
           Continue
-        </AppButton>
+        </Button>
       </DrawerTrigger>
       <DrawerContent>
         <div className="mx-auto w-full max-w-sm flex flex-col items-center">
