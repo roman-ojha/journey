@@ -1,17 +1,17 @@
 import styles from "@/styles/components/vehicleCard.module.scss";
 import Link from "next/link";
-import { RatingStar, generateRatingStar } from "@/lib/generateRatingStar";
 import { useAppSelector } from "@/hooks/useAppStore";
 import Image from "next/image";
 import { numberWithCommas } from "@/lib/utils";
 import AppIcon from "../appIcon/AppIcon";
+import RatingStar from "../RatingStar";
 
 export type VehicleCardType = {
   image: string;
   title: string;
   slug: string;
   no_of_review: number;
-  rating: RatingStar;
+  rating: number;
   departure_at: string;
   price: number;
   vehicle_type: string;
@@ -59,22 +59,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
         <h6 className={styles.card_title}>{title}</h6>
         <div className={styles.card_rating_review}>
           <span className={styles.card_rating}>
-            {generateRatingStar(rating).map((star, index) => {
-              return (
-                <AppIcon
-                  iconName={
-                    star == "full"
-                      ? "typcn:star-full-outline"
-                      : star == "half"
-                      ? "ic:round-star-half"
-                      : "typcn:star-outline"
-                  }
-                  use="iconify"
-                  className={styles.card_rating__icon}
-                  key={index}
-                />
-              );
-            })}
+            <RatingStar rating={rating} className={styles.card_rating__icon} />
           </span>
           <p>{numberWithCommas(no_of_review)}</p>
         </div>

@@ -1,10 +1,10 @@
 import Image from "next/image";
 
 import styles from "@/styles/page/vehicle/vehicleInfo.module.scss";
-import { generateRatingStar } from "@/lib/generateRatingStar";
 import AppIcon from "@/components/appIcon/AppIcon";
 import { numberWithCommas } from "@/lib/utils";
 import getFormattedDateFromUTC from "@/lib/getFormattedDateFromUTC";
+import RatingStar from "@/components/RatingStar";
 
 const VehicleInfo = (): React.JSX.Element => {
   return (
@@ -28,22 +28,10 @@ const VehicleInfo = (): React.JSX.Element => {
         </h6>
         <div className={styles.vehicle_info_rating_review}>
           <span className={styles.vehicle_info_rating}>
-            {generateRatingStar("4.5").map((star, index) => {
-              return (
-                <AppIcon
-                  iconName={
-                    star == "full"
-                      ? "typcn:star-full-outline"
-                      : star == "half"
-                      ? "ic:round-star-half"
-                      : "typcn:star-outline"
-                  }
-                  use="iconify"
-                  className={styles.vehicle_info_rating__icon}
-                  key={index}
-                />
-              );
-            })}
+            <RatingStar
+              rating={4.3}
+              className={styles.vehicle_info_rating__icon}
+            />
           </span>
           <p>{numberWithCommas(21346)}</p>
         </div>
