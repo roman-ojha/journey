@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import vehicleCardLayoutReducer from "./features/vehicleCardLayout/vehicleCardLayoutSlice";
+import vehicleCardLayout from "./features/vehicleCardLayout/vehicleCardLayoutSlice";
+import vehicleSeats from "./features/vehicleSeat/vehicleSeatSlice";
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
-      vehicleCardLayout: vehicleCardLayoutReducer,
+      vehicleCardLayout,
+      vehicleSeats,
     },
     devTools: true,
   });
