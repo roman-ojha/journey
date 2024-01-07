@@ -9,6 +9,8 @@ servers:
     description: Kubernetes Development Server
   - url: "http://localhost/api"
     description: Nginx Development Server
+  - url: "http://34.131.106.228/api"
+    description: GCP Development VM Server
 tags:
   - name: "User"
     description: User Service API
