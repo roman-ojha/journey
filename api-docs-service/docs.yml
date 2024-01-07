@@ -4,7 +4,11 @@ info:
   version: "1.0.0"
 servers:
   - url: "http://localhost:8003/api"
+    description: Local Development Server
   - url: "http://35.200.255.104:8003/api"
+    description: Kubernetes Development Server
+  - url: "http://localhost/api"
+    description: Nginx Development Server
 tags:
   - name: "User"
     description: User Service API

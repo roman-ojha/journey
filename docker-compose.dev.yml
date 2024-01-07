@@ -11,12 +11,12 @@ services:
 
   main-proxy:
     container_name: journey-main-proxy
-    image: romanojha/journey-temp-main-proxy
+    image: romanojha/journey-main-proxy
     build:
-      context: ./temp-main-proxy
+      context: ./main-proxy
       dockerfile: Dockerfile
     ports:
-      - "8003:8003"
+      - "80:80"
     env_file:
       - docker.env
     depends_on:
