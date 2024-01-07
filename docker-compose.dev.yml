@@ -123,21 +123,26 @@ services:
     image: postgres:14
     env_file:
       - docker.env
+    environment:
+      - DATABASE_TYPE=postgres
     # ports:
     #   - "5432:5432"
     volumes:
       - journey-postgresql:/var/lib/postgresql/data
+      - ./initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
 
   mysql:
     container_name: journey-mysql-db
     image: mysql:8.2.0
     env_file:
       - docker.env
+    environment:
+      - DATABASE_TYPE=mysql
     # ports:
     #   - "3306:3306"
     volumes:
       - journey-mysql:/var/lib/mysql
-
+      - ./initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
 volumes:
   journey-postgresql:
     driver: local

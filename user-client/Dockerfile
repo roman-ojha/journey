@@ -4,14 +4,6 @@ WORKDIR /app
 
 COPY ./package.json .
 
-# COPY ./yarn.lock .
-
-# RUN npm install -g corepack
-
-# RUN corepack enable
-
-# RUN rm -rf node_modules
-# RUN yarn install
 RUN npm install
 
 COPY . .

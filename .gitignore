@@ -10,6 +10,7 @@ docker.env
 /temp
 /manifests/*-secret.yml
 /manifests/secret.yml
+uploadSecret.ps1
 
 # Logs
 logs
