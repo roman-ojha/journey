@@ -40,6 +40,7 @@ const CardFilter = (): React.JSX.Element => {
                   bus: !vehicleType.bus,
                 });
               }}
+              id="vehicle-type-bus"
             />
             <label htmlFor="vehicle-type-bus">Bus</label>
           </div>
@@ -54,6 +55,7 @@ const CardFilter = (): React.JSX.Element => {
                   hiAce: !vehicleType.hiAce,
                 });
               }}
+              id="vehicle-type-hiAce"
             />
             <label htmlFor="vehicle-type-hiAce">HiAce&apos;s</label>
           </div>
@@ -96,8 +98,9 @@ const CardFilter = (): React.JSX.Element => {
                   morning: !departureTime.morning,
                 });
               }}
+              id="departure-time-morning"
             />
-            <label htmlFor="">Morning</label>
+            <label htmlFor="departure-time-morning">Morning</label>
           </div>
           <div className={styles.check_boxes__box}>
             <CheckBox
@@ -110,8 +113,9 @@ const CardFilter = (): React.JSX.Element => {
                   evening: !departureTime.evening,
                 });
               }}
+              id="departure-time-evening"
             />
-            <label htmlFor="">Evening</label>
+            <label htmlFor="departure-time-evening">Evening</label>
           </div>
           <div className={styles.check_boxes__box}>
             <CheckBox
@@ -124,8 +128,9 @@ const CardFilter = (): React.JSX.Element => {
                   night: !departureTime.night,
                 });
               }}
+              id="departure-time-night"
             />
-            <label htmlFor="">Night</label>
+            <label htmlFor="departure-time-night">Night</label>
           </div>
         </div>
       </div>
