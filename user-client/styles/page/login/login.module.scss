@@ -1,0 +1,32 @@
+@use "../../utils" as *;
+
+.main {
+  .left_part_illustration {
+  }
+  .right_part_login {
+    .app_link {
+    }
+    h5 {
+    }
+    .login_with_container {
+    }
+    .login_form_divider {
+    }
+    .login_form {
+      &__input_field {
+        &__input_field_label {
+          .login_form__input_field__icon {
+          }
+        }
+        &__error {
+        }
+      }
+      &__remember_me_and_forgot_password {
+        .login_form__remember_me {
+        }
+      }
+    }
+    .login_form__register_link {
+    }
+  }
+}

@@ -1,5 +1,5 @@
 "use client";
-import SearchingSVG from "@/assets/svgs/searching.svg";
+import SearchingSVG from "@/assets/svg/searching.svg";
 import Image from "next/image";
 
 import { zodResolver } from "@hookform/resolvers/zod";
