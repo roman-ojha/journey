@@ -181,18 +181,48 @@ const Register = (): React.JSX.Element => {
               className={styles.register_form__input_field__label}
             >
               <AppIcon
-                iconName="ph:key-fill"
+                iconName="basil:user-solid"
                 use="iconify"
                 className={styles.register_form__input_field__icon}
               />
               <span className={styles.register_form__input_field__main}>
-                <p>Confirm Password</p>
-                <input
-                  type="password"
-                  placeholder="Confirm password"
-                  id="c-password"
-                  name="c_password"
-                />
+                <p>Gender</p>
+                <span className={styles.register_form_gender_container}>
+                  {/* Note add Radio */}
+                  <span className={styles.single_gender}>
+                    <CheckBox
+                      checked={false}
+                      inputProps={{ "aria-label": "gender-male" }}
+                      name="gender"
+                      value="male"
+                      onClick={() => {}}
+                      id="gender-male"
+                    />
+                    <label htmlFor="gender-male">Male</label>
+                  </span>
+                  <span className={styles.single_gender}>
+                    <CheckBox
+                      checked={false}
+                      inputProps={{ "aria-label": "gender-female" }}
+                      name="gender"
+                      value="female"
+                      onClick={() => {}}
+                      id="gender-female"
+                    />
+                    <label htmlFor="gender-female">Female</label>
+                  </span>
+                  <span className={styles.single_gender}>
+                    <CheckBox
+                      checked={false}
+                      inputProps={{ "aria-label": "gender-other" }}
+                      name="gender"
+                      value="other"
+                      onClick={() => {}}
+                      id="gender-other"
+                    />
+                    <label htmlFor="gender-other">Other</label>
+                  </span>
+                </span>
               </span>
             </label>
             <span className={styles.register_form__input_field__error}>

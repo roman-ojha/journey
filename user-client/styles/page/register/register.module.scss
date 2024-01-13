@@ -54,6 +54,11 @@
         width: 100%;
         gap: get-spacing-px(4);
       }
+      .register_form_gender_container {
+        display: flex;
+        align-items: center;
+        gap: get-spacing-px(4);
+      }
       &__input_field {
         display: flex;
         flex-direction: column;
@@ -64,6 +69,7 @@
           gap: get-spacing-px(4);
           background-color: get-color(null, container-background-primary);
           padding: get-spacing-px(2) get-spacing-px(4);
+          border-radius: get-spacing-px(2);
           .register_form__input_field__icon {
             font-size: 2rem;
             color: get-color(null, foreground-secondary);
