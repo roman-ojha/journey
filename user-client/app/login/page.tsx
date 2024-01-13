@@ -21,11 +21,19 @@ const Login = (): React.JSX.Element => {
         </Link>
         <h6>Sign in to your account</h6>
         <span className={styles.login_with_container}>
-          <AppIcon iconName="devicon:google" use="iconify" />
+          <AppIcon
+            iconName="devicon:google"
+            use="iconify"
+            className={styles.login_with_icon}
+          />
           <p>Login with Google</p>
         </span>
         <span className={styles.login_with_container}>
-          <AppIcon iconName="ic:baseline-facebook" use="iconify" />
+          <AppIcon
+            iconName="logos:facebook"
+            use="iconify"
+            className={styles.login_with_icon}
+          />
           <p>Login with Facebook</p>
         </span>
         <div className={styles.login_form_divider}>
@@ -42,14 +50,14 @@ const Login = (): React.JSX.Element => {
           <div className={styles.login_form__input_field}>
             <label
               htmlFor="email"
-              className={styles.login_form__input_field_label}
+              className={styles.login_form__input_field__label}
             >
               <AppIcon
                 iconName="ic:baseline-email"
                 use="iconify"
                 className={styles.login_form__input_field__icon}
               />
-              <span>
+              <span className={styles.login_form__input_field__main}>
                 <p>Email</p>
                 <input
                   type="email"
@@ -66,15 +74,15 @@ const Login = (): React.JSX.Element => {
           </div>
           <div className={styles.login_form__input_field}>
             <label
-              htmlFor="email"
-              className={styles.login_form__input_field_label}
+              htmlFor="password"
+              className={styles.login_form__input_field__label}
             >
               <AppIcon
                 iconName="ph:key-fill"
                 use="iconify"
                 className={styles.login_form__input_field__icon}
               />
-              <span>
+              <span className={styles.login_form__input_field__main}>
                 <p>Password</p>
                 <input
                   type="password"
@@ -102,7 +110,12 @@ const Login = (): React.JSX.Element => {
             </span>
             <Link href="/forgot-password">Forgot Password?</Link>
           </div>
-          <Button backgroundColor="primary" width="content-width">
+          <Button
+            backgroundColor="primary"
+            width="100%"
+            type="submit"
+            className="!font-bold !text-xl !w-11/12"
+          >
             Login
           </Button>
         </form>

@@ -19,8 +19,7 @@ const Button: React.FC<Props> = ({
   type,
   ...props
 }): React.JSX.Element => {
-  const className = `${styles.base_button} 
-  ${
+  const className = `${styles.base_button} ${
     backgroundColor == "primary"
       ? styles.background_primary
       : backgroundColor == "secondary"
@@ -28,12 +27,12 @@ const Button: React.FC<Props> = ({
       : backgroundColor == "tertiary"
       ? styles.background_tertiary
       : styles.background_transparent
-  }
-  ${border ? styles.border : ""}
-  ${width === "100%" ? styles.width_full : ""}
+  } ${border ? styles.border : ""} ${
+    width === "100%" ? styles.width_full : ""
+  } ${props.className}
   `;
   return (
-    <button className={className} {...props}>
+    <button {...props} className={className}>
       {children}
     </button>
   );
