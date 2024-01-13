@@ -102,6 +102,7 @@ $dark-mode-colors: (
       $key: 200,
     ),
   primary-box-shadow: 0px 6px 20px rgba(#ffffff, 0.06),
+  sm-box-shadow: 0px 4px 10px rgba(#ffffff, 0.06),
   skeleton-background: #333e4e,
 );
 
@@ -180,5 +181,6 @@ $light-mode-colors: (
       $key: 700,
     ),
   primary-box-shadow: -3px 7px 26px rgba(#000000, 0.16),
+  sm-box-shadow: 0px 0px 8px rgba(#000000, 0.16),
   skeleton-background: #c7c7c7,
 );

@@ -11,7 +11,7 @@ import Button from "@/components/buttons/Button";
 const Register = (): React.JSX.Element => {
   return (
     <main className={styles.main}>
-      <section className={styles.login_form_container}>
+      <section className={styles.register_form_container}>
         <Link href="/" className={styles.app_link}>
           <Image src={JourneyIcon} width={100} height={100} alt="journey" />
           <h5>Journey</h5>
@@ -21,19 +21,71 @@ const Register = (): React.JSX.Element => {
           onSubmit={(e) => {
             e.preventDefault();
           }}
-          className={styles.login_form}
+          className={styles.register_form}
         >
-          <div className={styles.login_form__input_field}>
+          <div className={styles.name_input_field_container}>
+            <div className={styles.register_form__input_field}>
+              <label
+                htmlFor="first-name"
+                className={styles.register_form__input_field__label}
+              >
+                <AppIcon
+                  iconName="basil:user-solid"
+                  use="iconify"
+                  className={styles.register_form__input_field__icon}
+                />
+                <span className={styles.register_form__input_field__main}>
+                  <p>First Name</p>
+                  <input
+                    type="text"
+                    placeholder="Enter Your First Name"
+                    id="first-name"
+                    name="first_name"
+                  />
+                </span>
+              </label>
+              <span className={styles.register_form__input_field__error}>
+                <AppIcon iconName="material-symbols:error" use="iconify" />
+                <p>Invalid First Name</p>
+              </span>
+            </div>
+            <div className={styles.register_form__input_field}>
+              <label
+                htmlFor="last-name"
+                className={styles.register_form__input_field__label}
+              >
+                <AppIcon
+                  iconName="basil:user-solid"
+                  use="iconify"
+                  className={styles.register_form__input_field__icon}
+                />
+                <span className={styles.register_form__input_field__main}>
+                  <p>Last Name</p>
+                  <input
+                    type="email"
+                    placeholder="Enter Your Last Name"
+                    id="last-name"
+                    name="last_name"
+                  />
+                </span>
+              </label>
+              <span className={styles.register_form__input_field__error}>
+                <AppIcon iconName="material-symbols:error" use="iconify" />
+                <p>Invalid Last Name</p>
+              </span>
+            </div>
+          </div>
+          <div className={styles.register_form__input_field}>
             <label
               htmlFor="email"
-              className={styles.login_form__input_field__label}
+              className={styles.register_form__input_field__label}
             >
               <AppIcon
                 iconName="ic:baseline-email"
                 use="iconify"
-                className={styles.login_form__input_field__icon}
+                className={styles.register_form__input_field__icon}
               />
-              <span className={styles.login_form__input_field__main}>
+              <span className={styles.register_form__input_field__main}>
                 <p>Email</p>
                 <input
                   type="email"
@@ -43,22 +95,22 @@ const Register = (): React.JSX.Element => {
                 />
               </span>
             </label>
-            <span className={styles.login_form__input_field__error}>
+            <span className={styles.register_form__input_field__error}>
               <AppIcon iconName="material-symbols:error" use="iconify" />
               <p>Email is not valid</p>
             </span>
           </div>
-          <div className={styles.login_form__input_field}>
+          <div className={styles.register_form__input_field}>
             <label
               htmlFor="number"
-              className={styles.login_form__input_field__label}
+              className={styles.register_form__input_field__label}
             >
               <AppIcon
                 iconName="mingcute:phone-fill"
                 use="iconify"
-                className={styles.login_form__input_field__icon}
+                className={styles.register_form__input_field__icon}
               />
-              <span className={styles.login_form__input_field__main}>
+              <span className={styles.register_form__input_field__main}>
                 <p>Number</p>
                 <input
                   type="number"
@@ -68,22 +120,22 @@ const Register = (): React.JSX.Element => {
                 />
               </span>
             </label>
-            <span className={styles.login_form__input_field__error}>
+            <span className={styles.register_form__input_field__error}>
               <AppIcon iconName="material-symbols:error" use="iconify" />
-              <p>Email is not valid</p>
+              <p>Number is not valid</p>
             </span>
           </div>
-          <div className={styles.login_form__input_field}>
+          <div className={styles.register_form__input_field}>
             <label
               htmlFor="password"
-              className={styles.login_form__input_field__label}
+              className={styles.register_form__input_field__label}
             >
               <AppIcon
                 iconName="ph:key-fill"
                 use="iconify"
-                className={styles.login_form__input_field__icon}
+                className={styles.register_form__input_field__icon}
               />
-              <span className={styles.login_form__input_field__main}>
+              <span className={styles.register_form__input_field__main}>
                 <p>Password</p>
                 <input
                   type="password"
@@ -93,22 +145,22 @@ const Register = (): React.JSX.Element => {
                 />
               </span>
             </label>
-            <span className={styles.login_form__input_field__error}>
+            <span className={styles.register_form__input_field__error}>
               <AppIcon iconName="material-symbols:error" use="iconify" />
               <p>Password is not valid</p>
             </span>
           </div>
-          <div className={styles.login_form__input_field}>
+          <div className={styles.register_form__input_field}>
             <label
               htmlFor="c-password"
-              className={styles.login_form__input_field__label}
+              className={styles.register_form__input_field__label}
             >
               <AppIcon
                 iconName="ph:key-fill"
                 use="iconify"
-                className={styles.login_form__input_field__icon}
+                className={styles.register_form__input_field__icon}
               />
-              <span className={styles.login_form__input_field__main}>
+              <span className={styles.register_form__input_field__main}>
                 <p>Confirm Password</p>
                 <input
                   type="password"
@@ -118,9 +170,34 @@ const Register = (): React.JSX.Element => {
                 />
               </span>
             </label>
-            <span className={styles.login_form__input_field__error}>
+            <span className={styles.register_form__input_field__error}>
               <AppIcon iconName="material-symbols:error" use="iconify" />
-              <p>Password is not valid</p>
+              <p>Confirm password doesn&apos;t match</p>
+            </span>
+          </div>
+          <div className={styles.register_form__input_field}>
+            <label
+              htmlFor="c-password"
+              className={styles.register_form__input_field__label}
+            >
+              <AppIcon
+                iconName="ph:key-fill"
+                use="iconify"
+                className={styles.register_form__input_field__icon}
+              />
+              <span className={styles.register_form__input_field__main}>
+                <p>Confirm Password</p>
+                <input
+                  type="password"
+                  placeholder="Confirm password"
+                  id="c-password"
+                  name="c_password"
+                />
+              </span>
+            </label>
+            <span className={styles.register_form__input_field__error}>
+              <AppIcon iconName="material-symbols:error" use="iconify" />
+              <p>Confirm password doesn&apos;t match</p>
             </span>
           </div>
           <Button
@@ -132,15 +209,15 @@ const Register = (): React.JSX.Element => {
             Register
           </Button>
         </form>
-        <span className={styles.login_form__register_link}>
+        <span className={styles.register_form__register_link}>
           <p>Have an account?</p>
           <Link href="/login">SignIn</Link>
         </span>
       </section>
-      <section className={styles.login_illustration}>
+      <section className={styles.register_illustration}>
         <Image
           src={RegisterIllustration}
-          alt="login"
+          alt="register"
           height={600}
           width={600}
         />

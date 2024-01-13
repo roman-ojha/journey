@@ -4,25 +4,25 @@
   display: flex;
   min-height: 100vh;
   justify-content: space-around;
-  padding: get-spacing-px(10) get-spacing-px(10);
-  .login_illustration {
+  padding: get-spacing-px(8) get-spacing-px(8);
+  .register_illustration {
     align-self: center;
     width: fit-content;
     img {
       flex-grow: 1;
-      height: 40rem;
-      width: 40rem;
+      height: 38rem;
+      width: 38rem;
     }
   }
-  .login_form_container {
+  .register_form_container {
     height: fit-content;
     display: flex;
     flex-direction: column;
     align-self: center;
-    padding: get-spacing-px(10) get-spacing-px(10);
+    padding: get-spacing-px(8) get-spacing-px(10);
     background-color: get-color(null, container-background-secondary);
     border-radius: get-spacing-px(3);
-    width: 600px;
+    width: 700px;
     gap: get-spacing-px(5);
     .app_link {
       display: flex;
@@ -42,44 +42,18 @@
       @include font-style(h6, medium, secondary);
       color: get-color(null, foreground-secondary);
     }
-    .login_with_container {
-      background-color: white;
-      border-radius: get-spacing-px(2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: get-spacing-px(3) get-spacing-px(6);
-      gap: get-spacing-px(4);
-      box-shadow: get-color(null, sm-box-shadow);
-      .login_with_icon {
-        font-size: 2.2rem;
-      }
-      p {
-        @include font-style(p, regular, primary);
-        color: get-color(gray, 950);
-      }
-    }
-    .login_form_divider {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: get-spacing-px(4);
-      span {
-        border: 0.5px solid get-color(null, container-border);
-        flex-grow: 1;
-        border-radius: get-spacing-px(1);
-        height: 1px;
-      }
-      p {
-        @include font-style(ps, bold, primary);
-        color: get-color(null, foreground-secondary);
-      }
-    }
-    .login_form {
+    .register_form {
+      // border: 1px solid red;
       display: flex;
       flex-direction: column;
       gap: get-spacing-px(1);
       align-items: center;
+      .name_input_field_container {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        gap: get-spacing-px(4);
+      }
       &__input_field {
         display: flex;
         flex-direction: column;
@@ -90,12 +64,11 @@
           gap: get-spacing-px(4);
           background-color: get-color(null, container-background-primary);
           padding: get-spacing-px(2) get-spacing-px(4);
-          border-radius: get-spacing-px(2);
-          .login_form__input_field__icon {
+          .register_form__input_field__icon {
             font-size: 2rem;
             color: get-color(null, foreground-secondary);
           }
-          .login_form__input_field__main {
+          .register_form__input_field__main {
             flex-grow: 1;
             p {
               @include font-style(ps, regular, primary);
@@ -134,25 +107,8 @@
           }
         }
       }
-      &__remember_me_and_forgot_password {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-        .login_form__remember_me {
-          display: flex;
-          align-items: center;
-          label {
-            @include font-style(ps, regular, primary);
-          }
-        }
-        a {
-          @include font-style(ps, regular, primary);
-          color: get-color(base, primary);
-        }
-      }
     }
-    .login_form__register_link {
+    .register_form__register_link {
       width: 100%;
       display: flex;
       justify-content: center;

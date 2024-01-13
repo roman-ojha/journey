@@ -1,6 +1,6 @@
 "use client";
 import styles from "@/styles/page/login/login.module.scss";
-import LoginSVG from "@/assets/svg/login.svg";
+import LoginIllustration from "@/assets/svg/login.svg";
 import Image from "next/image";
 import Link from "next/link";
 import JourneyIcon from "@/assets/images/appIcon.png";
@@ -12,7 +12,7 @@ const Login = (): React.JSX.Element => {
   return (
     <main className={styles.main}>
       <section className={styles.login_illustration}>
-        <Image src={LoginSVG} alt="login" height={600} width={600} />
+        <Image src={LoginIllustration} alt="login" height={600} width={600} />
       </section>
       <section className={styles.login_form_container}>
         <Link href="/" className={styles.app_link}>
