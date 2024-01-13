@@ -4,23 +4,25 @@
   display: flex;
   min-height: 100vh;
   justify-content: space-around;
-  .left_part_illustration {
+  padding: get-spacing-px(10) get-spacing-px(10);
+  .login_illustration {
     align-self: center;
     width: fit-content;
     img {
-      height: 70vh;
-      width: 70vh;
+      flex-grow: 1;
+      height: 40rem;
+      width: 40rem;
     }
   }
-  .right_part_login {
+  .login_form_container {
     height: fit-content;
     display: flex;
     flex-direction: column;
     align-self: center;
-    padding: get-spacing-px(15) get-spacing-px(10);
+    padding: get-spacing-px(10) get-spacing-px(10);
     background-color: get-color(null, container-background-secondary);
     border-radius: get-spacing-px(3);
-    width: 35vw;
+    width: 600px;
     gap: get-spacing-px(5);
     .app_link {
       display: flex;
@@ -62,9 +64,10 @@
       align-items: center;
       gap: get-spacing-px(4);
       span {
-        border: 1px solid get-color(null, container-border);
+        border: 0.5px solid get-color(null, container-border);
         flex-grow: 1;
         border-radius: get-spacing-px(1);
+        height: 1px;
       }
       p {
         @include font-style(ps, bold, primary);

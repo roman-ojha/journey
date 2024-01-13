@@ -11,10 +11,10 @@ import Button from "@/components/buttons/Button";
 const Login = (): React.JSX.Element => {
   return (
     <main className={styles.main}>
-      <section className={styles.left_part_illustration}>
+      <section className={styles.login_illustration}>
         <Image src={LoginSVG} alt="login" height={600} width={600} />
       </section>
-      <section className={styles.right_part_login}>
+      <section className={styles.login_form_container}>
         <Link href="/" className={styles.app_link}>
           <Image src={JourneyIcon} width={100} height={100} alt="journey" />
           <h5>Journey</h5>
