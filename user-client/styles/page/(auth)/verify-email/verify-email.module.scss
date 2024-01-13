@@ -1,0 +1,44 @@
+@use "../../../utils" as *;
+
+.otp_input_fields {
+  display: flex;
+  align-items: center;
+  gap: get-spacing-px(4);
+  width: 100%;
+  justify-content: center;
+  input {
+    background-color: get-color(null, container-background-primary);
+    padding: get-spacing-px(2);
+    text-align: center;
+    width: 4rem;
+    height: 4rem;
+    border-radius: get-spacing-px(4);
+    &::placeholder {
+      @include font-style(p, bold, primary);
+      color: get-color(null, foreground-primary);
+    }
+    &:focus {
+      outline: none;
+    }
+    &:read-write {
+      @include font-style(h4, bold, primary);
+      color: get-color(null, foreground-primary);
+    }
+  }
+}
+
+.resend_otp_container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: get-spacing-px(2);
+  margin-bottom: get-spacing-px(2);
+  p {
+    @include font-style(p, regular, primary);
+    color: get-color(null, foreground-secondary);
+  }
+  a {
+    color: get-color(base, primary);
+  }
+}
