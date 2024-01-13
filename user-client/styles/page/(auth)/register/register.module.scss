@@ -1,0 +1,13 @@
+@use "../../../utils" as *;
+
+.name_input_field_container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: get-spacing-px(4);
+}
+.register_form_gender_container {
+  display: flex;
+  align-items: center;
+  gap: get-spacing-px(4);
+}

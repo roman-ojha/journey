@@ -1,5 +1,6 @@
 "use client";
-import styles from "@/styles/page/login/login.module.scss";
+import authStyles from "@/styles/page/(auth)/auth.module.scss";
+import styles from "@/styles/page/(auth)/login/login.module.scss";
 import LoginIllustration from "@/assets/svg/login.svg";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,12 +11,12 @@ import Button from "@/components/buttons/Button";
 
 const Login = (): React.JSX.Element => {
   return (
-    <main className={styles.main}>
-      <section className={styles.login_illustration}>
+    <main className={authStyles.main}>
+      <section className={authStyles.auth_illustration}>
         <Image src={LoginIllustration} alt="login" height={600} width={600} />
       </section>
-      <section className={styles.login_form_container}>
-        <Link href="/" className={styles.app_link}>
+      <section className={authStyles.auth_form_container}>
+        <Link href="/" className={authStyles.app_link}>
           <Image src={JourneyIcon} width={100} height={100} alt="journey" />
           <h5>Journey</h5>
         </Link>
@@ -45,19 +46,19 @@ const Login = (): React.JSX.Element => {
           onSubmit={(e) => {
             e.preventDefault();
           }}
-          className={styles.login_form}
+          className={authStyles.auth_form}
         >
-          <div className={styles.login_form__input_field}>
+          <div className={authStyles.auth_form__input_field}>
             <label
               htmlFor="email"
-              className={styles.login_form__input_field__label}
+              className={authStyles.auth_form__input_field__label}
             >
               <AppIcon
                 iconName="ic:baseline-email"
                 use="iconify"
-                className={styles.login_form__input_field__icon}
+                className={authStyles.auth_form__input_field__icon}
               />
-              <span className={styles.login_form__input_field__main}>
+              <span className={authStyles.auth_form__input_field__main}>
                 <p>Email</p>
                 <input
                   type="email"
@@ -67,22 +68,22 @@ const Login = (): React.JSX.Element => {
                 />
               </span>
             </label>
-            <span className={styles.login_form__input_field__error}>
+            <span className={authStyles.auth_form__input_field__error}>
               <AppIcon iconName="material-symbols:error" use="iconify" />
               <p>Email is not valid</p>
             </span>
           </div>
-          <div className={styles.login_form__input_field}>
+          <div className={authStyles.auth_form__input_field}>
             <label
               htmlFor="password"
-              className={styles.login_form__input_field__label}
+              className={authStyles.auth_form__input_field__label}
             >
               <AppIcon
                 iconName="ph:key-fill"
                 use="iconify"
-                className={styles.login_form__input_field__icon}
+                className={authStyles.auth_form__input_field__icon}
               />
-              <span className={styles.login_form__input_field__main}>
+              <span className={authStyles.auth_form__input_field__main}>
                 <p>Password</p>
                 <input
                   type="password"
@@ -92,7 +93,7 @@ const Login = (): React.JSX.Element => {
                 />
               </span>
             </label>
-            <span className={styles.login_form__input_field__error}>
+            <span className={authStyles.auth_form__input_field__error}>
               <AppIcon iconName="material-symbols:error" use="iconify" />
               <p>Password is not valid</p>
             </span>
@@ -119,7 +120,7 @@ const Login = (): React.JSX.Element => {
             Login
           </Button>
         </form>
-        <span className={styles.login_form__register_link}>
+        <span className={authStyles.auth_form__auth_link}>
           <p>Don&apos;t have an account?</p>
           <Link href="/register">Register</Link>
         </span>

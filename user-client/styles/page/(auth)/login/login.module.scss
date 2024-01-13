@@ -1,0 +1,51 @@
+@use "../../../utils" as *;
+.login_with_container {
+  background-color: white;
+  border-radius: get-spacing-px(2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: get-spacing-px(3) get-spacing-px(6);
+  gap: get-spacing-px(4);
+  box-shadow: get-color(null, sm-box-shadow);
+  .login_with_icon {
+    font-size: 2.2rem;
+  }
+  p {
+    @include font-style(p, regular, primary);
+    color: get-color(gray, 950);
+  }
+}
+.login_form_divider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: get-spacing-px(4);
+  span {
+    border: 0.5px solid get-color(null, container-border);
+    flex-grow: 1;
+    border-radius: get-spacing-px(1);
+    height: 1px;
+  }
+  p {
+    @include font-style(ps, bold, primary);
+    color: get-color(null, foreground-secondary);
+  }
+}
+.login_form__remember_me_and_forgot_password {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  .login_form__remember_me {
+    display: flex;
+    align-items: center;
+    label {
+      @include font-style(ps, regular, primary);
+    }
+  }
+  a {
+    @include font-style(ps, regular, primary);
+    color: get-color(base, primary);
+  }
+}

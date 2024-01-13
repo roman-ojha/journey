@@ -5,16 +5,16 @@
   min-height: 100vh;
   justify-content: space-around;
   padding: get-spacing-px(8) get-spacing-px(8);
-  .register_illustration {
+  .auth_illustration {
     align-self: center;
     width: fit-content;
     img {
       flex-grow: 1;
-      height: 38rem;
-      width: 38rem;
+      height: 40rem;
+      width: 40rem;
     }
   }
-  .register_form_container {
+  .auth_form_container {
     height: fit-content;
     display: flex;
     flex-direction: column;
@@ -22,7 +22,7 @@
     padding: get-spacing-px(8) get-spacing-px(10);
     background-color: get-color(null, container-background-secondary);
     border-radius: get-spacing-px(3);
-    width: 700px;
+    width: 600px;
     gap: get-spacing-px(5);
     .app_link {
       display: flex;
@@ -42,23 +42,11 @@
       @include font-style(h6, medium, secondary);
       color: get-color(null, foreground-secondary);
     }
-    .register_form {
-      // border: 1px solid red;
+    .auth_form {
       display: flex;
       flex-direction: column;
       gap: get-spacing-px(1);
       align-items: center;
-      .name_input_field_container {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        gap: get-spacing-px(4);
-      }
-      .register_form_gender_container {
-        display: flex;
-        align-items: center;
-        gap: get-spacing-px(4);
-      }
       &__input_field {
         display: flex;
         flex-direction: column;
@@ -70,11 +58,11 @@
           background-color: get-color(null, container-background-primary);
           padding: get-spacing-px(2) get-spacing-px(4);
           border-radius: get-spacing-px(2);
-          .register_form__input_field__icon {
+          .auth_form__input_field__icon {
             font-size: 2rem;
             color: get-color(null, foreground-secondary);
           }
-          .register_form__input_field__main {
+          .auth_form__input_field__main {
             flex-grow: 1;
             p {
               @include font-style(ps, regular, primary);
@@ -114,7 +102,7 @@
         }
       }
     }
-    .register_form__register_link {
+    .auth_form__auth_link {
       width: 100%;
       display: flex;
       justify-content: center;
