@@ -72,16 +72,15 @@ services:
       - user-service
       - postgres
 
-  admin-client:
-    container_name: journey-admin-client
-    image: romanojha/journey-admin-client
-    build:
-      context: ./admin-client
-      dockerfile: Dockerfile
-    # ports:
-    #   - "3000:3000"
-    env_file:
-      - ./admin-client/.env
+  # admin-client:
+  #   container_name: journey-admin-client
+  #   image: romanojha/journey-admin-client
+  #   build:
+  #     context: ./admin-client
+  #     dockerfile: Dockerfile
+  #   env_file:
+  #     - ./admin-client/.env
+
   admin-service:
     container_name: journey-admin-service
     image: romanojha/journey-admin-service

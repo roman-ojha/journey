@@ -40,5 +40,6 @@
   },
   "devDependencies": {
     "dotenv-cli": "^7.3.0"
-  }
+  },
+  "packageManager": "yarn@4.0.2"
 }
