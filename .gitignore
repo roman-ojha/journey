@@ -11,6 +11,7 @@ docker.env
 /manifests/*-secret.yml
 /manifests/secret.yml
 uploadSecret.ps1
+/admin-client-reference
 
 # Logs
 logs

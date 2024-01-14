@@ -33,7 +33,7 @@
   * Zod
 ## 2. [Admin Client:](https://github.com/roman-ojha/journey/tree/staging/admin-service)
 * Short Explanation:
-  * Initial Admin UI template is been fork from [altence/lightence-ant-design-react-template](https://github.com/roman-ojha/journey/tree/staging/admin-client)
+  * Initial Admin UI template is been fork from [altence/lightence-ant-design-react-template](https://github.com/altence/lightence-ant-design-react-template)
 
 ## 3. [Merchant Client:](https://github.com/roman-ojha/journey/tree/staging/api-gateway)
 * Short Explanation: (Todo.)
