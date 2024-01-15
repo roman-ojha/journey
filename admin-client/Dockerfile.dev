@@ -1,0 +1,53 @@
+# FROM ubuntu:latest
+FROM node:20.9.0-alpine
+
+WORKDIR /app
+
+
+# RUN apt-get update && apt-get install -y curl wget
+
+# RUN wget https://nodejs.org/dist/v16.5.0/node-v16.5.0-linux-x64.tar.gz
+
+# RUN mkdir -p /opt/nodejs
+
+# RUN tar -xvzf node-v16.5.0-linux-x64.tar.gz -C /opt/nodejs/
+
+# RUN ln -s /opt/nodejs/node-v16.5.0-linux-x64/bin/node /usr/bin/node
+
+# RUN ln -s /opt/nodejs/node-v16.5.0-linux-x64/bin/npm /usr/bin/npm
+
+
+COPY ./package.json .
+
+COPY ./yarn.lock .
+
+# COPY ./.yarn ./yarn
+
+
+# RUN npm install -g corepack
+RUN corepack enable
+RUN yarn install
+    
+
+# RUN yarn build
+
+# ENV NODE_VERSION v16.5.0
+
+# # Install Nvm, Node & Run nvm on 1 bash session
+# RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash && \
+#     export NVM_DIR="$HOME/.nvm" && \
+#     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && \
+#     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" && \
+#     nvm install $NODE_VERSION && \
+#     nvm use $NODE_VERSION && \
+#     npm install -g corepack && \
+#     corepack enable && \
+#     yarn install && \
+#     yarn build
+
+COPY . .
+
+EXPOSE 3000
+
+# CMD [ "serve", "-s", "build" ]
+CMD ["corepack", "enable", "&&","yarn","start" ]
