@@ -20,21 +20,21 @@ const MedicalDashboardPage: React.FC = () => {
     <BaseRow>
       <S.LeftSideCol xl={16} xxl={17} id="desktop-content">
         <BaseRow gutter={[60, 60]}>
-          <BaseCol span={24}>
-            <TrendingCreators />
-          </BaseCol>
-
-          <BaseCol span={24}>
+          {/* <BaseCol span={24}>
             <RecentlyAddedNft />
-          </BaseCol>
+          </BaseCol> */}
 
           <BaseCol span={24}>
             <TrendingCollections />
           </BaseCol>
 
           <BaseCol span={24}>
-            <RecentActivity />
+            <TrendingCreators />
           </BaseCol>
+
+          {/* <BaseCol span={24}>
+            <RecentActivity />
+          </BaseCol> */}
         </BaseRow>
         <References />
       </S.LeftSideCol>
@@ -77,7 +77,8 @@ const MedicalDashboardPage: React.FC = () => {
 
   return (
     <>
-      <PageTitle>NFT Dashboard</PageTitle>
+      {/* <PageTitle>NFT Dashboard</PageTitle> */}
+      <PageTitle>Dashboard</PageTitle>
       {isDesktop ? desktopLayout : mobileAndTabletLayout}
     </>
   );

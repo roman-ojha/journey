@@ -99,41 +99,51 @@ export const getTrendingActivities = (): Promise<TrendingActivity[]> => {
     setTimeout(() => {
       res([
         {
-          title: 'TownYTraveler',
-          owner: '@akura',
-          image: process.env.REACT_APP_ASSETS_BUCKET + '/lightence-activity/unsplash_yhIsPgLfVNU_1_hdauhp.webp',
+          title: 'Matri Vhagya Rekha, AC (Swayambu Yatayat Pvt.Ltd)',
+          owner: 'Swayambu Yatayat Pvt.Ltd',
+          // image: process.env.REACT_APP_ASSETS_BUCKET + '/lightence-activity/unsplash_yhIsPgLfVNU_1_hdauhp.webp',
+          image:
+            'https://images.unsplash.com/photo-1557223562-6c77ef16210f?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
           avatar: process.env.REACT_APP_ASSETS_BUCKET + '/lightence-activity/unsplash_tmRuRPBiPcA_dlpsh0.webp',
           usd_value: 1045,
         },
         {
-          title: 'TownYTraveler',
-          owner: '@akura',
-          image: process.env.REACT_APP_ASSETS_BUCKET + '/lightence-activity/unsplash_eHUMDkv4q1w_xchurr.webp',
+          title: 'Matri Vhagya Rekha, AC (Swayambu Yatayat Pvt.Ltd)',
+          owner: 'Swayambu Yatayat Pvt.Ltd',
+          // image: process.env.REACT_APP_ASSETS_BUCKET + '/lightence-activity/unsplash_eHUMDkv4q1w_xchurr.webp',
+          image:
+            'https://images.unsplash.com/photo-1557223562-6c77ef16210f?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
           avatar: process.env.REACT_APP_ASSETS_BUCKET + '/lightence-activity/unsplash_Tgq8oggf0EY_mwyjub.webp',
           usd_value: 1045,
         },
         {
-          title: 'TownYTraveler',
-          owner: '@akura',
-          image: process.env.REACT_APP_ASSETS_BUCKET + '/lightence-activity/unsplash_6JQn1G0lMgY_zqqd7q.webp',
+          title: 'Matri Vhagya Rekha, AC (Swayambu Yatayat Pvt.Ltd)',
+          owner: 'Swayambu Yatayat Pvt.Ltd',
+          // image: process.env.REACT_APP_ASSETS_BUCKET + '/lightence-activity/unsplash_6JQn1G0lMgY_zqqd7q.webp',
+          image:
+            'https://images.unsplash.com/photo-1557223562-6c77ef16210f?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
           avatar: process.env.REACT_APP_ASSETS_BUCKET + '/lightence-activity/unsplash_nR-rzu8--5M_qwhnht.webp',
           usd_value: 1045,
         },
         {
-          title: 'TownYTraveler',
-          owner: '@akura',
+          title: 'Matri Vhagya Rekha, AC (Swayambu Yatayat Pvt.Ltd)',
+          owner: 'Swayambu Yatayat Pvt.Ltd',
+          // image:
+          // process.env.REACT_APP_ASSETS_BUCKET + '/lightence-activity/milad-fakurian-bMSA5-tLFao-unsplash_js8utz.webp',
           image:
-            process.env.REACT_APP_ASSETS_BUCKET + '/lightence-activity/milad-fakurian-bMSA5-tLFao-unsplash_js8utz.webp',
+            'https://images.unsplash.com/photo-1557223562-6c77ef16210f?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
           avatar:
             process.env.REACT_APP_ASSETS_BUCKET +
             '/lightence-activity/salvatore-andrea-santacroce-wGICoyAhEs4-unsplash_dfo8do.webp',
           usd_value: 1045,
         },
         {
-          title: 'TownYTraveler',
-          owner: '@akura',
+          title: 'Matri Vhagya Rekha, AC (Swayambu Yatayat Pvt.Ltd)',
+          owner: 'Swayambu Yatayat Pvt.Ltd',
+          // image:
+          //   process.env.REACT_APP_ASSETS_BUCKET + '/lightence-activity/javier-miranda-xB2XP29gn10-unsplash_klwx4d.webp',
           image:
-            process.env.REACT_APP_ASSETS_BUCKET + '/lightence-activity/javier-miranda-xB2XP29gn10-unsplash_klwx4d.webp',
+            'https://images.unsplash.com/photo-1557223562-6c77ef16210f?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
           avatar:
             process.env.REACT_APP_ASSETS_BUCKET + '/lightence-activity/simon-lee-hbFKxsIqclc-unsplash_vcv07z.webp',
           usd_value: 1045,

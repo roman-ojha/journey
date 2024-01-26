@@ -141,7 +141,7 @@
     "copied": "Copied to clipboard",
     "copy": "Copy",
     "country": "Country",
-    "nft-dashboard": "NFT Dashboard",
+    "nft-dashboard": "Dashboard",
     "medical-dashboard": "Medical Dashboard",
     "dataDisplay": "Data display",
     "dataTables": "Data Tables",
@@ -865,8 +865,8 @@
     "filter": "Filter",
     "show": "Show",
     "bid": "Bid",
-    "trendingCollections": "Trending Collections",
+    "trendingCollections": "Trending Vehicles",
     "recentlyAddedNFTs": "Recently Added NFTs",
-    "trendingCreators": "Trending Creators"
+    "trendingCreators": "Trending Merchants"
   }
 }

@@ -210,11 +210,11 @@ const SearchBox = (): React.JSX.Element => {
                   className={styles.select_item__icon}
                 />
                 <span className={styles.select_item__info}>
-                  <p>From</p>
+                  <p>To</p>
                   <span className={styles.select_item__info__location}>
-                    <p>Select departure district</p>
+                    <p>Select Destination district</p>
                     <p>,</p>
-                    <p>Select departure place</p>
+                    <p>Select Destination place</p>
                   </span>
                 </span>
               </div>
