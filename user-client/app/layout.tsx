@@ -9,8 +9,12 @@ import NavBar from "@/components/NavBar";
 import ShadeGradient from "@/components/ShadeGradient";
 import Footer from "@/components/footer/Footer";
 import StoreProvider from "./StoreProvider";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const inter = Inter({ subsets: ["latin"] });
+
+const queryClient = new QueryClient();
 
 export default function RootLayout({
   children,
@@ -40,14 +44,21 @@ export default function RootLayout({
 
   return (
     <StoreProvider>
-      <html lang="en">
-        <body className={inter.className}>
-          <ShadeGradient />
-          <NavBar />
-          {children}
-          <Footer />
-        </body>
-      </html>
+      <QueryClientProvider client={queryClient}>
+        <html lang="en">
+          <body className={inter.className}>
+            <ShadeGradient />
+            <NavBar />
+            {children}
+            <Footer />
+            <ReactQueryDevtools
+              initialIsOpen={false}
+              position="bottom"
+              buttonPosition="bottom-right"
+            />
+          </body>
+        </html>
+      </QueryClientProvider>
     </StoreProvider>
   );
 }
