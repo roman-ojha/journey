@@ -96,6 +96,9 @@
           color: get-color(base, error-color);
           gap: get-spacing-px(2);
           visibility: hidden;
+          &__show {
+            visibility: visible;
+          }
           svg {
             font-size: 1rem;
           }

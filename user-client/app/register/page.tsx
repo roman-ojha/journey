@@ -8,25 +8,32 @@ import JourneyIcon from "@/assets/images/appIcon.png";
 import AppIcon from "@/components/appIcon/AppIcon";
 import CheckBox from "@/components/CheckBox";
 import Button from "@/components/buttons/Button";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import User, { signUpSchema } from "@/model/User";
+import { signUpSchema, UserSignUp } from "@/model/User";
 import { useState } from "react";
+import { FormControlLabel, RadioGroup } from "@mui/material";
+import Radio from "@/components/Radio";
 
 const Register = (): React.JSX.Element => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<User>({
+    formState: { errors, defaultValues },
+    control,
+  } = useForm<UserSignUp>({
     resolver: zodResolver(signUpSchema),
   });
 
-  const onSubmit = (data: User) => {
+  const onSubmit: SubmitHandler<UserSignUp> = (data) => {
     console.log(data);
   };
 
-  const [gender, setGender] = useState<User["gender"] | undefined>(undefined);
+  // const [gender, setGender] = useState<User["gender"] | undefined>(undefined);
+  const [gender, setGender] = useState<string | undefined>(undefined);
+
+  // console.log(errors);
+  // console.log(defaultValues);
 
   return (
     <main className={authStyles.main}>
@@ -55,16 +62,21 @@ const Register = (): React.JSX.Element => {
                   <p>First Name</p>
                   <input
                     type="text"
-                    // name="first_name"
                     {...register("f_name")}
                     placeholder="Enter Your First Name"
                     id="first-name"
                   />
                 </span>
               </label>
-              <span className={authStyles.auth_form__input_field__error}>
+              <span
+                className={`${authStyles.auth_form__input_field__error} ${
+                  errors.f_name
+                    ? authStyles.auth_form__input_field__error__show
+                    : ""
+                }`}
+              >
                 <AppIcon iconName="material-symbols:error" use="iconify" />
-                <p>Invalid First Name</p>
+                <p>{errors.f_name?.message}</p>
               </span>
             </div>
             <div className={authStyles.auth_form__input_field}>
@@ -83,14 +95,19 @@ const Register = (): React.JSX.Element => {
                     type="text"
                     placeholder="Enter Your Last Name"
                     id="last-name"
-                    // name="last_name"
                     {...register("l_name")}
                   />
                 </span>
               </label>
-              <span className={authStyles.auth_form__input_field__error}>
+              <span
+                className={`${authStyles.auth_form__input_field__error} ${
+                  errors.l_name
+                    ? authStyles.auth_form__input_field__error__show
+                    : ""
+                }`}
+              >
                 <AppIcon iconName="material-symbols:error" use="iconify" />
-                <p>Invalid Last Name</p>
+                <p>{errors.l_name?.message}</p>
               </span>
             </div>
           </div>
@@ -110,14 +127,19 @@ const Register = (): React.JSX.Element => {
                   type="email"
                   placeholder="Enter Email address"
                   id="email"
-                  // name="email"
                   {...register("email")}
                 />
               </span>
             </label>
-            <span className={authStyles.auth_form__input_field__error}>
+            <span
+              className={`${authStyles.auth_form__input_field__error} ${
+                errors.email
+                  ? authStyles.auth_form__input_field__error__show
+                  : ""
+              }`}
+            >
               <AppIcon iconName="material-symbols:error" use="iconify" />
-              <p>Email is not valid</p>
+              <p>{errors.email?.message}</p>
             </span>
           </div>
           <div className={authStyles.auth_form__input_field}>
@@ -136,14 +158,21 @@ const Register = (): React.JSX.Element => {
                   type="number"
                   placeholder="Enter Your Number"
                   id="number"
-                  // name="number"
-                  {...register("number")}
+                  {...register("number", {
+                    setValueAs: (value: string) => BigInt(value),
+                  })}
                 />
               </span>
             </label>
-            <span className={authStyles.auth_form__input_field__error}>
+            <span
+              className={`${authStyles.auth_form__input_field__error} ${
+                errors.number
+                  ? authStyles.auth_form__input_field__error__show
+                  : ""
+              }`}
+            >
               <AppIcon iconName="material-symbols:error" use="iconify" />
-              <p>Number is not valid</p>
+              <p>{errors.number?.message}</p>
             </span>
           </div>
           <div className={authStyles.auth_form__input_field}>
@@ -162,14 +191,19 @@ const Register = (): React.JSX.Element => {
                   type="password"
                   placeholder="Enter Password"
                   id="password"
-                  // name="password"
                   {...register("password")}
                 />
               </span>
             </label>
-            <span className={authStyles.auth_form__input_field__error}>
+            <span
+              className={`${authStyles.auth_form__input_field__error} ${
+                errors.password
+                  ? authStyles.auth_form__input_field__error__show
+                  : ""
+              }`}
+            >
               <AppIcon iconName="material-symbols:error" use="iconify" />
-              <p>Password is not valid</p>
+              <p>{errors.password?.message}</p>
             </span>
           </div>
           <div className={authStyles.auth_form__input_field}>
@@ -188,14 +222,19 @@ const Register = (): React.JSX.Element => {
                   type="password"
                   placeholder="Confirm password"
                   id="c-password"
-                  // name="c_password"
                   {...register("c_password")}
                 />
               </span>
             </label>
-            <span className={authStyles.auth_form__input_field__error}>
+            <span
+              className={`${authStyles.auth_form__input_field__error} ${
+                errors.c_password
+                  ? authStyles.auth_form__input_field__error__show
+                  : ""
+              }`}
+            >
               <AppIcon iconName="material-symbols:error" use="iconify" />
-              <p>Confirm password doesn&apos;t match</p>
+              <p>{errors.c_password?.message}</p>
             </span>
           </div>
           <div className={authStyles.auth_form__input_field}>
@@ -210,59 +249,46 @@ const Register = (): React.JSX.Element => {
               />
               <span className={authStyles.auth_form__input_field__main}>
                 <p>Gender</p>
-                <span className={styles.register_form_gender_container}>
-                  {/* Note add Radio */}
-                  <span className={styles.single_gender}>
-                    <CheckBox
-                      checked={gender === "MALE"}
-                      inputProps={{ "aria-label": "gender-male" }}
+                <Controller
+                  name="gender"
+                  control={control}
+                  render={({ field: { onChange, value } }) => (
+                    <RadioGroup
+                      className={styles.register_form_gender_container}
                       name="gender"
-                      value="male"
-                      onClick={() =>
-                        gender === "MALE"
-                          ? setGender(undefined)
-                          : setGender("MALE")
-                      }
-                      id="gender-male"
-                    />
-                    <label htmlFor="gender-male">Male</label>
-                  </span>
-                  <span className={styles.single_gender}>
-                    <CheckBox
-                      checked={gender === "FEMALE"}
-                      inputProps={{ "aria-label": "gender-female" }}
-                      name="gender"
-                      value="female"
-                      onClick={() =>
-                        gender === "FEMALE"
-                          ? setGender(undefined)
-                          : setGender("FEMALE")
-                      }
-                      id="gender-female"
-                    />
-                    <label htmlFor="gender-female">Female</label>
-                  </span>
-                  <span className={styles.single_gender}>
-                    <CheckBox
-                      checked={gender == "OTHER"}
-                      inputProps={{ "aria-label": "gender-other" }}
-                      name="gender"
-                      value="other"
-                      onClick={() =>
-                        gender === "OTHER"
-                          ? setGender(undefined)
-                          : setGender("OTHER")
-                      }
-                      id="gender-other"
-                    />
-                    <label htmlFor="gender-other">Other</label>
-                  </span>
-                </span>
+                      style={{ display: "flex", flexDirection: "row" }}
+                      value={value ?? null}
+                      onChange={onChange}
+                    >
+                      <FormControlLabel
+                        value="MALE"
+                        label="Male"
+                        control={<Radio />}
+                      />
+                      <FormControlLabel
+                        value="FEMALE"
+                        control={<Radio />}
+                        label="Female"
+                      />
+                      <FormControlLabel
+                        value="OTHER"
+                        control={<Radio />}
+                        label="Other"
+                      />
+                    </RadioGroup>
+                  )}
+                />
               </span>
             </label>
-            <span className={authStyles.auth_form__input_field__error}>
+            <span
+              className={`${authStyles.auth_form__input_field__error} ${
+                errors.gender
+                  ? authStyles.auth_form__input_field__error__show
+                  : ""
+              }`}
+            >
               <AppIcon iconName="material-symbols:error" use="iconify" />
-              <p>Confirm password doesn&apos;t match</p>
+              <p>{errors.gender?.message}</p>
             </span>
           </div>
           <Button
