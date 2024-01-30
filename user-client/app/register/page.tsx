@@ -8,8 +8,26 @@ import JourneyIcon from "@/assets/images/appIcon.png";
 import AppIcon from "@/components/appIcon/AppIcon";
 import CheckBox from "@/components/CheckBox";
 import Button from "@/components/buttons/Button";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import User, { signUpSchema } from "@/model/User";
+import { useState } from "react";
 
 const Register = (): React.JSX.Element => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<User>({
+    resolver: zodResolver(signUpSchema),
+  });
+
+  const onSubmit = (data: User) => {
+    console.log(data);
+  };
+
+  const [gender, setGender] = useState<User["gender"] | undefined>(undefined);
+
   return (
     <main className={authStyles.main}>
       <section className={authStyles.auth_form_container}>
@@ -19,9 +37,7 @@ const Register = (): React.JSX.Element => {
         </Link>
         <h6>Create a new account</h6>
         <form
-          onSubmit={(e) => {
-            e.preventDefault();
-          }}
+          onSubmit={handleSubmit(onSubmit)}
           className={authStyles.auth_form}
         >
           <div className={styles.name_input_field_container}>
@@ -39,9 +55,10 @@ const Register = (): React.JSX.Element => {
                   <p>First Name</p>
                   <input
                     type="text"
+                    // name="first_name"
+                    {...register("f_name")}
                     placeholder="Enter Your First Name"
                     id="first-name"
-                    name="first_name"
                   />
                 </span>
               </label>
@@ -63,10 +80,11 @@ const Register = (): React.JSX.Element => {
                 <span className={authStyles.auth_form__input_field__main}>
                   <p>Last Name</p>
                   <input
-                    type="email"
+                    type="text"
                     placeholder="Enter Your Last Name"
                     id="last-name"
-                    name="last_name"
+                    // name="last_name"
+                    {...register("l_name")}
                   />
                 </span>
               </label>
@@ -92,7 +110,8 @@ const Register = (): React.JSX.Element => {
                   type="email"
                   placeholder="Enter Email address"
                   id="email"
-                  name="email"
+                  // name="email"
+                  {...register("email")}
                 />
               </span>
             </label>
@@ -117,7 +136,8 @@ const Register = (): React.JSX.Element => {
                   type="number"
                   placeholder="Enter Your Number"
                   id="number"
-                  name="number"
+                  // name="number"
+                  {...register("number")}
                 />
               </span>
             </label>
@@ -142,7 +162,8 @@ const Register = (): React.JSX.Element => {
                   type="password"
                   placeholder="Enter Password"
                   id="password"
-                  name="password"
+                  // name="password"
+                  {...register("password")}
                 />
               </span>
             </label>
@@ -167,7 +188,8 @@ const Register = (): React.JSX.Element => {
                   type="password"
                   placeholder="Confirm password"
                   id="c-password"
-                  name="c_password"
+                  // name="c_password"
+                  {...register("c_password")}
                 />
               </span>
             </label>
@@ -178,7 +200,7 @@ const Register = (): React.JSX.Element => {
           </div>
           <div className={authStyles.auth_form__input_field}>
             <label
-              htmlFor="c-password"
+              htmlFor="gender-male"
               className={authStyles.auth_form__input_field__label}
             >
               <AppIcon
@@ -192,33 +214,45 @@ const Register = (): React.JSX.Element => {
                   {/* Note add Radio */}
                   <span className={styles.single_gender}>
                     <CheckBox
-                      checked={false}
+                      checked={gender === "MALE"}
                       inputProps={{ "aria-label": "gender-male" }}
                       name="gender"
                       value="male"
-                      onClick={() => {}}
+                      onClick={() =>
+                        gender === "MALE"
+                          ? setGender(undefined)
+                          : setGender("MALE")
+                      }
                       id="gender-male"
                     />
                     <label htmlFor="gender-male">Male</label>
                   </span>
                   <span className={styles.single_gender}>
                     <CheckBox
-                      checked={false}
+                      checked={gender === "FEMALE"}
                       inputProps={{ "aria-label": "gender-female" }}
                       name="gender"
                       value="female"
-                      onClick={() => {}}
+                      onClick={() =>
+                        gender === "FEMALE"
+                          ? setGender(undefined)
+                          : setGender("FEMALE")
+                      }
                       id="gender-female"
                     />
                     <label htmlFor="gender-female">Female</label>
                   </span>
                   <span className={styles.single_gender}>
                     <CheckBox
-                      checked={false}
+                      checked={gender == "OTHER"}
                       inputProps={{ "aria-label": "gender-other" }}
                       name="gender"
                       value="other"
-                      onClick={() => {}}
+                      onClick={() =>
+                        gender === "OTHER"
+                          ? setGender(undefined)
+                          : setGender("OTHER")
+                      }
                       id="gender-other"
                     />
                     <label htmlFor="gender-other">Other</label>

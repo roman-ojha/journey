@@ -16,7 +16,6 @@ const Button: React.FC<Props> = ({
   backgroundColor,
   width,
   border,
-  type,
   ...props
 }): React.JSX.Element => {
   const className = `${styles.base_button} ${
