@@ -35,11 +35,11 @@ export const signUpSchema = z
       required_error: "Gender is required",
     }),
     number: z
-      .bigint({
+      .number({
         required_error: "Number is required",
         invalid_type_error: "Invalid Number",
       })
-      .min(BigInt(10)),
+      .min(10),
   })
   .refine((data) => data.password === data.c_password, {
     message: "Password and confirm password didn't match",

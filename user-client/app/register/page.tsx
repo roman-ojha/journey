@@ -6,34 +6,78 @@ import Image from "next/image";
 import Link from "next/link";
 import JourneyIcon from "@/assets/images/appIcon.png";
 import AppIcon from "@/components/appIcon/AppIcon";
-import CheckBox from "@/components/CheckBox";
 import Button from "@/components/buttons/Button";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signUpSchema, UserSignUp } from "@/model/User";
-import { useState } from "react";
+import User, { signUpSchema, UserSignUp } from "@/model/User";
 import { FormControlLabel, RadioGroup } from "@mui/material";
 import Radio from "@/components/Radio";
+import useRegisterUser from "@/hooks/reactMutation/userRegisterUser";
+import { APIValidationErrorResponse } from "@/services/api/routes";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const Register = (): React.JSX.Element => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
-    formState: { errors, defaultValues },
+    formState: { errors: validationError },
     control,
   } = useForm<UserSignUp>({
     resolver: zodResolver(signUpSchema),
   });
 
+  const {
+    mutate: registerUser,
+    error,
+    status,
+    isSuccess,
+    data,
+  } = useRegisterUser();
+
   const onSubmit: SubmitHandler<UserSignUp> = (data) => {
-    console.log(data);
+    registerUser(data);
   };
 
-  // const [gender, setGender] = useState<User["gender"] | undefined>(undefined);
-  const [gender, setGender] = useState<string | undefined>(undefined);
+  useEffect(() => {
+    if (isSuccess) {
+      router.push("/login");
+    }
+  }, [isSuccess, router]);
 
-  // console.log(errors);
-  // console.log(defaultValues);
+  const renderError = (field: keyof UserSignUp) => {
+    if (error?.response?.status === 422) {
+      const responseError = (
+        error?.response?.data as APIValidationErrorResponse
+      ).errors;
+
+      return (
+        <span
+          className={`${authStyles.auth_form__input_field__error} ${
+            responseError[field]
+              ? authStyles.auth_form__input_field__error__show
+              : ""
+          }`}
+        >
+          <AppIcon iconName="material-symbols:error" use="iconify" />
+          <p>{responseError[field] && responseError[field][0]}</p>
+        </span>
+      );
+    }
+    return (
+      <span
+        className={`${authStyles.auth_form__input_field__error} ${
+          validationError[field]
+            ? authStyles.auth_form__input_field__error__show
+            : ""
+        }`}
+      >
+        <AppIcon iconName="material-symbols:error" use="iconify" />
+        <p>{validationError[field]?.message}</p>
+      </span>
+    );
+  };
 
   return (
     <main className={authStyles.main}>
@@ -68,16 +112,7 @@ const Register = (): React.JSX.Element => {
                   />
                 </span>
               </label>
-              <span
-                className={`${authStyles.auth_form__input_field__error} ${
-                  errors.f_name
-                    ? authStyles.auth_form__input_field__error__show
-                    : ""
-                }`}
-              >
-                <AppIcon iconName="material-symbols:error" use="iconify" />
-                <p>{errors.f_name?.message}</p>
-              </span>
+              {renderError("f_name")}
             </div>
             <div className={authStyles.auth_form__input_field}>
               <label
@@ -99,16 +134,7 @@ const Register = (): React.JSX.Element => {
                   />
                 </span>
               </label>
-              <span
-                className={`${authStyles.auth_form__input_field__error} ${
-                  errors.l_name
-                    ? authStyles.auth_form__input_field__error__show
-                    : ""
-                }`}
-              >
-                <AppIcon iconName="material-symbols:error" use="iconify" />
-                <p>{errors.l_name?.message}</p>
-              </span>
+              {renderError("l_name")}
             </div>
           </div>
           <div className={authStyles.auth_form__input_field}>
@@ -131,16 +157,7 @@ const Register = (): React.JSX.Element => {
                 />
               </span>
             </label>
-            <span
-              className={`${authStyles.auth_form__input_field__error} ${
-                errors.email
-                  ? authStyles.auth_form__input_field__error__show
-                  : ""
-              }`}
-            >
-              <AppIcon iconName="material-symbols:error" use="iconify" />
-              <p>{errors.email?.message}</p>
-            </span>
+            {renderError("email")}
           </div>
           <div className={authStyles.auth_form__input_field}>
             <label
@@ -159,21 +176,12 @@ const Register = (): React.JSX.Element => {
                   placeholder="Enter Your Number"
                   id="number"
                   {...register("number", {
-                    setValueAs: (value: string) => BigInt(value),
+                    setValueAs: (value: string) => parseInt(value),
                   })}
                 />
               </span>
             </label>
-            <span
-              className={`${authStyles.auth_form__input_field__error} ${
-                errors.number
-                  ? authStyles.auth_form__input_field__error__show
-                  : ""
-              }`}
-            >
-              <AppIcon iconName="material-symbols:error" use="iconify" />
-              <p>{errors.number?.message}</p>
-            </span>
+            {renderError("number")}
           </div>
           <div className={authStyles.auth_form__input_field}>
             <label
@@ -195,16 +203,7 @@ const Register = (): React.JSX.Element => {
                 />
               </span>
             </label>
-            <span
-              className={`${authStyles.auth_form__input_field__error} ${
-                errors.password
-                  ? authStyles.auth_form__input_field__error__show
-                  : ""
-              }`}
-            >
-              <AppIcon iconName="material-symbols:error" use="iconify" />
-              <p>{errors.password?.message}</p>
-            </span>
+            {renderError("password")}
           </div>
           <div className={authStyles.auth_form__input_field}>
             <label
@@ -226,16 +225,7 @@ const Register = (): React.JSX.Element => {
                 />
               </span>
             </label>
-            <span
-              className={`${authStyles.auth_form__input_field__error} ${
-                errors.c_password
-                  ? authStyles.auth_form__input_field__error__show
-                  : ""
-              }`}
-            >
-              <AppIcon iconName="material-symbols:error" use="iconify" />
-              <p>{errors.c_password?.message}</p>
-            </span>
+            {renderError("c_password")}
           </div>
           <div className={authStyles.auth_form__input_field}>
             <label
@@ -280,16 +270,7 @@ const Register = (): React.JSX.Element => {
                 />
               </span>
             </label>
-            <span
-              className={`${authStyles.auth_form__input_field__error} ${
-                errors.gender
-                  ? authStyles.auth_form__input_field__error__show
-                  : ""
-              }`}
-            >
-              <AppIcon iconName="material-symbols:error" use="iconify" />
-              <p>{errors.gender?.message}</p>
-            </span>
+            {renderError("gender")}
           </div>
           <Button
             backgroundColor="primary"
