@@ -8,8 +8,31 @@ import JourneyIcon from "@/assets/images/appIcon.png";
 import AppIcon from "@/components/appIcon/AppIcon";
 import CheckBox from "@/components/CheckBox";
 import Button from "@/components/buttons/Button";
+import { useForm } from "react-hook-form";
+import { UserLogin, userLoginSchema } from "@/model/User";
+import { zodResolver } from "@hookform/resolvers/zod";
+import FormFieldError from "@/components/FormFieldError";
+import useLoginUser from "@/hooks/reactMutation/useLoginUser";
 
 const Login = (): React.JSX.Element => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors: clientValidationError },
+  } = useForm<UserLogin>({
+    resolver: zodResolver(userLoginSchema),
+  });
+
+  const { mutate: loginUser, error: serverError, data } = useLoginUser();
+
+  const onSubmit = (data: UserLogin) => {
+    loginUser(data);
+    console.log(data);
+  };
+
+  console.log(serverError);
+  console.log(data?.data.data);
+
   return (
     <main className={authStyles.main}>
       <section className={authStyles.auth_illustration}>
@@ -43,9 +66,7 @@ const Login = (): React.JSX.Element => {
           <span></span>
         </div>
         <form
-          onSubmit={(e) => {
-            e.preventDefault();
-          }}
+          onSubmit={handleSubmit(onSubmit)}
           className={authStyles.auth_form}
         >
           <div className={authStyles.auth_form__input_field}>
@@ -64,14 +85,16 @@ const Login = (): React.JSX.Element => {
                   type="email"
                   placeholder="Enter your email address"
                   id="email"
-                  name="email"
+                  {...register("email")}
                 />
               </span>
             </label>
-            <span className={authStyles.auth_form__input_field__error}>
-              <AppIcon iconName="material-symbols:error" use="iconify" />
-              <p>Email is not valid</p>
-            </span>
+            <FormFieldError
+              model="User"
+              field="email"
+              clientValidationError={clientValidationError}
+              serverValidationError={serverError}
+            />
           </div>
           <div className={authStyles.auth_form__input_field}>
             <label
@@ -89,14 +112,16 @@ const Login = (): React.JSX.Element => {
                   type="password"
                   placeholder="Enter your password"
                   id="password"
-                  name="password"
+                  {...register("password")}
                 />
               </span>
             </label>
-            <span className={authStyles.auth_form__input_field__error}>
-              <AppIcon iconName="material-symbols:error" use="iconify" />
-              <p>Password is not valid</p>
-            </span>
+            <FormFieldError
+              model="User"
+              field="password"
+              clientValidationError={clientValidationError}
+              serverValidationError={serverError}
+            />
           </div>
           <div className={styles.login_form__remember_me_and_forgot_password}>
             <span className={styles.login_form__remember_me}>

@@ -16,6 +16,7 @@ import useRegisterUser from "@/hooks/reactMutation/userRegisterUser";
 import { APIValidationErrorResponse } from "@/services/api/routes";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import FormFieldError from "@/components/FormFieldError";
 
 const Register = (): React.JSX.Element => {
   const router = useRouter();
@@ -25,7 +26,7 @@ const Register = (): React.JSX.Element => {
     formState: { errors: validationError },
     control,
   } = useForm<UserSignUp>({
-    resolver: zodResolver(signUpSchema),
+    // resolver: zodResolver(signUpSchema),
   });
 
   const {
@@ -112,7 +113,12 @@ const Register = (): React.JSX.Element => {
                   />
                 </span>
               </label>
-              {renderError("f_name")}
+              <FormFieldError
+                model="User"
+                field="f_name"
+                clientValidationError={validationError}
+                serverValidationError={error}
+              />
             </div>
             <div className={authStyles.auth_form__input_field}>
               <label
@@ -134,7 +140,12 @@ const Register = (): React.JSX.Element => {
                   />
                 </span>
               </label>
-              {renderError("l_name")}
+              <FormFieldError
+                model="User"
+                field="l_name"
+                clientValidationError={validationError}
+                serverValidationError={error}
+              />
             </div>
           </div>
           <div className={authStyles.auth_form__input_field}>
@@ -157,7 +168,12 @@ const Register = (): React.JSX.Element => {
                 />
               </span>
             </label>
-            {renderError("email")}
+            <FormFieldError
+              model="User"
+              field="email"
+              clientValidationError={validationError}
+              serverValidationError={error}
+            />
           </div>
           <div className={authStyles.auth_form__input_field}>
             <label
@@ -181,7 +197,12 @@ const Register = (): React.JSX.Element => {
                 />
               </span>
             </label>
-            {renderError("number")}
+            <FormFieldError
+              model="User"
+              field="number"
+              clientValidationError={validationError}
+              serverValidationError={error}
+            />
           </div>
           <div className={authStyles.auth_form__input_field}>
             <label
@@ -203,7 +224,12 @@ const Register = (): React.JSX.Element => {
                 />
               </span>
             </label>
-            {renderError("password")}
+            <FormFieldError
+              model="User"
+              field="password"
+              clientValidationError={validationError}
+              serverValidationError={error}
+            />
           </div>
           <div className={authStyles.auth_form__input_field}>
             <label
@@ -225,7 +251,12 @@ const Register = (): React.JSX.Element => {
                 />
               </span>
             </label>
-            {renderError("c_password")}
+            <FormFieldError
+              model="User"
+              field="c_password"
+              clientValidationError={validationError}
+              serverValidationError={error}
+            />
           </div>
           <div className={authStyles.auth_form__input_field}>
             <label
@@ -270,7 +301,12 @@ const Register = (): React.JSX.Element => {
                 />
               </span>
             </label>
-            {renderError("gender")}
+            <FormFieldError
+              model="User"
+              field="gender"
+              clientValidationError={validationError}
+              serverValidationError={error}
+            />
           </div>
           <Button
             backgroundColor="primary"
