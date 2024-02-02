@@ -1,4 +1,4 @@
-import { UserSignUp } from "@/model/User";
+import { UserSignUp } from "@/schema/User";
 import apiRoutes from "@/services/api/routes";
 
 export const mutationFunctions = {

@@ -15,7 +15,12 @@ const app = express();
 passport.use("user", userPasswordStrategy);
 passport.use("merchant", merchantPassportStrategy);
 
-app.use(cors({}));
+app.use(
+  cors({
+    origin: [process.env.USER_CLIENT_URL as string],
+    credentials: true,
+  })
+);
 
 app.use((req, res, next) => {
   // Decrypt POST, PATCH, PUT, DELETE Request body which is coming from actual user client like React

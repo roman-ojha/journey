@@ -3,7 +3,7 @@ import apiRoutes, {
   APISuccessResponse,
   APIValidationErrorResponse,
 } from "@/services/api/routes";
-import User, { UserSignUp } from "@/model/User";
+import User, { UserSignUp } from "@/schema/User";
 import { AxiosError } from "axios";
 
 const registerUser = (data: UserSignUp) => apiRoutes.user.auth.register(data);

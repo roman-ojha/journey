@@ -9,7 +9,7 @@ import AppIcon from "@/components/appIcon/AppIcon";
 import Button from "@/components/buttons/Button";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import User, { signUpSchema, UserSignUp } from "@/model/User";
+import User, { signUpSchema, UserSignUp } from "@/schema/User";
 import { FormControlLabel, RadioGroup } from "@mui/material";
 import Radio from "@/components/Radio";
 import useRegisterUser from "@/hooks/reactMutation/userRegisterUser";

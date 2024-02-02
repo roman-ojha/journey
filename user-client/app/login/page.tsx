@@ -9,12 +9,15 @@ import AppIcon from "@/components/appIcon/AppIcon";
 import CheckBox from "@/components/CheckBox";
 import Button from "@/components/buttons/Button";
 import { useForm } from "react-hook-form";
-import { UserLogin, userLoginSchema } from "@/model/User";
+import { UserLogin, userLoginSchema } from "@/schema/User";
 import { zodResolver } from "@hookform/resolvers/zod";
 import FormFieldError from "@/components/FormFieldError";
 import useLoginUser from "@/hooks/reactMutation/useLoginUser";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const Login = (): React.JSX.Element => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -23,15 +26,17 @@ const Login = (): React.JSX.Element => {
     resolver: zodResolver(userLoginSchema),
   });
 
-  const { mutate: loginUser, error: serverError, data } = useLoginUser();
+  const { mutate: loginUser, error: serverError, isSuccess } = useLoginUser();
 
   const onSubmit = (data: UserLogin) => {
     loginUser(data);
-    console.log(data);
   };
 
-  console.log(serverError);
-  console.log(data?.data.data);
+  useEffect(() => {
+    if (isSuccess) {
+      router.push("/");
+    }
+  }, [isSuccess, router]);
 
   return (
     <main className={authStyles.main}>

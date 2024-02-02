@@ -572,11 +572,22 @@ paths:
           description: Successful login
           content:
             application/json:
-              example:
-                message: "<message>"
-                data:
-                  token: "<token>"
-                  expires_in: "<Date>"
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      token:
+                        type: string
+                        default: "Bearer <token>"
+                      expires_in:
+                        type: string
+                        default: "<Date>"
+                      user:
+                        $ref: "#/components/schemas/UserOutput"
         "500":
           $ref: "#/components/responses/InternalServerError"
         "401":

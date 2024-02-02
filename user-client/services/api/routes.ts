@@ -1,6 +1,6 @@
 import { client as axios } from "./axios";
 import { AxiosError, AxiosResponse } from "axios";
-import User, { UserSignUp, UserLogin } from "@/model/User";
+import User, { UserSignUp, UserLogin, UserLoginResponse } from "@/schema/User";
 
 export type APISuccessResponse<T> = AxiosResponse<{
   message: string;
@@ -25,7 +25,9 @@ const apiRoutes = {
           data,
         });
       },
-      login: async (data: UserLogin): Promise<APISuccessResponse<User>> => {
+      login: async (
+        data: UserLogin
+      ): Promise<APISuccessResponse<UserLoginResponse>> => {
         return await axios({
           method: "POST",
           url: "/user/auth/login",
@@ -33,6 +35,7 @@ const apiRoutes = {
             "Content-Type": "application/json",
           },
           data,
+          withCredentials: true,
         });
       },
     },

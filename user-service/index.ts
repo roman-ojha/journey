@@ -17,6 +17,8 @@ app.use(
   cors({
     // origin: process.env.API_GATEWAY_SERVICE_URL,
     // optionsSuccessStatus: 200,
+    origin: [process.env.USER_CLIENT_URL as string],
+    credentials: true,
   })
 );
 app.use(parseUserCredential);

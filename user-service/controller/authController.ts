@@ -144,16 +144,36 @@ class AuthController extends Controller {
       }
       if (!validPassword(password, getUser.password, getUser.salt)) {
         return res
-          .status(STATUS_CODES.VALIDATION_ERROR)
+          .status(STATUS_CODES.UNAUTHORIZED)
           .json(failResponse("Given credentials doesn't exist"));
       }
 
       const token = issuedJWT(getUser);
       res.status(STATUS_CODES.OK);
+      // const responseUser: Omit<typeof getUser, "password" | "salt"> & {
+      //   password?: string;
+      //   salt?: string;
+      // } = {
+      //   ...getUser,
+      // };
+      // delete responseUser.password;
+      // delete responseUser.salt;
+      res.cookie("UserAuthToken", token, {
+        maxAge: 25892000000,
+        httpOnly: true,
+        // domain: process.env.ORIGIN_HOSTNAME,
+        // domain: "localhost",
+        // domain: the domain that we pass here is the domain where cookie get stored and domain is the domain of the server
+        secure: true,
+        // signed: true,
+        sameSite: "none",
+        // NOTE: 'sameSite: "none"' will help to set and access token for different domain
+      });
       return res.json(
         successResponse("Login Successfully", {
           token: token.token,
           expires_in: token.expiresIn,
+          user: await this.repository.findFirstSecureUserUsingEmail(email),
         })
       );
     } catch (err) {

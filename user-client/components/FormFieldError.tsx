@@ -1,4 +1,4 @@
-import User, { UserLogin, UserSignUp } from "@/model/User";
+import User, { UserLogin, UserSignUp } from "@/schema/User";
 import authStyles from "@/styles/page/(auth)/auth.module.scss";
 import AppIcon from "@/components/appIcon/AppIcon";
 import { APIValidationErrorResponse } from "@/services/api/routes";
