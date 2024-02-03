@@ -36,3 +36,5 @@ data:
   user_service_database_name: "journey-user-service"
   USER_CLIENT_PORT: "3001"
   USER_CLIENT_URL: "http://localhost:3001"
+  VEHICLE_RECOMMENDATION_SERVICE_PORT: "8007"
+  VEHICLE_RECOMMENDATION_SERVICE_URL: "http://localhost:8007"

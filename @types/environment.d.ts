@@ -45,5 +45,7 @@ declare namespace NodeJS {
     MERCHANT_V_AND_T_SERVICE_DATABASE_NAME: string;
     USER_CLIENT_PORT: string;
     USER_CLIENT_URL: string;
+    VEHICLE_RECOMMENDATION_SERVICE_PORT: string;
+    VEHICLE_RECOMMENDATION_SERVICE_URL: string;
   }
 }
