@@ -22,7 +22,6 @@ model VehicleModel {
   Vehicles    Vehicle[]
   created_at  DateTime      @default(now())
   updated_at  DateTime      @updatedAt
-  seats       VehicleSeat[]
 }
 
 model VehicleImage {
@@ -35,12 +34,12 @@ model VehicleImage {
 }
 
 model VehicleSeat {
-  id               String       @id @default(auto()) @map("_id") @db.ObjectId
-  name             String
-  vehicle_model    VehicleModel @relation(fields: [vehicle_model_id], references: [id])
-  vehicle_model_id String       @unique @db.ObjectId
-  created_at       DateTime     @default(now())
-  updated_at       DateTime     @updatedAt
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  vehicle    Vehicle  @relation(fields: [vehicle_id], references: [id])
+  vehicle_id String   @unique @db.ObjectId
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model Vehicle {
@@ -51,6 +50,7 @@ model Vehicle {
   model_id    String         @unique @db.ObjectId
   images      VehicleImage[]
   Travel      Travel[]
+  seats       VehicleSeat[]
   created_at  DateTime       @default(now())
   updated_at  DateTime       @updatedAt
 }

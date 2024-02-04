@@ -5,7 +5,6 @@ from config.setup import Settings
 
 app = FastAPI()
 settings = Settings()
-PORT = 8007
 
 
 @app.get("/")

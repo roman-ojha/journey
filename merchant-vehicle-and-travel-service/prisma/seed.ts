@@ -83,13 +83,13 @@ async function createVehicleModelAndAddSeats() {
           data: {
             name: model_info.name,
             no_of_seats: model_info.no_of_seats,
-            seats: {
-              create: model_info.seats.map((seat_name) => {
-                return {
-                  name: seat_name,
-                };
-              }),
-            },
+            // seats: {
+            //   create: model_info.seats.map((seat_name) => {
+            //     return {
+            //       name: seat_name,
+            //     };
+            //   }),
+            // },
           },
         });
       } else console.log(`${model_info.name} already exist`);
@@ -129,6 +129,75 @@ const address: Partial<District>[] = [
     ],
   },
 ];
+
+const vehicleImages = [
+  "https://images.unsplash.com/photo-1557223562-6c77ef16210f?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "https://images.unsplash.com/photo-1570125909517-53cb21c89ff2?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "https://images.unsplash.com/photo-1607424064879-708250e57647?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "https://plus.unsplash.com/premium_photo-1661963208071-9a65b048ebaf?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "https://plus.unsplash.com/premium_photo-1677440603651-b8e3f2c73e00?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "https://images.unsplash.com/photo-1650807486050-a142ea418b19?q=80&w=1527&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "https://images.unsplash.com/photo-1694497905206-a23fa36b4536?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+];
+
+async function createVehiclesAndTravel() {
+  const prisma = new PrismaClient();
+  const vehicleModelsRes = await prisma.vehicleModel.findMany();
+
+  for (let i = 0; i < 10; i++) {
+    const vehicleModel =
+      vehicleModelsRes[Math.floor(Math.random() * vehicleModelsRes.length)];
+    const vehicleSeats = vehicleModels.filter(
+      (model) => model.name === vehicleModel.name
+    )[0].seats;
+    const placesRes = await prisma.place.findMany();
+    const fromPlaceIndex = Math.floor(Math.random() * placesRes.length);
+    const fromPlace = placesRes[fromPlaceIndex];
+    const toPlace = placesRes[(fromPlaceIndex + 1) % placesRes.length];
+    const vehicleImage =
+      vehicleImages[Math.floor(Math.random() * vehicleImages.length)];
+
+    prisma.vehicle
+      .create({
+        data: {
+          merchant_id: 1,
+          plate_no: "BA 1 KHA " + faker.number.int(),
+          images: {
+            create: [
+              {
+                image: vehicleImage,
+              },
+            ],
+          },
+          model_id: vehicleModel.id,
+          seats: {
+            create: vehicleSeats.map((seat) => {
+              return {
+                name: seat,
+              };
+            }),
+          },
+          Travel: {
+            create: [
+              {
+                from: fromPlace.id,
+                to: toPlace.id,
+                driver_no: faker.number.bigInt(),
+                route: "",
+                departure_at: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000), // 5 days from now
+                is_active: true,
+              },
+            ],
+          },
+        },
+      })
+      .then((res) => {})
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+}
 
 async function createAddress() {
   const prisma = new PrismaClient();
@@ -185,5 +254,5 @@ async function createAddress() {
 }
 
 // createVehicleModelAndAddSeats();
-
-createAddress();
+// createAddress();
+createVehiclesAndTravel();
