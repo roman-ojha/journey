@@ -83,13 +83,13 @@ async function createVehicleModelAndAddSeats() {
           data: {
             name: model_info.name,
             no_of_seats: model_info.no_of_seats,
-            // seats: {
-            //   create: model_info.seats.map((seat_name) => {
-            //     return {
-            //       name: seat_name,
-            //     };
-            //   }),
-            // },
+            seats: {
+              create: model_info.seats.map((seat_name) => {
+                return {
+                  name: seat_name,
+                };
+              }),
+            },
           },
         });
       } else console.log(`${model_info.name} already exist`);
@@ -143,22 +143,35 @@ const vehicleImages = [
 
 async function createVehiclesAndTravel() {
   const prisma = new PrismaClient();
-  const vehicleModelsRes = await prisma.vehicleModel.findMany();
+  const vehicleModelsRes = await prisma.vehicleModel.findMany({
+    select: {
+      id: true,
+      name: true,
+      no_of_seats: true,
+      seats: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+    },
+  });
 
   for (let i = 0; i < 10; i++) {
     const vehicleModel =
       vehicleModelsRes[Math.floor(Math.random() * vehicleModelsRes.length)];
-    const vehicleSeats = vehicleModels.filter(
-      (model) => model.name === vehicleModel.name
-    )[0].seats;
-    const placesRes = await prisma.place.findMany();
+    // const vehicleSeats = vehicleModels.filter(
+    //   (model) => model.name === vehicleModel.name
+    // )[0].seats;
+    const vehicleSeats = vehicleModel.seats;
+    const placesRes = await prisma.places.findMany();
     const fromPlaceIndex = Math.floor(Math.random() * placesRes.length);
     const fromPlace = placesRes[fromPlaceIndex];
     const toPlace = placesRes[(fromPlaceIndex + 1) % placesRes.length];
     const vehicleImage =
       vehicleImages[Math.floor(Math.random() * vehicleImages.length)];
 
-    prisma.vehicle
+    prisma.vehicles
       .create({
         data: {
           merchant_id: 1,
@@ -171,14 +184,22 @@ async function createVehiclesAndTravel() {
             ],
           },
           model_id: vehicleModel.id,
+          // seats: {
+          //   create: vehicleSeats.map((seat) => {
+          //     return {
+          //       name: seat,
+          //     };
+          //   }),
+          // },
           seats: {
             create: vehicleSeats.map((seat) => {
               return {
-                name: seat,
+                price: 1600,
+                seat_id: seat.id,
               };
             }),
           },
-          Travel: {
+          travels: {
             create: [
               {
                 from: fromPlace.id,
@@ -206,7 +227,7 @@ async function createAddress() {
       async function createPlaces(newDistrictId: string) {
         address.places?.map(async (place) => {
           if (
-            !(await prisma.place.findFirst({
+            !(await prisma.places.findFirst({
               where: {
                 district_id: newDistrictId,
                 name: place.name,
@@ -215,7 +236,7 @@ async function createAddress() {
           ) {
             // Places have still not created
             // So create new place
-            const newPlace = await prisma.place.create({
+            const newPlace = await prisma.places.create({
               data: {
                 name: place.name as string,
                 district_id: newDistrictId,

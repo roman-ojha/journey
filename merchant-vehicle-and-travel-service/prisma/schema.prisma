@@ -19,75 +19,87 @@ model VehicleModel {
   id          String        @id @default(auto()) @map("_id") @db.ObjectId
   name        VehicleModels @unique
   no_of_seats Int
-  Vehicles    Vehicle[]
+  Vehicles    Vehicles[]
+  seats       ModelSeats[]
   created_at  DateTime      @default(now())
   updated_at  DateTime      @updatedAt
 }
 
-model VehicleImage {
+model VehicleImages {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
   image      String
-  Vehicles   Vehicle  @relation(fields: [vehicle_id], references: [id])
+  Vehicles   Vehicles @relation(fields: [vehicle_id], references: [id])
   vehicle_id String   @unique @db.ObjectId
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
 
-model VehicleSeat {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  name       String
-  vehicle    Vehicle  @relation(fields: [vehicle_id], references: [id])
-  vehicle_id String   @unique @db.ObjectId
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+model ModelSeats {
+  id               String         @id @default(auto()) @map("_id") @db.ObjectId
+  name             String
+  vehicle_model    VehicleModel   @relation(fields: [vehicle_model_id], references: [id])
+  vehicle_model_id String         @unique @db.ObjectId
+  created_at       DateTime       @default(now())
+  updated_at       DateTime       @updatedAt
+  vehicle_seats    VehicleSeats[]
 }
 
-model Vehicle {
-  id          String         @id @default(auto()) @map("_id") @db.ObjectId
+model Vehicles {
+  id          String          @id @default(auto()) @map("_id") @db.ObjectId
   plate_no    String
   merchant_id Int
-  model       VehicleModel   @relation(fields: [model_id], references: [id])
-  model_id    String         @unique @db.ObjectId
-  images      VehicleImage[]
-  Travel      Travel[]
-  seats       VehicleSeat[]
-  created_at  DateTime       @default(now())
-  updated_at  DateTime       @updatedAt
+  model       VehicleModel    @relation(fields: [model_id], references: [id])
+  model_id    String          @unique @db.ObjectId
+  images      VehicleImages[]
+  travels     Travels[]
+  created_at  DateTime        @default(now())
+  updated_at  DateTime        @updatedAt
+  seats       VehicleSeats[]
 }
 
-model District {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  name       String   @unique
-  places     Place[]
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+model VehicleSeats {
+  id         String     @id @default(auto()) @map("_id") @db.ObjectId
+  price      BigInt
+  is_booked  Boolean    @default(false)
+  seat_id    String     @unique @db.ObjectId
+  seat       ModelSeats @relation(fields: [seat_id], references: [id])
+  vehicle_id String     @unique @db.ObjectId
+  vehicle    Vehicles   @relation(fields: [vehicle_id], references: [id])
 }
 
-model Place {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  district    District @relation(fields: [district_id], references: [id])
-  district_id String   @db.ObjectId
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
-  // is_active Boolean @default(true)
-  travel_from Travel[] @relation("FromPlace")
-  travel_to   Travel[] @relation("ToPlace")
-}
-
-model Travel {
+model Travels {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  from_place   Place    @relation("FromPlace", fields: [from], references: [id])
+  from_place   Places   @relation("FromPlace", fields: [from], references: [id])
   from         String   @unique @db.ObjectId
-  to_place     Place    @relation("ToPlace", fields: [to], references: [id])
+  to_place     Places   @relation("ToPlace", fields: [to], references: [id])
   to           String   @unique @db.ObjectId
   is_active    Boolean  @default(true)
   departure_at DateTime // Store UTC Time
   route        String // Might have to create another Model
   driver_no    BigInt // Might have to create Driver Model
   // description
-  vehicle      Vehicle  @relation(fields: [vehicle_id], references: [id])
+  vehicle      Vehicles @relation(fields: [vehicle_id], references: [id])
   vehicle_id   String   @unique @db.ObjectId
   created_at   DateTime @default(now())
   updated_at   DateTime @updatedAt
+}
+
+model District {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  name       String   @unique
+  places     Places[]
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Places {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  district    District  @relation(fields: [district_id], references: [id])
+  district_id String    @db.ObjectId
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+  // is_active Boolean @default(true)
+  travel_from Travels[] @relation("FromPlace")
+  travel_to   Travels[] @relation("ToPlace")
 }
