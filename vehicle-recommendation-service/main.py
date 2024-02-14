@@ -3,7 +3,6 @@ import uvicorn
 # from config.setup import settings
 from config.settings import settings
 from fastapi.middleware.cors import CORSMiddleware
-from config.database import db
 from routes.index import router
 
 app = FastAPI()
@@ -21,7 +20,6 @@ app.add_middleware(
 
 @app.get("/")
 async def root():
-    vehicles = db.vehicles.find()
     return {"message": "Hello World"}
 
 

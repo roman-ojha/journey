@@ -1,9 +1,8 @@
 from fastapi import APIRouter
 from models.vehicle import Vehicle
-from config.database import db
-from schemas.vehicle import vehicleSerializer, vehiclesSerializer
 from bson import ObjectId
 import pprint
+from database.repository import repository
 
 
 router = APIRouter()
@@ -14,6 +13,5 @@ printer = pprint.PrettyPrinter()
 
 @router.get("/vehicles")
 async def get_vehicles():
-    vehicles = vehiclesSerializer(db.Vehicles.find())
-    # printer.pprint(vehicles)
-    return vehicles
+    vehicles = repository.get_vehicles()
+    return list(vehicles)
