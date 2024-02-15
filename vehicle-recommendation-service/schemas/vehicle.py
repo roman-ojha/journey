@@ -5,22 +5,25 @@
 #         "plate_no": vehicle["plate_no"],
 #         "merchant_id": vehicle["merchant_id"],
 #     }
-class Vehicle:
-    def __init__(self, **kwargs):
-        for key, value in kwargs.items():
-            if isinstance(value, object):
-                value = str(value)
-            setattr(self, key, value)
+# Better way
+# class Vehicle:
+#     def __init__(self, **kwargs):
+#         for key, value in kwargs.items():
+#             if isinstance(value, object):
+#                 value = str(value)
+#             setattr(self, key, value)
 
-    # serialize all vehicles
-    @staticmethod
-    def vehiclesSerializer(vehicles) -> list:
-        return [Vehicle(**vehicle) for vehicle in vehicles]
+#     # serialize all vehicles
+#     @staticmethod
+#     def vehiclesSerializer(vehicles) -> list:
+#         return [Vehicle(**vehicle) for vehicle in vehicles]
+
+# Inherit from Serializer class
+from schemas.serializer import Serializer
 
 
-# serialize all vehicles
-# def vehiclesSerializer(vehicles) -> list:
-#     return [Vehicle(**vehicle) for vehicle in vehicles]
+class Vehicle(Serializer):
+    pass
 
 
 def serializeDict(a) -> dict:
