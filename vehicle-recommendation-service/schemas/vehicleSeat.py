@@ -1,5 +1,5 @@
 from schemas.serializer import Serializer
 
 
-class vehicleSeat(Serializer):
+class VehicleSeatSerializer(Serializer):
     pass

@@ -20,10 +20,13 @@
 
 # Inherit from Serializer class
 from schemas.serializer import Serializer
+from schemas.vehicleSeat import VehicleSeatSerializer
 
 
-class Vehicle(Serializer):
-    pass
+class VehicleSerializer(Serializer):
+    # seats = VehicleSeatSerializer()
+    def __init__(self, data: dict | list | None, many=False, exclude: list = []):
+        super().__init__(data, many, exclude)
 
 
 def serializeDict(a) -> dict:

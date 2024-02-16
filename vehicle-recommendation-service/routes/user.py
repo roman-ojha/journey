@@ -11,7 +11,7 @@ printer = pprint.PrettyPrinter()
 # Get all vehicles
 
 
-@router.get("/vehicles")
-async def get_vehicles():
+@router.get("/explore")
+async def get_travel_vehicles():
     vehicles = repository.get_vehicles()
-    return list(vehicles)
+    return vehicles
