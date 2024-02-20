@@ -13,5 +13,6 @@ class Travel(BaseModel):
     route: str
     driver_no: int
     vehicle_id: str
+    seat_average_price: int
     created_at: Optional[str] = None
     updated_at: Optional[str] = None

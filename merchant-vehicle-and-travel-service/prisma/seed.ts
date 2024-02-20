@@ -208,6 +208,8 @@ async function createVehiclesAndTravel() {
                 route: "",
                 departure_at: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000), // 5 days from now
                 is_active: true,
+                seat_average_price:
+                  Math.floor(Math.random() * (2000 - 1100 + 1)) + 1100, // Random price between 1100 and 2000
               },
             ],
           },
@@ -276,4 +278,5 @@ async function createAddress() {
 
 // createVehicleModelAndAddSeats();
 // createAddress();
+
 createVehiclesAndTravel();

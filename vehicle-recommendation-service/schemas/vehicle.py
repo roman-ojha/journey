@@ -24,9 +24,7 @@ from schemas.vehicleSeat import VehicleSeatSerializer
 
 
 class VehicleSerializer(Serializer):
-    # seats = VehicleSeatSerializer()
-    def __init__(self, data: dict | list | None, many=False, exclude: list = []):
-        super().__init__(data, many, exclude)
+    pass
 
 
 def serializeDict(a) -> dict:

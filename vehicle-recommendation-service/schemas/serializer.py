@@ -1,33 +1,26 @@
-class Serializer:
-    # exclude = []
-    # data: dict | list = []
+from bson import ObjectId
 
+
+class Serializer:
     def __init__(self, data: dict | list | None, many=False, exclude: list = []):
         if data == None:
             raise ValueError("Data is required")
         elif many == False:
             tempData = {}
             for key, value in data.items():
-                if isinstance(value, object):
+                if isinstance(value, ObjectId):
                     value = str(value)
+                if isinstance(value, dict):
+                    value = Serializer(data=value).data
+                if isinstance(value, list):
+                    value = Serializer(data=value, many=True).data
                 if key not in exclude:
                     # setattr(self, key, value)
                     tempData[key] = value
-            print(tempData)
             self.data = tempData
         elif many == True:
-            tempData = []
-            for dic in data:
-                tempDic = {}
-                for key, value in dic.items():
-                    if isinstance(value, object):
-                        value = str(value)
-                    if key not in exclude:
-                        # setattr(self, key, value)
-                        tempDic[key] = value
-                tempData.append(tempDic)
-            # setattr(self, "data", tempData)
-            self.data = tempData
+            self.data = [Serializer(
+                data=dic, exclude=exclude).data for dic in data]
         else:
             self.data = None
 

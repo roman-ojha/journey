@@ -68,20 +68,21 @@ model VehicleSeats {
 }
 
 model Travels {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  from_place   Places   @relation("FromPlace", fields: [from], references: [id])
-  from         String   @unique @db.ObjectId
-  to_place     Places   @relation("ToPlace", fields: [to], references: [id])
-  to           String   @unique @db.ObjectId
-  is_active    Boolean  @default(true)
-  departure_at DateTime // Store UTC Time
-  route        String // Might have to create another Model
-  driver_no    BigInt // Might have to create Driver Model
+  id                 String   @id @default(auto()) @map("_id") @db.ObjectId
+  from_place         Places   @relation("FromPlace", fields: [from], references: [id])
+  from               String   @unique @db.ObjectId
+  to_place           Places   @relation("ToPlace", fields: [to], references: [id])
+  to                 String   @unique @db.ObjectId
+  is_active          Boolean  @default(true)
+  seat_average_price BigInt
+  departure_at       DateTime // Store UTC Time
+  route              String // Might have to create another Model
+  driver_no          BigInt // Might have to create Driver Model
   // description
-  vehicle      Vehicles @relation(fields: [vehicle_id], references: [id])
-  vehicle_id   String   @unique @db.ObjectId
-  created_at   DateTime @default(now())
-  updated_at   DateTime @updatedAt
+  vehicle            Vehicles @relation(fields: [vehicle_id], references: [id])
+  vehicle_id         String   @unique @db.ObjectId
+  created_at         DateTime @default(now())
+  updated_at         DateTime @updatedAt
 }
 
 model District {
