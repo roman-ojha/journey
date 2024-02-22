@@ -2,6 +2,7 @@
 import VehicleCard, {
   VehicleCardType,
 } from "@/components/VehicleCard/VehicleCard";
+import useExploreAndSearchedVehicles from "@/hooks/reactQuery/userExploreAndSearchedVehicles";
 import { useAppSelector } from "@/hooks/useAppStore";
 import getFormattedDateFromUTC from "@/lib/getFormattedDateFromUTC";
 import styles from "@/styles/page/explore/index.module.scss";

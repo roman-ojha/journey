@@ -1,6 +1,7 @@
 import { client as axios } from "./axios";
 import { AxiosError, AxiosResponse } from "axios";
 import User, { UserSignUp, UserLogin, UserLoginResponse } from "@/schema/User";
+import { Travel } from "@/schema/Travel";
 
 export type APISuccessResponse<T> = AxiosResponse<{
   message: string;
@@ -36,6 +37,17 @@ const apiRoutes = {
           },
           data,
           withCredentials: true,
+        });
+      },
+    },
+    vehicle: {
+      explore: async (): Promise<APISuccessResponse<Travel[]>> => {
+        return await axios({
+          method: "GET",
+          url: "/user/vehicle/explore",
+          headers: {
+            "Content-Type": "application/json",
+          },
         });
       },
     },

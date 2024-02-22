@@ -46,6 +46,8 @@ model ModelSeats {
 
 model Vehicles {
   id          String          @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  slug        String          @unique
   plate_no    String
   merchant_id Int
   model       VehicleModel    @relation(fields: [model_id], references: [id])

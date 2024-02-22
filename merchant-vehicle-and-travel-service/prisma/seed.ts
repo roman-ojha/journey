@@ -3,6 +3,8 @@ import { faker } from "@faker-js/faker";
 import { VehicleModels } from "../model/VehicleModel";
 import { District } from "../model";
 import { Place } from "../model";
+import generateRandomHash from "../utils/generateRandomHash";
+import slugify from "slugify";
 
 const vehicleModels: VehicleModels[] = [
   {
@@ -171,11 +173,19 @@ async function createVehiclesAndTravel() {
     const vehicleImage =
       vehicleImages[Math.floor(Math.random() * vehicleImages.length)];
 
+    const vehicleMerchantName = faker.person.firstName() + " Yatayat Pvt.Ltd";
+    const vehicleName = faker.person.firstName() + " Delux";
+    const vehicleTempName = vehicleName + ", AC (" + vehicleMerchantName + ")";
+    const vehicleSlug =
+      slugify(vehicleName, { lower: true }) + "-" + generateRandomHash(25);
+
     prisma.vehicles
       .create({
         data: {
           merchant_id: 1,
           plate_no: "BA 1 KHA " + faker.number.int(),
+          name: vehicleTempName,
+          slug: vehicleSlug,
           images: {
             create: [
               {
