@@ -24,4 +24,7 @@ async def root():
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", port=settings.APP_PORT, reload=True)
+    if settings.ENVIRONMENT == 'dev':
+        uvicorn.run("main:app", port=settings.APP_PORT, reload=True)
+    else:
+        uvicorn.run("main:app", port=settings.APP_PORT)

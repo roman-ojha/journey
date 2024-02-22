@@ -25,6 +25,7 @@ class Settings(BaseSettings):
     CORS_ORIGIN: list = ["*"]
     MERCHANT_V_AND_T_SERVICE_DB_URL: str = os.environ.get(
         "MERCHANT_V_AND_T_SERVICE_DATABASE_URL")
+    ENVIRONMENT = args.env
 
 
 settings = Settings()
