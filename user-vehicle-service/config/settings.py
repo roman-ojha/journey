@@ -19,13 +19,13 @@ elif args.env == 'dev':
 
 
 class Settings(BaseSettings):
-    # APP_PORT: int = os.environ.get(
-    #     "VEHICLE_RECOMMENDATION_SERVICE_PORT")
-    APP_PORT: int = 8010
+    APP_PORT: int = os.environ.get(
+        "VEHICLE_RECOMMENDATION_SERVICE_PORT")
+    # APP_PORT: int = 8010
     CORS_ORIGIN: list = ["*"]
     MERCHANT_V_AND_T_SERVICE_DB_URL: str = os.environ.get(
         "MERCHANT_V_AND_T_SERVICE_DATABASE_URL")
-    ENVIRONMENT = args.env
+    ENVIRONMENT: str = args.env
 
 
 settings = Settings()
