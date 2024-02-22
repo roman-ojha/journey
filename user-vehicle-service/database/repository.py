@@ -38,11 +38,12 @@ class Repository(Database):
             {
                 "$unwind": "$vehicle"
             },
+            # Getting vehicle images
             {
                 "$lookup": {
                     "from": "VehicleImages",
                     "localField": "vehicle._id",  # _id of Vehicles collection
-                    "foreignField": "vehicle_id",  # vehicle_id of VehicleSeats collection
+                    "foreignField": "vehicle_id",  # vehicle_id of VehicleImage collection
                     "as": "images"
                 }
             },
@@ -54,6 +55,25 @@ class Repository(Database):
             {
                 "$project": {
                     "images": 0  # Exclude the 'images' field from the output
+                }
+            },
+            # Getting Vehicle Model
+            {
+                "$lookup": {
+                    "from": "VehicleModel",
+                    "localField": "vehicle.model_id",
+                    "foreignField": "_id",
+                    "as": "model"
+                }
+            },
+            {
+                "$addFields": {
+                    "vehicle.model": {"$arrayElemAt": ["$model", 0]}
+                }
+            },
+            {
+                "$project": {
+                    "model": 0  # Exclude the 'images' field from the output
                 }
             },
             # Now get from place

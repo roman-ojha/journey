@@ -7,14 +7,21 @@ import VehicleCards from "@/components/pages/explore/VehicleCards";
 import useExploreAndSearchedVehicles from "@/hooks/reactQuery/userExploreAndSearchedVehicles";
 
 const MainExplore = (): React.JSX.Element => {
-  const { data } = useExploreAndSearchedVehicles();
-  console.log(data?.data);
+  const { data, isError, isSuccess, isLoading } =
+    useExploreAndSearchedVehicles();
+  if (isSuccess) {
+  }
   return (
     <>
       <HorizontalSearchBox />
       <CardHeader />
       <div className={styles.card_and_filter}>
-        <VehicleCards />
+        <VehicleCards
+          travelVehicles={data}
+          isError={isError}
+          isSuccess={isSuccess}
+          isLoading={isLoading}
+        />
         <CardFilter />
       </div>
     </>

@@ -41,7 +41,7 @@ const apiRoutes = {
       },
     },
     vehicle: {
-      explore: async (): Promise<APISuccessResponse<Travel[]>> => {
+      explore: async (): Promise<AxiosResponse<Travel[]>> => {
         return await axios({
           method: "GET",
           url: "/user/vehicle/explore",
