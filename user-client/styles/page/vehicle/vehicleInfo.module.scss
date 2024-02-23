@@ -8,6 +8,7 @@
   width: $container-width;
   display: flex;
   gap: get-spacing-px(vehicle.$left-right-container-gap);
+  margin-top: get-spacing-px(10);
   .vehicle_info_image_container {
     width: $container-width/2;
     .vehicle_info_image {

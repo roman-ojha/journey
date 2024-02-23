@@ -2,7 +2,7 @@
 import VehicleCard, {
   VehicleCardType,
 } from "@/components/VehicleCard/VehicleCard";
-import { ExploreVehicle } from "@/hooks/reactQuery/userExploreAndSearchedVehicles";
+import { ExploreVehicle } from "@/hooks/reactQuery/useExploreAndSearchedVehicles";
 import { useAppSelector } from "@/hooks/useAppStore";
 import getFormattedDateFromUTC from "@/lib/getFormattedDateFromUTC";
 import styles from "@/styles/page/explore/index.module.scss";
@@ -183,7 +183,7 @@ const VehicleCards: React.FC<VehicleCardsProps> = ({
               price={tVehicle.seat_average_price}
               vehicle_type={tVehicle.vehicle.model.name}
               slug={tVehicle.vehicle.slug}
-              key={tVehicle.vehicle.slug}
+              key={index}
               isLoading={isLoading}
             />
           ))

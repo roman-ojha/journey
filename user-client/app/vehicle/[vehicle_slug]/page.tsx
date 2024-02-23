@@ -3,6 +3,9 @@ import HorizontalSearchBox from "@/components/HorizontalSearchBox/HorizontalSear
 import VehicleInfo from "@/components/pages/vehicle/VehicleInfo/VehicleInfo";
 import VehicleReviewAndRating from "@/components/pages/vehicle/VehicleReviewAndRating/VehicleReviewAndRating";
 import VehicleSeatsInfo from "@/components/pages/vehicle/VehicleSeatsInfo/VehicleSeatsInfo";
+import useVehicleDetail, {
+  VehicleDetail as VehicleDetailType,
+} from "@/hooks/reactQuery/useVehicleDetail";
 import styles from "@/styles/page/vehicle/index.module.scss";
 
 type VehicleDetailProps = {
@@ -14,10 +17,20 @@ type VehicleDetailProps = {
 const VehicleDetail: React.FC<VehicleDetailProps> = ({
   params,
 }): React.JSX.Element => {
+  const { data, isError, isSuccess, isLoading } = useVehicleDetail(
+    params.vehicle_slug
+  );
+  console.log(data?.data);
+
   return (
     <main className={styles.vehicle_page}>
-      <HorizontalSearchBox />
-      <VehicleInfo />
+      {/* <HorizontalSearchBox /> */}
+      <VehicleInfo
+        isLoading={isLoading}
+        isSuccess={isSuccess}
+        isError={isError}
+        vehicle={data?.data as VehicleDetailType}
+      />
       <VehicleSeatsInfo />
       <VehicleReviewAndRating />
     </main>

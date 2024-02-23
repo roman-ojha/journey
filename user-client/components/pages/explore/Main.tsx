@@ -4,7 +4,7 @@ import HorizontalSearchBox from "@/components/HorizontalSearchBox/HorizontalSear
 import CardHeader from "@/components/pages/explore/CardHeader/CardHeader";
 import CardFilter from "@/components/pages/explore/CardFilter/CardFilter";
 import VehicleCards from "@/components/pages/explore/VehicleCards";
-import useExploreAndSearchedVehicles from "@/hooks/reactQuery/userExploreAndSearchedVehicles";
+import useExploreAndSearchedVehicles from "@/hooks/reactQuery/useExploreAndSearchedVehicles";
 
 const MainExplore = (): React.JSX.Element => {
   const { data, isError, isSuccess, isLoading } =

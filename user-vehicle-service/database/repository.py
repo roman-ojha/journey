@@ -369,9 +369,10 @@ class Repository(Database):
             }
         ])
 
-        serializedVehicle = Serializer(data=next(vehicle))
-
-        return serializedVehicle.data
+        vehicle = vehicle.try_next()
+        if vehicle is None:
+            return {"message": "Vehicle not found"}
+        return Serializer(data=vehicle).data
 
 
 repository = Repository()

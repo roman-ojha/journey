@@ -21,7 +21,7 @@ export type ExploreVehicle = Travel & {
     model: VehicleModel;
     images: VehicleImage[];
   };
-  // just adding rating & no_of_reviews we aren't getting from the server right now
+  //NOTE: just adding rating & no_of_reviews we aren't getting from the server right now
   rating: number;
   no_of_reviews: number;
 };

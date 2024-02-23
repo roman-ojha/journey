@@ -8,20 +8,35 @@ import RatingStar from "@/components/RatingStar";
 import { useEffect, useState } from "react";
 import { Skeleton } from "@mui/material";
 import getCssVariable from "@/lib/getCssVariable";
+import { VehicleDetail } from "@/hooks/reactQuery/useVehicleDetail";
 
-type VehicleInfoProps = {};
+type VehicleInfoProps = {
+  isLoading: boolean;
+  isError: boolean;
+  isSuccess: boolean;
+  vehicle?: VehicleDetail;
+};
 
-const VehicleInfo = (): React.JSX.Element => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+const VehicleInfo: React.FC<VehicleInfoProps> = ({
+  isLoading,
+  vehicle,
+  isError,
+}): React.JSX.Element => {
+  console.log(isLoading);
+  // const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  useEffect(() => {
-    const tempTimeout = setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-    return () => {
-      clearTimeout(tempTimeout);
-    };
-  });
+  // useEffect(() => {
+  //   const tempTimeout = setTimeout(() => {
+  //     setIsLoading(false);
+  //   }, 1000);
+  //   return () => {
+  //     clearTimeout(tempTimeout);
+  //   };
+  // });
+
+  if (isError) {
+    return <h1>Error</h1>;
+  }
 
   return (
     <div className={styles.container}>
@@ -34,11 +49,8 @@ const VehicleInfo = (): React.JSX.Element => {
           />
         ) : (
           <Image
-            src="https://images.unsplash.com/photo-1557223562-6c77ef16210f?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            alt={`${"Matri Vhagya Rekha, AC (Swayambu Yatayat Pvt.Ltd)".slice(
-              0,
-              20
-            )}...`}
+            src={vehicle?.images[0].image as string}
+            alt={`${vehicle ? vehicle.name.slice(0, 20) : ""}...`}
             width={500}
             height={500}
             className={styles.vehicle_info_image}
@@ -66,7 +78,7 @@ const VehicleInfo = (): React.JSX.Element => {
               />
             </>
           ) : (
-            "Matri Vhagya Rekha, AC (Swayambu Yatayat Pvt.Ltd)"
+            vehicle?.name
           )}
         </h6>
         <div className={styles.vehicle_info_rating_review}>
@@ -82,11 +94,11 @@ const VehicleInfo = (): React.JSX.Element => {
             <>
               <span className={styles.vehicle_info_rating}>
                 <RatingStar
-                  rating={4.3}
+                  rating={vehicle?.rating as number}
                   className={styles.vehicle_info_rating__icon}
                 />
               </span>
-              <p>{numberWithCommas(21346)}</p>
+              <p>{vehicle ? numberWithCommas(vehicle?.no_of_reviews) : 0}</p>
             </>
           )}
         </div>
@@ -117,7 +129,9 @@ const VehicleInfo = (): React.JSX.Element => {
               />
               <p data-vehicle-info-p="key">Departure AT:</p>
               <p data-vehicle-info-p="value">
-                {getFormattedDateFromUTC(new Date())}
+                {getFormattedDateFromUTC(
+                  vehicle ? vehicle.travel.departure_at : new Date()
+                )}
               </p>
             </>
           )}
@@ -148,7 +162,10 @@ const VehicleInfo = (): React.JSX.Element => {
                 className={styles.vehicle_info_departure_at__icon}
               />
               <p data-vehicle-info-p="key">Departure From:</p>
-              <p data-vehicle-info-p="value">Koteshwar, Kathmandu</p>
+              <p data-vehicle-info-p="value">
+                {vehicle?.travel.from_place.name},{" "}
+                {vehicle?.travel.from_place.district.name}
+              </p>
             </>
           )}
         </div>
@@ -178,7 +195,10 @@ const VehicleInfo = (): React.JSX.Element => {
                 className={styles.vehicle_info_departure_at__icon}
               />
               <p data-vehicle-info-p="key">Destination Place:</p>
-              <p data-vehicle-info-p="value">Kerkha, Jhapa</p>
+              <p data-vehicle-info-p="value">
+                {vehicle?.travel.to_place.name},{" "}
+                {vehicle?.travel.to_place.district.name}
+              </p>
             </>
           )}
         </div>
@@ -208,7 +228,13 @@ const VehicleInfo = (): React.JSX.Element => {
                 className={styles.vehicle_info_price__icon}
               />
               <p data-vehicle-info-p="key">Price</p>
-              <p data-vehicle-info-p="value">NRS. {numberWithCommas(2011)}/-</p>
+              <p data-vehicle-info-p="value">
+                NRS.{" "}
+                {numberWithCommas(
+                  vehicle ? vehicle.travel.seat_average_price : 0
+                )}
+                /-
+              </p>
             </>
           )}
         </div>
@@ -238,7 +264,7 @@ const VehicleInfo = (): React.JSX.Element => {
                 className={styles.vehicle_info_vehicle_type__icon}
               />
               <p data-vehicle-info-p="key">Vehicle Type:</p>
-              <p data-vehicle-info-p="value">Deluxe Bus</p>
+              <p data-vehicle-info-p="value">{vehicle?.model.name}</p>
             </>
           )}
         </div>
@@ -268,7 +294,7 @@ const VehicleInfo = (): React.JSX.Element => {
                 className={styles.vehicle_info_departure_at__icon}
               />
               <p data-vehicle-info-p="key">Plate Number:</p>
-              <p data-vehicle-info-p="value">BA 1 Kha, 3233</p>
+              <p data-vehicle-info-p="value">{vehicle?.plate_no}</p>
             </>
           )}
         </div>
