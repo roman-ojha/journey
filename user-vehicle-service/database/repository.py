@@ -13,7 +13,7 @@ class Repository(Database):
     # NOTE: we will going to replace this with recommendation algorithm in future
     def get_random_travels(self):
         random_travels = self.merchant_v_and_t_service_db.Travels.aggregate([
-            {"$sample": {'size': 10}}
+            {"$sample": {'size': 17}}
         ])
         # return the _id fields from the fetched documents
         return [travel['_id'] for travel in random_travels]
@@ -373,6 +373,20 @@ class Repository(Database):
         if vehicle is None:
             return {"message": "Vehicle not found"}
         return Serializer(data=vehicle).data
+
+    def get_all_places(self):
+        places = self.merchant_v_and_t_service_db.District.aggregate([
+            {
+                "$lookup": {
+                    "from": "Places",
+                    "localField": "_id",
+                    "foreignField": "district_id",
+                    "as": "places"
+                }
+            }
+        ])
+        # printer.pprint(places)
+        return Serializer(data=places, many=True).data
 
 
 repository = Repository()

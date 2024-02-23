@@ -648,6 +648,8 @@ paths:
           $ref: "#/components/responses/InternalServerError"
 
   # Todo: /user/vehicle/explore
+  # Todo: /user/vehicle/<vehicle_slug>
+  # Todo: /api/user/place
 
   # Admin Service
   /admin/auth/register:
