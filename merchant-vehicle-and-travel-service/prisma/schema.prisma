@@ -71,8 +71,8 @@ model VehicleSeats {
 
 model Travels {
   id                 String   @id @default(auto()) @map("_id") @db.ObjectId
-  from_place         Places   @relation("FromPlace", fields: [from], references: [id])
-  from               String   @unique @db.ObjectId
+  from_place         Places   @relation("FromPlace", fields: [from_], references: [id])
+  from_              String   @unique @db.ObjectId // using from_ because from is a reserved in python keyword which could interfare
   to_place           Places   @relation("ToPlace", fields: [to], references: [id])
   to                 String   @unique @db.ObjectId
   is_active          Boolean  @default(true)

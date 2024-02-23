@@ -288,7 +288,7 @@ async function createVehiclesAndTravel() {
           travels: {
             create: [
               {
-                from: fromPlace.id,
+                from_: fromPlace.id,
                 to: toPlace.id,
                 driver_no: faker.number.bigInt(),
                 route: "",

@@ -81,7 +81,7 @@ class Repository(Database):
             {
                 "$lookup": {
                     "from": "Places",
-                    "localField": "from",
+                    "localField": "from_",
                     "foreignField": "_id",
                     "as": "from_place"
                 },
@@ -147,6 +147,10 @@ class Repository(Database):
                     "district": 0
                 }
             },
+            # change 'from_' to 'from'
+            {"$addFields": {"from": "$from_"}},
+            # remove "from_" field now
+            {"$project": {"from_": 0}},
         ])
         # _id = ObjectId("65d6741784ee6d403f68462e")
         # vehicles = self.merchant_v_and_t_service_db.Vehicles.find_one({
@@ -273,7 +277,7 @@ class Repository(Database):
             {
                 "$lookup": {
                     "from": "Places",
-                    "localField": "travel.from",
+                    "localField": "travel.from_",
                     "foreignField": "_id",
                     "as": "from_place"
                 },
@@ -366,7 +370,19 @@ class Repository(Database):
                 "$project": {
                     "seat_details": 0
                 }
-            }
+            },
+            # add 'travel.from' field from 'travel.from_'
+            {
+                "$addFields": {
+                    "travel.from": "$travel.from_"
+                }
+            },
+            # remove "from_" field now
+            {
+                "$project": {
+                    "travel.from_": 0
+                }
+            },
         ])
 
         vehicle = vehicle.try_next()
