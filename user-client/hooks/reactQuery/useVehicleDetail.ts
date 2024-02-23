@@ -41,6 +41,7 @@ export default function useVehicleDetail(vehicle_slug: string) {
   >({
     queryKey: ["vehicle", vehicle_slug],
     queryFn: () => fetchVehicleDetail(vehicle_slug),
+    staleTime: 1000 * 60 * 5, // 5 minute
   });
 
   // For temporary we are adding rating and no_of_reviews

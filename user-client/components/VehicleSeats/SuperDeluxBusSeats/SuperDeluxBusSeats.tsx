@@ -2,22 +2,25 @@
 import AppIcon from "@/components/appIcon/AppIcon";
 import { useAppDispatch, useAppSelector } from "@/hooks/useAppStore";
 import getCssVariable from "@/lib/getCssVariable";
-import styles from "@/styles/page/vehicle/deluxeBusSeats.module.scss";
+import styles from "@/styles/page/vehicle/vehicleSeats.module.scss";
 import {
   handleSelect,
   setVehicleDetailSeats,
 } from "@/services/store/features/vehicleSeat/vehicleSeatSlice";
 import { VehicleDetail } from "@/hooks/reactQuery/useVehicleDetail";
 import { useEffect } from "react";
+import { VehicleModel } from "@/schema/VehicleModel";
 
 export type SeatsProps = {
   isSuccess: boolean;
+  vehicleType: VehicleModel["name"];
   seats: VehicleDetail["seats"];
 };
 
 const SuperDeluxeBusSeats: React.FC<SeatsProps> = ({
   seats,
   isSuccess,
+  vehicleType,
 }): React.JSX.Element => {
   const vehicleSeats = useAppSelector((state) => state.vehicleSeats);
   const dispatch = useAppDispatch();
@@ -44,13 +47,21 @@ const SuperDeluxeBusSeats: React.FC<SeatsProps> = ({
 
   useEffect(() => {
     if (isSuccess) {
-      dispatch(setVehicleDetailSeats(seats));
+      dispatch(setVehicleDetailSeats({ seats, vehicleType }));
     }
-  }, [isSuccess]);
+  }, [dispatch, isSuccess, seats, vehicleType]);
 
   return (
     <section className={styles.vehicle_seats_section}>
-      <div className={styles.vehicle_seats}>
+      <div
+        className={`${styles.vehicle_seats} ${
+          vehicleType == "SUPER_DELUX_BUS"
+            ? styles.super_deluxe_vehicle_seats
+            : vehicleType == "HIASE"
+            ? styles.hiaCe_vehicle_seats
+            : ""
+        }`}
+      >
         {vehicleSeats.map((row, rowIndex) =>
           row.map((seat, columnIndex) => (
             <span

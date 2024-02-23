@@ -7,12 +7,18 @@
   display: flex;
   flex-direction: column;
   gap: get-spacing-px(2);
+  .super_deluxe_vehicle_seats {
+    grid-template-columns: repeat(auto-fill, minmax($container-width/5.1, 1fr));
+  }
+  .hiaCe_vehicle_seats {
+    grid-template-columns: repeat(auto-fill, minmax($container-width/4.1, 1fr));
+  }
   .vehicle_seats {
     width: 100%;
     border: 3px solid get-color(null, container-border);
     border-radius: get-spacing-px(4);
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax($container-width/5.1, 1fr));
+    // grid-template-columns: repeat(auto-fill, minmax($container-width/5.1, 1fr));
     .vehicle_seat {
       // border: 1px solid red;
       display: flex;

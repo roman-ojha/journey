@@ -7,6 +7,7 @@ import {
   SelectedUserSeat,
   VehicleSeat,
 } from "@/interface/Vehicle";
+import { VehicleModel } from "@/schema/VehicleModel";
 import {
   PayloadAction,
   createSlice,
@@ -55,7 +56,7 @@ const getNormalUserSeat = (
   seatPrice,
 });
 
-const initialState: VehicleSeat[][] = [
+const initialSuperDeluxeSeats: VehicleSeat[][] = [
   [
     getEmptySeat(),
     getEmptySeat(),
@@ -132,9 +133,42 @@ const initialState: VehicleSeat[][] = [
   ],
 ];
 
+const initialHiaCeSeats: VehicleSeat[][] = [
+  [
+    getNormalUserSeat("A", 1350),
+    getNormalUserSeat("B", 1350),
+    getEmptySeat(),
+    getDriverSeat(),
+  ],
+  [
+    getEmptySeat(),
+    getNormalUserSeat("1", 1350),
+    getNormalUserSeat("2", 1350),
+    getNormalUserSeat("3", 1350),
+  ],
+  [
+    getNormalUserSeat("4", 1350),
+    getEmptySeat(),
+    getNormalUserSeat("5", 1350),
+    getNormalUserSeat("6", 1350),
+  ],
+  [
+    getNormalUserSeat("7", 1350),
+    getEmptySeat(),
+    getNormalUserSeat("8", 1350),
+    getNormalUserSeat("9", 1350),
+  ],
+  [
+    getNormalUserSeat("10", 1350),
+    getNormalUserSeat("11", 1350),
+    getNormalUserSeat("12", 1350),
+    getNormalUserSeat("13", 1350),
+  ],
+];
+
 const vehicleSeatsSlice = createSlice({
   name: "vehicleSeats",
-  initialState,
+  initialState: initialHiaCeSeats,
   reducers: {
     handleSelect: (
       state,
@@ -152,23 +186,49 @@ const vehicleSeatsSlice = createSlice({
     },
     setVehicleDetailSeats: (
       state,
-      action: PayloadAction<VehicleDetail["seats"]>
+      action: PayloadAction<{
+        seats: VehicleDetail["seats"];
+        vehicleType: VehicleModel["name"];
+      }>
     ) => {
-      // console.log(action.payload);
-      // console.log(state);
-      // console.log(action.payload);
-      state.map((row, rowIndex) => {
-        row.map((seat, columnIndex) => {
-          const info = state[rowIndex][columnIndex];
-          action.payload.map((payloadSeat: any) => {
-            if (payloadSeat.seat.name == info.seatNumber && info.isSeat) {
-              // console.log(payloadSeat.seat.name, info.isSeat);
-              // console.log(payloadSeat.is_booked);
-              info.isBooked = payloadSeat.is_booked;
+      let finalTempSeats: VehicleSeat[][] = [];
+
+      if (action.payload.vehicleType == "HIASE") {
+        finalTempSeats = initialHiaCeSeats;
+      } else if (action.payload.vehicleType == "SUPER_DELUX_BUS") {
+        finalTempSeats = initialSuperDeluxeSeats;
+      }
+      const finalSeats = finalTempSeats.map((rowSeats, rowIndex) => {
+        const finalColumnSeats = rowSeats.map((seat, columnIndex) => {
+          const initialSeat = finalTempSeats[rowIndex][columnIndex];
+          let tempSeat: VehicleSeat = getEmptySeat();
+          action.payload.seats.map((payloadSeat: any) => {
+            if (
+              payloadSeat.seat.name == initialSeat.seatNumber &&
+              initialSeat.isSeat
+            ) {
+              if (initialSeat.type === "user") {
+                if (payloadSeat.is_booked) {
+                  tempSeat = getBookedUserSeat(
+                    payloadSeat.seat.name,
+                    payloadSeat.price
+                  );
+                } else {
+                  tempSeat = getNormalUserSeat(
+                    payloadSeat.seat.name,
+                    payloadSeat.price
+                  );
+                }
+              }
+            } else if (initialSeat.type === "driver") {
+              tempSeat = getDriverSeat();
             }
           });
+          return tempSeat;
         });
+        return finalColumnSeats;
       });
+      return finalSeats;
     },
   },
   selectors: {

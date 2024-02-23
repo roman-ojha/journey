@@ -4,7 +4,7 @@ import { Travel } from "@/schema/Travel";
 import { Vehicle } from "@/schema/Vehicle";
 import { VehicleImage } from "@/schema/VehicleImage";
 import { VehicleModel } from "@/schema/VehicleModel";
-import apiRoutes, { APISuccessResponse } from "@/services/api/routes";
+import apiRoutes from "@/services/api/routes";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError, AxiosResponse } from "axios";
 
@@ -34,6 +34,7 @@ export default function useExploreAndSearchedVehicles() {
   >({
     queryKey: ["explore-vehicles"],
     queryFn: fetchExploreVehicle,
+    staleTime: 1000 * 60 * 10, // 10 minute
   });
 
   return {

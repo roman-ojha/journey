@@ -42,9 +42,11 @@ const VehicleSeats: React.FC<VehicleSeatsInfoProps> = ({
           />
         </div>
       ) : vehicleType && seats ? (
-        vehicleType == "SUPER_DELUX_BUS" && (
-          <SuperDeluxeBusSeats seats={seats} isSuccess={isSuccess} />
-        )
+        <SuperDeluxeBusSeats
+          seats={seats}
+          isSuccess={isSuccess}
+          vehicleType={vehicleType}
+        />
       ) : null}
     </>
   );
