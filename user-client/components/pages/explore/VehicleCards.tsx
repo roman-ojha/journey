@@ -2,21 +2,13 @@
 import VehicleCard, {
   VehicleCardType,
 } from "@/components/VehicleCard/VehicleCard";
-import { TempVehicleType } from "@/hooks/reactQuery/userExploreAndSearchedVehicles";
+import { ExploreVehicle } from "@/hooks/reactQuery/userExploreAndSearchedVehicles";
 import { useAppSelector } from "@/hooks/useAppStore";
 import getFormattedDateFromUTC from "@/lib/getFormattedDateFromUTC";
 import styles from "@/styles/page/explore/index.module.scss";
-import { useEffect, useState } from "react";
-
-type VehicleCardResponse = {
-  isError: boolean;
-  vehicles: VehicleCardType[];
-  isLoading: boolean;
-  error: string;
-};
 
 type VehicleCardsProps = {
-  travelVehicles?: TempVehicleType[];
+  travelVehicles?: ExploreVehicle[];
   isLoading: boolean;
   isError: boolean;
   isSuccess: boolean;

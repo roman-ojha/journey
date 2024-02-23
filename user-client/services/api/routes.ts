@@ -2,6 +2,7 @@ import { client as axios } from "./axios";
 import { AxiosError, AxiosResponse } from "axios";
 import User, { UserSignUp, UserLogin, UserLoginResponse } from "@/schema/User";
 import { Travel } from "@/schema/Travel";
+import { ExploreVehicle } from "@/hooks/reactQuery/userExploreAndSearchedVehicles";
 
 export type APISuccessResponse<T> = AxiosResponse<{
   message: string;
@@ -41,7 +42,7 @@ const apiRoutes = {
       },
     },
     vehicle: {
-      explore: async (): Promise<AxiosResponse<Travel[]>> => {
+      explore: async (): Promise<AxiosResponse<ExploreVehicle[]>> => {
         return await axios({
           method: "GET",
           url: "/user/vehicle/explore",
