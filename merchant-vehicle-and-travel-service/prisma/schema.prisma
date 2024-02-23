@@ -63,6 +63,7 @@ model VehicleSeats {
   id         String     @id @default(auto()) @map("_id") @db.ObjectId
   price      BigInt
   is_booked  Boolean    @default(false)
+  user_id    BigInt?
   seat_id    String     @unique @db.ObjectId
   seat       ModelSeats @relation(fields: [seat_id], references: [id])
   vehicle_id String     @unique @db.ObjectId

@@ -41,7 +41,7 @@ app.use(
   "/api/user/booking/",
   userAuthenticate,
   proxy(process.env.USER_VEHICLE_BOOKING_SERVICE_URL as string, {
-    parseReqBody: false,
+    // parseReqBody: false,
   })
 );
 

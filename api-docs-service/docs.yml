@@ -652,17 +652,40 @@ paths:
   # Todo: /api/user/place
 
   /user/booking:
-    get:
+    post:
       summary: Vehicle Seat Booking
       description: Book Vehicle Seats
       tags:
         - "User.Booking"
       security:
         - userAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - "vehicle_id"
+                - "seats"
+              properties:
+                vehicle_id:
+                  type: string
+                  example: "65d8b7d88522d7cd7bcda89d"
+                seats:
+                  type: array
+                  items:
+                    type: string
+                  example: ["A", "B", "1", "2"]
+                vehicle_model_id:
+                  type: string
+                  example: "65d84947d19e7f8134732fce"
       responses:
-        "422":
-          description: Validation Error
-          $ref: "#/components/responses/BadRequest"
+        # "200":
+        #   description: Successful response
+        #   content:
+        #     application/json:
+        #       schema:
+        #         $ref: "#/components/schemas/UserResponse"
         "401":
           $ref: "#/components/responses/Unauthorized"
         "500":
