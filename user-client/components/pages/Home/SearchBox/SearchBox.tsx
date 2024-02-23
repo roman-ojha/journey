@@ -43,6 +43,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useState } from "react";
 import Button from "@/components/buttons/Button";
 import AppIcon from "@/components/appIcon/AppIcon";
+import useGetPlaces from "@/hooks/reactQuery/useGetPlaces";
 
 const FormSchema = z.object({
   dob: z.date({
@@ -55,82 +56,7 @@ const SearchBox = (): React.JSX.Element => {
     resolver: zodResolver(FormSchema),
   });
 
-  const [locations, setLocations] = useState<
-    { district: string; places: string[] }[]
-  >([
-    {
-      district: "Jhapa",
-      places: ["kerkha", "dude", "damak", "birathnagar", "kakarvhita"],
-    },
-    {
-      district: "Kathmandu",
-      places: ["Koteswor", "New Bus park"],
-    },
-    {
-      district: "jfdkslfdj",
-      places: ["kerkha", "dude", "damak", "birathnagar", "kakarvhita"],
-    },
-    {
-      district: "jfkdsfdk",
-      places: ["kerkha", "dude", "damak", "birathnagar", "kakarvhita"],
-    },
-    {
-      district: "jfdkdfkj",
-      places: ["kerkha", "dude", "damak", "birathnagar", "kakarvhita"],
-    },
-    {
-      district: "jfdkfjdk",
-      places: ["kerkha", "dude", "damak", "birathnagar", "kakarvhita"],
-    },
-    {
-      district: "urewoi",
-      places: ["kerkha", "dude", "damak", "birathnagar", "kakarvhita"],
-    },
-    {
-      district: "4u3ue",
-      places: ["kerkha", "dude", "damak", "birathnagar", "kakarvhita"],
-    },
-    {
-      district: "vckl",
-      places: ["kerkha", "dude", "damak", "birathnagar", "kakarvhita"],
-    },
-    {
-      district: "jfdksl[jjj",
-      places: ["kerkha", "dude", "damak", "birathnagar", "kakarvhita"],
-    },
-    {
-      district: "ruewio",
-      places: ["kerkha", "dude", "damak", "birathnagar", "kakarvhita"],
-    },
-    {
-      district: "vcmx",
-      places: ["kerkha", "dude", "damak", "birathnagar", "kakarvhita"],
-    },
-    {
-      district: "vcmx",
-      places: ["kerkha", "dude", "damak", "birathnagar", "kakarvhita"],
-    },
-    {
-      district: "vcmx",
-      places: ["kerkha", "dude", "damak", "birathnagar", "kakarvhita"],
-    },
-    {
-      district: "vcmx",
-      places: ["kerkha", "dude", "damak", "birathnagar", "kakarvhita"],
-    },
-    {
-      district: "vcmx",
-      places: ["kerkha", "dude", "damak", "birathnagar", "kakarvhita"],
-    },
-    {
-      district: "vcmx",
-      places: ["kerkha", "dude", "damak", "birathnagar", "kakarvhita"],
-    },
-    {
-      district: "vcmx",
-      places: ["kerkha", "dude", "damak", "birathnagar", "kakarvhita"],
-    },
-  ]);
+  const { data: districts } = useGetPlaces();
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     toast({
@@ -172,22 +98,22 @@ const SearchBox = (): React.JSX.Element => {
             <DropdownMenuContent className="w-72">
               <DropdownMenuLabel>District</DropdownMenuLabel>
               <ScrollArea className="h-[200px]">
-                {locations.map((location, index) => {
+                {districts?.data.map((district, index) => {
                   return (
                     <DropdownMenuGroup key={index}>
                       <DropdownMenuSub>
                         <DropdownMenuSubTrigger>
                           {/* <UserPlus className="mr-2 h-4 w-4" /> */}
-                          <span>{location.district}</span>
+                          <span>{district.name}</span>
                         </DropdownMenuSubTrigger>
                         <DropdownMenuPortal>
                           <DropdownMenuSubContent>
                             <DropdownMenuLabel>Place</DropdownMenuLabel>
                             <ScrollArea className="max-h-[250px]">
-                              {location.places.map((place, index) => {
+                              {district.places.map((place, index) => {
                                 return (
                                   <DropdownMenuItem key={index}>
-                                    <span>{place}</span>
+                                    <span>{place.name}</span>
                                   </DropdownMenuItem>
                                 );
                               })}
@@ -222,22 +148,22 @@ const SearchBox = (): React.JSX.Element => {
             <DropdownMenuContent className="w-72">
               <DropdownMenuLabel>District</DropdownMenuLabel>
               <ScrollArea className="h-[200px]">
-                {locations.map((location, index) => {
+                {districts?.data.map((district, index) => {
                   return (
                     <DropdownMenuGroup key={index}>
                       <DropdownMenuSub>
                         <DropdownMenuSubTrigger className="focus:text-accent-foreground">
                           {/* <UserPlus className="mr-2 h-4 w-4" /> */}
-                          <span>{location.district}</span>
+                          <span>{district.name}</span>
                         </DropdownMenuSubTrigger>
                         <DropdownMenuPortal>
                           <DropdownMenuSubContent>
                             <DropdownMenuLabel>Place</DropdownMenuLabel>
                             <ScrollArea className="max-h-[250px]">
-                              {location.places.map((place, index) => {
+                              {district.places.map((place, index) => {
                                 return (
                                   <DropdownMenuItem key={index}>
-                                    <span>{place}</span>
+                                    <span>{place.name}</span>
                                   </DropdownMenuItem>
                                 );
                               })}

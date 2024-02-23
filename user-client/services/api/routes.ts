@@ -1,9 +1,9 @@
 import { client as axios } from "./axios";
 import { AxiosError, AxiosResponse } from "axios";
 import User, { UserSignUp, UserLogin, UserLoginResponse } from "@/schema/User";
-import { Travel } from "@/schema/Travel";
 import { ExploreVehicle } from "@/hooks/reactQuery/useExploreAndSearchedVehicles";
 import { VehicleDetail } from "@/hooks/reactQuery/useVehicleDetail";
+import { PlacesDetail } from "@/hooks/reactQuery/useGetPlaces";
 
 export type APISuccessResponse<T> = AxiosResponse<{
   message: string;
@@ -58,6 +58,15 @@ const apiRoutes = {
         return await axios({
           method: "GET",
           url: "/user/vehicle/" + vehicle_slug,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      },
+      places: async (): Promise<AxiosResponse<PlacesDetail[]>> => {
+        return await axios({
+          method: "GET",
+          url: "/user/place",
           headers: {
             "Content-Type": "application/json",
           },
