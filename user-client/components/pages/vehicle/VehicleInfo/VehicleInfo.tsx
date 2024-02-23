@@ -22,7 +22,6 @@ const VehicleInfo: React.FC<VehicleInfoProps> = ({
   vehicle,
   isError,
 }): React.JSX.Element => {
-  console.log(isLoading);
   // const [isLoading, setIsLoading] = useState<boolean>(true);
 
   // useEffect(() => {

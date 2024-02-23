@@ -2,8 +2,20 @@ import styles from "@/styles/page/vehicle/index.module.scss";
 import SelectedSeats from "./SelectedSeats";
 import getCssVariable from "@/lib/getCssVariable";
 import VehicleSeats from "@/components/VehicleSeats/VehicleSeats";
+import { VehicleModel } from "@/schema/VehicleModel";
+import { VehicleDetail } from "@/hooks/reactQuery/useVehicleDetail";
 
-const VehicleSeatsInfo = (): React.JSX.Element => {
+export type VehicleSeatsInfoProps = {
+  vehicleType?: VehicleModel["name"];
+  seats?: VehicleDetail["seats"];
+  isLoading: boolean;
+  isSuccess: boolean;
+  isError: boolean;
+};
+
+const VehicleSeatsInfo: React.FC<VehicleSeatsInfoProps> = ({
+  ...props
+}): React.JSX.Element => {
   return (
     <section className={styles.vehicle_seats_info_section}>
       <div className={styles.vehicle_seats_status}>
@@ -26,7 +38,7 @@ const VehicleSeatsInfo = (): React.JSX.Element => {
         <p>Selected</p>
       </div>
       <div className={styles.vehicle_seats_main}>
-        <VehicleSeats vehicleType="SUPER_DELUXE_BUS" />
+        <VehicleSeats {...props} />
         <SelectedSeats />
       </div>
     </section>

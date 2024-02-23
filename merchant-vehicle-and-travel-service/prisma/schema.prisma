@@ -11,7 +11,7 @@ datasource db {
 }
 
 enum VehicleModels {
-  SUPER_DELUX_BUS // 31
+  SUPER_DELUX_BUS // 31 NOTE: refactor spelling mistake correct spelling is DELUXE
   HIASE // 15
 }
 

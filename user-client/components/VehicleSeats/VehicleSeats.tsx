@@ -1,27 +1,37 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import SuperDeluxeBusSeats from "./SuperDeluxBusSeats/SuperDeluxBusSeats";
 import getCssVariable from "@/lib/getCssVariable";
 import { Skeleton } from "@mui/material";
+import { VehicleSeatsInfoProps } from "../pages/vehicle/VehicleSeatsInfo/VehicleSeatsInfo";
 
-type VehicleSeatsProps = {
-  vehicleType: "SUPER_DELUXE_BUS" | "HIASE";
-};
+// type VehicleSeatsProps = {
+//   vehicleType: VehicleModel["name"];
+// };
 
-const VehicleSeats: React.FC<VehicleSeatsProps> = ({
+const VehicleSeats: React.FC<VehicleSeatsInfoProps> = ({
   vehicleType,
+  isLoading,
+  isError,
+  isSuccess,
+  seats,
 }): React.JSX.Element => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  // const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  useEffect(() => {
-    const tempTimeout = setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-    return () => {
-      clearTimeout(tempTimeout);
-    };
-  }, []);
+  // useEffect(() => {
+  //   const tempTimeout = setTimeout(() => {
+  //     setIsLoading(false);
+  //   }, 1000);
+  //   return () => {
+  //     clearTimeout(tempTimeout);
+  //   };
+  // }, []);
+
+  if (isError) {
+    return <div>Error</div>;
+  }
+
+  console.log(vehicleType);
 
   return (
     <>
@@ -33,9 +43,11 @@ const VehicleSeats: React.FC<VehicleSeatsProps> = ({
             className="!h-full rounded-md"
           />
         </div>
-      ) : (
-        vehicleType == "SUPER_DELUXE_BUS" && <SuperDeluxeBusSeats />
-      )}
+      ) : vehicleType && seats ? (
+        vehicleType == "SUPER_DELUX_BUS" && (
+          <SuperDeluxeBusSeats seats={seats} />
+        )
+      ) : null}
     </>
   );
 };

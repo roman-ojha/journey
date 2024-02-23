@@ -20,7 +20,6 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
   const { data, isError, isSuccess, isLoading } = useVehicleDetail(
     params.vehicle_slug
   );
-  console.log(data?.data);
 
   return (
     <main className={styles.vehicle_page}>
@@ -31,7 +30,13 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
         isError={isError}
         vehicle={data?.data as VehicleDetailType}
       />
-      <VehicleSeatsInfo />
+      <VehicleSeatsInfo
+        vehicleType={data?.data.model?.name}
+        isError={isError}
+        isSuccess={isSuccess}
+        isLoading={isLoading}
+        seats={data?.data.seats}
+      />
       <VehicleReviewAndRating />
     </main>
   );

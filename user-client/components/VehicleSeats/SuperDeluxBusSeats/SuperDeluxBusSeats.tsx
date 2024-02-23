@@ -4,10 +4,15 @@ import { useAppDispatch, useAppSelector } from "@/hooks/useAppStore";
 import getCssVariable from "@/lib/getCssVariable";
 import styles from "@/styles/page/vehicle/deluxeBusSeats.module.scss";
 import { handleSelect } from "@/services/store/features/vehicleSeat/vehicleSeatSlice";
-import { useEffect, useState } from "react";
-import { Skeleton } from "@mui/material";
+import { VehicleDetail } from "@/hooks/reactQuery/useVehicleDetail";
 
-const SuperDeluxeBusSeats = (): React.JSX.Element => {
+export type SeatsProps = {
+  seats: VehicleDetail["seats"];
+};
+
+const SuperDeluxeBusSeats: React.FC<SeatsProps> = ({
+  seats,
+}): React.JSX.Element => {
   const vehicleSeats = useAppSelector((state) => state.vehicleSeats);
   const dispatch = useAppDispatch();
 
