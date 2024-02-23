@@ -41,6 +41,7 @@ import { useState } from "react";
 import Button from "@/components/buttons/Button";
 import AppIcon from "../appIcon/AppIcon";
 import useGetPlaces from "@/hooks/reactQuery/useGetPlaces";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const FormSchema = z.object({
   dob: z.date({
@@ -48,23 +49,35 @@ const FormSchema = z.object({
   }),
 });
 
+// export async function getServerSideProps(context) {
+//   console.log({ query: context.query })
+//   return {
+//     props: {},
+//   }
+// }
+
 const HorizontalSearchBox = (): React.JSX.Element => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [formData, setFormData] = useState({
     from: {
-      district: "",
-      place: "",
+      district: searchParams.get("from-district") || "",
+      place: searchParams.get("from-place") || "",
     },
     to: {
-      district: "",
-      place: "",
+      district: searchParams.get("to-district") || "",
+      place: searchParams.get("to-place") || "",
     },
-    departure_at: new Date(),
+    departure_at: new Date(
+      searchParams.get("departure_at") || format(new Date(), "yyyy-MM-dd")
+    ),
   });
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
 
   const { data: districts } = useGetPlaces();
+  console.log(searchParams.get("from-distri"));
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     toast({
@@ -87,6 +100,24 @@ const HorizontalSearchBox = (): React.JSX.Element => {
         [name]: location,
       };
     });
+  };
+
+  const handleSearch = () => {
+    if (
+      formData.from.place != "" &&
+      formData.to.place != "" &&
+      formData.from.district != "" &&
+      formData.to.district != "" &&
+      formData.departure_at
+    ) {
+      router.push(
+        `/explore?from-district=${formData.from.district}&from-place=${
+          formData.from.place
+        }&to-district=${formData.to.district}&to-place=${
+          formData.to.place
+        }&departure_at=${format(formData.departure_at, "yyyy-MM-dd")}`
+      );
+    }
   };
 
   return (
@@ -300,6 +331,7 @@ const HorizontalSearchBox = (): React.JSX.Element => {
           width="content-width"
           type="button"
           style={{ margin: "auto" }}
+          onClick={handleSearch}
         >
           Search
           <AppIcon

@@ -44,6 +44,7 @@ import { useState } from "react";
 import Button from "@/components/buttons/Button";
 import AppIcon from "@/components/appIcon/AppIcon";
 import useGetPlaces from "@/hooks/reactQuery/useGetPlaces";
+import { useRouter } from "next/navigation";
 
 const FormSchema = z.object({
   dob: z.date({
@@ -52,6 +53,7 @@ const FormSchema = z.object({
 });
 
 const SearchBox = (): React.JSX.Element => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     from: {
       district: "",
@@ -92,6 +94,24 @@ const SearchBox = (): React.JSX.Element => {
         [name]: location,
       };
     });
+  };
+
+  const handleSearch = () => {
+    if (
+      formData.from.place != "" &&
+      formData.to.place != "" &&
+      formData.from.district != "" &&
+      formData.to.district != "" &&
+      formData.departure_at
+    ) {
+      router.push(
+        `/explore?from-district=${formData.from.district}&from-place=${
+          formData.from.place
+        }&to-district=${formData.to.district}&to-place=${
+          formData.to.place
+        }&departure_at=${format(formData.departure_at, "yyyy-MM-dd")}`
+      );
+    }
   };
 
   return (
@@ -306,7 +326,12 @@ const SearchBox = (): React.JSX.Element => {
               );
             }}
           />
-          <Button backgroundColor="primary" width="100%" type="button">
+          <Button
+            backgroundColor="primary"
+            width="100%"
+            type="button"
+            onClick={handleSearch}
+          >
             Search
             <AppIcon
               iconName="fluent:vehicle-car-16-filled"
