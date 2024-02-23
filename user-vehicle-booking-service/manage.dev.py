@@ -14,8 +14,9 @@ def main():
 
     # Override default port for 'runserver' command
     from django.core.management.commands.runserver import Command as runserver
-    runserver.default_port = os.environ.get(
-        "USER_VEHICLE_BOOKING_SERVICE_PORT")
+    # runserver.default_port = os.environ.get(
+    #     "USER_VEHICLE_BOOKING_SERVICE_PORT")
+    runserver.default_port = 8009
 
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
     try:
