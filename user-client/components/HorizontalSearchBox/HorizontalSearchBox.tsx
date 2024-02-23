@@ -49,6 +49,17 @@ const FormSchema = z.object({
 });
 
 const HorizontalSearchBox = (): React.JSX.Element => {
+  const [formData, setFormData] = useState({
+    from: {
+      district: "",
+      place: "",
+    },
+    to: {
+      district: "",
+      place: "",
+    },
+    departure_at: new Date(),
+  });
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
@@ -65,6 +76,19 @@ const HorizontalSearchBox = (): React.JSX.Element => {
       ),
     });
   }
+
+  const handleLocation = (e: any) => {
+    const { value, name }: { value: string; name: string } =
+      e.currentTarget.dataset;
+    const location = JSON.parse(value);
+    setFormData((prev) => {
+      return {
+        ...prev,
+        [name]: location,
+      };
+    });
+  };
+
   return (
     <Form {...form}>
       <form
@@ -82,8 +106,17 @@ const HorizontalSearchBox = (): React.JSX.Element => {
               <span className={styles.select_item__info}>
                 <p>From</p>
                 <span className={styles.select_item__info__location}>
-                  <p>Select departure district ,</p>
-                  <p>Select departure place</p>
+                  <p>
+                    {formData.from.place !== "" && formData.from.district !== ""
+                      ? formData.from.district
+                      : "Select departure district"}
+                    ,
+                  </p>
+                  <p>
+                    {formData.from.place !== "" && formData.from.district !== ""
+                      ? formData.from.place
+                      : "Select departure place"}
+                  </p>
                 </span>
               </span>
             </div>
@@ -105,7 +138,15 @@ const HorizontalSearchBox = (): React.JSX.Element => {
                           <ScrollArea className="max-h-[250px]">
                             {district.places.map((place, index) => {
                               return (
-                                <DropdownMenuItem key={index}>
+                                <DropdownMenuItem
+                                  key={index}
+                                  data-value={JSON.stringify({
+                                    district: district.name,
+                                    place: place.name,
+                                  })}
+                                  data-name="from"
+                                  onSelect={handleLocation}
+                                >
                                   <span>{place.name}</span>
                                 </DropdownMenuItem>
                               );
@@ -129,10 +170,19 @@ const HorizontalSearchBox = (): React.JSX.Element => {
                 className={styles.select_item__icon}
               />
               <span className={styles.select_item__info}>
-                <p>From</p>
+                <p>To</p>
                 <span className={styles.select_item__info__location}>
-                  <p>Select departure district ,</p>
-                  <p>Select departure place</p>
+                  <p>
+                    {formData.to.place !== "" && formData.to.district !== ""
+                      ? formData.to.district
+                      : "Select destination district"}{" "}
+                    ,
+                  </p>
+                  <p>
+                    {formData.to.place !== "" && formData.to.district !== ""
+                      ? formData.to.place
+                      : "Select destination place"}
+                  </p>
                 </span>
               </span>
             </div>
@@ -154,7 +204,15 @@ const HorizontalSearchBox = (): React.JSX.Element => {
                           <ScrollArea className="max-h-[250px]">
                             {district.places.map((place, index) => {
                               return (
-                                <DropdownMenuItem key={index}>
+                                <DropdownMenuItem
+                                  key={index}
+                                  data-value={JSON.stringify({
+                                    district: district.name,
+                                    place: place.name,
+                                  })}
+                                  data-name="to"
+                                  onSelect={handleLocation}
+                                >
                                   <span>{place.name}</span>
                                 </DropdownMenuItem>
                               );
@@ -202,7 +260,7 @@ const HorizontalSearchBox = (): React.JSX.Element => {
                         <span className={styles.select_item__info}>
                           <p>Departure at</p>
                           <span className={styles.select_item__info__location}>
-                            <p>Select departure date</p>
+                            <p>{format(formData.departure_at, "PPP")}</p>
                           </span>
                         </span>
                       </div>
@@ -211,12 +269,24 @@ const HorizontalSearchBox = (): React.JSX.Element => {
                   <PopoverContent className="w-auto p-0" align="start">
                     <Calendar
                       mode="single"
-                      selected={field.value}
-                      onSelect={field.onChange}
-                      disabled={(date) =>
-                        date > new Date() || date < new Date("1900-01-01")
-                      }
+                      selected={formData.departure_at}
+                      onSelect={(date) => {
+                        setFormData((prev: any) => {
+                          return {
+                            ...prev,
+                            departure_at: date,
+                          };
+                        });
+                      }}
+                      // disabled={(date) =>
+                      //   date > new Date() || date < new Date("1900-01-01")
+                      // }
                       initialFocus
+                      footer={
+                        <p style={{ textAlign: "center" }}>
+                          {format(formData.departure_at, "PPP")}
+                        </p>
+                      }
                     />
                   </PopoverContent>
                 </Popover>

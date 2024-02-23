@@ -10,6 +10,7 @@
   gap: get-spacing-px(5);
   margin: get-spacing-px(14) 0px;
   flex-wrap: wrap;
+  // width: 80vw;
   .select_item {
     cursor: pointer;
     border-radius: get-spacing-px(2);
@@ -20,6 +21,7 @@
     align-items: center;
     gap: get-spacing-px(5);
     height: 100%;
+    width: 250px;
     &__icon {
       font-size: 1.8rem;
       color: get-color(null, foreground-secondary);

@@ -190,7 +190,7 @@ const SearchBox = (): React.JSX.Element => {
                     <p>,</p>
                     <p>
                       {formData.to.place !== "" && formData.to.district !== ""
-                        ? formData.from.place
+                        ? formData.to.place
                         : "Select destination place"}
                     </p>
                   </span>
@@ -272,7 +272,7 @@ const SearchBox = (): React.JSX.Element => {
                             <span
                               className={styles.select_item__info__location}
                             >
-                              <p>Select departure date</p>
+                              <p>{format(formData.departure_at, "PPP")}</p>
                             </span>
                           </span>
                         </div>
