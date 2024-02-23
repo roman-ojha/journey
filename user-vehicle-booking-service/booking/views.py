@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from rest_framework.decorators import api_view
 import pprint
 from database.repository import repository
-from rest_framework.request import Request
+from middlewares.authentication import Request
 
 # Create your views here.
 
@@ -21,4 +21,5 @@ def get_vehicles(request):
 def book_vehicle_seats(request: Request):
     # data = request.headers.get('x-user')
     # printer.pprint(data)
+    print(request.auth_user.id)
     return Response()

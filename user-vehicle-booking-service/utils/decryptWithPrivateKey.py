@@ -31,5 +31,4 @@ def decrypt_with_private_key(encrypted_data: str):
             label=None
         )
     )
-
     return decrypted_data.decode()
