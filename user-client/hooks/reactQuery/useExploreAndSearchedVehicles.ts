@@ -1,3 +1,5 @@
+import { SearchParameterObj } from "@/components/pages/explore/Main";
+import queryKeys from "@/data/queryKeys";
 import { District } from "@/schema/District";
 import { Place } from "@/schema/Place";
 import { Travel } from "@/schema/Travel";
@@ -26,13 +28,19 @@ export type ExploreVehicle = Travel & {
   no_of_reviews: number;
 };
 
-export default function useExploreAndSearchedVehicles() {
+export default function useExploreAndSearchedVehicles(
+  searchParams: SearchParameterObj | null
+) {
   // eslint-disable-next-line @tanstack/query/no-rest-destructuring
   const { data, ...kwargs } = useQuery<
     AxiosResponse<ExploreVehicle[]>,
     AxiosError
   >({
-    queryKey: ["explore-vehicles"],
+    queryKey: searchParams
+      ? queryKeys.exploreOrSearchedVehicles(
+          `${searchParams.from.district}-${searchParams.from.place}-${searchParams.to.district}-${searchParams.to.place}-${searchParams.departure_at}`
+        )
+      : queryKeys.exploreOrSearchedVehicles(),
     queryFn: fetchExploreVehicle,
     staleTime: 1000 * 60 * 10, // 10 minute
   });

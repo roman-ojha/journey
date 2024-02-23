@@ -37,11 +37,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "@/components/buttons/Button";
 import AppIcon from "../appIcon/AppIcon";
 import useGetPlaces from "@/hooks/reactQuery/useGetPlaces";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
+import queryKeys from "@/data/queryKeys";
 
 const FormSchema = z.object({
   dob: z.date({
@@ -59,6 +61,7 @@ const FormSchema = z.object({
 const HorizontalSearchBox = (): React.JSX.Element => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const queryClient = useQueryClient();
   const [formData, setFormData] = useState({
     from: {
       district: searchParams.get("from-district") || "",
@@ -77,7 +80,6 @@ const HorizontalSearchBox = (): React.JSX.Element => {
   });
 
   const { data: districts } = useGetPlaces();
-  console.log(searchParams.get("from-distri"));
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     toast({
@@ -117,8 +119,40 @@ const HorizontalSearchBox = (): React.JSX.Element => {
           formData.to.place
         }&departure_at=${format(formData.departure_at, "yyyy-MM-dd")}`
       );
+      // console.log(
+      //   queryKeys.exploreOrSearchedVehicles(
+      //     `${formData.from.district}-${formData.from.place}-${
+      //       formData.to.district
+      //     }-${formData.to.place}-${format(formData.departure_at, "yyyy-MM-dd")}`
+      //   )
+      // );
+      queryClient.refetchQueries({
+        // queryKey: queryKeys.exploreOrSearchedVehicles(
+        //   `${formData.from.district}-${formData.from.place}-${
+        //     formData.to.district
+        //   }-${formData.to.place}-${format(formData.departure_at, "yyyy-MM-dd")}`
+        // ),
+        queryKey: queryKeys.exploreOrSearchedVehicles(),
+      });
+      console.log("refetching");
     }
   };
+
+  useEffect(() => {
+    setFormData({
+      from: {
+        district: searchParams.get("from-district") || "",
+        place: searchParams.get("from-place") || "",
+      },
+      to: {
+        district: searchParams.get("to-district") || "",
+        place: searchParams.get("to-place") || "",
+      },
+      departure_at: new Date(
+        searchParams.get("departure_at") || format(new Date(), "yyyy-MM-dd")
+      ),
+    });
+  }, [searchParams]);
 
   return (
     <Form {...form}>
