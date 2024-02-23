@@ -3,6 +3,7 @@ from database.index import Database
 import pprint
 from bson import ObjectId
 from random import sample
+from schemas.serializer import Serializer
 
 printer = pprint.PrettyPrinter()
 
@@ -17,7 +18,7 @@ class Repository(Database):
         # return the _id fields from the fetched documents
         return [travel['_id'] for travel in random_travels]
 
-    def get_vehicles(self):
+    def get_user_explore_vehicles(self):
         travel_ids = self.get_random_travels()
         # here 'travel_ids' is of list of type ObjectId('<id>')
         vehicles = self.merchant_v_and_t_service_db.Travels.aggregate([
@@ -152,6 +153,81 @@ class Repository(Database):
         #                                                               "_id": _id})
         # vehicles = self.merchant_v_and_t_service_db.Vehicles.find()
         serializedVehicle = VehicleSerializer(data=vehicles, many=True)
+        return serializedVehicle.data
+
+    def get_vehicle_by_slug(self, vehicle_slug):
+        vehicle = self.merchant_v_and_t_service_db.Vehicles.aggregate([
+            {
+                "$match": {
+                    "slug": vehicle_slug
+                }
+            },
+            # only get one vehicle and return as object
+            {
+                "$limit": 1
+            },
+            {
+                "$lookup": {
+                    "from": "VehicleModel",
+                    "localField": "model_id",
+                    "foreignField": "_id",
+                    "as": "model"
+                }
+            },
+            {
+                "$addFields": {
+                    "model": {"$arrayElemAt": ["$model", 0]}
+                }
+            },
+            {
+                "$lookup": {
+                    "from": "VehicleImages",
+                    "localField": "_id",
+                    "foreignField": "vehicle_id",
+                    "as": "images"
+                }
+            },
+            {
+                "$lookup": {
+                    "from": "Travels",
+                    "localField": "_id",
+                    "foreignField": "vehicle_id",
+                    "as": "travels"
+                }
+            },
+            # Get only those trave having 'is_active' field set to True
+            {
+                "$match": {
+                    "travels.is_active": True
+                }
+            },
+            # Filter travels based on the condition "is_active" is True
+            {
+                "$addFields": {
+                    "travels": {
+                        "$filter": {
+                            "input": "$travels",
+                            "as": "travel",
+                            "cond": {"$eq": ["$$travel.is_active", True]}
+                        }
+                    }
+                }
+            },
+            # Converting travels key to travel
+            {
+                "$addFields": {
+                    "travel": {"$arrayElemAt": ["$travels", 0]}
+                }
+            },
+            {
+                "$project": {
+                    "travels": 0
+                }
+            },
+        ])
+
+        serializedVehicle = Serializer(data=next(vehicle))
+
         return serializedVehicle.data
 
 
