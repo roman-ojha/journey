@@ -4,7 +4,7 @@ import { format } from "date-fns";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { cn } from "@/lib/utils";
-import { Calendar } from "@/components/ui/calendar";
+import { Calendar } from "@/components/calendar";
 import styles from "@/styles/components/horizontalSearchBox.module.scss";
 import {
   Form,

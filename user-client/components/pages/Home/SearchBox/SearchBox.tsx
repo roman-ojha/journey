@@ -7,7 +7,7 @@ import { format } from "date-fns";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { cn } from "@/lib/utils";
-import { Calendar } from "@/components/ui/calendar";
+import { Calendar } from "@/components/calendar";
 import styles from "@/styles/page/home/searchBox.module.scss";
 import {
   Form,
@@ -52,6 +52,18 @@ const FormSchema = z.object({
 });
 
 const SearchBox = (): React.JSX.Element => {
+  const [formData, setFormData] = useState({
+    from: {
+      district: "",
+      place: "",
+    },
+    to: {
+      district: "",
+      place: "",
+    },
+    departure_at: new Date(),
+  });
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
@@ -59,15 +71,29 @@ const SearchBox = (): React.JSX.Element => {
   const { data: districts } = useGetPlaces();
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
+    // toast({
+    //   title: "You submitted the following values:",
+    //   description: (
+    //     <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+    //       <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+    //     </pre>
+    //   ),
+    // });
+    console.log(data);
   }
+
+  const handleLocation = (e: any) => {
+    const { value, name }: { value: string; name: string } =
+      e.currentTarget.dataset;
+    const location = JSON.parse(value);
+    setFormData((prev) => {
+      return {
+        ...prev,
+        [name]: location,
+      };
+    });
+  };
+
   return (
     <div className={styles.container} id="search-box">
       <Image src={SearchingSVG} alt="searching" className={styles.image} />
@@ -88,9 +114,19 @@ const SearchBox = (): React.JSX.Element => {
                 <span className={styles.select_item__info}>
                   <p>From</p>
                   <span className={styles.select_item__info__location}>
-                    <p>Select departure district</p>
+                    <p>
+                      {formData.from.place !== "" &&
+                      formData.from.district !== ""
+                        ? formData.from.district
+                        : "Select departure district"}
+                    </p>
                     <p>,</p>
-                    <p>Select departure place</p>
+                    <p>
+                      {formData.from.place !== "" &&
+                      formData.from.district !== ""
+                        ? formData.from.place
+                        : "Select departure place"}
+                    </p>
                   </span>
                 </span>
               </div>
@@ -112,7 +148,15 @@ const SearchBox = (): React.JSX.Element => {
                             <ScrollArea className="max-h-[250px]">
                               {district.places.map((place, index) => {
                                 return (
-                                  <DropdownMenuItem key={index}>
+                                  <DropdownMenuItem
+                                    key={index}
+                                    data-value={JSON.stringify({
+                                      district: district.name,
+                                      place: place.name,
+                                    })}
+                                    data-name="from"
+                                    onSelect={handleLocation}
+                                  >
                                     <span>{place.name}</span>
                                   </DropdownMenuItem>
                                 );
@@ -138,9 +182,17 @@ const SearchBox = (): React.JSX.Element => {
                 <span className={styles.select_item__info}>
                   <p>To</p>
                   <span className={styles.select_item__info__location}>
-                    <p>Select Destination district</p>
+                    <p>
+                      {formData.to.place !== "" && formData.to.district !== ""
+                        ? formData.to.district
+                        : "Select destination district"}
+                    </p>
                     <p>,</p>
-                    <p>Select Destination place</p>
+                    <p>
+                      {formData.to.place !== "" && formData.to.district !== ""
+                        ? formData.from.place
+                        : "Select destination place"}
+                    </p>
                   </span>
                 </span>
               </div>
@@ -162,7 +214,15 @@ const SearchBox = (): React.JSX.Element => {
                             <ScrollArea className="max-h-[250px]">
                               {district.places.map((place, index) => {
                                 return (
-                                  <DropdownMenuItem key={index}>
+                                  <DropdownMenuItem
+                                    key={index}
+                                    data-value={JSON.stringify({
+                                      district: district.name,
+                                      place: place.name,
+                                    })}
+                                    data-name="to"
+                                    onSelect={handleLocation}
+                                  >
                                     <span>{place.name}</span>
                                   </DropdownMenuItem>
                                 );
@@ -221,12 +281,24 @@ const SearchBox = (): React.JSX.Element => {
                     <PopoverContent className="w-auto p-0" align="start">
                       <Calendar
                         mode="single"
-                        selected={field.value}
-                        onSelect={field.onChange}
-                        disabled={(date) =>
-                          date > new Date() || date < new Date("1900-01-01")
-                        }
+                        selected={formData.departure_at}
+                        onSelect={(date) => {
+                          setFormData((prev: any) => {
+                            return {
+                              ...prev,
+                              departure_at: date,
+                            };
+                          });
+                        }}
+                        // disabled={(date) =>
+                        //   date > new Date() || date < new Date("1900-01-01")
+                        // }
                         initialFocus
+                        footer={
+                          <p style={{ textAlign: "center" }}>
+                            {format(formData.departure_at, "PPP")}
+                          </p>
+                        }
                       />
                     </PopoverContent>
                   </Popover>
