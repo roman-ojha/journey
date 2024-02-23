@@ -64,50 +64,40 @@
 * ### Technologies Used:
   * FastAPI
   * MongoDB
-## 8. User Vehicle Service:
-* #### Short Explanation: (Todo.)
-* ### Technologies Used:
-  * Django
-  * MongoDB
-## 9. User Booking Service:
+## 8. User Booking Service:
 * #### Short Explanation: (Todo.)
 * ### Technologies Used:
   * NodeJS/ExpressJS
   * MongoDB
-## 10. User Vehicle Service:
+## 9. [User Vehicle Service](https://github.com/roman-ojha/journey/tree/staging/user-vehicle-service):
 * #### Short Explanation: (Todo.)
 * ### Technologies Used:
-  * Django
+  * FastAPI
   * MongoDB
-## 11. User Booking Service:
-* #### Short Explanation: (Todo.)
-* ### Technologies Used:
-  * NodeJS/ExpressJS
-  * MongoDB
-## 12. [Admin Service:](https://github.com/roman-ojha/journey/tree/staging/admin-service)
+## 10. [Admin Service:](https://github.com/roman-ojha/journey/tree/staging/admin-service)
 * #### Short Explanation: (Todo.)
 * #### Technologies Used:
   * Django Rest Framework
   * PostgreSQL
   * MySQL
   * MongoDB
-## 13. [Merchant Service:](https://github.com/roman-ojha/journey/tree/staging/merchant-service)
+## 11. [Merchant Service:](https://github.com/roman-ojha/journey/tree/staging/merchant-service)
 * #### Short Explanation: (Todo.)
 * ### Technologies Used:
   * Laravel
   * MySQL
-## 14. [Merchant Vehicle & Travel Service:](https://github.com/roman-ojha/journey/tree/staging/merchant-vehicle-and-travel-service)
+## 12. [Merchant Vehicle & Travel Service:](https://github.com/roman-ojha/journey/tree/staging/merchant-vehicle-and-travel-service)
 * #### Short Explanation: (Todo.)
 * ### Technologies Used:
   * NodeJS/ExpressJS
   * MongoDB
   * Prisma ORM
-## 15. Vehicle Booking Service:
+## 13. Vehicle Booking Service:
 * #### Short Explanation: (Todo.)
 * ### Technologies Used:
   * Django
   * MongoDB
-## 16. [API Docs:](https://github.com/roman-ojha/journey/tree/staging/api-docs-service)
+## 14. [API Docs:](https://github.com/roman-ojha/journey/tree/staging/api-docs-service)
 * #### Short Explanation: (Todo.)
 * ### Technologies Used:
   * NodeJS
