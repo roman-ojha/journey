@@ -9,7 +9,7 @@ import slugify from "slugify";
 const vehicleModels: VehicleModels[] = [
   {
     name: "SUPER_DELUX_BUS",
-    no_of_seats: 31,
+    no_of_seats: 35,
     seats: [
       "KA",
       "KH",
@@ -30,6 +30,8 @@ const vehicleModels: VehicleModels[] = [
       "A13",
       "A14",
       "A15",
+      "GA",
+      "GH",
       "B1",
       "B2",
       "B3",
@@ -159,7 +161,7 @@ async function createVehiclesAndTravel() {
     },
   });
 
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 20; i++) {
     const vehicleModel =
       vehicleModelsRes[Math.floor(Math.random() * vehicleModelsRes.length)];
     // const vehicleSeats = vehicleModels.filter(
@@ -206,6 +208,8 @@ async function createVehiclesAndTravel() {
               return {
                 price: 1600,
                 seat_id: seat.id,
+                // random true or false
+                is_booked: Math.random() > 0.5,
               };
             }),
           },

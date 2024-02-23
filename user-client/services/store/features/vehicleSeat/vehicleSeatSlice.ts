@@ -1,3 +1,4 @@
+import { VehicleDetail } from "@/hooks/reactQuery/useVehicleDetail";
 import {
   BookedUserSeat,
   DriverSeat,
@@ -67,74 +68,67 @@ const initialState: VehicleSeat[][] = [
     getEmptySeat(),
     getEmptySeat(),
     getNormalUserSeat("KA", 1350),
-    getBookedUserSeat("KH", 1350),
+    getNormalUserSeat("KH", 1350),
   ],
   [
-    getBookedUserSeat("KH", 1350),
-    getNormalUserSeat("KA", 1350),
+    getNormalUserSeat("A", 1350),
+    getNormalUserSeat("B", 1350),
     getEmptySeat(),
-    getBookedUserSeat("KH", 1350),
-    getNormalUserSeat("KA", 1350),
+    getNormalUserSeat("GA", 1350),
+    getNormalUserSeat("GH", 1350),
   ],
   [
-    getBookedUserSeat("KH", 1350),
-    getNormalUserSeat("KA", 1350),
+    getNormalUserSeat("A1", 1350),
+    getNormalUserSeat("A2", 1350),
     getEmptySeat(),
-    getBookedUserSeat("KH", 1350),
-    getBookedUserSeat("KH", 1350),
+    getNormalUserSeat("B1", 1350),
+    getNormalUserSeat("B2", 1350),
   ],
   [
-    getBookedUserSeat("KH", 1350),
-    getNormalUserSeat("KA", 1350),
+    getNormalUserSeat("A3", 1350),
+    getNormalUserSeat("A4", 1350),
     getEmptySeat(),
-    getNormalUserSeat("KA", 1350),
-    getNormalUserSeat("KA", 1350),
+    getNormalUserSeat("B3", 1350),
+    getNormalUserSeat("B4", 1350),
   ],
   [
-    getNormalUserSeat("KA", 1350),
-    getNormalUserSeat("KA", 1350),
+    getNormalUserSeat("A5", 1350),
+    getNormalUserSeat("A6", 1350),
     getEmptySeat(),
-    getBookedUserSeat("KH", 1350),
-    getNormalUserSeat("KA", 1350),
+    getNormalUserSeat("B5", 1350),
+    getNormalUserSeat("B6", 1350),
   ],
   [
-    getNormalUserSeat("KA", 1350),
-    getNormalUserSeat("KA", 1350),
+    getNormalUserSeat("A7", 1350),
+    getNormalUserSeat("A8", 1350),
     getEmptySeat(),
-    getBookedUserSeat("KH", 1350),
-    getNormalUserSeat("KA", 1350),
+    getNormalUserSeat("B7", 1350),
+    getNormalUserSeat("B8", 1350),
   ],
   [
-    getNormalUserSeat("KA", 1350),
-    getBookedUserSeat("KH", 1350),
+    getNormalUserSeat("A9", 1350),
+    getNormalUserSeat("A10", 1350),
     getEmptySeat(),
-    getNormalUserSeat("KA", 1350),
-    getBookedUserSeat("KH", 1350),
+    getNormalUserSeat("B9", 1350),
+    getNormalUserSeat("B10", 1350),
   ],
   [
     // getSelectedUserSeat("A9", 1350),
     // getSelectedUserSeat("A9", 1350),
-    getNormalUserSeat("KA", 1350),
-    getNormalUserSeat("KA", 1350),
+    getNormalUserSeat("A11", 1350),
+    getNormalUserSeat("A12", 1350),
     getEmptySeat(),
-    getBookedUserSeat("KH", 1350),
-    getBookedUserSeat("KH", 1350),
+    getNormalUserSeat("B11", 1350),
+    getNormalUserSeat("B12", 1350),
   ],
   [
     // getSelectedUserSeat("A9", 1350),
     // getSelectedUserSeat("A9", 1350),
-    getNormalUserSeat("KA", 1350),
-    getNormalUserSeat("KA", 1350),
-    getEmptySeat(),
-    getNormalUserSeat("KA", 1350),
-    getNormalUserSeat("KA", 1350),
-  ],
-  [
-    getNormalUserSeat("KA", 1350),
-    getNormalUserSeat("KA", 1350),
-    getNormalUserSeat("KA", 1350),
-    getNormalUserSeat("KA", 1350),
-    getNormalUserSeat("KA", 1350),
+    getNormalUserSeat("A13", 1350),
+    getNormalUserSeat("A14", 1350),
+    getNormalUserSeat("A15", 1350),
+    getNormalUserSeat("B13", 1350),
+    getNormalUserSeat("B14", 1350),
   ],
 ];
 
@@ -155,6 +149,26 @@ const vehicleSeatsSlice = createSlice({
           state[action.payload.rowIndex][action.payload.columnIndex] =
             getNormalUserSeat(seat.seatNumber, seat.seatPrice);
       }
+    },
+    setVehicleDetailSeats: (
+      state,
+      action: PayloadAction<VehicleDetail["seats"]>
+    ) => {
+      // console.log(action.payload);
+      // console.log(state);
+      // console.log(action.payload);
+      state.map((row, rowIndex) => {
+        row.map((seat, columnIndex) => {
+          const info = state[rowIndex][columnIndex];
+          action.payload.map((payloadSeat: any) => {
+            if (payloadSeat.seat.name == info.seatNumber && info.isSeat) {
+              // console.log(payloadSeat.seat.name, info.isSeat);
+              // console.log(payloadSeat.is_booked);
+              info.isBooked = payloadSeat.is_booked;
+            }
+          });
+        });
+      });
     },
   },
   selectors: {
@@ -183,5 +197,6 @@ export const getTotalSeatPrice = (selectedSeats: VehicleSeat[]) => {
 };
 
 export default vehicleSeatsSlice.reducer;
-export const { handleSelect } = vehicleSeatsSlice.actions;
+export const { handleSelect, setVehicleDetailSeats } =
+  vehicleSeatsSlice.actions;
 export const { getSelectedSeats } = vehicleSeatsSlice.selectors;

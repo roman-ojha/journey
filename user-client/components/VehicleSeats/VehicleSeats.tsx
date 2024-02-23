@@ -31,8 +31,6 @@ const VehicleSeats: React.FC<VehicleSeatsInfoProps> = ({
     return <div>Error</div>;
   }
 
-  console.log(vehicleType);
-
   return (
     <>
       {isLoading ? (
@@ -45,7 +43,7 @@ const VehicleSeats: React.FC<VehicleSeatsInfoProps> = ({
         </div>
       ) : vehicleType && seats ? (
         vehicleType == "SUPER_DELUX_BUS" && (
-          <SuperDeluxeBusSeats seats={seats} />
+          <SuperDeluxeBusSeats seats={seats} isSuccess={isSuccess} />
         )
       ) : null}
     </>

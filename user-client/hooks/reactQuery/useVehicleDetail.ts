@@ -1,4 +1,4 @@
-import { VehicleSeat } from "@/interface/Vehicle";
+import { VehicleSeat } from "@/schema/VehicleSeat";
 import { District } from "@/schema/District";
 import { ModelSeat } from "@/schema/ModelSeat";
 import { Place } from "@/schema/Place";

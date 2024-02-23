@@ -3,15 +3,21 @@ import AppIcon from "@/components/appIcon/AppIcon";
 import { useAppDispatch, useAppSelector } from "@/hooks/useAppStore";
 import getCssVariable from "@/lib/getCssVariable";
 import styles from "@/styles/page/vehicle/deluxeBusSeats.module.scss";
-import { handleSelect } from "@/services/store/features/vehicleSeat/vehicleSeatSlice";
+import {
+  handleSelect,
+  setVehicleDetailSeats,
+} from "@/services/store/features/vehicleSeat/vehicleSeatSlice";
 import { VehicleDetail } from "@/hooks/reactQuery/useVehicleDetail";
+import { useEffect } from "react";
 
 export type SeatsProps = {
+  isSuccess: boolean;
   seats: VehicleDetail["seats"];
 };
 
 const SuperDeluxeBusSeats: React.FC<SeatsProps> = ({
   seats,
+  isSuccess,
 }): React.JSX.Element => {
   const vehicleSeats = useAppSelector((state) => state.vehicleSeats);
   const dispatch = useAppDispatch();
@@ -35,6 +41,12 @@ const SuperDeluxeBusSeats: React.FC<SeatsProps> = ({
     //   })
     // );
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(setVehicleDetailSeats(seats));
+    }
+  }, [isSuccess]);
 
   return (
     <section className={styles.vehicle_seats_section}>

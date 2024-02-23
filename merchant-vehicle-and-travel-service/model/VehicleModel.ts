@@ -5,7 +5,7 @@
 type VehicleModels =
   | {
       name: "SUPER_DELUX_BUS";
-      no_of_seats: 31;
+      no_of_seats: 35;
       seats: [
         "KA",
         "KH",
@@ -26,6 +26,8 @@ type VehicleModels =
         "A13",
         "A14",
         "A15",
+        "GA",
+        "GH",
         "B1",
         "B2",
         "B3",
