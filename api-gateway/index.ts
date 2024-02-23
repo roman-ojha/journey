@@ -38,6 +38,14 @@ app.use(passport.initialize());
 const PORT = process.env.API_GATEWAY_PORT;
 
 app.use(
+  "/api/user/booking/",
+  userAuthenticate,
+  proxy(process.env.USER_VEHICLE_BOOKING_SERVICE_URL as string, {
+    parseReqBody: false,
+  })
+);
+
+app.use(
   "/api/user",
   userAuthenticate,
   proxy(process.env.USER_SERVICE_URL as string, { parseReqBody: false }) // don't parse the request body which will effect on uploading the file 'multipart/form-data'

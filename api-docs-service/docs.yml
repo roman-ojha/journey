@@ -651,6 +651,23 @@ paths:
   # Todo: /user/vehicle/<vehicle_slug>
   # Todo: /api/user/place
 
+  /user/booking:
+    get:
+      summary: Vehicle Seat Booking
+      description: Book Vehicle Seats
+      tags:
+        - "User.Booking"
+      security:
+        - userAuth: []
+      responses:
+        "422":
+          description: Validation Error
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
   # Admin Service
   /admin/auth/register:
     post:
