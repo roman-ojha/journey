@@ -112,7 +112,7 @@ class Repository(Database):
                     "district": 0
                 }
             },
-            # Now get from & to location
+            # Now get to place
             {
                 "$lookup": {
                     "from": "Places",
@@ -224,6 +224,149 @@ class Repository(Database):
                     "travels": 0
                 }
             },
+            # Get To Places
+            {
+                "$lookup": {
+                    "from": "Places",
+                    "localField": "travel.to",
+                    "foreignField": "_id",
+                    "as": "to_place"
+                },
+            },
+            {
+                "$addFields": {
+                    "to_place": {"$arrayElemAt": ["$to_place", 0]}
+                }
+            },
+            {
+                "$unwind": "$to_place"
+            },
+            {
+                "$lookup": {
+                    "from": "District",
+                    "localField": "to_place.district_id",
+                    "foreignField": "_id",
+                    "as": "district"
+                }
+            },
+            {
+                "$addFields": {
+                    "to_place.district": {"$arrayElemAt": ["$district", 0]}
+                }
+            },
+            {
+                "$project": {
+                    "district": 0
+                }
+            },
+            {
+                "$addFields": {
+                    "travel.to_place": "$to_place"
+                }
+            },
+            {
+                "$project": {
+                    "to_place": 0
+                }
+            },
+            # Now get from place
+            {
+                "$lookup": {
+                    "from": "Places",
+                    "localField": "travel.from",
+                    "foreignField": "_id",
+                    "as": "from_place"
+                },
+            },
+            {
+                "$addFields": {
+                    "from_place": {"$arrayElemAt": ["$from_place", 0]}
+                }
+            },
+            {
+                "$unwind": "$from_place"
+            },
+            {
+                "$lookup": {
+                    "from": "District",
+                    "localField": "from_place.district_id",
+                    "foreignField": "_id",
+                    "as": "district"
+                }
+            },
+            {
+                "$addFields": {
+                    "from_place.district": {"$arrayElemAt": ["$district", 0]}
+                }
+            },
+            {
+                "$project": {
+                    "district": 0
+                }
+            },
+            {
+                "$addFields": {
+                    "travel.from_place": "$from_place"
+                }
+            },
+            {
+                "$project": {
+                    "from_place": 0
+                }
+            },
+            # Get all seats
+            {
+                "$lookup": {
+                    "from": "VehicleSeats",
+                    "localField": "_id",
+                    "foreignField": "vehicle_id",
+                    "as": "seats"
+                }
+            },
+            {
+                "$lookup": {
+                    "from": "ModelSeats",
+                    "localField": "seats.seat_id",
+                    "foreignField": "_id",
+                    "as": "seat_details"
+                }
+            },
+            # Project the desired fields for the seat details
+            {
+                "$addFields": {
+                    "seats": {
+                        "$map": {
+                            "input": "$seats",
+                            "as": "seat",
+                            "in": {
+                                "_id": "$$seat._id",
+                                "price": "$$seat.price",
+                                "is_booked": "$$seat.is_booked",
+                                "seat_id": "$$seat.seat_id",
+                                "vehicle_id": "$$seat.vehicle_id",
+                                "seat": {
+                                    "$arrayElemAt": [
+                                        {
+                                            "$filter": {
+                                                "input": "$seat_details",
+                                                "cond": {
+                                                    "$eq": ["$$this._id", "$$seat.seat_id"]
+                                                }
+                                            }
+                                        },
+                                        0
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "$project": {
+                    "seat_details": 0
+                }
+            }
         ])
 
         serializedVehicle = Serializer(data=next(vehicle))
