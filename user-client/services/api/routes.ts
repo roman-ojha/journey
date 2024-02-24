@@ -12,6 +12,7 @@ import { PlacesDetail } from "@/hooks/reactQuery/useGetPlaces";
 import { BookedSeatsResponse } from "./response";
 import { BookSeatsRequest } from "./request";
 import { request } from "@/services/api/axios";
+import { BookedVehiclesDetail } from "@/hooks/reactQuery/useGetBookedVehicles";
 
 export type APISuccessResponse<T> = AxiosResponse<{
   message: string;
@@ -103,6 +104,17 @@ const apiRoutes = {
             "Content-Type": "application/json",
           },
           data,
+        });
+      },
+      get_booked_vehicles: async (): Promise<
+        APISuccessResponse<BookedVehiclesDetail[]>
+      > => {
+        return await request({
+          method: "GET",
+          url: "/user/booking-service/booked-vehicles",
+          headers: {
+            "Content-Type": "application/json",
+          },
         });
       },
     },
