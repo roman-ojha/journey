@@ -1,9 +1,8 @@
 "use client";
+import ProfileCardHeaders from "@/components/pages/profile/CardHeader/ProfileCardHeader";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import queryKeys from "@/data/queryKeys";
 import useGetAuthUserQuery from "@/hooks/reactQuery/useGetAuthUserQuery";
 import { useQueryClient } from "@tanstack/react-query";
-import { useEffect } from "react";
 
 const Profile = (): React.JSX.Element => {
   const queryClient = useQueryClient();
@@ -20,16 +19,16 @@ const Profile = (): React.JSX.Element => {
             <div className="grid grid-cols-1 md:grid-cols-3">
               <div className="grid grid-cols-3 text-center order-last md:order-first mt-20 md:mt-0">
                 <div>
-                  <p className="font-bold text-gray-700 text-xl">22</p>
-                  <p className="text-gray-400">Booked Seats</p>
+                  <p className="font-bold text-gray-300 text-xl">22</p>
+                  <p className="text-gray-200">Booked Seats</p>
                 </div>
                 {/* <div>
                   <p className="font-bold text-gray-700 text-xl">10</p>
                   <p className="text-gray-400">Photos</p>
                 </div> */}
                 <div>
-                  <p className="font-bold text-gray-700 text-xl">89</p>
-                  <p className="text-gray-400">My Reviews</p>
+                  <p className="font-bold text-gray-300 text-xl">89</p>
+                  <p className="text-gray-200">My Reviews</p>
                 </div>
               </div>
               <div className="relative">
@@ -58,6 +57,7 @@ const Profile = (): React.JSX.Element => {
                 {data.data.number}
               </p>
             </div>
+            <ProfileCardHeaders />
           </div>
         </div>
       </>
