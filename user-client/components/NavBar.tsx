@@ -11,10 +11,11 @@ import AppLink from "./buttons/AppLink";
 import useGetAuthUserQuery from "@/hooks/reactQuery/useGetAuthUserQuery";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { eraseCookie, getCookie } from "@/lib/cookie";
-import { useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 const NavBar = (): React.JSX.Element => {
   const pathName = usePathname();
+  const router = useRouter();
 
   const { data, isSuccess, isError, refetch, isLoading } = useGetAuthUserQuery({
     retry: false,
@@ -108,7 +109,12 @@ const NavBar = (): React.JSX.Element => {
               >
                 Logout
               </Button>
-              <Avatar style={{ cursor: "pointer" }}>
+              <Avatar
+                style={{ cursor: "pointer" }}
+                onClick={(e) => {
+                  router.push("/profile");
+                }}
+              >
                 <AvatarImage
                   src={data?.data?.picture}
                   alt={data?.data?.f_name}

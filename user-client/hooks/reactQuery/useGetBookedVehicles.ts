@@ -12,7 +12,7 @@ import { AxiosError, AxiosResponse } from "axios";
 
 export type BookedVehiclesDetail = Vehicle & {
   model: VehicleModel;
-  images: VehicleImage[];
+  image: VehicleImage;
   travel: Travel;
   //NOTE: just adding rating & no_of_reviews we aren't getting from the server right now
   rating: number;
@@ -22,13 +22,13 @@ export type BookedVehiclesDetail = Vehicle & {
 const fetchBookedVehicles = async () =>
   await apiRoutes.user.booking.get_booked_vehicles();
 
-export default function useVehicleDetail(vehicle_slug: string) {
+export default function useGetBookedVehicles() {
   // eslint-disable-next-line @tanstack/query/no-rest-destructuring
   const { data, ...kwargs } = useQuery<
     APISuccessResponse<BookedVehiclesDetail[]>,
     AxiosError
   >({
-    queryKey: ["vehicle", vehicle_slug],
+    queryKey: ["profile-booked-vehicles"],
     queryFn: () => fetchBookedVehicles(),
     staleTime: 1000 * 60 * 5, // 5 minute
   });
@@ -36,12 +36,12 @@ export default function useVehicleDetail(vehicle_slug: string) {
   // For temporary we are adding rating and no_of_reviews
   return {
     ...kwargs,
-    data: {
-      data: {
-        ...data?.data,
+    data: data?.data.data.map((vehicle): BookedVehiclesDetail => {
+      return {
+        ...vehicle,
         rating: 5,
         no_of_reviews: Math.floor(Math.random() * 100000),
-      },
-    },
+      };
+    }),
   };
 }
