@@ -49,10 +49,10 @@ export function BuySeatsDrawer({
       ) as string[],
     });
   }
-  // window.location.href =
 
   if (isSuccess) {
-    console.log(data);
+    // console.log(data.data.data.payment_url);
+    window.location.href = data.data.data.payment_url;
   }
 
   return (

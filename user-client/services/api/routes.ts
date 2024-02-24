@@ -6,6 +6,7 @@ import { VehicleDetail } from "@/hooks/reactQuery/useVehicleDetail";
 import { PlacesDetail } from "@/hooks/reactQuery/useGetPlaces";
 import { BookedSeatsResponse } from "./response";
 import { BookSeatsRequest } from "./request";
+import { request } from "@/services/api/axios";
 
 export type APISuccessResponse<T> = AxiosResponse<{
   message: string;
@@ -79,7 +80,7 @@ const apiRoutes = {
       book_vehicle_seats: async (
         data: BookSeatsRequest
       ): Promise<APISuccessResponse<BookedSeatsResponse>> => {
-        return await axios({
+        return await request({
           method: "POST",
           url: "/user/booking",
           headers: {

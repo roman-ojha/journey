@@ -31,10 +31,10 @@ def book_vehicle_seats(request: Request):
     if not request.auth_user.is_authenticated():
         return Response(data=CreateResponse.failResponse(message="UnAuthorized User, Please login first"), status=StatusCode.UNAUTHORIZED)
 
-    # res = repository.book_vehicle_seats(vehicle_id=data.get(
-    #     'vehicle_id'), seats=data.get('seats'), user_id=request.auth_user.id)
-    # if res.get('error'):
-    #     return Response(data=CreateResponse.failResponse(message=res.get('message')), status=StatusCode.BAD_REQUEST)
+    res = repository.book_vehicle_seats(vehicle_id=data.get(
+        'vehicle_id'), seats=data.get('seats'), user_id=request.auth_user.id)
+    if res.get('error'):
+        return Response(data=CreateResponse.failResponse(message=res.get('message')), status=StatusCode.BAD_REQUEST)
 
     # # Initiate the payment using Khalti
     # # Khalti api request header & parameters
