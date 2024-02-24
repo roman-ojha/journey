@@ -6,10 +6,17 @@ import { AxiosError, AxiosResponse } from "axios";
 
 const fetchAuthUser = async () => await apiRoutes.user.auth.profile();
 
-export default function useGetUserQuery() {
+export default function useGetAuthUserQuery({
+  ...options
+}: {
+  retry: boolean;
+  enabled?: boolean;
+}) {
   return useQuery<AxiosResponse<SafeUser>, AxiosError>({
     queryKey: queryKeys.authUser,
     queryFn: fetchAuthUser,
-    staleTime: 1000 * 60 * 60 * 2, // 2 hours
+    staleTime: 1000 * 60 * 60 * 24, // 2 hours
+    retry: options.retry,
+    enabled: options.enabled,
   });
 }

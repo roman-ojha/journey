@@ -11,6 +11,7 @@ import Footer from "@/components/footer/Footer";
 import StoreProvider from "./StoreProvider";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import useGetAuthUserQuery from "@/hooks/reactQuery/useGetAuthUserQuery";
 
 const inter = Inter({ subsets: ["latin"] });
 

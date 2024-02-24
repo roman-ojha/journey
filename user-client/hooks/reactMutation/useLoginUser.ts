@@ -17,6 +17,12 @@ export default function useLoginUser() {
     mutationFn: loginUser,
     onSuccess: (data) => {
       queryClient.setQueryData(queryKeys.authUser, data.data.data.user);
+      // queryClient.refetchQueries({
+      //   queryKey: queryKeys.authUser,
+      //   type: "all",
+      //   exact: true,
+      //   stale: true,
+      // });
     },
   });
 }

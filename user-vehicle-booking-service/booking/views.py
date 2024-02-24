@@ -51,7 +51,6 @@ def book_vehicle_seats(request: Request):
     # request to khalti to initiate the payment
     paymentInitResponse = requests.post(
         os.environ.get("KHALTI_PAYMENT_BASE_URL") + "/epayment/initiate/", headers=requestHeader, data=requestParameters)
-    print(paymentInitResponse.text)
     if paymentInitResponse.status_code != 200:
         return Response(data=CreateResponse.failResponse(message="Failed to initiate the payment, please try again."), status=StatusCode.BAD_REQUEST)
     paymentInitResData = paymentInitResponse.json()
