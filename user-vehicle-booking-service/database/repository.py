@@ -12,19 +12,20 @@ class Repository(Database):
         vehicles = self.merchant_v_and_t_service_db.Vehicles.find()
         return Serializer(data=vehicles, many=True).data
 
-    def book_vehicle_seats(self, vehicle_id: str, seats: list, vehicle_model_id: str, user_id: int):
+    def book_vehicle_seats(self, vehicle_id: str, seats: list,  user_id: int):
         if len(seats) == 0:
             return {"error": True, "message": "Please select at least one seat to booked it."}
         vehicle = self.merchant_v_and_t_service_db.Vehicles.find_one(
             {'_id': ObjectId(vehicle_id)})
         if not vehicle:
             return {"error": True, "message": "Vehicle not found"}
+        vehicle = Serializer(data=vehicle).data
 
         modelSeats = self.merchant_v_and_t_service_db.ModelSeats.aggregate(
             [
 
                 {"$match": {"name": {"$in": seats},
-                            "vehicle_model_id": ObjectId(vehicle_model_id)}},
+                            "vehicle_model_id": ObjectId(vehicle.get('model_id'))}},
                 {
                     "$project": {
                         "updated_at": 0,
@@ -102,16 +103,18 @@ class Repository(Database):
         if len(bookedSeats) > 0:
             return {"error": True, "message": f"Seat {[bookedSeats.get('name') for bookedSeats in bookedSeats]} are already booked"}
 
+        printer.pprint(unBookedSeats)
+
         # # Finally now update the vehicleSeats
         # # TODO: payment gateway integration
-        unBookedSeatsId = [ObjectId(unBookedSeats['_id'])
-                           for unBookedSeats in unBookedSeats]
-        res = self.merchant_v_and_t_service_db.VehicleSeats.update_many(
-            {"_id": {"$in": unBookedSeatsId}},
-            {"$set": {"is_booked": True, "user_id": user_id}}
-        )
-        if res.modified_count == 0:
-            return {"error": True, "message": "Failed to book the seats"}
+        # unBookedSeatsId = [ObjectId(unBookedSeats['_id'])
+        #                    for unBookedSeats in unBookedSeats]
+        # res = self.merchant_v_and_t_service_db.VehicleSeats.update_many(
+        #     {"_id": {"$in": unBookedSeatsId}},
+        #     {"$set": {"is_booked": True, "user_id": user_id}}
+        # )
+        # if res.modified_count == 0:
+        #     return {"error": True, "message": "Failed to book the seats"}
         return {"error": False, "message": "Seats booked successfully."}
 
 

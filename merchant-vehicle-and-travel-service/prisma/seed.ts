@@ -253,6 +253,12 @@ async function createVehiclesAndTravel() {
     const vehicleSlug =
       slugify(vehicleName, { lower: true }) + "-" + generateRandomHash(25);
 
+    const is_booked = Math.random() > 0.5;
+    let seat_booked_at: Date | null = null;
+    if (is_booked) {
+      seat_booked_at = new Date();
+    }
+
     prisma.vehicles
       .create({
         data: {
@@ -281,7 +287,8 @@ async function createVehiclesAndTravel() {
                 price: 1600,
                 seat_id: seat.id,
                 // random true or false
-                is_booked: Math.random() > 0.5,
+                is_booked: is_booked,
+                booked_at: seat_booked_at,
               };
             }),
           },

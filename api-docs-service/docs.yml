@@ -670,7 +670,7 @@ paths:
               properties:
                 vehicle_id:
                   type: string
-                  example: "65d8b7d88522d7cd7bcda89d"
+                  example: "65d96bb538f0e67ba0c7caef"
                 seats:
                   type: array
                   items:
