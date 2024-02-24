@@ -1,9 +1,9 @@
 from database.index import Database
 import pprint
 from bson import ObjectId
-from random import sample
 from serializer.serializer import Serializer
 from datetime import datetime
+from typing import Dict
 
 printer = pprint.PrettyPrinter()
 
@@ -13,7 +13,7 @@ class Repository(Database):
         vehicles = self.merchant_v_and_t_service_db.Vehicles.find()
         return Serializer(data=vehicles, many=True).data
 
-    def book_vehicle_seats(self, vehicle_id: str, seats: list,  user_id: int):
+    def book_vehicle_seats(self, vehicle_id: str, seats: list,  user_id: int) -> Dict[str, str]:
         if len(seats) == 0:
             return {"error": True, "message": "Please select at least one seat to booked it."}
         vehicle = self.merchant_v_and_t_service_db.Vehicles.find_one(
@@ -56,15 +56,6 @@ class Repository(Database):
                 {"$match": {"vehicle_id": ObjectId(vehicle_id), "seat_id": {
                     "$in": modelSeatsObjectId}}, },
                 {
-                    "$project": {
-                        # "updated_at": 0,
-                        # "created_at": 0,
-                        "vehicle_id": 0,
-                        "price": 0,
-                        # "_id": 0,
-                    }
-                },
-                {
                     "$lookup": {
                         "from": "ModelSeats",
                         "localField": "seat_id",
@@ -92,6 +83,7 @@ class Repository(Database):
 
         selectedVehicleSeats = Serializer(
             data=selectedVehicleSeats, many=True).data
+
         unBookedSeats = []
         bookedSeats = []
         for selectedVehicleSeat in selectedVehicleSeats:
@@ -127,10 +119,9 @@ class Repository(Database):
 
         # If Updated Booked Seats still contain some booked seats then return error
         if len(bookedSeats) > 0:
-            return {"error": True, "message": f"Seat {[bookedSeats.get('name') for bookedSeats in bookedSeats]} are already booked, Please choose another seats."}
+            return {"error": True, "message": f"Seats {[bookedSeats.get('name') for bookedSeats in bookedSeats]} are already booked, Please choose another seats."}
 
         # # Finally now Book the seats
-        # # TODO: payment gateway integration
         unBookedSeatsObjectId = [ObjectId(unBookedSeats['_id'])
                                  for unBookedSeats in unBookedSeats]
         # Add bookedExpiredSeatsObjectId into unBookedSeatsObjectId
@@ -142,7 +133,14 @@ class Repository(Database):
         )
         if res.modified_count == 0:
             return {"error": True, "message": "Failed to book the seats"}
-        return {"error": False, "message": "Seats booked successfully."}
+        if res.modified_count != len(unBookedSeatsObjectId):
+            return {"error": True, "message": "Some seats were not been able to get booked, Causing some problems."}
+
+        # # Calculate Total price
+        total_price = 0
+        for selectedVehicleSeat in selectedVehicleSeats:
+            total_price += selectedVehicleSeat.get('price')
+        return {"error": False, "message": "Seats booked successfully.", "data": {'total_price': total_price}}
 
 
 repository = Repository()

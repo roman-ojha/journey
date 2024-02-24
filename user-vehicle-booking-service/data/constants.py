@@ -1,1 +1,2 @@
-APPLICATION_NAME = ""
+class Constants:
+    APPLICATION_NAME = "Journey"
