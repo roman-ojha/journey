@@ -4,6 +4,8 @@ import User, { UserSignUp, UserLogin, UserLoginResponse } from "@/schema/User";
 import { ExploreVehicle } from "@/hooks/reactQuery/useExploreAndSearchedVehicles";
 import { VehicleDetail } from "@/hooks/reactQuery/useVehicleDetail";
 import { PlacesDetail } from "@/hooks/reactQuery/useGetPlaces";
+import { BookedSeatsResponse } from "./response";
+import { BookSeatsRequest } from "./request";
 
 export type APISuccessResponse<T> = AxiosResponse<{
   message: string;
@@ -70,6 +72,20 @@ const apiRoutes = {
           headers: {
             "Content-Type": "application/json",
           },
+        });
+      },
+    },
+    booking: {
+      book_vehicle_seats: async (
+        data: BookSeatsRequest
+      ): Promise<APISuccessResponse<BookedSeatsResponse>> => {
+        return await axios({
+          method: "POST",
+          url: "/user/booking",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: data,
         });
       },
     },
