@@ -5,5 +5,6 @@ const queryKeys = {
     }
     return ["explore-or-searched-vehicles", searchedKey];
   },
+  authUser: ["auth-user"],
 };
 export default queryKeys;

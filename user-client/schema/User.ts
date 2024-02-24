@@ -86,4 +86,6 @@ const user = userSchema.merge(baseUserWithSecret);
 
 type User = z.infer<typeof user>;
 
+export type SafeUser = z.infer<typeof userSchema>;
+
 export default User;

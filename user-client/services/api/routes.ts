@@ -1,6 +1,11 @@
 import { client as axios } from "./axios";
 import { AxiosError, AxiosResponse } from "axios";
-import User, { UserSignUp, UserLogin, UserLoginResponse } from "@/schema/User";
+import User, {
+  UserSignUp,
+  UserLogin,
+  UserLoginResponse,
+  SafeUser,
+} from "@/schema/User";
 import { ExploreVehicle } from "@/hooks/reactQuery/useExploreAndSearchedVehicles";
 import { VehicleDetail } from "@/hooks/reactQuery/useVehicleDetail";
 import { PlacesDetail } from "@/hooks/reactQuery/useGetPlaces";
@@ -17,6 +22,8 @@ export type APIValidationErrorResponse = {
   message: string;
   errors: { [key: string]: string[] };
 };
+
+// NOTE: 'axios' doesn't contain 'Authorization' header whereas 'request' is a pre-configured instance of axios and contains 'Authorization' header
 
 const apiRoutes = {
   user: {
@@ -42,6 +49,15 @@ const apiRoutes = {
           },
           data,
           withCredentials: true,
+        });
+      },
+      profile: async (): Promise<AxiosResponse<SafeUser>> => {
+        return await request({
+          method: "GET",
+          url: "/user/profile",
+          headers: {
+            "Content-Type": "application/json",
+          },
         });
       },
     },
