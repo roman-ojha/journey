@@ -21,16 +21,20 @@ const Profile = (): React.JSX.Element => {
             <div className="grid grid-cols-1 md:grid-cols-3">
               <div className="grid grid-cols-3 text-center order-last md:order-first mt-20 md:mt-0">
                 <div>
-                  <p className="font-bold text-gray-300 text-xl">22</p>
-                  <p className="text-gray-200">Booked Seats</p>
+                  <p className="font-bold text-primary-foreground text-xl">
+                    22
+                  </p>
+                  <p className="text-primary-foreground">Booked Seats</p>
                 </div>
                 {/* <div>
                   <p className="font-bold text-gray-700 text-xl">10</p>
                   <p className="text-gray-400">Photos</p>
                 </div> */}
                 <div>
-                  <p className="font-bold text-gray-300 text-xl">89</p>
-                  <p className="text-gray-200">My Reviews</p>
+                  <p className="font-bold text-primary-foreground text-xl">
+                    89
+                  </p>
+                  <p className="text-primary-foreground">My Reviews</p>
                 </div>
               </div>
               <div className="relative">
@@ -51,11 +55,13 @@ const Profile = (): React.JSX.Element => {
               </div> */}
             </div>
             <div className="mt-20 text-center pb-12">
-              <h1 className="text-4xl font-medium text-gray-50">
+              <h1 className="text-4xl font-medium text-primary-foreground">
                 {data.data.f_name} {data.data.l_name}
               </h1>
-              <p className="font-light text-gray-100 mt-3">{data.data.email}</p>
-              <p className="font-light text-gray-200 mt-3">
+              <p className="font-light text-secondary-foreground mt-3">
+                {data.data.email}
+              </p>
+              <p className="font-light text-tertiary-foreground mt-3">
                 {data.data.number}
               </p>
             </div>

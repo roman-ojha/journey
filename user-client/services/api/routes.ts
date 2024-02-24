@@ -24,6 +24,10 @@ export type APIValidationErrorResponse = {
   errors: { [key: string]: string[] };
 };
 
+export type APIFailResponse = AxiosError<{
+  message: string;
+}>;
+
 // NOTE: 'axios' doesn't contain 'Authorization' header whereas 'request' is a pre-configured instance of axios and contains 'Authorization' header
 
 const apiRoutes = {

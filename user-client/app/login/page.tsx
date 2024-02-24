@@ -15,6 +15,7 @@ import FormFieldError from "@/components/FormFieldError";
 import useLoginUser from "@/hooks/reactMutation/useLoginUser";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 
 const Login = (): React.JSX.Element => {
   const router = useRouter();
@@ -26,17 +27,35 @@ const Login = (): React.JSX.Element => {
     resolver: zodResolver(userLoginSchema),
   });
 
-  const { mutate: loginUser, error: serverError, isSuccess } = useLoginUser();
+  const {
+    mutate: loginUser,
+    error: serverError,
+    isSuccess,
+    isError,
+  } = useLoginUser();
+
+  const { toast } = useToast();
 
   const onSubmit = (data: UserLogin) => {
     loginUser(data);
   };
+
+  console.log();
 
   useEffect(() => {
     if (isSuccess) {
       router.push("/");
     }
   }, [isSuccess, router]);
+
+  useEffect(() => {
+    if (isError) {
+      // Toast
+      // toast({
+      //   description: serverError?.response?.data.message,
+      // });
+    }
+  }, [isError, serverError?.response?.data.message, toast]);
 
   return (
     <main className={authStyles.main}>

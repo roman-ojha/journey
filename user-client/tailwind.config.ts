@@ -42,10 +42,11 @@ module.exports = {
         },
         secondary: {
           DEFAULT: getCssVariableForTailwind("--clr-base-secondary"),
-          foreground: "hsl(var(--secondary-foreground))",
+          foreground: getCssVariableForTailwind("--clr-foreground-secondary"),
         },
         tertiary: {
           DEFAULT: getCssVariableForTailwind("--clr-base-tertiary"),
+          foreground: getCssVariableForTailwind("--clr-foreground-tertiary"),
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
