@@ -18,6 +18,7 @@ export type VehicleCardType = Omit<
 
 type VehicleCardProps = VehicleCardType & {
   isLoading: boolean;
+  href: string;
 };
 
 const VehicleCard: React.FC<VehicleCardProps> = ({
@@ -30,12 +31,13 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
   price,
   vehicle_type,
   isLoading,
+  href,
 }): React.JSX.Element => {
   const vehicleCardLayout = useAppSelector((state) => state.vehicleCardLayout);
 
   return (
     <Link
-      href={`/vehicle/${slug}`}
+      href={href}
       className={`${styles.container} ${
         vehicleCardLayout.layout == "list" ? styles.container_list_view : null
       }`}

@@ -31,6 +31,7 @@ const ProfileVehicleCards = (): React.JSX.Element => {
               slug={""}
               key={index}
               isLoading={isLoading}
+              href="/"
             />
           ))
         : isSuccess && data
@@ -48,6 +49,7 @@ const ProfileVehicleCards = (): React.JSX.Element => {
               slug={vehicle.slug}
               key={index}
               isLoading={isLoading}
+              href={`/profile/booked-vehicle/${vehicle.slug}`}
             />
           ))
         : null}
