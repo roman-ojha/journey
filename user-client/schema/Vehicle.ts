@@ -1,7 +1,7 @@
 import z from "zod";
 
 export const vehicleSchema = z.object({
-  id: z.string(),
+  _id: z.string(),
   plate_no: z.string(),
   name: z.string(),
   slug: z.string(),

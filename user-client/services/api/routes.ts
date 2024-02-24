@@ -68,7 +68,7 @@ const apiRoutes = {
       places: async (): Promise<AxiosResponse<PlacesDetail[]>> => {
         return await axios({
           method: "GET",
-          url: "/user/place",
+          url: "/user/vehicle/place/",
           headers: {
             "Content-Type": "application/json",
           },
@@ -85,7 +85,7 @@ const apiRoutes = {
           headers: {
             "Content-Type": "application/json",
           },
-          data: data,
+          data,
         });
       },
     },

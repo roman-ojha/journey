@@ -1,7 +1,7 @@
 import z from "zod";
 
 export const vehicleSeatSchema = z.object({
-  id: z.string(),
+  _id: z.string(),
   price: z.number(),
   is_booked: z.boolean(),
   no_of_seats: z.string(),

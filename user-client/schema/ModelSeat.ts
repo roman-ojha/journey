@@ -2,7 +2,7 @@ import z from "zod";
 import { vehicleModelSchema } from "./VehicleModel";
 
 export const modelSeatSchema = z.object({
-  id: z.string(),
+  _id: z.string(),
   name: z.string(),
   //   vehicle_model: vehicleModelSchema,
 });

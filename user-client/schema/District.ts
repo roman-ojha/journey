@@ -1,7 +1,7 @@
 import z from "zod";
 
 export const districtSchema = z.object({
-  id: z.string(),
+  _id: z.string(),
   name: z.string(),
 });
 

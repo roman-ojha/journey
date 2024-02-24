@@ -12,7 +12,9 @@ import { useEffect, useState } from "react";
 import { Skeleton } from "@mui/material";
 import Button from "@/components/buttons/Button";
 
-const SelectedSeats = (): React.JSX.Element => {
+const SelectedSeats: React.FC<{
+  vehicle_id?: string;
+}> = ({ vehicle_id }): React.JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const selectedSeats = getSelectedSeats({
     vehicleSeats: useAppSelector((state) => state.vehicleSeats),
@@ -48,9 +50,9 @@ const SelectedSeats = (): React.JSX.Element => {
       </div>
       <div className={styles.selected_seats_total_price}>
         <b>Total Price: </b>
-        <p>Rs. ${getTotalSeatPrice(selectedSeats)}/-</p>
+        <p>Rs. {getTotalSeatPrice(selectedSeats)}/-</p>
       </div>
-      <BuySeatsDrawer disabled={isLoading} />
+      <BuySeatsDrawer disabled={isLoading} vehicle_id={vehicle_id} />
     </section>
   );
 };

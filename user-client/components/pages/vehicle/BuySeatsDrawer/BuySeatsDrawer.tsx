@@ -19,63 +19,40 @@ import {
 } from "@/components/ui/drawer";
 import getCssVariable from "@/lib/getCssVariable";
 import AppIcon from "@/components/appIcon/AppIcon";
-import { getSelectedSeats } from "@/services/store/features/vehicleSeat/vehicleSeatSlice";
+import {
+  getSelectedSeats,
+  getTotalSeatPrice,
+} from "@/services/store/features/vehicleSeat/vehicleSeatSlice";
 import { useAppSelector } from "@/hooks/useAppStore";
-
-const data = [
-  {
-    goal: 400,
-  },
-  {
-    goal: 300,
-  },
-  {
-    goal: 200,
-  },
-  {
-    goal: 300,
-  },
-  {
-    goal: 200,
-  },
-  {
-    goal: 278,
-  },
-  {
-    goal: 189,
-  },
-  {
-    goal: 239,
-  },
-  {
-    goal: 300,
-  },
-  {
-    goal: 200,
-  },
-  {
-    goal: 278,
-  },
-  {
-    goal: 189,
-  },
-  {
-    goal: 349,
-  },
-];
+import useBookSeats from "@/hooks/reactMutation/useBookSeats";
 
 type BuySeatsDrawerProps = {
   disabled?: boolean;
+  vehicle_id?: string;
 };
 
-export function BuySeatsDrawer({ disabled = false }: BuySeatsDrawerProps) {
+export function BuySeatsDrawer({
+  disabled = false,
+  vehicle_id,
+}: BuySeatsDrawerProps) {
   const selectedSeats = getSelectedSeats({
     vehicleSeats: useAppSelector((state) => state.vehicleSeats),
   });
-  const [goal, setGoal] = React.useState(350);
 
-  function onClick(adjustment: number) {
-    setGoal(Math.max(200, Math.min(400, goal + adjustment)));
+  const { mutate: bookSeats, data, isSuccess, isError } = useBookSeats();
+
+  function handleBookSeats() {
+    bookSeats({
+      vehicle_id: vehicle_id as string,
+      seats: selectedSeats.map(
+        (selectedSeat) => selectedSeat.seatNumber
+      ) as string[],
+    });
+  }
+  // window.location.href =
+
+  if (isSuccess) {
+    console.log(data);
   }
 
   return (
@@ -111,11 +88,13 @@ export function BuySeatsDrawer({ disabled = false }: BuySeatsDrawerProps) {
             </div>
             <div className={styles.selected_seats_total_price}>
               <b>Total Price: </b>
-              <p>Rs. 1350/-</p>
+              <p>Rs. {getTotalSeatPrice(selectedSeats)}/-</p>
             </div>
           </div>
           <DrawerFooter>
-            <Button className="w-80 text-white">Book Seats</Button>
+            <Button className="w-80 text-white" onClick={handleBookSeats}>
+              Book Seats
+            </Button>
             <DrawerClose asChild>
               <Button variant="outline">Cancel</Button>
             </DrawerClose>

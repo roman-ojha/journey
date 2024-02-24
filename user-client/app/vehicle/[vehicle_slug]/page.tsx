@@ -36,6 +36,7 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
         isSuccess={isSuccess}
         isLoading={isLoading}
         seats={data?.data.seats}
+        vehicle_id={data?.data._id}
       />
       <VehicleReviewAndRating />
     </main>

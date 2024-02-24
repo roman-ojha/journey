@@ -1,7 +1,7 @@
 import z from "zod";
 
 export const vehicleImage = z.object({
-  id: z.string(),
+  _id: z.string(),
   image: z.string(),
 });
 

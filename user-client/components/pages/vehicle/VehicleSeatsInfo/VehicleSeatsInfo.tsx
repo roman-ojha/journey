@@ -11,6 +11,7 @@ export type VehicleSeatsInfoProps = {
   isLoading: boolean;
   isSuccess: boolean;
   isError: boolean;
+  vehicle_id?: string;
 };
 
 const VehicleSeatsInfo: React.FC<VehicleSeatsInfoProps> = ({
@@ -39,7 +40,7 @@ const VehicleSeatsInfo: React.FC<VehicleSeatsInfoProps> = ({
       </div>
       <div className={styles.vehicle_seats_main}>
         <VehicleSeats {...props} />
-        <SelectedSeats />
+        <SelectedSeats vehicle_id={props.vehicle_id} />
       </div>
     </section>
   );

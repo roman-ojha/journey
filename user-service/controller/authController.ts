@@ -158,9 +158,9 @@ class AuthController extends Controller {
       // };
       // delete responseUser.password;
       // delete responseUser.salt;
-      res.cookie("UserAuthToken", token, {
+      res.cookie("UserAuthToken", token.token, {
         maxAge: 25892000000,
-        httpOnly: true,
+        // httpOnly: true,
         // domain: process.env.ORIGIN_HOSTNAME,
         // domain: "localhost",
         // domain: the domain that we pass here is the domain where cookie get stored and domain is the domain of the server

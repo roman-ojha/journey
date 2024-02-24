@@ -1,7 +1,7 @@
 import z from "zod";
 
 export const travelSchema = z.object({
-  id: z.string(),
+  _id: z.string(),
   from: z.string(),
   to: z.string(),
   is_active: z.boolean().default(true),
