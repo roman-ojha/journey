@@ -3,6 +3,7 @@ import pprint
 from bson import ObjectId
 from random import sample
 from serializer.serializer import Serializer
+from datetime import datetime
 
 printer = pprint.PrettyPrinter()
 
@@ -48,7 +49,6 @@ class Repository(Database):
                         for modelSeats in modelSeats]
         modelSeatsObjectId = [ObjectId(modelSeats.get('_id'))
                               for modelSeats in modelSeats]
-        # print(modelSeatsId)
 
         # check whether all the 'seats' are available on 'vehicleSeats'
         selectedVehicleSeats = self.merchant_v_and_t_service_db.VehicleSeats.aggregate(
@@ -100,21 +100,48 @@ class Repository(Database):
                     bookedSeats.append(selectedVehicleSeat)
                 else:
                     unBookedSeats.append(selectedVehicleSeat)
+
+        bookedExpiredSeatsObjectId = []
         if len(bookedSeats) > 0:
-            return {"error": True, "message": f"Seat {[bookedSeats.get('name') for bookedSeats in bookedSeats]} are already booked"}
+            for bookedSeat in bookedSeats:
+                # Check whether the booked seats are payed if it is not payed then Check whether seats are booked before 15 minutes
+                if not bookedSeat.get('is_payed'):
+                    current_time = datetime.utcnow()
+                    # Get time seats have been booked
+                    booked_time = bookedSeat.get('booked_at')
+                    time_difference = current_time - booked_time
+                    if time_difference.total_seconds() >= 900:  # 900 seconds = 15 minutes
+                        bookedExpiredSeatsObjectId.append(
+                            ObjectId(bookedSeat.get('_id')))
+                        # Update Booked seats
+                        bookedSeats = [tBookedSeat for tBookedSeat in bookedSeats if tBookedSeat.get(
+                            '_id') != bookedSeat.get('_id')]
+            if len(bookedExpiredSeatsObjectId) > 0:
+                # UnBook expired seats
+                unBookedSeatsRes = self.merchant_v_and_t_service_db.VehicleSeats.update_many(
+                    {"_id": {"$in": bookedExpiredSeatsObjectId}},
+                    {"$set": {"is_booked": False, "user_id": None, "booked_at": None}}
+                )
+                if unBookedSeatsRes.modified_count == 0:
+                    return {"error": True, "message": "Something went wrong Please try again."}
 
-        printer.pprint(unBookedSeats)
+        # If Updated Booked Seats still contain some booked seats then return error
+        if len(bookedSeats) > 0:
+            return {"error": True, "message": f"Seat {[bookedSeats.get('name') for bookedSeats in bookedSeats]} are already booked, Please choose another seats."}
 
-        # # Finally now update the vehicleSeats
+        # # Finally now Book the seats
         # # TODO: payment gateway integration
-        # unBookedSeatsId = [ObjectId(unBookedSeats['_id'])
-        #                    for unBookedSeats in unBookedSeats]
-        # res = self.merchant_v_and_t_service_db.VehicleSeats.update_many(
-        #     {"_id": {"$in": unBookedSeatsId}},
-        #     {"$set": {"is_booked": True, "user_id": user_id}}
-        # )
-        # if res.modified_count == 0:
-        #     return {"error": True, "message": "Failed to book the seats"}
+        unBookedSeatsObjectId = [ObjectId(unBookedSeats['_id'])
+                                 for unBookedSeats in unBookedSeats]
+        # Add bookedExpiredSeatsObjectId into unBookedSeatsObjectId
+        unBookedSeatsObjectId.extend(bookedExpiredSeatsObjectId)
+        res = self.merchant_v_and_t_service_db.VehicleSeats.update_many(
+            {"_id": {"$in": unBookedSeatsObjectId}},
+            {"$set": {"is_booked": True, "user_id": user_id,
+                      "is_payed": False, "booked_at": datetime.utcnow()}}
+        )
+        if res.modified_count == 0:
+            return {"error": True, "message": "Failed to book the seats"}
         return {"error": False, "message": "Seats booked successfully."}
 
 

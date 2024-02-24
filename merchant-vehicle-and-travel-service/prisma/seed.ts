@@ -255,8 +255,10 @@ async function createVehiclesAndTravel() {
 
     const is_booked = Math.random() > 0.5;
     let seat_booked_at: Date | null = null;
+    let user_id: number | null = null;
     if (is_booked) {
       seat_booked_at = new Date();
+      user_id = 1;
     }
 
     prisma.vehicles
@@ -289,6 +291,7 @@ async function createVehiclesAndTravel() {
                 // random true or false
                 is_booked: is_booked,
                 booked_at: seat_booked_at,
+                user_id,
               };
             }),
           },

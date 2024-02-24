@@ -670,15 +670,12 @@ paths:
               properties:
                 vehicle_id:
                   type: string
-                  example: "65d96bb538f0e67ba0c7caef"
+                  example: "65d97439b020df0fbbfc1c99"
                 seats:
                   type: array
                   items:
                     type: string
                   example: ["A", "B", "1", "2"]
-                vehicle_model_id:
-                  type: string
-                  example: "65d84947d19e7f8134732fce"
       responses:
         # "200":
         #   description: Successful response
