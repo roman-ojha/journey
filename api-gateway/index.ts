@@ -38,7 +38,7 @@ app.use(passport.initialize());
 const PORT = process.env.API_GATEWAY_PORT;
 
 app.use(
-  "/api/user/booking/",
+  "/api/user/booking-service/",
   userAuthenticate,
   proxy(process.env.USER_VEHICLE_BOOKING_SERVICE_URL as string, {
     // parseReqBody: false,

@@ -9,8 +9,96 @@ printer = pprint.PrettyPrinter()
 
 
 class Repository(Database):
-    def get_vehicles(self):
-        vehicles = self.merchant_v_and_t_service_db.Vehicles.find()
+    def get_booked_vehicles(self, user_id):
+        bookedVehicleSeats = self.merchant_v_and_t_service_db.VehicleSeats.aggregate([
+            {
+                "$match": {"user_id": user_id, "is_booked": True}
+            },
+            {
+                "$lookup": {
+                    "from": "Vehicles",
+                    "localField": "vehicle_id",
+                    "foreignField": "_id",
+                    "as": "vehicle"
+                }
+            },
+            {
+                "$addFields": {
+                    "vehicle": {"$arrayElemAt": ["$vehicle", 0]}
+                }
+            }
+        ])
+        bookedVehicleSeats = Serializer(
+            data=bookedVehicleSeats, many=True).data
+        bookedVehicles = [bookedVehicleSeat.get(
+            'vehicle') for bookedVehicleSeat in bookedVehicleSeats]
+        bookedVehiclesId = [bookedVehicle.get(
+            '_id') for bookedVehicle in bookedVehicles]
+        uniqueBookedVehicleId = list(set(bookedVehiclesId))
+        vehicles = self.merchant_v_and_t_service_db.Vehicles.aggregate([
+            {
+                "$match": {"_id": {"$in": [ObjectId(vehicleId) for vehicleId in uniqueBookedVehicleId]}}
+            },
+            {
+                "$lookup": {
+                    "from": "VehicleModel",
+                    "localField": "model_id",
+                    "foreignField": "_id",
+                    "as": "model"
+                }
+            },
+            {
+                "$addFields": {
+                    "model": {"$arrayElemAt": ["$model", 0]}
+                }
+            },
+            {
+                "$lookup": {
+                    "from": "VehicleImages",
+                    "localField": "_id",
+                    "foreignField": "vehicle_id",
+                    "as": "images"
+                }
+            },
+            {
+                "$addFields": {
+                    "image": {"$arrayElemAt": ["$images", 0]}
+                }
+            },
+            {
+                "$project": {
+                    "images": 0
+                }
+            },
+            {
+                "$lookup": {
+                    "from": "Travels",
+                    "localField": "_id",
+                    "foreignField": "vehicle_id",
+                    "as": "travels"
+                }
+            },
+            # filter active travel with 'is_active' = True
+            {
+                "$addFields": {
+                    "travels": {"$filter": {
+                        "input": "$travels",
+                        "as": "travel",
+                        "cond": {"$eq": ["$$travel.is_active", True]}
+                    }}
+                }
+            },
+            {
+                "$addFields": {
+                    "travel": {"$arrayElemAt": ["$travels", 0]}
+                }
+            },
+            {
+                "$project": {
+                    "travels": 0
+                }
+            }
+        ])
         return Serializer(data=vehicles, many=True).data
 
     def book_vehicle_seats(self, vehicle_id: str, seats: list,  user_id: int) -> Dict[str, str]:

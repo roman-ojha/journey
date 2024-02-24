@@ -1,8 +1,10 @@
 "use client";
+import VehicleCards from "@/components/pages/explore/VehicleCards";
 import ProfileCardHeaders from "@/components/pages/profile/CardHeader/ProfileCardHeader";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import useGetAuthUserQuery from "@/hooks/reactQuery/useGetAuthUserQuery";
 import { useQueryClient } from "@tanstack/react-query";
+import styles from "@/styles/page/profile/index.module.scss";
 
 const Profile = (): React.JSX.Element => {
   const queryClient = useQueryClient();
@@ -58,6 +60,9 @@ const Profile = (): React.JSX.Element => {
               </p>
             </div>
             <ProfileCardHeaders />
+            <div className={styles.cards_container}>
+              <VehicleCards isError={true} isLoading={true} isSuccess={false} />
+            </div>
           </div>
         </div>
       </>

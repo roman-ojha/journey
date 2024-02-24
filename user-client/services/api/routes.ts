@@ -98,7 +98,7 @@ const apiRoutes = {
       ): Promise<APISuccessResponse<BookedSeatsResponse>> => {
         return await request({
           method: "POST",
-          url: "/user/booking",
+          url: "/user/booking-service",
           headers: {
             "Content-Type": "application/json",
           },

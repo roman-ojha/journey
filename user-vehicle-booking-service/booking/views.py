@@ -16,9 +16,8 @@ printer = pprint.PrettyPrinter()
 
 
 @api_view(["GET"])
-def get_vehicles(request):
-    vehicles = repository.get_vehicles()
-    return Response(vehicles)
+def get_booked_vehicles(request: Request):
+    return Response(repository.get_booked_vehicles(request.auth_user.id))
 
 
 @api_view(["POST"])

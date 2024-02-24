@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/select";
 import getCssVariable from "@/lib/getCssVariable";
 import styles from "@/styles/page/explore/cardHeader.module.scss";
-import ChangeCardLayout from "./ChangeCardLayout";
+import ChangeCardLayout from "../../explore/CardHeader/ChangeCardLayout";
 
 const ProfileCardHeaders = (): React.JSX.Element => {
   return (
