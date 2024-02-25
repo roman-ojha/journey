@@ -14,7 +14,7 @@ export default (channel: amqplib.Channel) => {
   router.get("/test", (req, res) => {
     publishMessage(
       channel,
-      constants.MERCHANT_VEHICLE_AND_TRAVEL_SERVICE_RABBIT_MQ_BINDING_KEY,
+      constants.USER_VEHICLE_SERVICE_RABBIT_MQ_BINDING_KEY,
       { message: "Testing RabbitMQ" }
     );
     return res.json({ message: "Testing RabbitMQ" });
