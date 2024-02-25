@@ -15,7 +15,12 @@ export default (channel: amqplib.Channel) => {
     publishMessage(
       channel,
       constants.USER_VEHICLE_SERVICE_RABBIT_MQ_BINDING_KEY,
-      { message: "Testing RabbitMQ" }
+      {
+        _id: "65d97440b020df0fbbfc20e8",
+        departure_at: new Date(),
+        from: "Dudee, Jhapa",
+        to: "Padajugi, Jhapa",
+      }
     );
     return res.json({ message: "Testing RabbitMQ" });
   });

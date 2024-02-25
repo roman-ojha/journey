@@ -4,13 +4,12 @@ import uvicorn
 from config.settings import settings
 from fastapi.middleware.cors import CORSMiddleware
 from routes.index import router
-from config.messageBroker import setup as setup_message_broker
+
 
 app = FastAPI()
 app.include_router(router)
-setup_message_broker()
 
-# Cors middleware
+# # Cors middleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.CORS_ORIGIN,
@@ -30,4 +29,3 @@ if __name__ == "__main__":
         uvicorn.run("main:app", port=settings.APP_PORT, reload=True)
     else:
         uvicorn.run("main:app", port=settings.APP_PORT)
-    # uvicorn.run("main:app", port=settings.APP_PORT)

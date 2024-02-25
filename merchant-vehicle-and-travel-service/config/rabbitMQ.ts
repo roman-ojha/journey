@@ -32,7 +32,7 @@ export async function createChannel() {
       constants.RABBIT_MQ_EXCHANGE_NAME as string,
       "direct",
       {
-        durable: true,
+        durable: false,
       }
     );
     // SubscribeMessage(channel);
