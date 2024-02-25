@@ -427,6 +427,8 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/VehicleImage"
+        name:
+          type: string
 
     District:
       description: Represent Places
@@ -498,13 +500,13 @@ components:
       properties:
         from:
           type: string
-          example: 656884f6c7bfe7568f651837
+          example: 65d862331bb6b9f7dcaad422
         to:
           type: string
-          example: 656882c256a3bacd5685ad43
+          example: 65d862331bb6b9f7dcaad430
         vehicle_id:
           type: string
-          example: 656987f97e59da50840b4b6c
+          example: 65dad84e2b00609a7c24bc13
 
     TravelResponse:
       description: Trave On Response Object
@@ -601,6 +603,7 @@ paths:
         - "User"
       security:
         - userAuth: []
+        - swaggerAuth: []
       requestBody:
         content:
           multipart/form-data:
@@ -632,6 +635,7 @@ paths:
         - "User"
       security:
         - userAuth: []
+        - swaggerAuth: []
       responses:
         "200":
           description: Successful response
@@ -660,6 +664,7 @@ paths:
         - "User.Booking"
       security:
         - userAuth: []
+        - swaggerAuth: []
       requestBody:
         content:
           application/json:
@@ -697,6 +702,7 @@ paths:
         - "User.Booking"
       security:
         - userAuth: []
+        - swaggerAuth: []
       responses:
         # "200":
         #   description: Successful response
@@ -1193,6 +1199,7 @@ paths:
                 - "images"
                 - plate_no
                 - model_id
+                - name
               properties:
                 images:
                   type: array
@@ -1204,8 +1211,10 @@ paths:
                   example: "BA 1 KA 3233"
                 model_id:
                   type: string
-                  example: 65671b0e8b18150f39b4a041
-
+                  example: 65d84955d19e7f8134733002
+                name:
+                  type: string
+                  example: "Razz Delux, AC (Razz Yatayat Pvt.Ltd)"
       responses:
         "201":
           description: New vehicle added
@@ -1243,6 +1252,57 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/Vehicle"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /merchant/v-and-t-service/vehicle/with-imageUrl:
+    post:
+      summary: Add New Vehicle with Provided Image URL
+      description: Add New vehicle for authenticated merchant with provided image URL
+      tags:
+        - "Merchant.V_and_T_Service"
+      security:
+        - merchantAuth: []
+        - swaggerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - "images"
+                - plate_no
+                - model_id
+                - name
+              properties:
+                images:
+                  type: array
+                  items:
+                    type: string
+                  example:
+                    [
+                      "https://images.unsplash.com/photo-1597920467799-ec8bee99f6eb?q=80&w=1540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                    ]
+                plate_no:
+                  type: string
+                  example: "BA 1 KA 3233"
+                model_id:
+                  type: string
+                  example: 65d84955d19e7f8134733002
+                name:
+                  type: string
+                  example: "Razz Delux, AC (Razz Yatayat Pvt.Ltd)"
+      responses:
+        "201":
+          description: New vehicle added
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Vehicle"
+        "422":
+          $ref: "#/components/responses/ValidationError"
         "401":
           $ref: "#/components/responses/Unauthorized"
         "500":

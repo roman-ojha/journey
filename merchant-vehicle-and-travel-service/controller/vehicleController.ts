@@ -14,6 +14,7 @@ export default class VehicleController extends Controller {
     this.addVehicle = this.addVehicle.bind(this);
     this.getVehicleModels = this.getVehicleModels.bind(this);
     this.getVehicles = this.getVehicles.bind(this);
+    this.addVehicleWithImageURL = this.addVehicleWithImageURL.bind(this);
   }
 
   public async getVehicleModels(
@@ -27,11 +28,11 @@ export default class VehicleController extends Controller {
       return next(err);
     }
   }
+  // TODO: Need to add field validations
 
   public async addVehicle(req: Request, res: Response, next: NextFunction) {
     try {
-      console.log(req.body["plate_no"]);
-      const { plate_no, model_id } = req.body;
+      const { plate_no, model_id, name } = req.body;
       const images = req.files;
       if (!images || images.length == 0) {
         return res.status(STATUS_CODES.VALIDATION_ERROR).json(
@@ -72,13 +73,14 @@ export default class VehicleController extends Controller {
 
       // We are waiting until all promises got resolved
       Promise.all(uploadPromise)
-        .then(async (response: string[]) => {
+        .then(async (images: string[]) => {
           // Successfully uploaded files
           const newVehicleRes = await this.repository.createNewVehicle(
             (req.user as any).id,
             plate_no,
             model_id,
-            response
+            images,
+            name
           );
           return res.json(
             successResponse("Successfully add new vehicle", newVehicleRes)
@@ -89,6 +91,44 @@ export default class VehicleController extends Controller {
             .status(STATUS_CODES.INTERNAL_ERROR)
             .send("Something when wrong while trying to create new Vehicle.");
         });
+
+      // Using Image URL:
+    } catch (err) {
+      return next(err);
+    }
+  }
+
+  public async addVehicleWithImageURL(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    try {
+      const { plate_no, model_id, images, name } = req.body;
+      if (!images || images.length == 0) {
+        return res.status(STATUS_CODES.VALIDATION_ERROR).json(
+          validationErrorResponse({
+            images: ["AtLeast one vehicle image is required"],
+          })
+        );
+      }
+      if (!(await this.repository.getVehicleModels(model_id))) {
+        return res.status(STATUS_CODES.VALIDATION_ERROR).json(
+          validationErrorResponse({
+            model_id: ["Given model of vehicle doesn't exist"],
+          })
+        );
+      }
+      const newVehicleRes = await this.repository.createNewVehicle(
+        (req.user as any).id,
+        plate_no,
+        model_id,
+        images,
+        name
+      );
+      return res.json(
+        successResponse("Successfully add new vehicle", newVehicleRes)
+      );
     } catch (err) {
       return next(err);
     }

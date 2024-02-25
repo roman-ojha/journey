@@ -9,7 +9,6 @@ const ProfileVehicleCards = (): React.JSX.Element => {
   const vehicleCardLayout = useAppSelector((state) => state.vehicleCardLayout);
   const { data, isLoading, isError, isSuccess } = useGetBookedVehicles();
 
-  console.log(data);
   return (
     <section
       className={`${styles.card_container} ${

@@ -10,12 +10,12 @@ class Database {
   protected travel;
   constructor() {
     this.vehicleModel = () => prisma.vehicleModel;
-    this.vehicleImage = () => prisma.vehicleImage;
-    this.vehicleSeat = () => prisma.vehicleSeat;
-    this.vehicle = () => prisma.vehicle;
+    this.vehicleImage = () => prisma.vehicleImages;
+    this.vehicleSeat = () => prisma.vehicleSeats;
+    this.vehicle = () => prisma.vehicles;
     this.district = () => prisma.district;
-    this.place = () => prisma.place;
-    this.travel = () => prisma.travel;
+    this.place = () => prisma.places;
+    this.travel = () => prisma.travels;
   }
 }
 

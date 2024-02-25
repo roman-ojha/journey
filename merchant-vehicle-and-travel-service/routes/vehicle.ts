@@ -16,6 +16,9 @@ router.post(
   controller.addVehicle
 );
 
+// Create vehicle with image url
+router.post("/with-imageUrl", authenticate, controller.addVehicleWithImageURL);
+
 // Get Vehicle Details
 router.get("/:vehicle_id?", authenticate, controller.getVehicles);
 
