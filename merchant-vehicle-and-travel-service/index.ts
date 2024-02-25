@@ -4,10 +4,21 @@ import router from "./routes";
 import ErrorHandler from "./utils/errorHandler";
 import parseUserCredential from "./middleware/parseUserCredential";
 import { createChannel } from "./config/rabbitMQ";
+import cors from "cors";
 
 (async () => {
   const app = express();
   const PORT = process.env.MERCHANT_V_AND_T_SERVICE_PORT as string;
+
+  // const ALLOWED_ORIGINS = [];
+  const ALLOWED_ORIGINS = "*"; // NOTE: This is for testing purposes only. In production, you should use the above line instead.
+
+  app.use(
+    cors({
+      origin: ALLOWED_ORIGINS,
+      credentials: true,
+    })
+  );
 
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));

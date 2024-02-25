@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { validationResult } from "express-validator";
-import { createValidationErrorFromExpressValidator } from "../../utils/responseObject";
-import { STATUS_CODES } from "../../data/constants";
+import { createValidationErrorFromExpressValidator } from "../utils/responseObject";
+import { STATUS_CODES } from "../data/constants";
 
 function checkValidationError(req: Request, res: Response, next: NextFunction) {
   const validationErr = validationResult(req);

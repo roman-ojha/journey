@@ -2,6 +2,7 @@
 .env.prod
 /temp
 /upload
+/prisma/client
 
 # Logs
 logs

@@ -90,6 +90,13 @@ services:
     depends_on:
       - mysql
 
+  merchant-vehicle-and-travel-service:
+    container_name: journey-merchant-vehicle-and-travel-service
+    image: romanojha/journey-merchant-vehicle-and-travel-service
+    build:
+      context: ./merchant-vehicle-and-travel-service
+      dockerfile: Dockerfile
+
   phpmyadmin:
     container_name: journey-phpmyadmin
     image: phpmyadmin:5.2.1-apache

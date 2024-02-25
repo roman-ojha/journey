@@ -28,8 +28,6 @@ SECRET_KEY = 'django-insecure-_*0%n8u*%5v7adgig!j20$49r*i3wx$m8k_rpb%4n9=tnc3oqm
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -42,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     "booking",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
@@ -54,7 +53,17 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # Custom middleware
     "middlewares.authentication.ParseUserCredential"
+    "corsheaders.middleware.CorsMiddleware",
 ]
+
+
+# ALLOWED_HOSTS = []
+# if os.environ.get('ENVIRONMENT') == "development":
+#     ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0']
+# elif os.environ.get('ENVIRONMENT') == "docker" or os.environ.get('ENVIRONMENT') == "k8s":
+#     # Allow docker container and Kubernetes cluster to request on this service
+#     # ALLOWED_HOSTS = ["host.docker.internal"]
+#     ALLOWED_HOSTS = ["journey-admin-service"]
 
 ROOT_URLCONF = 'core.urls'
 

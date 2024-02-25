@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "dotenv -e ../.env.dev nodemon index.ts",
-    "start": "npx prisma migrate deploy && node ./dist/user-service/index.js",
+    "start": "node ./dist/index.js",
     "prisma:migrate": "dotenv -e ../.env.dev -- npx prisma migrate dev --name",
     "prisma:studio": "dotenv -e ../.env.dev -- npx prisma studio",
     "prisma:deploy": "dotenv -e ../.env.dev -- npx prisma migrate deploy",

@@ -8,6 +8,7 @@ click==8.1.7
 colorama==0.4.6
 cryptography==42.0.4
 Django==4.1.13
+django-cors-headers==4.3.1
 djangorestframework==3.14.0
 dnspython==2.6.1
 exceptiongroup==1.2.0

@@ -15,9 +15,12 @@ const app = express();
 passport.use("user", userPasswordStrategy);
 passport.use("merchant", merchantPassportStrategy);
 
+// const ALLOWED_ORIGINS = [process.env.USER_CLIENT_URL as string];
+const ALLOWED_ORIGINS = "*"; // NOTE: This is for testing purposes only. In production, you should use the above line instead.
+
 app.use(
   cors({
-    origin: [process.env.USER_CLIENT_URL as string],
+    origin: ALLOWED_ORIGINS,
     credentials: true,
   })
 );

@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { STATUS_CODES } from "../../data/constants";
-import { failResponse } from "../../utils/responseObject";
+import { STATUS_CODES } from "../data/constants";
+import { failResponse } from "../utils/responseObject";
 
 const authenticate = (req: Request, res: Response, next: NextFunction) => {
   try {

@@ -1,9 +1,10 @@
 import express from "express";
-import { connect as dbConnect, prisma } from "./config/database";
+import { connect as dbConnect } from "./config/database";
 import router from "./routes";
 import ErrorHandler from "./utils/errorHandler";
 import parseUserCredential from "./middleware/parseUserCredential";
 import { createChannel } from "./config/rabbitMQ";
+import cors from "cors";
 
 (async () => {
   const app = express();
@@ -11,6 +12,16 @@ import { createChannel } from "./config/rabbitMQ";
 
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
+
+  // const ALLOWED_ORIGINS = [];
+  const ALLOWED_ORIGINS = "*"; // NOTE: This is for testing purposes only. In production, you should use the above line instead.
+
+  app.use(
+    cors({
+      origin: ALLOWED_ORIGINS,
+      credentials: true,
+    })
+  );
 
   // Database connection
   dbConnect();

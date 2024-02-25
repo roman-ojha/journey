@@ -28,14 +28,6 @@ SECRET_KEY = os.environ.get("ADMIN_SERVICE_SECRET")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-if os.environ.get('ENVIRONMENT') == "development":
-    ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0']
-elif os.environ.get('ENVIRONMENT') == "docker" or os.environ.get('ENVIRONMENT') == "k8s":
-    # Allow docker container and Kubernetes cluster to request on this service
-    # ALLOWED_HOSTS = ["host.docker.internal"]
-    ALLOWED_HOSTS = ["journey-admin-service"]
-
 
 # Application definition
 INSTALLED_APPS = [
@@ -48,7 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'administrator',
-    'user'
+    'user',
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
@@ -59,7 +52,19 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
 ]
+
+
+# ALLOWED_HOSTS = []
+# if os.environ.get('ENVIRONMENT') == "development":
+#     ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0']
+# elif os.environ.get('ENVIRONMENT') == "docker" or os.environ.get('ENVIRONMENT') == "k8s":
+#     # Allow docker container and Kubernetes cluster to request on this service
+#     # ALLOWED_HOSTS = ["host.docker.internal"]
+#     ALLOWED_HOSTS = ["journey-admin-service"]
+
+CORS_ALLOW_ALL_ORIGINS = True  # NOTE: for temporary development purposes
 
 ROOT_URLCONF = 'core.urls'
 

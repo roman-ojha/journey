@@ -3,7 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../node_modules/@prisma/client/merchant-v-and-t-service"
+  output   = "./client/merchant-v-and-t-service"
 }
 
 datasource db {
