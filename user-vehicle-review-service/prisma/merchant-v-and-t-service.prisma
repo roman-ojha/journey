@@ -1,0 +1,112 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/@prisma/client/merchant-v-and-t-service"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("MERCHANT_V_AND_T_SERVICE_DATABASE_URL")
+}
+
+enum VehicleModels {
+  SUPER_DELUX_BUS // 31 NOTE: refactor spelling mistake correct spelling is DELUXE
+  HIASE // 15
+}
+
+model VehicleModel {
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  name        VehicleModels @unique
+  no_of_seats Int
+  Vehicles    Vehicles[]
+  seats       ModelSeats[]
+  created_at  DateTime      @default(now())
+  updated_at  DateTime      @updatedAt
+}
+
+model VehicleImages {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  image      String
+  Vehicles   Vehicles @relation(fields: [vehicle_id], references: [id])
+  vehicle_id String   @unique @db.ObjectId
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model ModelSeats {
+  id               String         @id @default(auto()) @map("_id") @db.ObjectId
+  name             String
+  vehicle_model    VehicleModel   @relation(fields: [vehicle_model_id], references: [id])
+  vehicle_model_id String         @unique @db.ObjectId
+  created_at       DateTime       @default(now())
+  updated_at       DateTime       @updatedAt
+  vehicle_seats    VehicleSeats[]
+}
+
+model Vehicles {
+  id          String          @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  slug        String          @unique
+  plate_no    String
+  merchant_id Int
+  model       VehicleModel    @relation(fields: [model_id], references: [id])
+  model_id    String          @unique @db.ObjectId
+  images      VehicleImages[]
+  travels     Travels[]
+  created_at  DateTime        @default(now())
+  updated_at  DateTime        @updatedAt
+  seats       VehicleSeats[]
+}
+
+model VehicleSeats {
+  id         String     @id @default(auto()) @map("_id") @db.ObjectId
+  price      BigInt
+  is_booked  Boolean    @default(false)
+  is_payed   Boolean    @default(false) // Vehicle seat first can be booked but not completed payment yet
+  booked_at  DateTime? // Store UTC Time
+  user_id    BigInt?
+  seat_id    String     @unique @db.ObjectId
+  seat       ModelSeats @relation(fields: [seat_id], references: [id])
+  vehicle_id String     @unique @db.ObjectId
+  vehicle    Vehicles   @relation(fields: [vehicle_id], references: [id])
+}
+
+model Travels {
+  id                 String   @id @default(auto()) @map("_id") @db.ObjectId
+  from_place         Places   @relation("FromPlace", fields: [from_], references: [id])
+  from_              String   @unique @db.ObjectId // using from_ because from is a reserved in python keyword which could interfare
+  to_place           Places   @relation("ToPlace", fields: [to], references: [id])
+  to                 String   @unique @db.ObjectId
+  is_active          Boolean  @default(true)
+  seat_average_price BigInt
+  departure_at       DateTime // Store UTC Time
+  route              String // Might have to create another Model
+  driver_no          BigInt // Might have to create Driver Model
+  // description
+  vehicle            Vehicles @relation(fields: [vehicle_id], references: [id])
+  vehicle_id         String   @unique @db.ObjectId
+  created_at         DateTime @default(now())
+  updated_at         DateTime @updatedAt
+}
+
+model District {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  name       String   @unique
+  places     Places[]
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Places {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  district    District  @relation(fields: [district_id], references: [id])
+  district_id String    @db.ObjectId
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+  // is_active Boolean @default(true)
+  travel_from Travels[] @relation("FromPlace")
+  travel_to   Travels[] @relation("ToPlace")
+}

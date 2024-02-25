@@ -1,9 +1,15 @@
-import { prisma } from "../config/database";
+import {
+  merchantVAndTClient,
+  userClient,
+  userReviewClient,
+} from "../config/database";
 
 class Database {
-  protected review;
+  merchantVAndTClient = merchantVAndTClient;
+  userClient = userClient;
+  userReviewClient = userReviewClient;
   constructor() {
-    this.review = () => prisma.review;
+    // this.review = () => prisma.review;
   }
 }
 
