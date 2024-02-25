@@ -1,12 +1,13 @@
 # Seeding Initial Data to 'Vehicle.csv' file
 import pprint
 from config.settings import settings
-from pymongo import MongoClient, database
+from pymongo import MongoClient
 from pymongo.server_api import ServerApi
 from dotenv import load_dotenv
 import os
 from schemas.serializer import Serializer
 import pandas as pd
+from database.index import Database
 
 printer = pprint.PrettyPrinter()
 
@@ -14,22 +15,14 @@ printer = pprint.PrettyPrinter()
 # Database Connection process =================================================
 load_dotenv(os.path.join(
     os.path.dirname(os.path.dirname(os.path.dirname(__file__))), '.env.dev'))
-# Create a new client and connect to the server
-client = MongoClient(
-    settings.MERCHANT_V_AND_T_SERVICE_DB_URL, server_api=ServerApi('1'))
-
-try:
-    client.admin.command('ping')
-    print("You successfully connected to MongoDB Database")
-except Exception as e:
-    raise RuntimeError(
-        "Error: Could not connect to the database. Exiting..."+e)
-
+database = Database()
 
 # Seeding process =============================================================
-def seed():
+
+
+def seedVehicles():
     # Get all travels which are active
-    travels = client.merchant_v_and_t_service.Travels.aggregate([
+    travels = database.merchant_v_and_t_service.Travels.aggregate([
         # {
         #     "$match": {
         #         "is_active": True
@@ -143,4 +136,29 @@ def seed():
     print("Travels data saved to 'travels.csv' file")
 
 
-seed()
+def seedReviews():
+    reviews = database.user_vehicle_reviews_db.Review.aggregate([
+        {
+            "$project": {
+                "review": 0,
+                "created_at": 0,
+                "updated_at": 0
+            }
+        },
+    ])
+    reviews = Serializer(data=reviews, many=True).data
+    # Convert reviews data to DataFrame
+    dfReviews = pd.DataFrame(reviews)
+    # # Rename columns
+    dfReviews = dfReviews.rename(columns={'_id': 'id'})
+    # # Reorder columns
+    dfReviews = dfReviews[['id', 'vehicle_id',
+                           'user_id', 'rating']]
+    # Save DataFrame to CSV
+    dfReviews.to_csv('reviews.csv', index=False)
+    print("Reviews data saved to 'reviews.csv' file")
+
+
+# seedVehicles()
+
+seedReviews()

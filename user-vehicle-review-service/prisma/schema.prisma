@@ -3,7 +3,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../node_modules/@prisma/client/user-review-service"
 }
 
 datasource db {
@@ -13,7 +12,7 @@ datasource db {
 
 model Review {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  user_id    String   @db.ObjectId
+  user_id    Int
   vehicle_id String   @db.ObjectId
   review     String
   rating     Int
