@@ -56,5 +56,6 @@ declare namespace NodeJS {
     KHALTI_TEST_SECRET_KEY: string;
     KHALTI_TEST_PUBLIC_KEY: string;
     KHALTI_PAYMENT_BASE_URL: string;
+    CLOUD_AMQP_INSTANCE_URL: string;
   }
 }

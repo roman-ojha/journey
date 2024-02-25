@@ -7,10 +7,11 @@ import {
   validationErrorResponse,
 } from "../utils/responseObject";
 import { gcpStoragePublicBucket } from "../config/cloudStorage";
+import amqplib from "amqplib";
 
 export default class VehicleController extends Controller {
-  constructor() {
-    super();
+  constructor(channel: amqplib.Channel) {
+    super(channel);
     this.addVehicle = this.addVehicle.bind(this);
     this.getVehicleModels = this.getVehicleModels.bind(this);
     this.getVehicles = this.getVehicles.bind(this);

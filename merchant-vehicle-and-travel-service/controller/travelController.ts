@@ -9,10 +9,11 @@ import { body, check } from "express-validator";
 import { isNativeError } from "util/types";
 import { STATUS_CODES } from "../data/constants";
 import { ValidationError } from "../utils/app-error";
+import amqplib from "amqplib";
 
 export default class TravelController extends Controller {
-  constructor() {
-    super();
+  constructor(channel: amqplib.Channel) {
+    super(channel);
     this.createNewTravel = this.createNewTravel.bind(this);
   }
 

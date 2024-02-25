@@ -1,10 +1,13 @@
 import { Router } from "express";
 import AddressController from "../controller/addressController";
+import amqplib from "amqplib";
 
-const router = Router();
-const controller = new AddressController();
+export default (channel: amqplib.Channel) => {
+  const router = Router();
+  const controller = new AddressController(channel);
 
-// Get List of all district
-router.get("", controller.getAddress);
+  // Get List of all district
+  router.get("", controller.getAddress);
 
-export default router;
+  return router;
+};

@@ -1,10 +1,11 @@
 import { Request, Response, NextFunction } from "express";
 import Controller from ".";
 import { successResponse } from "../utils/responseObject";
+import amqplib from "amqplib";
 
 export default class AddressController extends Controller {
-  public constructor() {
-    super();
+  public constructor(channel: amqplib.Channel) {
+    super(channel);
     this.getAddress = this.getAddress.bind(this);
   }
 
