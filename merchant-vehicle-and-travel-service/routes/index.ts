@@ -9,8 +9,5 @@ export default (channel: amqplib.Channel) => {
   router.use("/vehicle", vehicleRouter(channel));
   router.use("/travel", travelRouter(channel));
   router.use("/address", addressRouter(channel));
-  router.get("/test", (req, res) => {
-    return res.json({ message: "Testing RabbitMQ" });
-  });
   return router;
 };

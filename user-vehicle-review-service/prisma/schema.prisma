@@ -1,0 +1,21 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("USER_VEHICLE_REVIEW_SERVICE_DATABASE_URL")
+}
+
+model Review {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  user_id    String   @db.ObjectId
+  vehicle_id String   @db.ObjectId
+  review     String
+  rating     Int
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}

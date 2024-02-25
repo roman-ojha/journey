@@ -7,7 +7,7 @@ import { createChannel } from "./config/rabbitMQ";
 
 (async () => {
   const app = express();
-  const PORT = process.env.MERCHANT_V_AND_T_SERVICE_PORT as string;
+  const PORT = process.env.USER_VEHICLE_REVIEW_SERVICE_PORT as string;
 
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
