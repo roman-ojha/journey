@@ -30,11 +30,11 @@ except Exception as e:
 def seed():
     # Get all travels which are active
     travels = client.merchant_v_and_t_service.Travels.aggregate([
-        {
-            "$match": {
-                "is_active": True
-            }
-        },
+        # {
+        #     "$match": {
+        #         "is_active": True
+        #     }
+        # },
         # Get To Places
         {
             "$lookup": {
@@ -120,7 +120,7 @@ def seed():
                 "created_at": 0,
                 "updated_at": 0,
                 "route": 0,
-                "vehicle_id": 0,
+                # "vehicle_id": 0,
                 "driver_no": 0,
                 "seat_average_price": 0,
                 "is_active": 0,
@@ -132,13 +132,15 @@ def seed():
     # Convert travel data to DataFrame
     dfTravels = pd.DataFrame(travels)
     # Rename columns
-    dfTravels = dfTravels.rename(columns={'_id': 'id'})
+    dfTravels = dfTravels.rename(columns={'_id': 'travel_id'})
     # Reorder columns
-    dfTravels = dfTravels[['id', 'departure_at', 'from', 'to']]
+    dfTravels = dfTravels[['vehicle_id', 'travel_id',
+                           'departure_at', 'from', 'to']]
     # Convert departure_at column to datetime
     dfTravels['departure_at'] = pd.to_datetime(dfTravels['departure_at'])
     # Save DataFrame to CSV
     dfTravels.to_csv('travels.csv', index=False)
+    print("Travels data saved to 'travels.csv' file")
 
 
 seed()

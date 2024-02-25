@@ -3,8 +3,6 @@ import { STATUS_CODES } from "../data/constants";
 import { APIError } from "../utils/app-error";
 import Database from "./index";
 import slugify from "slugify";
-import { Prisma } from "@prisma/client";
-import { DefaultArgs } from "@prisma/client/runtime/library";
 
 class Repository extends Database {
   public async getPlaceById(place_id: string) {
@@ -244,11 +242,32 @@ class Repository extends Database {
             Math.floor(Math.random() * (2000 - 1100 + 1)) + 1100, // NOTE: For now we generate random price between 1100 and 2000
         },
         select: {
+          id: true,
           departure_at: true,
           route: true,
           driver_no: true,
           from_: true,
+          from_place: {
+            select: {
+              name: true,
+              district: {
+                select: {
+                  name: true,
+                },
+              },
+            },
+          },
           to: true,
+          to_place: {
+            select: {
+              name: true,
+              district: {
+                select: {
+                  name: true,
+                },
+              },
+            },
+          },
           vehicle: true,
         },
       });

@@ -6,10 +6,11 @@ import {
   validationErrorResponse,
 } from "../utils/responseObject";
 import { body, check } from "express-validator";
-import { isNativeError } from "util/types";
 import { STATUS_CODES } from "../data/constants";
 import { ValidationError } from "../utils/app-error";
 import amqplib from "amqplib";
+import { publishMessage } from "../utils/rabbitMQ";
+import constants from "../data/constants";
 
 export default class TravelController extends Controller {
   constructor(channel: amqplib.Channel) {
@@ -87,6 +88,21 @@ export default class TravelController extends Controller {
         from,
         to,
         vehicle_id
+      );
+
+      // Publish the message to the queue so that consumer service can add new travel to dataset
+      publishMessage(
+        this.rabbitMQChannel,
+        constants.USER_VEHICLE_SERVICE_RABBIT_MQ_BINDING_KEY,
+        {
+          _id: resNewTravel.id,
+          departure_at: resNewTravel.departure_at,
+          from:
+            resNewTravel.from_place.name +
+            " " +
+            resNewTravel.from_place.district,
+          to: resNewTravel.to_place.name + " " + resNewTravel.to_place.district,
+        }
       );
       if (resNewTravel) {
         return res.json(successResponse(null, resNewTravel));
