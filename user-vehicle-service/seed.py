@@ -133,10 +133,12 @@ def seed():
     dfTravels = pd.DataFrame(travels)
     # Rename columns
     dfTravels = dfTravels.rename(columns={'_id': 'id'})
+    # Reorder columns
+    dfTravels = dfTravels[['id', 'departure_at', 'from', 'to']]
     # Convert departure_at column to datetime
     dfTravels['departure_at'] = pd.to_datetime(dfTravels['departure_at'])
     # Save DataFrame to CSV
-    dfTravels.to_csv('travel.csv', index=False)
+    dfTravels.to_csv('travels.csv', index=False)
 
 
 seed()

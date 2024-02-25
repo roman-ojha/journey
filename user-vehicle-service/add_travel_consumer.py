@@ -1,3 +1,4 @@
+# This will consume the message from the queue and add the new travel to the dataset
 import pika
 import os
 import ssl
@@ -6,7 +7,7 @@ from data.constants import Constant
 # from pika.adapters.blocking_connection import BlockingChannel
 import json
 import pandas as pd
-import config.settings
+import config.settings  # Need to import to load environment variables
 
 
 class PikaClient:
@@ -67,12 +68,15 @@ class PikaClient:
             # convert string to dictionary
             travel: dict = json.loads(travel)
             if travel.get('_id') and travel.get('departure_at') and travel.get('from') and travel.get('to'):
-                print("New travel added to dataset")
                 travel['departure_at'] = pd.to_datetime(
                     travel['departure_at'])
+                # Create a DataFrame with the desired order of columns
+                dfTravel = pd.DataFrame(
+                    [travel], columns=['_id', 'departure_at', 'from', 'to'])
+                dfTravel = dfTravel.rename(columns={'_id': 'id'})
+                # Append the new travel data to the existing CSV file
                 with open('travels.csv', 'a') as f:
-                    pd.DataFrame([travel]).to_csv(
-                        f, header=f.tell() == 0, index=False)
+                    dfTravel.to_csv(f, header=f.tell() == 0, index=False)
             # acknowledge the message so that it will get remove from the queue
             ch.basic_ack(delivery_tag=method.delivery_tag)
         except Exception as e:
