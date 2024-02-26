@@ -122,7 +122,7 @@ const apiRoutes = {
           },
         });
       },
-      booked_vehicle_details: async (
+      get_booked_vehicle_details: async (
         vehicle_slug: string
       ): Promise<APISuccessResponse<BookedVehicleDetails>> => {
         return await request({

@@ -8,13 +8,13 @@ import RatingStar from "@/components/RatingStar";
 import { useEffect, useState } from "react";
 import { Skeleton } from "@mui/material";
 import getCssVariable from "@/lib/getCssVariable";
-import { VehicleDetail } from "@/hooks/reactQuery/useVehicleDetail";
+import { BookedVehicleDetails } from "@/hooks/reactQuery/useGetBookedVehicleDetails";
 
 type VehicleInfoProps = {
   isLoading: boolean;
   isError: boolean;
   isSuccess: boolean;
-  vehicle?: VehicleDetail;
+  vehicle?: BookedVehicleDetails;
 };
 
 const VehicleInfo: React.FC<VehicleInfoProps> = ({

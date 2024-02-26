@@ -6,7 +6,7 @@ import { Travel } from "@/schema/Travel";
 import { Vehicle } from "@/schema/Vehicle";
 import { VehicleImage } from "@/schema/VehicleImage";
 import { VehicleModel } from "@/schema/VehicleModel";
-import apiRoutes from "@/services/api/routes";
+import apiRoutes, { APISuccessResponse } from "@/services/api/routes";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError, AxiosResponse } from "axios";
 
@@ -30,17 +30,17 @@ export type BookedVehicleDetails = Vehicle & {
   no_of_reviews: number;
 };
 
-const fetchVehicleDetail = async (vehicle_slug: string) =>
-  await apiRoutes.user.vehicle.vehicle_detail(vehicle_slug);
+const fetchBookedVehicleDetails = async (vehicle_slug: string) =>
+  await apiRoutes.user.booking.get_booked_vehicle_details(vehicle_slug);
 
-export default function useVehicleDetail(vehicle_slug: string) {
+export default function useGetBookedVehicleDetails(vehicle_slug: string) {
   // eslint-disable-next-line @tanstack/query/no-rest-destructuring
   const { data, ...kwargs } = useQuery<
-    AxiosResponse<BookedVehicleDetails>,
+    APISuccessResponse<BookedVehicleDetails>,
     AxiosError
   >({
-    queryKey: ["vehicle", vehicle_slug],
-    queryFn: () => fetchVehicleDetail(vehicle_slug),
+    queryKey: ["booked-vehicle", vehicle_slug],
+    queryFn: () => fetchBookedVehicleDetails(vehicle_slug),
     staleTime: 1000 * 60 * 5, // 5 minute
   });
 
@@ -50,8 +50,11 @@ export default function useVehicleDetail(vehicle_slug: string) {
     data: {
       data: {
         ...data?.data,
-        rating: 5,
-        no_of_reviews: Math.floor(Math.random() * 100000),
+        data: {
+          ...data?.data.data,
+          rating: 5,
+          no_of_reviews: Math.floor(Math.random() * 100000),
+        },
       },
     },
   };

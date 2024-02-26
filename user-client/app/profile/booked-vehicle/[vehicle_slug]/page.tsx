@@ -3,9 +3,9 @@ import HorizontalSearchBox from "@/components/HorizontalSearchBox/HorizontalSear
 import VehicleInfo from "@/components/pages/profile/booked-vehicle/VehicleInfo/VehicleInfo";
 import VehicleReviewAndRating from "@/components/pages/profile/booked-vehicle/VehicleReviewAndRating/VehicleReviewAndRating";
 import VehicleSeatsInfo from "@/components/pages/profile/booked-vehicle/VehicleSeatsInfo/VehicleSeatsInfo";
-import useVehicleDetail, {
-  VehicleDetail as VehicleDetailType,
-} from "@/hooks/reactQuery/useVehicleDetail";
+import useGetBookedVehicleDetails, {
+  BookedVehicleDetails,
+} from "@/hooks/reactQuery/useGetBookedVehicleDetails";
 import styles from "@/styles/page/vehicle/index.module.scss";
 
 type VehicleDetailProps = {
@@ -17,30 +17,34 @@ type VehicleDetailProps = {
 const VehicleDetail: React.FC<VehicleDetailProps> = ({
   params,
 }): React.JSX.Element => {
-  const { data, isError, isSuccess, isLoading } = useVehicleDetail(
+  const { data, isError, isSuccess, isLoading } = useGetBookedVehicleDetails(
     params.vehicle_slug
   );
+  console.log(data.data);
 
-  return (
-    <main className={styles.vehicle_page}>
-      {/* <HorizontalSearchBox /> */}
-      <VehicleInfo
-        isLoading={isLoading}
-        isSuccess={isSuccess}
-        isError={isError}
-        vehicle={data?.data as VehicleDetailType}
-      />
-      <VehicleSeatsInfo
-        vehicleType={data?.data.model?.name}
-        isError={isError}
-        isSuccess={isSuccess}
-        isLoading={isLoading}
-        seats={data?.data.seats}
-        vehicle_id={data?.data._id}
-      />
-      <VehicleReviewAndRating />
-    </main>
-  );
+  if (isSuccess) {
+    return (
+      <main className={styles.vehicle_page}>
+        {/* <HorizontalSearchBox /> */}
+        <VehicleInfo
+          isLoading={isLoading}
+          isSuccess={isSuccess}
+          isError={isError}
+          vehicle={data?.data.data as BookedVehicleDetails}
+        />
+        <VehicleSeatsInfo
+          vehicleType={data?.data.data?.model?.name}
+          isError={isError}
+          isSuccess={isSuccess}
+          isLoading={isLoading}
+          seats={data?.data.data?.seats}
+          vehicle_id={data?.data.data?._id}
+        />
+        <VehicleReviewAndRating />
+      </main>
+    );
+  }
+  return <></>;
 };
 
 export default VehicleDetail;
