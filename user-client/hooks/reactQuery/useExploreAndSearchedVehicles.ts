@@ -10,7 +10,9 @@ import apiRoutes from "@/services/api/routes";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError, AxiosResponse } from "axios";
 
-const fetchExploreVehicle = async () => await apiRoutes.user.vehicle.explore();
+const fetchExploreVehicle = async (
+  searchParams: SearchParameterObj | null = null
+) => await apiRoutes.user.vehicle.explore(searchParams);
 
 export type ExploreVehicle = Travel & {
   from_place: Place & {
@@ -33,12 +35,8 @@ export default function useExploreAndSearchedVehicles(
 ) {
   // eslint-disable-next-line @tanstack/query/no-rest-destructuring
   return useQuery<AxiosResponse<ExploreVehicle[]>, AxiosError>({
-    queryKey: searchParams
-      ? queryKeys.exploreOrSearchedVehicles(
-          `${searchParams.from.district}-${searchParams.from.place}-${searchParams.to.district}-${searchParams.to.place}-${searchParams.departure_at}`
-        )
-      : queryKeys.exploreOrSearchedVehicles(),
-    queryFn: fetchExploreVehicle,
+    queryKey: queryKeys.exploreOrSearchedVehicles(searchParams),
+    queryFn: () => fetchExploreVehicle(searchParams),
     staleTime: 1000 * 60 * 10, // 10 minute
   });
 }

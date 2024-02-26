@@ -17,10 +17,10 @@ const MainExplore = (): React.JSX.Element => {
   const searchParams = useSearchParams();
   let searchParameter: SearchParameterObj | null = null;
   if (
-    searchParams.get("from-district") ||
-    searchParams.get("from-place") ||
-    searchParams.get("to-district") ||
-    searchParams.get("to-place") ||
+    searchParams.get("from-district") &&
+    searchParams.get("from-place") &&
+    searchParams.get("to-district") &&
+    searchParams.get("to-place") &&
     searchParams.get("departure_at")
   ) {
     searchParameter = {

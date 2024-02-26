@@ -14,6 +14,7 @@ import { BookSeatsRequest } from "./request";
 import { request } from "@/services/api/axios";
 import { BookedVehicles } from "@/hooks/reactQuery/useGetBookedVehicles";
 import { BookedVehicleDetails } from "@/hooks/reactQuery/useGetBookedVehicleDetails";
+import { SearchParameterObj } from "@/components/pages/explore/Main";
 
 export type APISuccessResponse<T> = AxiosResponse<{
   message: string;
@@ -68,7 +69,20 @@ const apiRoutes = {
       },
     },
     vehicle: {
-      explore: async (): Promise<AxiosResponse<ExploreVehicle[]>> => {
+      explore: async (
+        searchParams: SearchParameterObj | null
+      ): Promise<AxiosResponse<ExploreVehicle[]>> => {
+        if (searchParams) {
+          return await axios({
+            method: "GET",
+            url:
+              "/user/vehicle/explore/search?" +
+              `from_district=${searchParams.from.district}&from_place=${searchParams.from.place}&to_district=${searchParams.to.district}&to_place=${searchParams.to.place}&departure_at=${searchParams.departure_at}`,
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+        }
         return await axios({
           method: "GET",
           url: "/user/vehicle/explore",

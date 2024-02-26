@@ -394,7 +394,7 @@ components:
         vehicle_id:
           type: string
 
-    VehicleSeat:
+    ModelSeats:
       description: Represent Vehicle Seats
       type: object
       required:
@@ -406,7 +406,7 @@ components:
           type: string
         name:
           type: string
-        vehicle_id:
+        vehicle_model_id:
           type: string
 
     Vehicle:
@@ -416,18 +416,49 @@ components:
         - id
         - plate_no
         - model_id
+        - name
+        - slug
+        - merchant_id
       properties:
         id:
+          type: string
+        name:
+          type: string
+        slug:
           type: string
         plate_no:
           type: string
         model_id:
           type: string
+        merchant_id:
+          type: number
         images:
           type: array
           items:
             $ref: "#/components/schemas/VehicleImage"
-        name:
+
+    VehicleSeats:
+      description: Represent Seat of Vehicle
+      type: object
+      required:
+        - id
+        - plate_no
+        - model_id
+        - name
+        - slug
+        - merchant_id
+      properties:
+        id:
+          type: string
+        price:
+          type: string
+        is_payed:
+          type: string
+        booked_at:
+          type: string
+        user_id:
+          type: number
+        seat_id:
           type: string
 
     District:
@@ -652,9 +683,59 @@ paths:
           $ref: "#/components/responses/InternalServerError"
 
   # Todo: Improve Request & response body ================================
-  # Todo: /user/vehicle/explore
-  # Todo: /user/vehicle/<vehicle_slug>
   # Todo: /api/user/place
+  /user/vehicle/explore:
+    get:
+      summary: List of Vehicle for explore page
+      description: Get list of vehicles for main explore page uses ML algorithm
+      tags:
+        - "User.Vehicle"
+      responses:
+        "422":
+          description: Validation Error
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /user/vehicle/{vehicle_slug}:
+    get:
+      summary: Get Vehicle Details
+      description: Get Vehicle Detail Information
+      tags:
+        - "User.Vehicle"
+      parameters:
+        - name: vehicle_slug
+          in: path
+          required: true
+          schema:
+            type: string
+            example: isom-delux-55408D1300EA8CF5A77AD1DBF
+      responses:
+        "422":
+          description: Validation Error
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /user/vehicle/place/:
+    get:
+      summary: List of Places where vehicle can travel
+      description: List of Places where vehicle can travel
+      tags:
+        - "User.Vehicle"
+      responses:
+        "422":
+          description: Validation Error
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
   /user/booking-service:
     post:
       summary: Vehicle Seat Booking
@@ -682,12 +763,6 @@ paths:
                     type: string
                   example: ["A", "B", "1", "2"]
       responses:
-        # "200":
-        #   description: Successful response
-        #   content:
-        #     application/json:
-        #       schema:
-        #         $ref: "#/components/schemas/UserResponse"
         "401":
           $ref: "#/components/responses/Unauthorized"
         "500":
@@ -703,16 +778,11 @@ paths:
         - userAuth: []
         - swaggerAuth: []
       responses:
-        # "200":
-        #   description: Successful response
-        #   content:
-        #     application/json:
-        #       schema:
-        #         $ref: "#/components/schemas/UserResponse"
         "401":
           $ref: "#/components/responses/Unauthorized"
         "500":
           $ref: "#/components/responses/InternalServerError"
+
   /user/booking-service/booked-vehicle/{vehicle_slug}:
     get:
       summary: Get List of booked seat vehicles
