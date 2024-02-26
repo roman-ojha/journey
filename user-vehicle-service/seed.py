@@ -20,9 +20,9 @@ database = Database()
 # Seeding process =============================================================
 
 
-def seedVehicles():
+def seedTravels():
     # Get all travels which are active
-    travels = database.merchant_v_and_t_service.Travels.aggregate([
+    travels = database.merchant_v_and_t_service_db.Travels.aggregate([
         # {
         #     "$match": {
         #         "is_active": True
@@ -159,6 +159,6 @@ def seedReviews():
     print("Reviews data saved to 'reviews.csv' file")
 
 
-# seedVehicles()
+# seedTravels()
 
 seedReviews()

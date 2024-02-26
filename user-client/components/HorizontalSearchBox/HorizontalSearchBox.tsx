@@ -134,7 +134,6 @@ const HorizontalSearchBox = (): React.JSX.Element => {
         // ),
         queryKey: queryKeys.exploreOrSearchedVehicles(),
       });
-      console.log("refetching");
     }
   };
 

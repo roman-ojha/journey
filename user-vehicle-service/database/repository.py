@@ -13,7 +13,7 @@ class Repository(Database):
     # NOTE: we will going to replace this with recommendation algorithm in future
     def get_random_travels(self):
         random_travels = self.merchant_v_and_t_service_db.Travels.aggregate([
-            {"$sample": {'size': 17}}
+            {"$sample": {'size': 25}}
         ])
         # return the _id fields from the fetched documents
         return [travel['_id'] for travel in random_travels]
