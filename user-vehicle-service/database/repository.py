@@ -21,7 +21,7 @@ class Repository(Database):
     def get_user_explore_vehicles(self):
         travel_ids = self.get_random_travels()
         # here 'travel_ids' is of list of type ObjectId('<id>')
-        vehicles = self.merchant_v_and_t_service_db.Travels.aggregate([
+        travelVehicles = self.merchant_v_and_t_service_db.Travels.aggregate([
             {
                 "$match": {
                     # Filter by the list of travel _id values
@@ -152,12 +152,82 @@ class Repository(Database):
             # remove "from_" field now
             {"$project": {"from_": 0}},
         ])
-        # _id = ObjectId("65d6741784ee6d403f68462e")
-        # vehicles = self.merchant_v_and_t_service_db.Vehicles.find_one({
-        #                                                               "_id": _id})
-        # vehicles = self.merchant_v_and_t_service_db.Vehicles.find()
-        serializedVehicle = VehicleSerializer(data=vehicles, many=True)
-        return serializedVehicle.data
+        serializedVehicle = VehicleSerializer(data=travelVehicles, many=True)
+        vehiclesId = [ObjectId(travelVehicle.get('vehicle').get("_id"))
+                      for travelVehicle in serializedVehicle.data]
+
+        # Get Reviews for these vehicles
+        vehicleReviews = self.user_vehicle_reviews_db.Review.aggregate([
+            {
+                "$match": {
+                    "vehicle_id": {"$in": vehiclesId}
+                }
+            },
+            {
+                "$project": {
+                    "review": 0,
+                    "created_at": 0,
+                    "updated_at": 0,
+                    "user_id": 0,
+                }
+            },
+            # Here bellow is the format that we will get
+            # [{'_id': '65db612df6835e192b749b1e',
+            #   'rating': 5,
+            #   'vehicle_id': '65d9743ab020df0fbbfc1d23'},
+            #  {'_id': '65db612df6835e192b749b1f',
+            #   'rating': 4,
+            #      'vehicle_id': '65d9743ab020df0fbbfc1d2e'},
+            #     {'_id': '65db612df6835e192b749b21',
+            #      'rating': 2,
+            #      'vehicle_id': '65d9743bb020df0fbbfc1d55'},
+            #     {'_id': '65db612df6835e192b749b23',
+            #      'rating': 1,
+            #      'vehicle_id': '65d9743cb020df0fbbfc1dfa'},
+            #     {'_id': '65db612df6835e192b749b26',
+            #      'rating': 2,
+            #      'vehicle_id': '65d9743cb020df0fbbfc1dfa'},
+            #     {'_id': '65db612df6835e192b749b28',
+            #      'rating': 5,
+            #      'vehicle_id': '65d9743ab020df0fbbfc1d2e'},
+            #     {'_id': '65db612df6835e192b749b29',
+            #      'rating': 1,
+            #      'vehicle_id': '65d9743bb020df0fbbfc1d9c'}]
+            # Now I want to group the rating by vehicle_id in bellow format
+            # [ {'_id': '65d9743ab020df0fbbfc1d23', 'rating': [5, 5], 'no_of_reviews': 2, 'average_rating': 5.0},],
+            {
+                "$group": {
+                    "_id": "$vehicle_id",
+                    "ratings": {"$push": "$rating"},
+                    # count the number of ratings
+                    "no_of_reviews": {"$sum": 1},
+                    "average_rating": {"$avg": "$rating"}
+                }
+            },
+            {
+                "$project": {
+                    "ratings": 0
+                }
+            }
+        ])
+        # vehicleReviews = Serializer(data=vehicleReviews, many=True).data
+        # NOTE: standard 'Serializer' class can't serialize list of rating in [5, 5] format so we will use custom serializer
+        vehicleReviews = [{"_id": str(vehicleReview.get('_id')),  "no_of_reviews": vehicleReview.get(
+            "no_of_reviews"), "average_rating": vehicleReview.get("average_rating")} for vehicleReview in vehicleReviews]
+        printer.pprint(vehicleReviews)
+        # Now push 'no_or_reviews' and 'average_rating' to the serializedVehicle
+        newVehicles = []
+        for vehicle in serializedVehicle.data:
+            vehicle_id = vehicle.get("vehicle").get("_id")
+            for vehicleReview in vehicleReviews:
+                if vehicle_id == vehicleReview.get("_id"):
+                    vehicle["no_of_reviews"] = vehicleReview.get(
+                        "no_of_reviews")
+                    vehicle["average_rating"] = vehicleReview.get(
+                        "average_rating")
+                    newVehicles.append(vehicle)
+                    break
+        return newVehicles
 
     def get_vehicle_by_slug(self, vehicle_slug):
         vehicle = self.merchant_v_and_t_service_db.Vehicles.aggregate([
