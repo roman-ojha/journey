@@ -20,6 +20,7 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
   const { data, isError, isSuccess, isLoading } = useGetBookedVehicleDetails(
     params.vehicle_slug
   );
+  console.log(data);
 
   if (isSuccess) {
     return (

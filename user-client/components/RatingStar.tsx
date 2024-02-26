@@ -10,7 +10,11 @@ const RatingStar: React.FC<RatingStarProps> = ({
   className,
 }): React.JSX.Element => {
   function generateRatingStar(rating: number): ("full" | "outline" | "half")[] {
-    if (rating >= 1 && rating <= 1.25)
+    if (rating >= 0 && rating <= 0.25)
+      return ["outline", "outline", "outline", "outline", "outline"];
+    if (rating > 0.25 && rating <= 0.5)
+      return ["half", "outline", "outline", "outline", "outline"];
+    if (rating > 0.5 && rating <= 1.25)
       return ["full", "outline", "outline", "outline", "outline"];
     else if (rating > 1.25 && rating <= 1.75)
       return ["full", "half", "outline", "outline", "outline"];

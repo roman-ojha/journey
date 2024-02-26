@@ -26,7 +26,7 @@ export type VehicleDetail = Vehicle & {
       seat: ModelSeat;
     }[];
   //NOTE: just adding rating & no_of_reviews we aren't getting from the server right now
-  rating: number;
+  average_rating: number;
   no_of_reviews: number;
 };
 
@@ -50,7 +50,7 @@ export default function useVehicleDetail(vehicle_slug: string) {
     data: {
       data: {
         ...data?.data,
-        rating: 5,
+        average_rating: 5,
         no_of_reviews: Math.floor(Math.random() * 100000),
       },
     },

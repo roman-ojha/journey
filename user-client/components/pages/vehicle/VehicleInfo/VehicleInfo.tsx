@@ -93,7 +93,7 @@ const VehicleInfo: React.FC<VehicleInfoProps> = ({
             <>
               <span className={styles.vehicle_info_rating}>
                 <RatingStar
-                  rating={vehicle?.rating as number}
+                  rating={vehicle?.average_rating as number}
                   className={styles.vehicle_info_rating__icon}
                 />
               </span>

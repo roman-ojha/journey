@@ -26,7 +26,7 @@ export type BookedVehicleDetails = Vehicle & {
       seat: ModelSeat;
     }[];
   //NOTE: just adding rating & no_of_reviews we aren't getting from the server right now
-  rating: number;
+  average_rating: number;
   no_of_reviews: number;
 };
 
@@ -35,27 +35,9 @@ const fetchBookedVehicleDetails = async (vehicle_slug: string) =>
 
 export default function useGetBookedVehicleDetails(vehicle_slug: string) {
   // eslint-disable-next-line @tanstack/query/no-rest-destructuring
-  const { data, ...kwargs } = useQuery<
-    APISuccessResponse<BookedVehicleDetails>,
-    AxiosError
-  >({
+  return useQuery<APISuccessResponse<BookedVehicleDetails>, AxiosError>({
     queryKey: ["booked-vehicle", vehicle_slug],
     queryFn: () => fetchBookedVehicleDetails(vehicle_slug),
     staleTime: 1000 * 60 * 5, // 5 minute
   });
-
-  // For temporary we are adding rating and no_of_reviews
-  return {
-    ...kwargs,
-    data: {
-      data: {
-        ...data?.data,
-        data: {
-          ...data?.data.data,
-          rating: 5,
-          no_of_reviews: Math.floor(Math.random() * 100000),
-        },
-      },
-    },
-  };
 }

@@ -16,12 +16,9 @@ const BookedSeats = (): React.JSX.Element => {
     vehicleSeats: useAppSelector((state) => state.vehicleSeats),
   });
 
-  const authUser = useAppSelector((state) => state.authUser);
-
   const authUserBookedSeats = bookedSeats.filter(
     (seat) => seat.isBooked && seat.isBookedByAuthUser
   );
-  console.group(authUserBookedSeats);
 
   return (
     <section className={`${styles.selected_seats_section} mb-4`}>

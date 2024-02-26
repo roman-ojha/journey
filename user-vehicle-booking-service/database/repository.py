@@ -99,7 +99,81 @@ class Repository(Database):
                 }
             }
         ])
-        return Serializer(data=vehicles, many=True).data
+
+        vehicles = Serializer(data=vehicles, many=True).data
+
+        # Get Reviews for these vehicles
+        vehicleReviews = self.user_vehicle_reviews_db.Review.aggregate([
+            {
+                "$match": {
+                    "vehicle_id": {"$in": [ObjectId(vehicle.get("_id"))
+                                           for vehicle in vehicles]}
+                }
+            },
+            {
+                "$project": {
+                    "review": 0,
+                    "created_at": 0,
+                    "updated_at": 0,
+                    "user_id": 0,
+                }
+            },
+            # Here bellow is the format that we will get
+            # [{'_id': '65db612df6835e192b749b1e',
+            #   'rating': 5,
+            #   'vehicle_id': '65d9743ab020df0fbbfc1d23'},
+            #  {'_id': '65db612df6835e192b749b1f',
+            #   'rating': 4,
+            #      'vehicle_id': '65d9743ab020df0fbbfc1d2e'},
+            #     {'_id': '65db612df6835e192b749b21',
+            #      'rating': 2,
+            #      'vehicle_id': '65d9743bb020df0fbbfc1d55'},
+            #     {'_id': '65db612df6835e192b749b23',
+            #      'rating': 1,
+            #      'vehicle_id': '65d9743cb020df0fbbfc1dfa'},
+            #     {'_id': '65db612df6835e192b749b26',
+            #      'rating': 2,
+            #      'vehicle_id': '65d9743cb020df0fbbfc1dfa'},
+            #     {'_id': '65db612df6835e192b749b28',
+            #      'rating': 5,
+            #      'vehicle_id': '65d9743ab020df0fbbfc1d2e'},
+            #     {'_id': '65db612df6835e192b749b29',
+            #      'rating': 1,
+            #      'vehicle_id': '65d9743bb020df0fbbfc1d9c'}]
+            # Now I want to group the rating by vehicle_id in bellow format
+            # [ {'_id': '65d9743ab020df0fbbfc1d23', 'rating': [5, 5], 'no_of_reviews': 2, 'average_rating': 5.0},],
+            {
+                "$group": {
+                    "_id": "$vehicle_id",
+                    "ratings": {"$push": "$rating"},
+                    # count the number of ratings
+                    "no_of_reviews": {"$sum": 1},
+                    "average_rating": {"$avg": "$rating"}
+                }
+            },
+            {
+                "$project": {
+                    "ratings": 0
+                }
+            }
+        ])
+        vehicleReviews = Serializer(data=vehicleReviews, many=True).data
+        # NOTE: standard 'Serializer' class can't serialize list of rating in [5, 5] format so we will use custom serializer
+        # vehicleReviews = [{"_id": str(vehicleReview.get('_id')),  "no_of_reviews": vehicleReview.get(
+        #     "no_of_reviews"), "average_rating": vehicleReview.get("average_rating")} for vehicleReview in vehicleReviews]
+        # Now push 'no_or_reviews' and 'average_rating' to the serializedVehicle
+        newVehicles = []
+        for vehicle in vehicles:
+            vehicle_id = vehicle.get("_id")
+            for vehicleReview in vehicleReviews:
+                if vehicle_id == vehicleReview.get("_id"):
+                    vehicle["no_of_reviews"] = vehicleReview.get(
+                        "no_of_reviews")
+                    vehicle["average_rating"] = vehicleReview.get(
+                        "average_rating")
+                    newVehicles.append(vehicle)
+                    break
+        return newVehicles
 
     def book_vehicle_seats(self, vehicle_id: str, seats: list,  user_id: int) -> Dict[str, str]:
         if len(seats) == 0:
