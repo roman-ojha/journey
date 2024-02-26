@@ -4,17 +4,17 @@ import getCssVariable from "@/lib/getCssVariable";
 import styles from "@/styles/page/vehicle/selectedSeats.module.scss";
 import { BuySeatsDrawer } from "../BuySeatsDrawer/BuySeatsDrawer";
 import { useAppSelector } from "@/hooks/useAppStore";
-import {
-  getSelectedSeats,
-  getTotalSeatPrice,
-} from "@/services/store/features/vehicleSeat/vehicleSeatSlice";
+import { getBookedSeats } from "@/services/store/features/vehicleSeat/vehicleSeatSlice";
 import { useEffect, useState } from "react";
 import Button from "@/components/buttons/Button";
 
 const BookedSeats = (): React.JSX.Element => {
-  // const selectedSeats = getSelectedSeats({
-  //   vehicleSeats: useAppSelector((state) => state.vehicleSeats),
-  // });
+  const bookedSeats = getBookedSeats({
+    vehicleSeats: useAppSelector((state) => state.vehicleSeats),
+  });
+
+  const authUser = useAppSelector((state) => state.authUser);
+  console.log(authUser);
 
   return (
     <section className={`${styles.selected_seats_section} mb-4`}>

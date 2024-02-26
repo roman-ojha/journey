@@ -71,7 +71,7 @@ export const userLoginSchema = z.object({
 export type UserLogin = z.infer<typeof userLoginSchema>;
 
 export const userSchema = baseUserSchema.extend({
-  id: z.bigint(),
+  id: z.number(),
   picture: z.string(),
 });
 

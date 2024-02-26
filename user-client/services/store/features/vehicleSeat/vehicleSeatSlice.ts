@@ -13,6 +13,8 @@ import {
   createSlice,
   createDraftSafeSelector,
 } from "@reduxjs/toolkit";
+import { setAuthUser } from "../authUser/authUserSlice";
+import { Irish_Grover } from "next/font/google";
 
 const getEmptySeat = (): EmptySeat => ({
   isSeat: false,
@@ -25,11 +27,13 @@ const getDriverSeat = (): DriverSeat => ({
 
 const getBookedUserSeat = (
   seatNumber: string,
-  seatPrice: number
+  seatPrice: number,
+  isBookedByAuthUser: boolean
 ): BookedUserSeat => ({
   isSeat: true,
   type: "user",
   isBooked: true,
+  isBookedByAuthUser: isBookedByAuthUser,
   seatNumber,
   seatPrice,
 });
@@ -209,9 +213,11 @@ const vehicleSeatsSlice = createSlice({
             ) {
               if (initialSeat.type === "user") {
                 if (payloadSeat.is_booked) {
+                  // console.log(payloadSeat);
                   tempSeat = getBookedUserSeat(
                     payloadSeat.seat.name,
-                    payloadSeat.price
+                    payloadSeat.price,
+                    false
                   );
                 } else {
                   tempSeat = getNormalUserSeat(
@@ -231,12 +237,37 @@ const vehicleSeatsSlice = createSlice({
       return finalSeats;
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(setAuthUser, (state, action) => {
+      // console.log(action.payload);
+      state.map((rowSeats, rowIndex) => {
+        rowSeats.map((seat, columnIndex) => {
+          // if(seat.isSeat && seat.type == "user"){
+          //   if(seat.isBooked && action.payload?.id == seat.booked_user_id){
+          //     state[rowIndex][columnIndex].isBookedByAuthUser = true;
+          //   }
+          // }
+        });
+      });
+    });
+  },
   selectors: {
     getSelectedSeats: (state) => {
       const result: VehicleSeat[] = [];
       state.map((row) => {
         const r = row.map((seat) => {
           if (seat.isSelected) {
+            result.push(seat);
+          }
+        });
+      });
+      return result;
+    },
+    getBookedSeats: (state) => {
+      const result: VehicleSeat[] = [];
+      state.map((row) => {
+        const r = row.map((seat) => {
+          if (seat.isBooked) {
             result.push(seat);
           }
         });
@@ -259,4 +290,4 @@ export const getTotalSeatPrice = (selectedSeats: VehicleSeat[]) => {
 export default vehicleSeatsSlice.reducer;
 export const { handleSelect, setVehicleDetailSeats } =
   vehicleSeatsSlice.actions;
-export const { getSelectedSeats } = vehicleSeatsSlice.selectors;
+export const { getSelectedSeats, getBookedSeats } = vehicleSeatsSlice.selectors;

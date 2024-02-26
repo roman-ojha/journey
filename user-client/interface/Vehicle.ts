@@ -20,6 +20,7 @@ export interface BookedUserSeat {
   isSeat: true;
   type: "user";
   isBooked: true;
+  isBookedByAuthUser: boolean;
   isSelected?: never;
   seatNumber: string;
   seatPrice: number;

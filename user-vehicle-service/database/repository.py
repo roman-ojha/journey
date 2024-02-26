@@ -348,6 +348,7 @@ class Repository(Database):
                                 "is_booked": "$$seat.is_booked",
                                 "seat_id": "$$seat.seat_id",
                                 "vehicle_id": "$$seat.vehicle_id",
+                                "user_id": "$$seat.user_id",
                                 "seat": {
                                     "$arrayElemAt": [
                                         {
