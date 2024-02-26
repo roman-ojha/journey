@@ -651,17 +651,16 @@ paths:
         "500":
           $ref: "#/components/responses/InternalServerError"
 
+  # Todo: Improve Request & response body ================================
   # Todo: /user/vehicle/explore
   # Todo: /user/vehicle/<vehicle_slug>
   # Todo: /api/user/place
-
-  # Todo: Improve Request & response body ================================
   /user/booking-service:
     post:
       summary: Vehicle Seat Booking
       description: Book Vehicle Seats
       tags:
-        - "User.Booking"
+        - "User.SeatsBooking"
       security:
         - userAuth: []
         - swaggerAuth: []
@@ -694,15 +693,42 @@ paths:
         "500":
           $ref: "#/components/responses/InternalServerError"
 
-  /user/booking-service/booked-vehicles:
+  /user/booking-service/booked-vehicle:
     get:
       summary: Get List of booked seat vehicles
       description: Get List of booked seat vehicles
       tags:
-        - "User.Booking"
+        - "User.SeatsBooking"
       security:
         - userAuth: []
         - swaggerAuth: []
+      responses:
+        # "200":
+        #   description: Successful response
+        #   content:
+        #     application/json:
+        #       schema:
+        #         $ref: "#/components/schemas/UserResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+  /user/booking-service/booked-vehicle/{vehicle_slug}:
+    get:
+      summary: Get List of booked seat vehicles
+      description: Get List of booked seat vehicles
+      tags:
+        - "User.SeatsBooking"
+      security:
+        - userAuth: []
+        - swaggerAuth: []
+      parameters:
+        - name: vehicle_slug
+          in: path
+          required: true
+          schema:
+            type: string
+            example: isom-delux-55408D1300EA8CF5A77AD1DBF
       responses:
         # "200":
         #   description: Successful response

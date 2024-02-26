@@ -17,7 +17,18 @@ printer = pprint.PrettyPrinter()
 
 @api_view(["GET"])
 def get_booked_vehicles(request: Request):
+    if not request.auth_user.is_authenticated():
+        return Response(data=CreateResponse.failResponse(message="UnAuthorized User, Please login first"), status=StatusCode.UNAUTHORIZED)
     return Response(data=CreateResponse.successResponse(data=repository.get_booked_vehicles(user_id=request.auth_user.id)))
+
+
+@api_view(["GET"])
+def get_booked_vehicle_detail(request: Request, vehicle_slug: str):
+    if not vehicle_slug:
+        return Response(data=CreateResponse.failResponse(message="vehicle_slug is required"), status=StatusCode.BAD_REQUEST)
+    if not request.auth_user.is_authenticated():
+        return Response(data=CreateResponse.failResponse(message="UnAuthorized User, Please login first"), status=StatusCode.UNAUTHORIZED)
+    return Response(data=CreateResponse.successResponse(data=repository.get_booked_vehicles_detail(vehicle_slug=vehicle_slug, user_id=request.auth_user.id)))
 
 
 @api_view(["POST"])

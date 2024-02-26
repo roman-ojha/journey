@@ -115,7 +115,7 @@ const apiRoutes = {
       > => {
         return await request({
           method: "GET",
-          url: "/user/booking-service/booked-vehicles",
+          url: "/user/booking-service/booked-vehicle",
           headers: {
             "Content-Type": "application/json",
           },

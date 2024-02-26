@@ -230,5 +230,238 @@ class Repository(Database):
             total_price += selectedVehicleSeat.get('price')
         return {"error": False, "message": "Seats booked successfully.", "data": {'total_price': total_price}}
 
+    def get_booked_vehicles_detail(self, vehicle_slug, user_id):
+        # TODO: Needs to check whether user booked the vehicles or not
+        vehicle = self.merchant_v_and_t_service_db.Vehicles.aggregate([
+            {
+                "$match": {
+                    "slug": vehicle_slug
+                }
+            },
+            # only get one vehicle and return as object
+            {
+                "$limit": 1
+            },
+            {
+                "$lookup": {
+                    "from": "VehicleModel",
+                    "localField": "model_id",
+                    "foreignField": "_id",
+                    "as": "model"
+                }
+            },
+            {
+                "$addFields": {
+                    "model": {"$arrayElemAt": ["$model", 0]}
+                }
+            },
+            {
+                "$lookup": {
+                    "from": "VehicleImages",
+                    "localField": "_id",
+                    "foreignField": "vehicle_id",
+                    "as": "images"
+                }
+            },
+            {
+                "$lookup": {
+                    "from": "Travels",
+                    "localField": "_id",
+                    "foreignField": "vehicle_id",
+                    "as": "travels"
+                }
+            },
+            # Get only those trave having 'is_active' field set to True
+            {
+                "$match": {
+                    "travels.is_active": True
+                }
+            },
+            # Filter travels based on the condition "is_active" is True
+            {
+                "$addFields": {
+                    "travels": {
+                        "$filter": {
+                            "input": "$travels",
+                            "as": "travel",
+                            "cond": {"$eq": ["$$travel.is_active", True]}
+                        }
+                    }
+                }
+            },
+            # Converting travels key to travel
+            {
+                "$addFields": {
+                    "travel": {"$arrayElemAt": ["$travels", 0]}
+                }
+            },
+            {
+                "$project": {
+                    "travels": 0
+                }
+            },
+            # Get To Places
+            {
+                "$lookup": {
+                    "from": "Places",
+                    "localField": "travel.to",
+                    "foreignField": "_id",
+                    "as": "to_place"
+                },
+            },
+            {
+                "$addFields": {
+                    "to_place": {"$arrayElemAt": ["$to_place", 0]}
+                }
+            },
+            {
+                "$unwind": "$to_place"
+            },
+            {
+                "$lookup": {
+                    "from": "District",
+                    "localField": "to_place.district_id",
+                    "foreignField": "_id",
+                    "as": "district"
+                }
+            },
+            {
+                "$addFields": {
+                    "to_place.district": {"$arrayElemAt": ["$district", 0]}
+                }
+            },
+            {
+                "$project": {
+                    "district": 0
+                }
+            },
+            {
+                "$addFields": {
+                    "travel.to_place": "$to_place"
+                }
+            },
+            {
+                "$project": {
+                    "to_place": 0
+                }
+            },
+            # Now get from place
+            {
+                "$lookup": {
+                    "from": "Places",
+                    "localField": "travel.from_",
+                    "foreignField": "_id",
+                    "as": "from_place"
+                },
+            },
+            {
+                "$addFields": {
+                    "from_place": {"$arrayElemAt": ["$from_place", 0]}
+                }
+            },
+            {
+                "$unwind": "$from_place"
+            },
+            {
+                "$lookup": {
+                    "from": "District",
+                    "localField": "from_place.district_id",
+                    "foreignField": "_id",
+                    "as": "district"
+                }
+            },
+            {
+                "$addFields": {
+                    "from_place.district": {"$arrayElemAt": ["$district", 0]}
+                }
+            },
+            {
+                "$project": {
+                    "district": 0
+                }
+            },
+            {
+                "$addFields": {
+                    "travel.from_place": "$from_place"
+                }
+            },
+            {
+                "$project": {
+                    "from_place": 0
+                }
+            },
+            # Get all seats
+            {
+                "$lookup": {
+                    "from": "VehicleSeats",
+                    "localField": "_id",
+                    "foreignField": "vehicle_id",
+                    "as": "seats"
+                }
+            },
+            {
+                "$lookup": {
+                    "from": "ModelSeats",
+                    "localField": "seats.seat_id",
+                    "foreignField": "_id",
+                    "as": "seat_details"
+                }
+            },
+            # Project the desired fields for the seat details
+            {
+                "$addFields": {
+                    "seats": {
+                        "$map": {
+                            "input": "$seats",
+                            "as": "seat",
+                            "in": {
+                                "_id": "$$seat._id",
+                                "price": "$$seat.price",
+                                "is_booked": "$$seat.is_booked",
+                                "seat_id": "$$seat.seat_id",
+                                "vehicle_id": "$$seat.vehicle_id",
+                                "user_id": "$$seat.user_id",
+                                "seat": {
+                                    "$arrayElemAt": [
+                                        {
+                                            "$filter": {
+                                                "input": "$seat_details",
+                                                "cond": {
+                                                    "$eq": ["$$this._id", "$$seat.seat_id"]
+                                                }
+                                            }
+                                        },
+                                        0
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "$project": {
+                    "seat_details": 0
+                }
+            },
+            # add 'travel.from' field from 'travel.from_'
+            {
+                "$addFields": {
+                    "travel.from": "$travel.from_"
+                }
+            },
+            # remove "from_" field now
+            {
+                "$project": {
+                    "travel.from_": 0
+                }
+            },
+        ])
+
+        vehicle = vehicle.try_next()
+        if vehicle is None:
+            return {"message": "Vehicle not found"}
+        return Serializer(data=vehicle).data
+
 
 repository = Repository()

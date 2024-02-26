@@ -282,7 +282,7 @@ async function createVehiclesAndTravel() {
               let user_id: number | null = null;
               if (is_booked) {
                 seat_booked_at = new Date();
-                user_id = 1;
+                user_id = 1000;
               }
               return {
                 price: 1600,
