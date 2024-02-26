@@ -43,7 +43,7 @@ const MainExplore = (): React.JSX.Element => {
       <CardHeader />
       <div className={styles.card_and_filter}>
         <VehicleCards
-          travelVehicles={data}
+          travelVehicles={data?.data}
           isError={isError}
           isSuccess={isSuccess}
           isLoading={isLoading}

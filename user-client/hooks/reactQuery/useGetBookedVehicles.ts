@@ -15,7 +15,7 @@ export type BookedVehicles = Vehicle & {
   image: VehicleImage;
   travel: Travel;
   //NOTE: just adding rating & no_of_reviews we aren't getting from the server right now
-  rating: number;
+  average_rating: number;
   no_of_reviews: number;
 };
 
@@ -24,24 +24,21 @@ const fetchBookedVehicles = async () =>
 
 export default function useGetBookedVehicles() {
   // eslint-disable-next-line @tanstack/query/no-rest-destructuring
-  const { data, ...kwargs } = useQuery<
-    APISuccessResponse<BookedVehicles[]>,
-    AxiosError
-  >({
+  return useQuery<APISuccessResponse<BookedVehicles[]>, AxiosError>({
     queryKey: ["profile-booked-vehicles"],
     queryFn: () => fetchBookedVehicles(),
     staleTime: 1000 * 60 * 5, // 5 minute
   });
 
   // For temporary we are adding rating and no_of_reviews
-  return {
-    ...kwargs,
-    data: data?.data.data.map((vehicle): BookedVehicles => {
-      return {
-        ...vehicle,
-        rating: 5,
-        no_of_reviews: Math.floor(Math.random() * 100000),
-      };
-    }),
-  };
+  // return {
+  //   ...kwargs,
+  //   data: data?.data.data.map((vehicle): BookedVehicles => {
+  //     return {
+  //       ...vehicle,
+  //       average_rating: 5,
+  //       no_of_reviews: Math.floor(Math.random() * 100000),
+  //     };
+  //   }),
+  // };
 }

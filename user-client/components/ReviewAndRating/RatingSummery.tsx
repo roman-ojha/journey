@@ -1,13 +1,21 @@
 "use client";
 import styles from "@/styles/components/reviewAndRating.module.scss";
 import AppIcon from "../appIcon/AppIcon";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { numberWithCommas } from "@/lib/utils";
 import RatingStar from "../RatingStar";
 import getCssVariable from "@/lib/getCssVariable";
 import { Skeleton } from "@mui/material";
 
-const RatingSummery = (): React.JSX.Element => {
+type RatingSummeryProps = {
+  average_rating: number;
+  no_of_reviews: number;
+};
+
+const RatingSummery: React.FC<RatingSummeryProps> = ({
+  average_rating,
+  no_of_reviews,
+}): React.JSX.Element => {
   const [isLoading, setIsLoading] = useState(true);
   const [rating, setRating] = useState({
     average: 4.3,
@@ -40,14 +48,14 @@ const RatingSummery = (): React.JSX.Element => {
       ) : (
         <div className={styles.rating_summery}>
           <span className={styles.rating_summery__average}>
-            <h2>{rating.average}</h2>
+            <h2>{average_rating.toFixed(1)}</h2>
             <span className={styles.rating_summery__average__rating}>
               <RatingStar
-                rating={rating.average}
+                rating={average_rating}
                 className={styles.rating_star_icon}
               />
             </span>
-            <p>{numberWithCommas(rating.total)}</p>
+            <p>{numberWithCommas(no_of_reviews)}</p>
           </span>
           <div className={styles.rating_summery__rating_detail}>
             {rating.ratingPercent.map((percent, index) => (

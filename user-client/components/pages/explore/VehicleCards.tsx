@@ -178,7 +178,7 @@ const VehicleCards: React.FC<VehicleCardsProps> = ({
             <VehicleCard
               image={tVehicle.vehicle.images[0].image}
               title={tVehicle.vehicle.name}
-              rating={tVehicle.rating}
+              rating={tVehicle.average_rating}
               no_of_review={tVehicle.no_of_reviews}
               departure_at={getFormattedDateFromUTC(tVehicle.departure_at)}
               price={tVehicle.seat_average_price}

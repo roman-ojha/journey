@@ -34,11 +34,11 @@ const ProfileVehicleCards = (): React.JSX.Element => {
             />
           ))
         : isSuccess && data
-        ? data.map((vehicle, index) => (
+        ? data.data.data.map((vehicle, index) => (
             <VehicleCard
               image={vehicle.image.image}
               title={vehicle.name}
-              rating={vehicle.rating}
+              rating={vehicle.average_rating}
               no_of_review={vehicle.no_of_reviews}
               departure_at={getFormattedDateFromUTC(
                 vehicle.travel.departure_at

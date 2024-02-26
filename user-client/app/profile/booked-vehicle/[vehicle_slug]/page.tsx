@@ -1,7 +1,7 @@
 "use client";
 import HorizontalSearchBox from "@/components/HorizontalSearchBox/HorizontalSearchBox";
 import VehicleInfo from "@/components/pages/profile/booked-vehicle/VehicleInfo/VehicleInfo";
-import VehicleReviewAndRating from "@/components/pages/profile/booked-vehicle/VehicleReviewAndRating/VehicleReviewAndRating";
+import VehicleReviewAndRating from "@/components/ReviewAndRating/VehicleReviewAndRating";
 import VehicleSeatsInfo from "@/components/pages/profile/booked-vehicle/VehicleSeatsInfo/VehicleSeatsInfo";
 import useGetBookedVehicleDetails, {
   BookedVehicleDetails,
@@ -40,7 +40,10 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
           seats={data?.data.data?.seats}
           vehicle_id={data?.data.data?._id}
         />
-        <VehicleReviewAndRating />
+        <VehicleReviewAndRating
+          average_rating={data?.data.data?.average_rating}
+          no_of_reviews={data?.data.data?.no_of_reviews}
+        />
       </main>
     );
   }

@@ -1,7 +1,7 @@
 "use client";
 import HorizontalSearchBox from "@/components/HorizontalSearchBox/HorizontalSearchBox";
 import VehicleInfo from "@/components/pages/vehicle/VehicleInfo/VehicleInfo";
-import VehicleReviewAndRating from "@/components/pages/vehicle/VehicleReviewAndRating/VehicleReviewAndRating";
+import VehicleReviewAndRating from "@/components/ReviewAndRating/VehicleReviewAndRating";
 import VehicleSeatsInfo from "@/components/pages/vehicle/VehicleSeatsInfo/VehicleSeatsInfo";
 import useVehicleDetail, {
   VehicleDetail as VehicleDetailType,
@@ -38,7 +38,10 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
         seats={data?.data.seats}
         vehicle_id={data?.data._id}
       />
-      <VehicleReviewAndRating />
+      <VehicleReviewAndRating
+        average_rating={data?.data?.average_rating as number}
+        no_of_reviews={data?.data?.no_of_reviews as number}
+      />
     </main>
   );
 };

@@ -24,7 +24,7 @@ export type ExploreVehicle = Travel & {
     images: VehicleImage[];
   };
   //NOTE: just adding rating & no_of_reviews we aren't getting from the server right now
-  rating: number;
+  average_rating: number;
   no_of_reviews: number;
 };
 
@@ -32,10 +32,7 @@ export default function useExploreAndSearchedVehicles(
   searchParams: SearchParameterObj | null
 ) {
   // eslint-disable-next-line @tanstack/query/no-rest-destructuring
-  const { data, ...kwargs } = useQuery<
-    AxiosResponse<ExploreVehicle[]>,
-    AxiosError
-  >({
+  return useQuery<AxiosResponse<ExploreVehicle[]>, AxiosError>({
     queryKey: searchParams
       ? queryKeys.exploreOrSearchedVehicles(
           `${searchParams.from.district}-${searchParams.from.place}-${searchParams.to.district}-${searchParams.to.place}-${searchParams.departure_at}`
@@ -44,15 +41,4 @@ export default function useExploreAndSearchedVehicles(
     queryFn: fetchExploreVehicle,
     staleTime: 1000 * 60 * 10, // 10 minute
   });
-
-  return {
-    ...kwargs,
-    data: data?.data.map((vehicle): ExploreVehicle => {
-      return {
-        ...vehicle,
-        rating: 5,
-        no_of_reviews: Math.floor(Math.random() * 100000),
-      };
-    }),
-  };
 }
