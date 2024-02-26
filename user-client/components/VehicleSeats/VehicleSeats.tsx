@@ -10,6 +10,7 @@ import {
   setVehicleDetailSeats,
 } from "@/services/store/features/vehicleSeat/vehicleSeatSlice";
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 const VehicleSeats: React.FC<VehicleSeatsInfoProps> = ({
   vehicleType,
@@ -18,14 +19,16 @@ const VehicleSeats: React.FC<VehicleSeatsInfoProps> = ({
   isSuccess,
   seats,
 }): React.JSX.Element => {
+  const pathname = usePathname();
   const vehicleSeats = useAppSelector((state) => state.vehicleSeats);
   const dispatch = useAppDispatch();
+  const authUser = useAppSelector((state) => state.authUser);
 
   useEffect(() => {
-    if (isSuccess && seats && vehicleType) {
-      dispatch(setVehicleDetailSeats({ seats, vehicleType }));
+    if (isSuccess && seats && vehicleType && authUser) {
+      dispatch(setVehicleDetailSeats({ seats, vehicleType, authUser }));
     }
-  }, [dispatch, isSuccess, seats, vehicleType]);
+  }, [dispatch, isSuccess, seats, vehicleType, authUser]);
 
   if (isError) {
     return <div>Error</div>;
@@ -81,7 +84,16 @@ const VehicleSeats: React.FC<VehicleSeatsInfoProps> = ({
                           }
                           style={
                             seat.isBooked
-                              ? { color: getCssVariable("--clr-base-tertiary") }
+                              ? seat.isBookedByAuthUser &&
+                                pathname.includes("/profile/booked-vehicle/")
+                                ? {
+                                    color: getCssVariable("--clr-base-primary"),
+                                  }
+                                : {
+                                    color: getCssVariable(
+                                      "--clr-base-tertiary"
+                                    ),
+                                  }
                               : seat.isSelected
                               ? {
                                   color: getCssVariable("--clr-base-secondary"),

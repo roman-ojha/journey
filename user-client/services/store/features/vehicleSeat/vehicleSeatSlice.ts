@@ -15,6 +15,7 @@ import {
 } from "@reduxjs/toolkit";
 import { setAuthUser } from "../authUser/authUserSlice";
 import { Irish_Grover } from "next/font/google";
+import { SafeUser } from "@/schema/User";
 
 const getEmptySeat = (): EmptySeat => ({
   isSeat: false,
@@ -193,6 +194,7 @@ const vehicleSeatsSlice = createSlice({
       action: PayloadAction<{
         seats: VehicleDetail["seats"];
         vehicleType: VehicleModel["name"];
+        authUser: SafeUser;
       }>
     ) => {
       let finalTempSeats: VehicleSeat[][] = [];
@@ -214,11 +216,19 @@ const vehicleSeatsSlice = createSlice({
               if (initialSeat.type === "user") {
                 if (payloadSeat.is_booked) {
                   // console.log(payloadSeat);
-                  tempSeat = getBookedUserSeat(
-                    payloadSeat.seat.name,
-                    payloadSeat.price,
-                    false
-                  );
+                  if (payloadSeat.user_id == action.payload.authUser.id) {
+                    tempSeat = getBookedUserSeat(
+                      payloadSeat.seat.name,
+                      payloadSeat.price,
+                      true
+                    );
+                  } else {
+                    tempSeat = getBookedUserSeat(
+                      payloadSeat.seat.name,
+                      payloadSeat.price,
+                      false
+                    );
+                  }
                 } else {
                   tempSeat = getNormalUserSeat(
                     payloadSeat.seat.name,
@@ -239,7 +249,6 @@ const vehicleSeatsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(setAuthUser, (state, action) => {
-      // console.log(action.payload);
       state.map((rowSeats, rowIndex) => {
         rowSeats.map((seat, columnIndex) => {
           // if(seat.isSeat && seat.type == "user"){
