@@ -11,9 +11,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-# import os
+import os
 from config import database
-database.connect()
+# database.connect()
+print(os.environ.get("MERCHANT_V_AND_T_SERVICE_DATABASE_URL"))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -53,7 +55,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # Custom middleware
     "middlewares.authentication.ParseUserCredential"
-    "corsheaders.middleware.CorsMiddleware",
 ]
 
 
@@ -64,6 +65,7 @@ MIDDLEWARE = [
 #     # Allow docker container and Kubernetes cluster to request on this service
 #     # ALLOWED_HOSTS = ["host.docker.internal"]
 #     ALLOWED_HOSTS = ["journey-admin-service"]
+CORS_ALLOW_ALL_ORIGINS = True  # NOTE: for temporary development purposes
 
 ROOT_URLCONF = 'core.urls'
 

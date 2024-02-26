@@ -6,6 +6,11 @@ import sys
 
 def main():
     """Run administrative tasks."""
+    # Override default port for 'runserver' command
+    # from django.core.management.commands.runserver import Command as runserver
+    # runserver.default_port = os.environ.get(
+    #     "USER_VEHICLE_BOOKING_SERVICE_PORT")
+
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
     try:
         from django.core.management import execute_from_command_line

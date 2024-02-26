@@ -1,8 +1,12 @@
-FROM node:16.5.0-alpine
+FROM node:20.9.0-alpine
 
 WORKDIR /app
 
-COPY ./build ./build
+COPY . .
+
+RUN yarn install
+
+RUN yarn build
 
 RUN npm install -g serve
 
