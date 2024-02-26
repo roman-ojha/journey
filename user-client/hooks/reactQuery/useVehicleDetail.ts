@@ -30,7 +30,7 @@ export type VehicleDetail = Vehicle & {
   no_of_reviews: number;
 };
 
-const fetchVehicleDetail = async (vehicle_slug: string) =>
+const fetchBookedVehicleDetails = async (vehicle_slug: string) =>
   await apiRoutes.user.vehicle.vehicle_detail(vehicle_slug);
 
 export default function useVehicleDetail(vehicle_slug: string) {
@@ -40,7 +40,7 @@ export default function useVehicleDetail(vehicle_slug: string) {
     AxiosError
   >({
     queryKey: ["vehicle", vehicle_slug],
-    queryFn: () => fetchVehicleDetail(vehicle_slug),
+    queryFn: () => fetchBookedVehicleDetails(vehicle_slug),
     staleTime: 1000 * 60 * 5, // 5 minute
   });
 
