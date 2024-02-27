@@ -6,6 +6,7 @@ import pandas as pd
 
 vehicles_with_reviews = pickle.load(
     open("vehicles_with_reviews.pkl", 'rb'))  # load trained data model
+vehicles_df = pd.read_csv('travels.csv')
 
 
 class Recommendation:
@@ -51,18 +52,33 @@ class Recommendation:
         recommended_vehicles = similar_vehicles.index.tolist()
         return recommended_vehicles
 
+    def get_travel_ids_from_vehicle_id(self, vehicle_ids: list[str]):
+        # Getting travel_id out of using vehicle_id
+        filtered_df = vehicles_df[vehicles_df['vehicle_id'].isin(vehicle_ids)]
+        travel_ids = filtered_df.groupby(
+            'vehicle_id')['travel_id'].apply(list).reset_index()
+        travel_ids
+        travel_id_list = travel_ids["travel_id"].tolist()
+        flat_travel_ids = [
+            item for sublist in travel_id_list for item in sublist]
+        return [str(travel_id) for travel_id in flat_travel_ids]
+
     def explore_vehicle(self, user_id: int):
         recommended_vehicles = self.recommend(vehicles_with_reviews, user_id)
-        return recommended_vehicles[:25]
+        # only 25 vehicles will be recommended with random shuffle
+        travel_ids = self.get_travel_ids_from_vehicle_id(
+            recommended_vehicles[:25])
+        return travel_ids
 
     def search_vehicle(self, from_location: str, to_location: str, departure_at: str, user_id: int):
         filtered_data = vehicles_with_reviews[(vehicles_with_reviews['from'] == from_location) & (
             vehicles_with_reviews['to'] == to_location) & (vehicles_with_reviews['departure_at'] == departure_at)]
         recommended_vehicles = self.recommend(filtered_data, user_id)
-        return recommended_vehicles
+        travel_ids = self.get_travel_ids_from_vehicle_id(recommended_vehicles)
+        return travel_ids
 
 
-recommendation = Recommendation()
-print(recommendation.explore_vehicle(8))
-print(recommendation.search_vehicle(
-    "Pokhara, Kaski", "Pathri, Morong", "2024-03-03", 8))
+# recommendation = Recommendation()
+# print(recommendation.explore_vehicle(8))
+# print(recommendation.search_vehicle(
+#     "Pokhara, Kaski", "Pathri, Morong", "2024-03-03", 8))

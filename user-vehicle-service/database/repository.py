@@ -18,14 +18,14 @@ class Repository(Database):
         # return the _id fields from the fetched documents
         return [travel['_id'] for travel in random_travels]
 
-    def get_user_explore_vehicles(self):
-        travel_ids = self.get_random_travels()
+    def get_travels_from_travel_ids(self, travel_ids: list[str]):
+        # travel_ids = self.get_random_travels()
         # here 'travel_ids' is of list of type ObjectId('<id>')
         travelVehicles = self.merchant_v_and_t_service_db.Travels.aggregate([
             {
                 "$match": {
                     # Filter by the list of travel _id values
-                    "_id": {"$in": travel_ids}
+                    "_id": {"$in": [ObjectId(travel_id) for travel_id in travel_ids]}
                 }
             },
             {
