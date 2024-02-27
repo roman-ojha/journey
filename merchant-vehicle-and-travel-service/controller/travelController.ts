@@ -89,22 +89,23 @@ export default class TravelController extends Controller {
         to,
         vehicle_id
       );
-
-      // Publish the message to the queue so that consumer service can add new travel to dataset
-      publishMessage(
-        this.rabbitMQChannel,
-        constants.USER_VEHICLE_SERVICE_RABBIT_MQ_BINDING_KEY,
-        {
-          _id: resNewTravel.id,
-          departure_at: resNewTravel.departure_at,
-          from:
-            resNewTravel.from_place.name +
-            " " +
-            resNewTravel.from_place.district,
-          to: resNewTravel.to_place.name + " " + resNewTravel.to_place.district,
-        }
-      );
       if (resNewTravel) {
+        // Publish the message to the queue so that consumer service can add new travel to dataset
+        publishMessage(
+          this.rabbitMQChannel,
+          constants.USER_VEHICLE_SERVICE_RABBIT_MQ_BINDING_KEY,
+          {
+            vehicle_id: vehicle_id,
+            travel_id: resNewTravel.id,
+            departure_at: resNewTravel.departure_at,
+            from:
+              resNewTravel.from_place.name +
+              " " +
+              resNewTravel.from_place.district,
+            to:
+              resNewTravel.to_place.name + " " + resNewTravel.to_place.district,
+          }
+        );
         return res.json(successResponse(null, resNewTravel));
       }
       return res.status(STATUS_CODES.INTERNAL_ERROR).json(failResponse());

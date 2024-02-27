@@ -67,13 +67,12 @@ class PikaClient:
             travel = body.decode()
             # convert string to dictionary
             travel: dict = json.loads(travel)
-            if travel.get('_id') and travel.get('departure_at') and travel.get('from') and travel.get('to'):
+            if travel.get('vehicle_id') and travel.get('travel_id') and travel.get('departure_at') and travel.get('from') and travel.get('to'):
                 travel['departure_at'] = pd.to_datetime(
                     travel['departure_at'])
                 # Create a DataFrame with the desired order of columns
                 dfTravel = pd.DataFrame(
-                    [travel], columns=['_id', 'departure_at', 'from', 'to'])
-                dfTravel = dfTravel.rename(columns={'_id': 'id'})
+                    [travel], columns=['vehicle_id', 'travel_id', 'departure_at', 'from', 'to'])
                 # Append the new travel data to the existing CSV file
                 with open('travels.csv', 'a') as f:
                     dfTravel.to_csv(f, header=f.tell() == 0, index=False)
