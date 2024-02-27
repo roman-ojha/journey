@@ -164,3 +164,7 @@ def seedReviews():
 seedTravels()
 
 # seedReviews()
+
+
+a = pd.DataFrame()
+a.add()
