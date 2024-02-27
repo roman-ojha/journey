@@ -130,7 +130,9 @@ def seedTravels():
     dfTravels = dfTravels[['vehicle_id', 'travel_id',
                            'departure_at', 'from', 'to']]
     # Convert departure_at column to datetime
-    dfTravels['departure_at'] = pd.to_datetime(dfTravels['departure_at'])
+    # In departure_at only store date without time
+    dfTravels['departure_at'] = pd.to_datetime(
+        dfTravels['departure_at']).dt.date
     # Save DataFrame to CSV
     dfTravels.to_csv('travels.csv', index=False)
     print("Travels data saved to 'travels.csv' file")
@@ -159,6 +161,6 @@ def seedReviews():
     print("Reviews data saved to 'reviews.csv' file")
 
 
-# seedTravels()
+seedTravels()
 
-seedReviews()
+# seedReviews()

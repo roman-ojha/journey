@@ -110,32 +110,32 @@ const address: Partial<District>[] = [
       {
         name: "Kerkha",
       },
-      {
-        name: "Kakarvhita",
-      },
-      {
-        name: "Damak",
-      },
-      {
-        name: "Dudee",
-      },
-      {
-        name: "Birtamod",
-      },
-      {
-        name: "Bhadrapur",
-      },
-      {
-        name: "Padajugi",
-      },
+      // {
+      //   name: "Kakarvhita",
+      // },
+      // {
+      //   name: "Damak",
+      // },
+      // {
+      //   name: "Dudee",
+      // },
+      // {
+      //   name: "Birtamod",
+      // },
+      // {
+      //   name: "Bhadrapur",
+      // },
+      // {
+      //   name: "Padajugi",
+      // },
     ],
   },
   {
     name: "Morong",
     places: <Place[]>[
-      {
-        name: "Urlabari",
-      },
+      // {
+      //   name: "Urlabari",
+      // },
       {
         name: "Pathri",
       },
@@ -144,9 +144,9 @@ const address: Partial<District>[] = [
   {
     name: "Sunsari",
     places: <Place[]>[
-      {
-        name: "Itahari",
-      },
+      // {
+      //   name: "Itahari",
+      // },
       {
         name: "Biratnagar",
       },
@@ -158,18 +158,18 @@ const address: Partial<District>[] = [
       {
         name: "Koteshowr",
       },
-      {
-        name: "Gongabu, New Bus Park",
-      },
-      {
-        name: "Kalanki",
-      },
-      {
-        name: "Jadibuti",
-      },
-      {
-        name: "Sorhakhutte",
-      },
+      // {
+      //   name: "Gongabu, New Bus Park",
+      // },
+      // {
+      //   name: "Kalanki",
+      // },
+      // {
+      //   name: "Jadibuti",
+      // },
+      // {
+      //   name: "Sorhakhutte",
+      // },
     ],
   },
   {
@@ -446,4 +446,4 @@ async function createAddress() {
 // createVehicleModelAndAddSeats();
 // createAddress();
 
-createVehiclesAndTravel();
+// createVehiclesAndTravel();
