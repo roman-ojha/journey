@@ -1,5 +1,5 @@
 *) Journey (i.e: Sahayatri.com):
-    -> Platform help user to buy ticket online for Long Distance Bus, HiAce's, Cars travels.
+    -> Platform help user to buy Bus & Hiace's, Cars ticket online for Long Distance travels.
     *> Current Problem:
         -> People in nepal have to physically go to the ticket counters and on some festival like: dashain & tihar people even have to wait in a line for hours to buy tickets.
         -> Also some people do phone calls to these Bus & Hiace owner and ask to seat and negotiate for the price and is not guarantee that they will going to get the exact same that they ask for.
@@ -214,3 +214,24 @@ Laravel Error format:
         - Regularly evaluate the performance of the recommendation model using metrics such as precision, recall, and Mean Absolute Error (MAE) to ensure the effectiveness of the recommendations.
 
         By incorporating User-Based or Item-Based Collaborative Filtering, your platform can provide personalized recommendations based on the preferences and experiences of users, ultimately enhancing the overall user experience on Sahayatri.com.
+
+
+Here I my project that I am building:
+-> Platform help user to buy Bus & Hiace's ticket online for Long Distance travels.
+-> Here user can give rating to different vehicle that they have take service from.
+-> Here I am Explore page where we will Use recommendation algorithm
+-> Also User can search for a required vehicle by passing 3 parameters like 'from', 'to' & 'departure_at':
+from: means place from where user are currently now
+to: measn place where user want to arrived
+departure_at is the date when user want to travel
+
+After passing these information We as a platform we want to recommend best vehicles to the user based on the rating that user have gave to these vehicles:
+
+Algorithm That I think should here is 'User Based Collaborative Filtering' & Cosine Similarity.
+Bellow is the dataset format that I have:
+vehicles.csv:
+vehicle_id,departure_at,from,to
+65dc7f690b7a54f907aa7a6a,2024-03-02 12:09:13.082,"Biratnagar, Sunsari","Pathri, Morong"
+65dc7f6b0b7a54f907aa7b8b,2024-03-02 12:09:15.657,"Kalanki, Kathmandu","Gongabu, New Bus Park, Kathmandu"
+65dc7f6b0b7a54f907aa7ba1,2024-03-02 12:09:15.825,"Kalanki, Kathmandu","Gongabu, New Bus Park, Kathmandu"
+Now I want you to write a whole algorithm for this recommendation system and also write a code for this algorithm in python.

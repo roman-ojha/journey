@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2024-02-21T21:46:42.492Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.5 Chrome/114.0.5735.243 Electron/25.3.1 Safari/537.36" etag="7m7sp7QR2SHTsMa_yPjQ" version="21.6.5" type="device" pages="8">
+<mxfile host="Electron" modified="2024-02-27T06:48:28.176Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.5 Chrome/114.0.5735.243 Electron/25.3.1 Safari/537.36" etag="nhz9BOksj21a7bcwvoVZ" version="21.6.5" type="device" pages="9">
   <diagram name="System Design" id="v8atC4LrwgWgsppYc6KF">
-    <mxGraphModel dx="5630" dy="3887" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="3240" dy="2493" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -3357,6 +3357,86 @@
         </mxCell>
         <mxCell id="2LCsWMkVv4ciF-8I9EW9-100" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
           <mxGeometry x="-20" y="2950" width="40" height="350" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="q3fn0ziX6Qo0WlM0qASs" name="Vehicle Recommendation">
+    <mxGraphModel dx="574" dy="334" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="hNXqRIhkLbEkv-BaxVhA-1" value="DataSet" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="140" y="580" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hNXqRIhkLbEkv-BaxVhA-2" value="We wil perform&lt;br&gt;Some Data Analysis" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="580" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hNXqRIhkLbEkv-BaxVhA-3" value="Need to perform preprocessing like: Fixing data set format" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="590" y="580" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hNXqRIhkLbEkv-BaxVhA-4" value="Create A Model" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="820" y="580" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hNXqRIhkLbEkv-BaxVhA-5" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=-0.019;entryY=0.44;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="hNXqRIhkLbEkv-BaxVhA-1" target="hNXqRIhkLbEkv-BaxVhA-2">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="800" y="610" as="sourcePoint" />
+            <mxPoint x="850" y="560" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hNXqRIhkLbEkv-BaxVhA-6" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="hNXqRIhkLbEkv-BaxVhA-2" target="hNXqRIhkLbEkv-BaxVhA-3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="260" y="620" as="sourcePoint" />
+            <mxPoint x="368" y="616" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hNXqRIhkLbEkv-BaxVhA-7" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="hNXqRIhkLbEkv-BaxVhA-3" target="hNXqRIhkLbEkv-BaxVhA-4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="490" y="620" as="sourcePoint" />
+            <mxPoint x="600" y="620" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hNXqRIhkLbEkv-BaxVhA-8" value="Integrate into the Application" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1130" y="580" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hNXqRIhkLbEkv-BaxVhA-9" value="We will use Clustering Algorithm:&lt;br&gt;If you want to figure out simmer kind of user then we have to figure out their choices based on that we can cluster them together" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#a20025;fontColor=#ffffff;strokeColor=#6F0000;" vertex="1" parent="1">
+          <mxGeometry x="770" y="730" width="220" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="hNXqRIhkLbEkv-BaxVhA-10" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="hNXqRIhkLbEkv-BaxVhA-9" target="hNXqRIhkLbEkv-BaxVhA-4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="720" y="620" as="sourcePoint" />
+            <mxPoint x="830" y="620" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hNXqRIhkLbEkv-BaxVhA-12" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="605" y="990" width="550" height="360" as="geometry" />
+        </mxCell>
+        <mxCell id="hNXqRIhkLbEkv-BaxVhA-13" value="U1, U2, U3" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="655" y="1070" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="hNXqRIhkLbEkv-BaxVhA-14" value="U4, U5, U6" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="955" y="1050" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="hNXqRIhkLbEkv-BaxVhA-15" value="Here these user have the same similarities" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="635" y="1010" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="hNXqRIhkLbEkv-BaxVhA-16" value="Here these user have the same similarities" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="925" y="1000" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="hNXqRIhkLbEkv-BaxVhA-17" value="So we will make a cluster of them now" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="810" y="1130" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="hNXqRIhkLbEkv-BaxVhA-18" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="hNXqRIhkLbEkv-BaxVhA-9" target="hNXqRIhkLbEkv-BaxVhA-12">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1080" y="1030" as="sourcePoint" />
+            <mxPoint x="1130" y="980" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hNXqRIhkLbEkv-BaxVhA-19" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="hNXqRIhkLbEkv-BaxVhA-4" target="hNXqRIhkLbEkv-BaxVhA-8">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="720" y="620" as="sourcePoint" />
+            <mxPoint x="830" y="620" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
