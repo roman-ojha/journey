@@ -54,6 +54,8 @@ class Recommendation:
 
     def get_travel_ids_from_vehicle_id(self, vehicle_ids: list[str]):
         # Getting travel_id out of using vehicle_id
+        # NOTE that there could be multiple travel_id for a single vehicle_id so we need to recommend all travel_id for a single vehicle_id
+        # TODO So you need to see if bellow code is running fine or not in future.
         filtered_df = vehicles_df[vehicles_df['vehicle_id'].isin(vehicle_ids)]
         travel_ids = filtered_df.groupby(
             'vehicle_id')['travel_id'].apply(list).reset_index()
@@ -76,9 +78,3 @@ class Recommendation:
         recommended_vehicles = self.recommend(filtered_data, user_id)
         travel_ids = self.get_travel_ids_from_vehicle_id(recommended_vehicles)
         return travel_ids
-
-
-# recommendation = Recommendation()
-# print(recommendation.explore_vehicle(8))
-# print(recommendation.search_vehicle(
-#     "Pokhara, Kaski", "Pathri, Morong", "2024-03-03", 8))

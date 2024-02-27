@@ -9,10 +9,12 @@ import { VehicleModel } from "@/schema/VehicleModel";
 import apiRoutes from "@/services/api/routes";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError, AxiosResponse } from "axios";
+import { useAppSelector } from "../useAppStore";
 
 const fetchExploreVehicle = async (
-  searchParams: SearchParameterObj | null = null
-) => await apiRoutes.user.vehicle.explore(searchParams);
+  searchParams: SearchParameterObj | null = null,
+  userId: number
+) => await apiRoutes.user.vehicle.explore(searchParams, userId);
 
 export type ExploreVehicle = Travel & {
   from_place: Place & {
@@ -33,10 +35,13 @@ export type ExploreVehicle = Travel & {
 export default function useExploreAndSearchedVehicles(
   searchParams: SearchParameterObj | null
 ) {
+  // Temporary getting user_id
+  const authUser = useAppSelector((state) => state.authUser);
   // eslint-disable-next-line @tanstack/query/no-rest-destructuring
+  const userId = authUser.id == 0 ? 8 : authUser.id;
   return useQuery<AxiosResponse<ExploreVehicle[]>, AxiosError>({
-    queryKey: queryKeys.exploreOrSearchedVehicles(searchParams),
-    queryFn: () => fetchExploreVehicle(searchParams),
+    queryKey: queryKeys.exploreOrSearchedVehicles(searchParams, userId),
+    queryFn: () => fetchExploreVehicle(searchParams, userId),
     staleTime: 1000 * 60 * 10, // 10 minute
   });
 }
