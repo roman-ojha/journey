@@ -8,6 +8,24 @@ from data.constants import Constant
 import json
 import pandas as pd
 import config.settings  # Need to import to load environment variables
+import pickle
+import pandas as pd
+from sklearn.metrics.pairwise import cosine_similarity
+from collections import defaultdict
+
+
+def train_model():
+    # Step 1: Load the Data
+    vehicles_df = pd.read_csv('data/dataset/travels.csv')
+    reviews_df = pd.read_csv('data/dataset/reviews.csv')
+    reviews_df.rename(columns={"id": 'review_id'}, inplace=True)
+
+    # Step 2: Preprocess the Data
+    vehicles_with_reviews = pd.merge(reviews_df, vehicles_df, on='vehicle_id')
+
+    # Now we will export all the trained dataset into pkl files
+    pickle.dump(vehicles_with_reviews, open(
+        "data/trained-modelsvehicles_with_reviews.pkl", 'wb'))
 
 
 class PikaClient:
@@ -67,14 +85,15 @@ class PikaClient:
             travel = body.decode()
             # convert string to dictionary
             travel: dict = json.loads(travel)
+            print(travel)
             if travel.get('vehicle_id') and travel.get('travel_id') and travel.get('departure_at') and travel.get('from') and travel.get('to'):
                 travel['departure_at'] = pd.to_datetime(
-                    travel['departure_at'])
+                    travel['departure_at']).date()
                 # Create a DataFrame with the desired order of columns
                 dfTravel = pd.DataFrame(
                     [travel], columns=['vehicle_id', 'travel_id', 'departure_at', 'from', 'to'])
                 # Append the new travel data to the existing CSV file
-                with open('./data/dataset/travels.csv', 'a') as f:
+                with open('data/dataset/travels.csv', 'a') as f:
                     dfTravel.to_csv(f, header=f.tell() == 0, index=False)
             # acknowledge the message so that it will get remove from the queue
             ch.basic_ack(delivery_tag=method.delivery_tag)

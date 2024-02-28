@@ -1,242 +1,250 @@
 version: "3.9"
 services:
-  api-docs:
-    container_name: journey-api-docs-service
-    image: romanojha/journey-api-docs-service
-    build:
-      context: ./api-docs-service
-      dockerfile: Dockerfile
-    env_file:
-      - docker.env
-
-  main-proxy:
-    container_name: journey-main-proxy
-    image: romanojha/journey-main-proxy
-    build:
-      context: ./main-proxy
-      dockerfile: Dockerfile
-    ports:
-      - "8003:80"
-    env_file:
-      - docker.env
-    depends_on:
-      - admin-service
-      - api-gateway
-      - api-docs
-      # - user-client
-      - user-vehicle-service
-
-  api-gateway:
-    container_name: journey-api-gateway
-    image: romanojha/journey-api-gateway
-    build:
-      context: ./api-gateway
-      dockerfile: Dockerfile
-    env_file:
-      - docker.env
-    depends_on:
-      - postgres
-      - mysql
-      # - merchant-service
-      - user-service
-
-  user-service:
-    container_name: journey-user-service
-    image: romanojha/journey-user-service
-    build:
-      context: ./user-service
-      dockerfile: Dockerfile
-    env_file:
-      - docker.env
-    depends_on:
-      - postgres
-
-  # user-client:
-  #   container_name: journey-user-client
-  #   image: romanojha/journey-user-client
+  # api-docs:
+  #   container_name: journey-api-docs-service
+  #   image: romanojha/journey-api-docs-service
   #   build:
-  #     context: ./user-client
+  #     context: ./api-docs-service
   #     dockerfile: Dockerfile
-  #   # ports:
-  #   #   - "3001:3001"
-
-  user-vehicle-review-service:
-    container_name: journey-user-vehicle-review-service
-    image: romanojha/journey-user-vehicle-review-service
-    build:
-      context: ./user-vehicle-review-service
-      dockerfile: Dockerfile
-    env_file:
-      - docker.env
-    depends_on:
-      - mongo
-      - postgres
-      - mysql
-
-  user-vehicle-booking-service:
-    container_name: journey-user-vehicle-booking-service
-    image: romanojha/journey-user-vehicle-booking-service
-    build:
-      context: ./user-vehicle-booking-service
-      dockerfile: Dockerfile
-    env_file:
-      - docker.env
-    depends_on:
-      - mongo
-    ports:
-      - "8008:8008"
-
-  user-vehicle-service:
-    container_name: journey-user-vehicle-service
-    image: romanojha/journey-user-vehicle-service
-    build:
-      context: ./user-vehicle-service
-      dockerfile: Dockerfile
-    env_file:
-      - docker.env
-    depends_on:
-      - mongo
-    volumes:
-      - ./user-vehicle-service/data:/app/data
-
-  # admin-client:
-  #   container_name: journey-admin-client
-  #   image: romanojha/journey-admin-client
-  #   build:
-  #     context: ./admin-client
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "3000:3000"
-  #   env_file:
-  #     - ./admin-client/.env
-
-  admin-service:
-    container_name: journey-admin-service
-    image: romanojha/journey-admin-service
-    build:
-      context: ./admin-service
-      dockerfile: Dockerfile
-    env_file:
-      - docker.env
-    depends_on:
-      - mysql
-
-  merchant-service:
-    container_name: journey-merchant-service
-    image: romanojha/journey-merchant-service
-    build:
-      context: ./merchant-service
-      dockerfile: Dockerfile
-    # restart: unless-stopped
-    # volumes: # for development on docker container
-    #   - ./merchant-service:/var/www/html
-    env_file:
-      - ./merchant-service/docker.env
-    depends_on:
-      - mysql
-
-  merchant-vehicle-and-travel-service:
-    container_name: journey-merchant-vehicle-and-travel-service
-    image: romanojha/journey-merchant-vehicle-and-travel-service
-    build:
-      context: ./merchant-vehicle-and-travel-service
-      dockerfile: Dockerfile
-    env_file:
-      - docker.env
-    depends_on:
-      - mongo
-
-  # phpmyadmin:
-  #   container_name: journey-phpmyadmin
-  #   image: phpmyadmin:5.2.1-apache
-  #   ports:
-  #     - "8080:80"
   #   env_file:
   #     - docker.env
-  #   links:
-  #     - "mysql:db"
 
-  user-service-prisma-studio:
-    container_name: journey-user-service-prisma-studio
-    image: romanojha/journey-user-service-prisma-studio
+  # main-proxy:
+  #   container_name: journey-main-proxy
+  #   image: romanojha/journey-main-proxy
+  #   build:
+  #     context: ./main-proxy
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "8003:80"
+  #   env_file:
+  #     - docker.env
+  #   depends_on:
+  #     - admin-service
+  #     - api-gateway
+  #     - api-docs
+  #     # - user-client
+  #     - user-vehicle-service
+
+  # api-gateway:
+  #   container_name: journey-api-gateway
+  #   image: romanojha/journey-api-gateway
+  #   build:
+  #     context: ./api-gateway
+  #     dockerfile: Dockerfile
+  #   env_file:
+  #     - docker.env
+  #   depends_on:
+  #     - postgres
+  #     - mysql
+  #     # - merchant-service
+  #     - user-service
+
+  # user-service:
+  #   container_name: journey-user-service
+  #   image: romanojha/journey-user-service
+  #   build:
+  #     context: ./user-service
+  #     dockerfile: Dockerfile
+  #   env_file:
+  #     - docker.env
+  #   depends_on:
+  #     - postgres
+
+  # # user-client:
+  # #   container_name: journey-user-client
+  # #   image: romanojha/journey-user-client
+  # #   build:
+  # #     context: ./user-client
+  # #     dockerfile: Dockerfile
+  # #   # ports:
+  # #   #   - "3001:3001"
+
+  # user-vehicle-review-service:
+  #   container_name: journey-user-vehicle-review-service
+  #   image: romanojha/journey-user-vehicle-review-service
+  #   build:
+  #     context: ./user-vehicle-review-service
+  #     dockerfile: Dockerfile
+  #   env_file:
+  #     - docker.env
+  #   depends_on:
+  #     - mongo
+  #     - postgres
+  #     - mysql
+
+  # user-vehicle-booking-service:
+  #   container_name: journey-user-vehicle-booking-service
+  #   image: romanojha/journey-user-vehicle-booking-service
+  #   build:
+  #     context: ./user-vehicle-booking-service
+  #     dockerfile: Dockerfile
+  #   env_file:
+  #     - docker.env
+  #   depends_on:
+  #     - mongo
+  #   ports:
+  #     - "8008:8008"
+
+  # user-vehicle-service:
+  #   container_name: journey-user-vehicle-service
+  #   image: romanojha/journey-user-vehicle-service
+  #   build:
+  #     context: ./user-vehicle-service
+  #     dockerfile: Dockerfile
+  #   env_file:
+  #     - docker.env
+  #   depends_on:
+  #     - mongo
+  #   volumes:
+  #     - ./user-vehicle-service/data:/app/data
+
+  travel-mq-consumer-service:
+    container_name: journey-mq-travel-consumer-service
+    image: romanojha/journey-mq-travel-consumer-service
     build:
-      context: ./user-service
-      dockerfile: Prisma.Dockerfile
+      context: ./user-vehicle-service
+      dockerfile: Dockerfile.consumer
     env_file:
       - docker.env
-    ports:
-      - "5555:5555"
-    depends_on:
-      - postgres
+#   # admin-client:
+#   #   container_name: journey-admin-client
+#   #   image: romanojha/journey-admin-client
+#   #   build:
+#   #     context: ./admin-client
+#   #     dockerfile: Dockerfile
+#   #   ports:
+#   #     - "3000:3000"
+#   #   env_file:
+#   #     - ./admin-client/.env
 
-  merchant-v-and-t-service-prisma-studio:
-    container_name: journey-merchant-v-and-t-service-prisma-studio
-    image: romanojha/journey-merchant-v-and-t-service-prisma-studio
-    build:
-      context: ./merchant-vehicle-and-travel-service
-      dockerfile: Prisma.Dockerfile
-    env_file:
-      - docker.env
-    ports:
-      - "5556:5556"
-    depends_on:
-      - mongo
+#   admin-service:
+#     container_name: journey-admin-service
+#     image: romanojha/journey-admin-service
+#     build:
+#       context: ./admin-service
+#       dockerfile: Dockerfile
+#     env_file:
+#       - docker.env
+#     depends_on:
+#       - mysql
 
-  user-vehicle-review-service-prisma-studio:
-    container_name: journey-user-vehicle-review-service-prisma-studio
-    image: romanojha/journey-user-vehicle-review-service-prisma-studio
-    build:
-      context: ./user-vehicle-review-service
-      dockerfile: Prisma.Dockerfile
-    env_file:
-      - docker.env
-    ports:
-      - "5557:5557"
-    depends_on:
-      - mongo
+#   merchant-service:
+#     container_name: journey-merchant-service
+#     image: romanojha/journey-merchant-service
+#     build:
+#       context: ./merchant-service
+#       dockerfile: Dockerfile
+#     # restart: unless-stopped
+#     # volumes: # for development on docker container
+#     #   - ./merchant-service:/var/www/html
+#     env_file:
+#       - ./merchant-service/docker.env
+#     depends_on:
+#       - mysql
 
-  postgres:
-    container_name: journey-postgres-db
-    image: postgres:14
-    env_file:
-      - docker.env
-    environment:
-      - DATABASE_TYPE=postgres
-    # ports:
-    #   - "5432:5432"
-    volumes:
-      - journey-postgresql:/var/lib/postgresql/data
-      - ./initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
+#   merchant-vehicle-and-travel-service:
+#     container_name: journey-merchant-vehicle-and-travel-service
+#     image: romanojha/journey-merchant-vehicle-and-travel-service
+#     build:
+#       context: ./merchant-vehicle-and-travel-service
+#       dockerfile: Dockerfile
+#     env_file:
+#       - docker.env
+#     depends_on:
+#       - mongo
 
-  mysql:
-    container_name: journey-mysql-db
-    image: mysql:8.2.0
-    env_file:
-      - docker.env
-    environment:
-      - DATABASE_TYPE=mysql
-    # ports:
-    #   - "3306:3306"
-    volumes:
-      - journey-mysql:/var/lib/mysql
-      - ./initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
+#   # phpmyadmin:
+#   #   container_name: journey-phpmyadmin
+#   #   image: phpmyadmin:5.2.1-apache
+#   #   ports:
+#   #     - "8080:80"
+#   #   env_file:
+#   #     - docker.env
+#   #   links:
+#   #     - "mysql:db"
 
-  mongo:
-    container_name: journey-mongo-db
-    restart: always
-    build:
-      context: ./mongodb-rs
-      dockerfile: Dockerfile
-    env_file:
-      - docker.env
-    ports:
-      - "27018:27017"
-    volumes:
-      - journey-mongo:/data/db
-volumes:
-  journey-postgresql:
-    driver: local
-  journey-mysql:
-    driver: local
-  journey-mongo:
-    driver: local
+#   user-service-prisma-studio:
+#     container_name: journey-user-service-prisma-studio
+#     image: romanojha/journey-user-service-prisma-studio
+#     build:
+#       context: ./user-service
+#       dockerfile: Prisma.Dockerfile
+#     env_file:
+#       - docker.env
+#     ports:
+#       - "5555:5555"
+#     depends_on:
+#       - postgres
+
+#   merchant-v-and-t-service-prisma-studio:
+#     container_name: journey-merchant-v-and-t-service-prisma-studio
+#     image: romanojha/journey-merchant-v-and-t-service-prisma-studio
+#     build:
+#       context: ./merchant-vehicle-and-travel-service
+#       dockerfile: Prisma.Dockerfile
+#     env_file:
+#       - docker.env
+#     ports:
+#       - "5556:5556"
+#     depends_on:
+#       - mongo
+
+#   user-vehicle-review-service-prisma-studio:
+#     container_name: journey-user-vehicle-review-service-prisma-studio
+#     image: romanojha/journey-user-vehicle-review-service-prisma-studio
+#     build:
+#       context: ./user-vehicle-review-service
+#       dockerfile: Prisma.Dockerfile
+#     env_file:
+#       - docker.env
+#     ports:
+#       - "5557:5557"
+#     depends_on:
+#       - mongo
+
+#   postgres:
+#     container_name: journey-postgres-db
+#     image: postgres:14
+#     env_file:
+#       - docker.env
+#     environment:
+#       - DATABASE_TYPE=postgres
+#     # ports:
+#     #   - "5432:5432"
+#     volumes:
+#       - journey-postgresql:/var/lib/postgresql/data
+#       - ./initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
+
+#   mysql:
+#     container_name: journey-mysql-db
+#     image: mysql:8.2.0
+#     env_file:
+#       - docker.env
+#     environment:
+#       - DATABASE_TYPE=mysql
+#     # ports:
+#     #   - "3306:3306"
+#     volumes:
+#       - journey-mysql:/var/lib/mysql
+#       - ./initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
+
+#   mongo:
+#     container_name: journey-mongo-db
+#     restart: always
+#     build:
+#       context: ./mongodb-rs
+#       dockerfile: Dockerfile
+#     env_file:
+#       - docker.env
+#     ports:
+#       - "27018:27017"
+#     volumes:
+#       - journey-mongo:/data/db
+# volumes:
+#   journey-postgresql:
+#     driver: local
+#   journey-mysql:
+#     driver: local
+#   journey-mongo:
+#     driver: local

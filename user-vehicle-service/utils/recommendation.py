@@ -55,8 +55,10 @@ class Recommendation:
         popular_df = vehicles_with_ratings_df.merge(
             average_rating_df, on='vehicle_id')
         # Only get top 30 vehicles
+        # popular_df = popular_df.sort_values(
+        #     'no_of_rating', ascending=False).head(30)
         popular_df = popular_df.sort_values(
-            'no_of_rating', ascending=False).head(30)
+            'no_of_rating', ascending=False)
         popular_df = popular_df.sort_values('avg_rating', ascending=False)
         popular_vehicles = popular_df["vehicle_id"].values.tolist()
         return popular_vehicles
