@@ -2,9 +2,9 @@ import { SafeUser } from "@/schema/User";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 type UserTypeWithoutId = Omit<SafeUser, "id">;
-type FinalUserType = UserTypeWithoutId & { id: number | null };
+export type AuthUser = UserTypeWithoutId & { id: number | null };
 
-const initialState: FinalUserType = {
+const initialState: AuthUser = {
   email: "",
   f_name: "",
   gender: "FEMALE",

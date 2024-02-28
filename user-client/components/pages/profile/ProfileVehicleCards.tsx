@@ -31,6 +31,8 @@ const ProfileVehicleCards = (): React.JSX.Element => {
               key={index}
               isLoading={isLoading}
               href="/"
+              departure_from=""
+              destination_place=""
             />
           ))
         : isSuccess && data
@@ -49,6 +51,8 @@ const ProfileVehicleCards = (): React.JSX.Element => {
               key={index}
               isLoading={isLoading}
               href={`/profile/booked-vehicle/${vehicle.slug}`}
+              departure_from={`${vehicle.travel.from_place.name}, ${vehicle.travel.from_place.district.name}`}
+              destination_place={`${vehicle.travel.to_place.name}, ${vehicle.travel.to_place.district.name}`}
             />
           ))
         : null}

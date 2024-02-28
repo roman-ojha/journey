@@ -2,11 +2,11 @@ import { SearchParameterObj } from "@/components/pages/explore/Main";
 
 const queryKeys = {
   exploreOrSearchedVehicles: (
-    searchParams: SearchParameterObj | null = null,
+    searchParams: {} | null = null,
     user_id: number | null
   ) => {
     if (!searchParams) {
-      return ["explore-or-searched-vehicles", user_id];
+      return ["explore-or-searched-vehicles"];
     }
     return [
       "explore-or-searched-vehicles",

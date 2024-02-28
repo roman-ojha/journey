@@ -44,6 +44,7 @@ import useGetPlaces from "@/hooks/reactQuery/useGetPlaces";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
 import queryKeys from "@/data/queryKeys";
+import { useAppSelector } from "@/hooks/useAppStore";
 
 const FormSchema = z.object({
   dob: z.date({
@@ -80,6 +81,8 @@ const HorizontalSearchBox = (): React.JSX.Element => {
   });
 
   const { data: districts } = useGetPlaces();
+
+  const authUser = useAppSelector((state) => state.authUser);
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     toast({
@@ -132,7 +135,7 @@ const HorizontalSearchBox = (): React.JSX.Element => {
         //     formData.to.district
         //   }-${formData.to.place}-${format(formData.departure_at, "yyyy-MM-dd")}`
         // ),
-        queryKey: queryKeys.exploreOrSearchedVehicles(),
+        queryKey: queryKeys.exploreOrSearchedVehicles(formData, authUser.id),
       });
     }
   };

@@ -8,14 +8,8 @@ import {
   VehicleSeat,
 } from "@/interface/Vehicle";
 import { VehicleModel } from "@/schema/VehicleModel";
-import {
-  PayloadAction,
-  createSlice,
-  createDraftSafeSelector,
-} from "@reduxjs/toolkit";
-import { setAuthUser } from "../authUser/authUserSlice";
-import { Irish_Grover } from "next/font/google";
-import { SafeUser } from "@/schema/User";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { AuthUser, setAuthUser } from "../authUser/authUserSlice";
 
 const getEmptySeat = (): EmptySeat => ({
   isSeat: false,
@@ -194,7 +188,7 @@ const vehicleSeatsSlice = createSlice({
       action: PayloadAction<{
         seats: VehicleDetail["seats"];
         vehicleType: VehicleModel["name"];
-        authUser: SafeUser;
+        authUser: AuthUser;
       }>
     ) => {
       let finalTempSeats: VehicleSeat[][] = [];

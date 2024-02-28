@@ -13,8 +13,14 @@ import { AxiosError, AxiosResponse } from "axios";
 export type BookedVehicles = Vehicle & {
   model: VehicleModel;
   image: VehicleImage;
-  travel: Travel;
-  //NOTE: just adding rating & no_of_reviews we aren't getting from the server right now
+  travel: Travel & {
+    from_place: Place & {
+      district: District;
+    };
+    to_place: Place & {
+      district: District;
+    };
+  };
   average_rating: number;
   no_of_reviews: number;
 };
