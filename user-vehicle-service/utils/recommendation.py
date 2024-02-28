@@ -30,30 +30,6 @@ class Recommendation:
         user_rated_vehicles_list = list(user_ratings.items())
         return user_rated_vehicles_list
 
-    def recommend(self, data_frame, user_id):
-        user_rated_vehicles_list = self.get_user_rated_vehicles(
-            data_frame=data_frame, user_id=user_id)
-
-        # user_ratings = data_frame.pivot_table(
-        #     index='user_id', columns='vehicle_id', values='rating').fillna(0)
-        # ratings_std = user_ratings.apply(self.standardize_rating)
-        # # similarity_matrix = cosine_similarity(ratings_std)
-        # vehicles_similarity_matrix = cosine_similarity(ratings_std.T)
-        # vehicles_similarity_matrix_df = pd.DataFrame(
-        #     vehicles_similarity_matrix, index=ratings_std.columns, columns=ratings_std.columns)
-        # similar_vehicles_df = pd.DataFrame()
-        # dfs = []
-        # for vehicle_id, rating in user_rated_vehicles_list:
-        #     similarity_df = self.get_similar_vehicles(
-        #         vehicles_similarity_matrix_df, vehicle_id, rating)
-        #     similarity_df.columns = [vehicle_id]
-        #     dfs.append(similarity_df)
-        # similar_vehicles_df = pd.concat(dfs, axis=1)
-        # similar_vehicles_df.reset_index(drop=True, inplace=True)
-        # similar_vehicles = similar_vehicles_df.sum().sort_values(ascending=False)
-        # recommended_vehicles = similar_vehicles.index.tolist()
-        # return recommended_vehicles
-
     def get_travel_ids_from_vehicle_id(self, vehicle_ids: list[str]):
         # Getting travel_id out of using vehicle_id
         # NOTE that there could be multiple travel_id for a single vehicle_id so we need to recommend all travel_id for a single vehicle_id
@@ -67,19 +43,68 @@ class Recommendation:
             item for sublist in travel_id_list for item in sublist]
         return [str(travel_id) for travel_id in flat_travel_ids]
 
-    def explore_vehicle(self, user_id: int):
+    def popularity_based_recommendation(self, data_frame) -> list[str]:
+        vehicles_with_ratings_df = data_frame.groupby("vehicle_id").count()[
+            "rating"].reset_index()
+        vehicles_with_ratings_df.rename(
+            columns={"rating": "no_of_rating"}, inplace=True)
+        average_rating_df = data_frame.groupby(
+            "vehicle_id")["rating"].mean().reset_index()
+        average_rating_df.rename(
+            columns={"rating": "avg_rating"}, inplace=True)
+        popular_df = vehicles_with_ratings_df.merge(
+            average_rating_df, on='vehicle_id')
+        # Only get top 30 vehicles
+        popular_df = popular_df.sort_values(
+            'no_of_rating', ascending=False).head(30)
+        popular_df = popular_df.sort_values('avg_rating', ascending=False)
+        popular_vehicles = popular_df["vehicle_id"].values.tolist()
+        return popular_vehicles
+
+    def collaborative_filtering_recommendation(self, data_frame, user_rated_vehicles_list: list) -> list[str]:
+        user_ratings = data_frame.pivot_table(
+            index='user_id', columns='vehicle_id', values='rating').fillna(0)
+        ratings_std = user_ratings.apply(self.standardize_rating)
+        # similarity_matrix = cosine_similarity(ratings_std)
+        vehicles_similarity_matrix = cosine_similarity(ratings_std.T)
+        vehicles_similarity_matrix_df = pd.DataFrame(
+            vehicles_similarity_matrix, index=ratings_std.columns, columns=ratings_std.columns)
+        similar_vehicles_df = pd.DataFrame()
+        dfs = []
+        for vehicle_id, rating in user_rated_vehicles_list:
+            similarity_df = self.get_similar_vehicles(
+                vehicles_similarity_matrix_df, vehicle_id, rating)
+            similarity_df.columns = [vehicle_id]
+            dfs.append(similarity_df)
+        similar_vehicles_df = pd.concat(dfs, axis=1)
+        similar_vehicles_df.reset_index(drop=True, inplace=True)
+        similar_vehicles = similar_vehicles_df.sum().sort_values(ascending=False)
+        recommended_vehicles = similar_vehicles.index.tolist()
+        return recommended_vehicles
+
+    def recommend(self, data_frame, user_id: int | None) -> list:
+        user_rated_vehicles_list = self.get_user_rated_vehicles(
+            data_frame=data_frame, user_id=user_id)
+        print(user_rated_vehicles_list)
+        if len(user_rated_vehicles_list) == 0:
+            # If user has not rated any vehicle then recommend popular vehicles
+            # OR recommend popularity based vehicles for UnAuthorized user
+            return self.popularity_based_recommendation(data_frame)
+
+        return self.collaborative_filtering_recommendation(data_frame=data_frame, user_rated_vehicles_list=user_rated_vehicles_list)
+
+    def explore_vehicle(self, user_id: int | None) -> list[str]:
         recommended_vehicles = self.recommend(vehicles_with_reviews, user_id)
-        # only 25 vehicles will be recommended with random shuffle
+        if len(recommended_vehicles) == 0:
+            return []
+        # # only 30 vehicles will be recommended
         travel_ids = self.get_travel_ids_from_vehicle_id(
-            recommended_vehicles[:25])
+            recommended_vehicles[:30])
         return travel_ids
 
-    def search_vehicle(self, from_location: str, to_location: str, departure_at: str, user_id: int):
+    def search_vehicle(self, from_location: str, to_location: str, departure_at: str, user_id: int | None) -> list[str]:
         filtered_data = vehicles_with_reviews[(vehicles_with_reviews['from'] == from_location) & (
             vehicles_with_reviews['to'] == to_location) & (vehicles_with_reviews['departure_at'] == departure_at)]
         recommended_vehicles = self.recommend(filtered_data, user_id)
         travel_ids = self.get_travel_ids_from_vehicle_id(recommended_vehicles)
         return travel_ids
-
-
-reco
