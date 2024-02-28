@@ -13,7 +13,7 @@ import { useAppSelector } from "../useAppStore";
 
 const fetchExploreVehicle = async (
   searchParams: SearchParameterObj | null = null,
-  userId: number
+  userId: number | null
 ) => await apiRoutes.user.vehicle.explore(searchParams, userId);
 
 export type ExploreVehicle = Travel & {

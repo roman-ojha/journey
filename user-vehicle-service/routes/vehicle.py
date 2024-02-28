@@ -12,7 +12,7 @@ recommendation = Recommendation()
 
 # TODO: you have to get the user_id from the authenticated user
 @router.get("/explore")
-async def get_travel_vehicles(user_id: int):
+async def get_travel_vehicles(user_id: int | None = None):
     try:
         recommended_travel_ids = recommendation.explore_vehicle(
             user_id=user_id)
@@ -27,10 +27,10 @@ async def get_travel_vehicles(user_id: int):
 
 
 @router.get("/explore/search")
-async def get_travel_vehicles(from_district: str, from_place: str, to_district: str, to_place: str, departure_at: str, user_id: str):
+async def get_travel_vehicles(from_district: str, from_place: str, to_district: str, to_place: str, departure_at: str, user_id: int | None = None):
     try:
         recommended_travel_ids = recommendation.search_vehicle(
-            from_location=from_place + ", "+from_district, to_location=to_place + ", "+to_district, departure_at=departure_at, user_id=int(user_id))
+            from_location=from_place + ", "+from_district, to_location=to_place + ", "+to_district, departure_at=departure_at, user_id=user_id)
         vehicles = repository.get_travels_from_travel_ids(
             travel_ids=recommended_travel_ids)
         # shuffled_vehicles = sorted(

@@ -71,14 +71,20 @@ const apiRoutes = {
     vehicle: {
       explore: async (
         searchParams: SearchParameterObj | null,
-        userId: number
+        userId: number | null
       ): Promise<AxiosResponse<ExploreVehicle[]>> => {
         if (searchParams) {
           return await axios({
             method: "GET",
             url:
               "/user/vehicle/explore/search?" +
-              `from_district=${searchParams.from.district}&from_place=${searchParams.from.place}&to_district=${searchParams.to.district}&to_place=${searchParams.to.place}&departure_at=${searchParams.departure_at}&user_id=${userId}`,
+              `from_district=${searchParams.from.district}&from_place=${
+                searchParams.from.place
+              }&to_district=${searchParams.to.district}&to_place=${
+                searchParams.to.place
+              }&departure_at=${searchParams.departure_at}${
+                userId ? `&user_id=${userId}` : ""
+              }`,
             headers: {
               "Content-Type": "application/json",
             },
@@ -86,7 +92,7 @@ const apiRoutes = {
         }
         return await axios({
           method: "GET",
-          url: "/user/vehicle/explore?user_id=" + userId,
+          url: `/user/vehicle/explore${userId ? `?user_id=${userId}` : ""}`,
           headers: {
             "Content-Type": "application/json",
           },
