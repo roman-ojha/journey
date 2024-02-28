@@ -115,11 +115,10 @@ const NavBar = (): React.JSX.Element => {
                   router.push("/profile");
                 }}
               >
-                <AvatarImage
-                  src={data?.data?.picture}
-                  alt={data?.data?.f_name}
-                />
-                <AvatarFallback>RO</AvatarFallback>
+                <AvatarImage src={data.data.picture} />
+                <AvatarFallback className="capitalize bg-secondary w-9 h-9 text-xs">
+                  RO
+                </AvatarFallback>
               </Avatar>
             </>
           ) : null}

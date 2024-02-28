@@ -51,6 +51,7 @@ export function BuySeatsDrawer({
   }
 
   if (isSuccess) {
+    console.log(data.data.data);
     window.location.href = data.data.data.payment_url;
   }
 

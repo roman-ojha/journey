@@ -57,22 +57,22 @@ const BookedSeats = (): React.JSX.Element => {
           </span>
         ))} */}
       </div>
-      <div className="flex gap-2">
+      {/* <div className="flex gap-2">
         <b>Payment status:</b>
         <p>Pending</p>
-      </div>
+      </div> */}
       <div className={styles.selected_seats_total_price}>
         <b>Total Price: </b>
         <p>Rs. {getTotalSeatPrice(authUserBookedSeats)}</p>
       </div>
-      <p>
+      {/* <p>
         NOTE that if you will not pay booked seats for 15 min and then if other
         have booked the same seats then your booking won&apos;t consider valid
         and you booking will get removed.
-      </p>
-      <Button backgroundColor="primary" width="100%">
+      </p> */}
+      {/* <Button backgroundColor="primary" width="100%">
         Pay Now
-      </Button>
+      </Button> */}
     </section>
   );
 };

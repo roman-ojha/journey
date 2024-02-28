@@ -6,7 +6,6 @@ import pandas as pd
 
 vehicles_with_reviews = pickle.load(
     open("data/trained-models/vehicles_with_reviews.pkl", 'rb'))  # load trained data model
-vehicles_df = pd.read_csv('data/dataset/travels.csv')
 
 
 class Recommendation:
@@ -31,6 +30,8 @@ class Recommendation:
         return user_rated_vehicles_list
 
     def get_travel_ids_from_vehicle_id(self, vehicle_ids: list[str]):
+        # NOTE: that we need to load the travels.csv file so that we can get upto date data
+        vehicles_df = pd.read_csv('data/dataset/travels.csv')
         # Getting travel_id out of using vehicle_id
         # NOTE that there could be multiple travel_id for a single vehicle_id so we need to recommend all travel_id for a single vehicle_id
         # TODO So you need to see if bellow code is running fine or not in future.
@@ -104,6 +105,8 @@ class Recommendation:
         return travel_ids
 
     def search_vehicle(self, from_location: str, to_location: str, departure_at: str, user_id: int | None) -> list[str]:
+        # NOTE: that we need to load the travels.csv file so that we can get upto date data
+        vehicles_df = pd.read_csv('data/dataset/travels.csv')
         filtered_data = vehicles_with_reviews[(vehicles_with_reviews['from'] == from_location) & (
             vehicles_with_reviews['to'] == to_location) & (vehicles_with_reviews['departure_at'] == departure_at)]
         filtered_data_from_vehicles_df = vehicles_df[(vehicles_df['from'] == from_location) & (

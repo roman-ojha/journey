@@ -215,9 +215,12 @@ class Repository(Database):
         # vehicleReviews = [{"_id": str(vehicleReview.get('_id')),  "no_of_reviews": vehicleReview.get(
         #     "no_of_reviews"), "average_rating": vehicleReview.get("average_rating")} for vehicleReview in vehicleReviews]
         # Now push 'no_or_reviews' and 'average_rating' to the serializedVehicle
+        print(len(serializedVehicle.data))
+        print(len(vehicleReviews))
         newVehicles = []
         for vehicle in serializedVehicle.data:
             vehicle_id = vehicle.get("vehicle").get("_id")
+            vehicle_with_review_exist = False
             for vehicleReview in vehicleReviews:
                 if vehicle_id == vehicleReview.get("_id"):
                     vehicle["no_of_reviews"] = vehicleReview.get(
@@ -225,7 +228,12 @@ class Repository(Database):
                     vehicle["average_rating"] = vehicleReview.get(
                         "average_rating")
                     newVehicles.append(vehicle)
+                    vehicle_with_review_exist = True
                     break
+            if not vehicle_with_review_exist:
+                vehicle["no_of_reviews"] = 0
+                vehicle["average_rating"] = 0
+                newVehicles.append(vehicle)
         return newVehicles
 
     def get_vehicle_by_slug(self, vehicle_slug):

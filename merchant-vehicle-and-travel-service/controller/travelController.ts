@@ -100,10 +100,12 @@ export default class TravelController extends Controller {
             departure_at: resNewTravel.departure_at,
             from:
               resNewTravel.from_place.name +
-              " " +
-              resNewTravel.from_place.district,
+              ", " +
+              resNewTravel.from_place.district.name,
             to:
-              resNewTravel.to_place.name + " " + resNewTravel.to_place.district,
+              resNewTravel.to_place.name +
+              ", " +
+              resNewTravel.to_place.district.name,
           }
         );
         return res.json(successResponse(null, resNewTravel));
