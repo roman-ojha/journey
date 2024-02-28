@@ -5,8 +5,8 @@ from collections import defaultdict
 import pandas as pd
 
 vehicles_with_reviews = pickle.load(
-    open("vehicles_with_reviews.pkl", 'rb'))  # load trained data model
-vehicles_df = pd.read_csv('travels.csv')
+    open("data/trained-models/vehicles_with_reviews.pkl", 'rb'))  # load trained data model
+vehicles_df = pd.read_csv('data/dataset/travels.csv')
 
 
 class Recommendation:

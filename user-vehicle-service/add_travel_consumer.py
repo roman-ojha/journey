@@ -74,7 +74,7 @@ class PikaClient:
                 dfTravel = pd.DataFrame(
                     [travel], columns=['vehicle_id', 'travel_id', 'departure_at', 'from', 'to'])
                 # Append the new travel data to the existing CSV file
-                with open('travels.csv', 'a') as f:
+                with open('./data/dataset/travels.csv', 'a') as f:
                     dfTravel.to_csv(f, header=f.tell() == 0, index=False)
             # acknowledge the message so that it will get remove from the queue
             ch.basic_ack(delivery_tag=method.delivery_tag)

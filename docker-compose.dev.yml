@@ -20,10 +20,11 @@ services:
     env_file:
       - docker.env
     depends_on:
-      # - admin-service
+      - admin-service
       - api-gateway
       - api-docs
       # - user-client
+      - user-vehicle-service
 
   api-gateway:
     container_name: journey-api-gateway
@@ -84,6 +85,19 @@ services:
       - mongo
     ports:
       - "8008:8008"
+
+  user-vehicle-service:
+    container_name: journey-user-vehicle-service
+    image: romanojha/journey-user-vehicle-service
+    build:
+      context: ./user-vehicle-service
+      dockerfile: Dockerfile
+    env_file:
+      - docker.env
+    depends_on:
+      - mongo
+    volumes:
+      - ./user-vehicle-service/data:/app/data
 
   # admin-client:
   #   container_name: journey-admin-client

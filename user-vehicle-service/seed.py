@@ -134,7 +134,7 @@ def seedTravels():
     dfTravels['departure_at'] = pd.to_datetime(
         dfTravels['departure_at']).dt.date
     # Save DataFrame to CSV
-    dfTravels.to_csv('travels.csv', index=False)
+    dfTravels.to_csv('./data/dataset/travels.csv', index=False)
     print("Travels data saved to 'travels.csv' file")
 
 
@@ -157,7 +157,7 @@ def seedReviews():
     dfReviews = dfReviews[['id', 'vehicle_id',
                            'user_id', 'rating']]
     # Save DataFrame to CSV
-    dfReviews.to_csv('reviews.csv', index=False)
+    dfReviews.to_csv('./data/dataset/reviews.csv', index=False)
     print("Reviews data saved to 'reviews.csv' file")
 
 

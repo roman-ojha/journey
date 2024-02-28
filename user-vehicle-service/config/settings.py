@@ -16,9 +16,6 @@ if args.env != 'dev' and args.env != 'prod':
 elif args.env == 'dev':
     load_dotenv(os.path.join(
         os.path.dirname(os.path.dirname(os.path.dirname(__file__))), '.env.dev'))
-elif args.env == 'prod':
-    load_dotenv(os.path.join(
-        os.path.dirname(os.path.dirname(os.path.dirname(__file__))), '.env.prod'))
 
 
 class Settings(BaseSettings):
