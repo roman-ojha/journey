@@ -59,20 +59,6 @@ services:
   #   # ports:
   #   #   - "3001:3001"
 
-  user-service-prisma-studio:
-    container_name: journey-user-service-prisma-studio
-    image: romanojha/journey-user-service-prisma-studio
-    build:
-      context: ./user-service
-      dockerfile: Prisma.Dockerfile
-    env_file:
-      - docker.env
-    ports:
-      - "5555:5555"
-    depends_on:
-      - user-service
-      - postgres
-
   # user-vehicle-review-service:
   #   container_name: journey-user-vehicle-review-service
   #   image: romanojha/journey-user-vehicle-review-service
@@ -151,6 +137,48 @@ services:
   #     - docker.env
   #   links:
   #     - "mysql:db"
+
+  user-service-prisma-studio:
+    container_name: journey-user-service-prisma-studio
+    image: romanojha/journey-user-service-prisma-studio
+    build:
+      context: ./user-service
+      dockerfile: Prisma.Dockerfile
+    env_file:
+      - docker.env
+    ports:
+      - "5555:5555"
+    depends_on:
+      - user-service
+      - postgres
+
+  merchant-v-and-t-service-prisma-studio:
+    container_name: journey-merchant-v-and-t-service-prisma-studio
+    image: romanojha/journey-merchant-v-and-t-service-prisma-studio
+    build:
+      context: ./merchant-vehicle-and-travel-service
+      dockerfile: Prisma.Dockerfile
+    env_file:
+      - docker.env
+    ports:
+      - "5556:5556"
+    depends_on:
+      - merchant-vehicle-and-travel-service
+      - mongo
+
+  user-vehicle-review-service-prisma-studio:
+    container_name: journey-user-vehicle-review-service-prisma-studio
+    image: romanojha/journey-user-vehicle-review-service-prisma-studio
+    build:
+      context: ./user-vehicle-review-service
+      dockerfile: Prisma.Dockerfile
+    env_file:
+      - docker.env
+    ports:
+      - "5557:5557"
+    depends_on:
+      - merchant-vehicle-and-travel-service
+      - mongo
 
   postgres:
     container_name: journey-postgres-db
