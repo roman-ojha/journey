@@ -20,8 +20,10 @@ class Recommendation:
         similar_score = similar_score.sort_values(ascending=False)
         return similar_score
 
-    def get_user_rated_vehicles(self, data_frame, user_id: int):
+    def get_user_rated_vehicles(self, data_frame, user_id: int | None) -> list:
         user_reviews = data_frame[data_frame['user_id'] == user_id]
+        if user_reviews.count()["rating"] == 0:
+            return []
         user_ratings = pd.Series(
             user_reviews.rating.values, index=user_reviews.vehicle_id.values)
         user_ratings = user_reviews.groupby('vehicle_id')['rating'].mean()
@@ -29,28 +31,28 @@ class Recommendation:
         return user_rated_vehicles_list
 
     def recommend(self, data_frame, user_id):
-        user_ratings = data_frame.pivot_table(
-            index='user_id', columns='vehicle_id', values='rating').fillna(0)
-        ratings_std = user_ratings.apply(self.standardize_rating)
-        # similarity_matrix = cosine_similarity(ratings_std)
-        vehicles_similarity_matrix = cosine_similarity(ratings_std.T)
-        vehicles_similarity_matrix_df = pd.DataFrame(
-            vehicles_similarity_matrix, index=ratings_std.columns, columns=ratings_std.columns)
         user_rated_vehicles_list = self.get_user_rated_vehicles(
             data_frame=data_frame, user_id=user_id)
 
-        similar_vehicles_df = pd.DataFrame()
-        dfs = []
-        for vehicle_id, rating in user_rated_vehicles_list:
-            similarity_df = self.get_similar_vehicles(
-                vehicles_similarity_matrix_df, vehicle_id, rating)
-            similarity_df.columns = [vehicle_id]
-            dfs.append(similarity_df)
-        similar_vehicles_df = pd.concat(dfs, axis=1)
-        similar_vehicles_df.reset_index(drop=True, inplace=True)
-        similar_vehicles = similar_vehicles_df.sum().sort_values(ascending=False)
-        recommended_vehicles = similar_vehicles.index.tolist()
-        return recommended_vehicles
+        # user_ratings = data_frame.pivot_table(
+        #     index='user_id', columns='vehicle_id', values='rating').fillna(0)
+        # ratings_std = user_ratings.apply(self.standardize_rating)
+        # # similarity_matrix = cosine_similarity(ratings_std)
+        # vehicles_similarity_matrix = cosine_similarity(ratings_std.T)
+        # vehicles_similarity_matrix_df = pd.DataFrame(
+        #     vehicles_similarity_matrix, index=ratings_std.columns, columns=ratings_std.columns)
+        # similar_vehicles_df = pd.DataFrame()
+        # dfs = []
+        # for vehicle_id, rating in user_rated_vehicles_list:
+        #     similarity_df = self.get_similar_vehicles(
+        #         vehicles_similarity_matrix_df, vehicle_id, rating)
+        #     similarity_df.columns = [vehicle_id]
+        #     dfs.append(similarity_df)
+        # similar_vehicles_df = pd.concat(dfs, axis=1)
+        # similar_vehicles_df.reset_index(drop=True, inplace=True)
+        # similar_vehicles = similar_vehicles_df.sum().sort_values(ascending=False)
+        # recommended_vehicles = similar_vehicles.index.tolist()
+        # return recommended_vehicles
 
     def get_travel_ids_from_vehicle_id(self, vehicle_ids: list[str]):
         # Getting travel_id out of using vehicle_id
@@ -78,3 +80,6 @@ class Recommendation:
         recommended_vehicles = self.recommend(filtered_data, user_id)
         travel_ids = self.get_travel_ids_from_vehicle_id(recommended_vehicles)
         return travel_ids
+
+
+reco
