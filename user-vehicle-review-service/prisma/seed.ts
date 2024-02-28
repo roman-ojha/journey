@@ -20,7 +20,7 @@ async function seedVehicleReviews() {
       data: Array.from({ length: 120000 }, () => ({
         rating: faker.number.int({ min: 2, max: 5 }),
         review: faker.lorem.sentence({ min: 25, max: 100 }),
-        user_id: Math.floor(Math.random() * 200) + 1, // Random number from 1 to 200 required for recommendation algorithm to have enough users
+        user_id: Math.floor(Math.random() * 50) + 1, // Random number from 1 to 200 required for recommendation algorithm to have enough users
         vehicle_id: vehiclesId[Math.floor(Math.random() * vehiclesId.length)],
       })),
     });

@@ -171,6 +171,8 @@ const VehicleCards: React.FC<VehicleCardsProps> = ({
               key={index}
               isLoading={isLoading}
               href="/"
+              departure_from=""
+              destination_place=""
             />
           ))
         : isSuccess && travelVehicles
@@ -187,6 +189,8 @@ const VehicleCards: React.FC<VehicleCardsProps> = ({
               key={index}
               isLoading={isLoading}
               href={`/vehicle/${tVehicle.vehicle.slug}`}
+              departure_from={`${tVehicle.from_place.name}, ${tVehicle.from_place.district.name}`}
+              destination_place={`${tVehicle.to_place.name}, ${tVehicle.to_place.district.name}`}
             />
           ))
         : ""}

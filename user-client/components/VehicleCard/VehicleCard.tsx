@@ -11,10 +11,7 @@ import { Skeleton } from "@mui/material";
 import getCssVariable from "@/lib/getCssVariable";
 import { Avatar } from "@/components/ui/avatar";
 
-export type VehicleCardType = Omit<
-  Vehicle,
-  "plate_number" | "departure_from" | "destination_place" | "seats"
->;
+export type VehicleCardType = Omit<Vehicle, "plate_number" | "seats">;
 
 type VehicleCardProps = VehicleCardType & {
   isLoading: boolean;
@@ -32,6 +29,8 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
   vehicle_type,
   isLoading,
   href,
+  departure_from,
+  destination_place,
 }): React.JSX.Element => {
   const vehicleCardLayout = useAppSelector((state) => state.vehicleCardLayout);
 
@@ -175,7 +174,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
             </>
           )}
         </div>
-        <div className={styles.card_vehicle_type}>
+        <div className={styles.card_departure_from}>
           {isLoading ? (
             <>
               <Skeleton
@@ -196,12 +195,42 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
           ) : (
             <>
               <AppIcon
-                iconName="fluent:vehicle-cab-16-filled"
+                iconName="fluent:location-12-filled"
                 use="iconify"
                 className={styles.card_vehicle_type__icon}
               />
-              <p data-card-p="key">Vehicle Type:</p>
-              <p data-card-p="value">{vehicle_type}</p>
+              <p data-card-p="key">Departure From:</p>
+              <p data-card-p="value">{departure_from}</p>
+            </>
+          )}
+        </div>
+        <div className={styles.card_destination_place}>
+          {isLoading ? (
+            <>
+              <Skeleton
+                variant="circular"
+                className="w-6 h-6"
+                sx={{
+                  bgcolor: getCssVariable("--clr-skeleton-background", true),
+                }}
+              />
+              <Skeleton
+                variant="rectangular"
+                sx={{
+                  bgcolor: getCssVariable("--clr-skeleton-background", true),
+                }}
+                className="w-1/2 rounded-sm"
+              />
+            </>
+          ) : (
+            <>
+              <AppIcon
+                iconName="fluent:location-12-filled"
+                use="iconify"
+                className={styles.card_vehicle_type__icon}
+              />
+              <p data-card-p="key">Departure Place:</p>
+              <p data-card-p="value">{destination_place}</p>
             </>
           )}
         </div>
