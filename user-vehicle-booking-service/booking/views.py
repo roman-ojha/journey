@@ -1,4 +1,5 @@
 from rest_framework.response import Response
+from django.http import HttpResponseRedirect
 from rest_framework.decorators import api_view
 import pprint
 from database.repository import repository
@@ -51,8 +52,8 @@ def book_vehicle_seats(request: Request):
     requestHeader = {"Authorization": os.environ.get(
         "KHALTI_LIVE_SECRET_KEY")}
     requestParameters = {
-        "return_url": os.environ.get("KHALTI_RETURN_URL") + "/api/user/booking/payment/successful",
-        "website_url": os.environ.get("KHALTI_RETURL_WEBSITE_URL"),
+        "return_url": os.environ.get("KHALTI_RETURN_URL"),
+        "website_url": os.environ.get("KHALTI_RETURN_WEBSITE_URL"),
         # "amount": res['data']['total_price'],
         "amount": 6400,
         "purchase_order_id": f"{Constants.APPLICATION_NAME}-khalti-{request.auth_user.id}-{random.randint(1000000000, 9999999999)}",
@@ -70,3 +71,22 @@ def book_vehicle_seats(request: Request):
     paymentInitResData = paymentInitResponse.json()
     return Response(data=CreateResponse.successResponse(message="Seats booked successfully.", data={
         'pidx': paymentInitResData.get('pidx'), 'payment_url': paymentInitResData.get('payment_url')}))
+
+
+@api_view(["GET"])
+def book_seats_payment_successful(request: Request):
+    pidx = request.query_params.get('pidx')
+    requestHeader = {"Authorization": os.environ.get("KHALTI_LIVE_SECRET_KEY")}
+    requestParameters = {
+        "pidx": pidx,
+    }
+    # verify payment using payment id from khalti api
+    verify_payment_res = requests.post(
+        os.environ.get("KHALTI_PAYMENT_BASE_URL") + "/epayment/lookup/", headers=requestHeader, data=requestParameters)
+    print(verify_payment_res.status_code)
+    if verify_payment_res.status_code != 200:
+        return Response(CreateResponse.failResponse(message="unVerified payment id").get(), status=StatusCode.INTERNAL_SERVER_ERROR)
+    # if verify update payments table
+    if verify_payment_res.json().get('status') != "Completed":
+        return Response(CreateResponse.failResponse(msg="Transaction is still not completed").get(), status=StatusCode.INTERNAL_SERVER_ERROR)
+    return HttpResponseRedirect(os.environ.get("PAYMENT_SUCCESS_RETURN_BASE_URL") + "/profile")

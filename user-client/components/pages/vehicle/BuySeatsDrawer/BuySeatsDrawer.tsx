@@ -51,11 +51,7 @@ export function BuySeatsDrawer({
   }
 
   if (isSuccess) {
-    // console.log(data.data.data.payment_url);
-    // window.location.href = data.data.data.payment_url;
-    // NOTE: just for college final defense:
-    window.location.href =
-      "https://test-pay.khalti.com/?pidx=xPWa2iBDN8N6ZdDBBrDCCX";
+    window.location.href = data.data.data.payment_url;
   }
 
   return (

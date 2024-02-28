@@ -84,8 +84,6 @@ services:
       - mongo
     ports:
       - "8008:8008"
-    volumes:
-      - ./user-vehicle-booking-service:/app
 
   # admin-client:
   #   container_name: journey-admin-client

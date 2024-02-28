@@ -48,3 +48,6 @@ data:
   MONGO_REPLICA_HOST: localhost
   MONGO_REPLICA_PORT: "27017"
   MONGO_INITDB_DATABASE: mongo
+  KHALTI_RETURN_URL: "http://localhost:8008/payment/successful/"
+  KHALTI_RETURN_WEBSITE_URL: "http://localhost:8008"
+  PAYMENT_SUCCESS_RETURN_BASE_URL: "http://localhost:3001"
