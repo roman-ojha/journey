@@ -10,7 +10,8 @@
     "prisma:studio": "dotenv -e ../.env.dev -- npx prisma studio",
     "prisma:deploy": "dotenv -e ../.env.dev -- npx prisma migrate deploy",
     "prisma:generate": "npx prisma generate --schema ./prisma/schema.prisma & npx prisma generate --schema ./prisma/merchant-v-and-t-service.prisma & npx prisma generate --schema ./prisma/user-service.prisma",
-    "prisma:seed": "dotenv -e ../.env.dev -- ts-node ./prisma/seed.ts"
+    "prisma:seed": "dotenv -e ../.env.dev -- ts-node ./prisma/seed.ts",
+    "prisma:seed:docker": "dotenv -e ../docker.env -- ts-node ./prisma/seed.ts"
   },
   "keywords": [
     "Express",

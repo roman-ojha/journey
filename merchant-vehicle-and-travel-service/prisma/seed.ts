@@ -445,5 +445,4 @@ async function createAddress() {
 
 // createVehicleModelAndAddSeats();
 // createAddress();
-
-// createVehiclesAndTravel();
+createVehiclesAndTravel();

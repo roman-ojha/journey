@@ -84,14 +84,16 @@ services:
   #   env_file:
   #     - docker.env
 
-  user-vehicle-booking-service:
-    container_name: journey-user-vehicle-booking-service
-    image: romanojha/journey-user-vehicle-booking-service
-    build:
-      context: ./user-vehicle-booking-service
-      dockerfile: Dockerfile
-    env_file:
-      - docker.env
+  # user-vehicle-booking-service:
+  #   container_name: journey-user-vehicle-booking-service
+  #   image: romanojha/journey-user-vehicle-booking-service
+  #   build:
+  #     context: ./user-vehicle-booking-service
+  #     dockerfile: Dockerfile
+  #   env_file:
+  #     - docker.env
+  #   depends_on:
+  #     - mongo
   # admin-client:
   #   container_name: journey-admin-client
   #   image: romanojha/journey-admin-client
@@ -102,77 +104,94 @@ services:
   #     - "3000:3000"
   #   env_file:
   #     - ./admin-client/.env
-#   admin-service:
-#     container_name: journey-admin-service
-#     image: romanojha/journey-admin-service
-#     build:
-#       context: ./admin-service
-#       dockerfile: Dockerfile
-#     env_file:
-#       - docker.env
-#     depends_on:
-#       - mysql
+  #   admin-service:
+  #     container_name: journey-admin-service
+  #     image: romanojha/journey-admin-service
+  #     build:
+  #       context: ./admin-service
+  #       dockerfile: Dockerfile
+  #     env_file:
+  #       - docker.env
+  #     depends_on:
+  #       - mysql
 
-#   merchant-service:
-#     container_name: journey-merchant-service
-#     image: romanojha/journey-merchant-service
-#     build:
-#       context: ./merchant-service
-#       dockerfile: Dockerfile
-#     # restart: unless-stopped
-#     # volumes: # for development on docker container
-#     #   - ./merchant-service:/var/www/html
-#     env_file:
-#       - ./merchant-service/docker.env
-#     depends_on:
-#       - mysql
+  #   merchant-service:
+  #     container_name: journey-merchant-service
+  #     image: romanojha/journey-merchant-service
+  #     build:
+  #       context: ./merchant-service
+  #       dockerfile: Dockerfile
+  #     # restart: unless-stopped
+  #     # volumes: # for development on docker container
+  #     #   - ./merchant-service:/var/www/html
+  #     env_file:
+  #       - ./merchant-service/docker.env
+  #     depends_on:
+  #       - mysql
 
-#   merchant-vehicle-and-travel-service:
-#     container_name: journey-merchant-vehicle-and-travel-service
-#     image: romanojha/journey-merchant-vehicle-and-travel-service
-#     build:
-#       context: ./merchant-vehicle-and-travel-service
-#       dockerfile: Dockerfile
-#     env_file:
-#       - docker.env
+  #   merchant-vehicle-and-travel-service:
+  #     container_name: journey-merchant-vehicle-and-travel-service
+  #     image: romanojha/journey-merchant-vehicle-and-travel-service
+  #     build:
+  #       context: ./merchant-vehicle-and-travel-service
+  #       dockerfile: Dockerfile
+  #     env_file:
+  #       - docker.env
 
-#   phpmyadmin:
-#     container_name: journey-phpmyadmin
-#     image: phpmyadmin:5.2.1-apache
-#     ports:
-#       - "8080:80"
-#     env_file:
-#       - docker.env
-#     links:
-#       - "mysql:db"
+  #   phpmyadmin:
+  #     container_name: journey-phpmyadmin
+  #     image: phpmyadmin:5.2.1-apache
+  #     ports:
+  #       - "8080:80"
+  #     env_file:
+  #       - docker.env
+  #     links:
+  #       - "mysql:db"
 
-#   postgres:
-#     container_name: journey-postgres-db
-#     image: postgres:14
-#     env_file:
-#       - docker.env
-#     environment:
-#       - DATABASE_TYPE=postgres
-#     # ports:
-#     #   - "5432:5432"
-#     volumes:
-#       - journey-postgresql:/var/lib/postgresql/data
-#       - ./initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
+  #   postgres:
+  #     container_name: journey-postgres-db
+  #     image: postgres:14
+  #     env_file:
+  #       - docker.env
+  #     environment:
+  #       - DATABASE_TYPE=postgres
+  #     # ports:
+  #     #   - "5432:5432"
+  #     volumes:
+  #       - journey-postgresql:/var/lib/postgresql/data
+  #       - ./initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
 
-#   mysql:
-#     container_name: journey-mysql-db
-#     image: mysql:8.2.0
-#     env_file:
-#       - docker.env
-#     environment:
-#       - DATABASE_TYPE=mysql
-#     # ports:
-#     #   - "3306:3306"
-#     volumes:
-#       - journey-mysql:/var/lib/mysql
-#       - ./initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
-# volumes:
-#   journey-postgresql:
-#     driver: local
-#   journey-mysql:
-#     driver: local
+  #   mysql:
+  #     container_name: journey-mysql-db
+  #     image: mysql:8.2.0
+  #     env_file:
+  #       - docker.env
+  #     environment:
+  #       - DATABASE_TYPE=mysql
+  #     # ports:
+  #     #   - "3306:3306"
+  #     volumes:
+  #       - journey-mysql:/var/lib/mysql
+  #       - ./initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
+  mongo:
+    container_name: journey-mongo-db
+    # image: prismagraphql/mongo-single-replica:5.0.3
+    # image: mongo:4
+    # restart: always
+    build:
+      context: ./mongodb-rs
+      dockerfile: Dockerfile
+    env_file:
+      - docker.env
+    # command: --replSet rs0 # <--- this startup command enables the replicaset.
+    ports:
+      - "27018:27017"
+    volumes:
+      - journey-mongo:/data/db
+volumes:
+  #   journey-postgresql:
+  #     driver: local
+  #   journey-mysql:
+  #     driver: local
+  journey-mongo:
+    driver: local
