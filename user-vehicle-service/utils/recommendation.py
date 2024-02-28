@@ -106,6 +106,18 @@ class Recommendation:
     def search_vehicle(self, from_location: str, to_location: str, departure_at: str, user_id: int | None) -> list[str]:
         filtered_data = vehicles_with_reviews[(vehicles_with_reviews['from'] == from_location) & (
             vehicles_with_reviews['to'] == to_location) & (vehicles_with_reviews['departure_at'] == departure_at)]
+        filtered_data_from_vehicles_df = vehicles_df[(vehicles_df['from'] == from_location) & (
+            vehicles_df['to'] == to_location) & (vehicles_df['departure_at'] == departure_at)]
         recommended_vehicles = self.recommend(filtered_data, user_id)
+
+        # There could be a lot of vehicles where user has not rated so we need to recommend those vehicles as well so that user can rate them but we need to limit the number of vehicles to 5
+        vehicle_which_have_not_been_rated = filtered_data_from_vehicles_df[~filtered_data_from_vehicles_df["vehicle_id"].isin(
+            recommended_vehicles)]
+        if vehicle_which_have_not_been_rated.shape[0] > 0:
+            # Suffling the vehicle which have not been rated by the user and only getting 5 of them
+            shuffled_vehicles_which_have_not_been_rated = vehicle_which_have_not_been_rated.sample(
+                frac=1).reset_index(drop=True)[:5]["vehicle_id"].to_list()
+            recommended_vehicles = recommended_vehicles + \
+                shuffled_vehicles_which_have_not_been_rated
         travel_ids = self.get_travel_ids_from_vehicle_id(recommended_vehicles)
         return travel_ids

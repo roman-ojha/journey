@@ -16,11 +16,12 @@ export default (channel: amqplib.Channel) => {
       channel,
       constants.USER_VEHICLE_SERVICE_RABBIT_MQ_BINDING_KEY,
       {
-        vehicle_id: "roman test vehicle id",
-        travel_id: "roman test travel id",
-        departure_at: new Date().toDateString(),
-        from: "travel from",
-        to: "travel to",
+        vehicle_id: "xyzabc123pqrve" + Math.floor(Math.random() * 1000000),
+        travel_id: "xyzabc123pqrtravelid" + Math.floor(Math.random() * 1000000),
+        // departure_at: new Date().toDateString(),
+        departure_at: "2024-03-04",
+        from: "Biratnagar, Sunsari",
+        to: "Koteshowr, Kathmandu",
       }
     );
     return res.json({

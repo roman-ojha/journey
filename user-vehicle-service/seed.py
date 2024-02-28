@@ -8,6 +8,7 @@ import os
 from schemas.serializer import Serializer
 import pandas as pd
 from database.index import Database
+from train_model import train_model
 
 printer = pprint.PrettyPrinter()
 
@@ -161,6 +162,7 @@ def seedReviews():
     print("Reviews data saved to 'reviews.csv' file")
 
 
-seedTravels()
-
-# seedReviews()
+if __name__ == "__main__":
+    seedTravels()
+    seedReviews()
+    train_model()
