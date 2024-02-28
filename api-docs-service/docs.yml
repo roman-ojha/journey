@@ -1406,8 +1406,8 @@ paths:
 
   /merchant/v-and-t-service/vehicle/{vehicle_id}:
     get:
-      summary: Get List of added vehicle
-      description: Get List of added vehicle by authenticated merchant
+      summary: Get Vehicle Detail
+      description: Get Vehicle Detail added vehicle by authenticated merchant
       tags:
         - "Merchant.V_and_T_Service"
       security:

@@ -11,4 +11,4 @@ COPY . .
 EXPOSE 8008 
 
 # CMD ["python","manage.py","runserver"]
-CMD ["sh", "-c", "python manage.py runserver 0.0.0.0:8008"]
+CMD ["sh", "-c", "python manage.py runserver"]

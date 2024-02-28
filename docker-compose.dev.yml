@@ -20,10 +20,10 @@ services:
     env_file:
       - docker.env
     depends_on:
-      - admin-service
+      # - admin-service
       - api-gateway
       - api-docs
-      - user-client
+      # - user-client
 
   api-gateway:
     container_name: journey-api-gateway
@@ -36,7 +36,7 @@ services:
     depends_on:
       - postgres
       - mysql
-      - merchant-service
+      # - merchant-service
       - user-service
 
   user-service:
@@ -73,47 +73,49 @@ services:
       - user-service
       - postgres
 
-  user-vehicle-review-service:
-    container_name: journey-user-vehicle-review-service
-    image: romanojha/journey-user-vehicle-review-service
-    build:
-      context: ./user-vehicle-review-service
-      dockerfile: Dockerfile
-    ports:
-      - "8009:8009"
-    env_file:
-      - docker.env
+  # user-vehicle-review-service:
+  #   container_name: journey-user-vehicle-review-service
+  #   image: romanojha/journey-user-vehicle-review-service
+  #   build:
+  #     context: ./user-vehicle-review-service
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "8009:8009"
+  #   env_file:
+  #     - docker.env
 
-  user-vehicle-booking-service:
-    container_name: journey-user-vehicle-booking-service
-    image: romanojha/journey-user-vehicle-booking-service
+  # user-vehicle-booking-service:
+  #   container_name: journey-user-vehicle-booking-service
+  #   image: romanojha/journey-user-vehicle-booking-service
+  #   build:
+  #     context: ./user-vehicle-booking-service
+  #     dockerfile: Dockerfile
+  #   env_file:
+  #     - docker.env
+  #   depends_on:
+  #     - mongo
+
+  # admin-client:
+  #   container_name: journey-admin-client
+  #   image: romanojha/journey-admin-client
+  #   build:
+  #     context: ./admin-client
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "3000:3000"
+  #   env_file:
+  #     - ./admin-client/.env
+
+  admin-service:
+    container_name: journey-admin-service
+    image: romanojha/journey-admin-service
     build:
-      context: ./user-vehicle-booking-service
+      context: ./admin-service
       dockerfile: Dockerfile
     env_file:
       - docker.env
     depends_on:
-      - mongo
-    # admin-client:
-    #   container_name: journey-admin-client
-    #   image: romanojha/journey-admin-client
-    #   build:
-    #     context: ./admin-client
-    #     dockerfile: Dockerfile
-    #   ports:
-    #     - "3000:3000"
-    #   env_file:
-    #     - ./admin-client/.env
-    #   admin-service:
-    #     container_name: journey-admin-service
-    #     image: romanojha/journey-admin-service
-    #     build:
-    #       context: ./admin-service
-    #       dockerfile: Dockerfile
-    #     env_file:
-    #       - docker.env
-    #     depends_on:
-    #       - mysql
+      - mysql
 
   merchant-service:
     container_name: journey-merchant-service
@@ -137,16 +139,18 @@ services:
       dockerfile: Dockerfile
     env_file:
       - docker.env
+    depends_on:
+      - mongo
 
-  phpmyadmin:
-    container_name: journey-phpmyadmin
-    image: phpmyadmin:5.2.1-apache
-    ports:
-      - "8080:80"
-    env_file:
-      - docker.env
-    links:
-      - "mysql:db"
+  # phpmyadmin:
+  #   container_name: journey-phpmyadmin
+  #   image: phpmyadmin:5.2.1-apache
+  #   ports:
+  #     - "8080:80"
+  #   env_file:
+  #     - docker.env
+  #   links:
+  #     - "mysql:db"
 
   postgres:
     container_name: journey-postgres-db
@@ -182,15 +186,14 @@ services:
       dockerfile: Dockerfile
     env_file:
       - docker.env
-    # command: --replSet rs0 # <--- this startup command enables the replicaset.
     ports:
       - "27018:27017"
     volumes:
       - journey-mongo:/data/db
 volumes:
-  #   journey-postgresql:
-  #     driver: local
-  #   journey-mysql:
-  #     driver: local
+  journey-postgresql:
+    driver: local
+  journey-mysql:
+    driver: local
   journey-mongo:
     driver: local
