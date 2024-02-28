@@ -16,6 +16,7 @@ export default class VehicleController extends Controller {
 
   public async reviewVehicle(req: Request, res: Response, next: NextFunction) {
     try {
+      return res.json({});
     } catch (err) {
       return next(err);
     }

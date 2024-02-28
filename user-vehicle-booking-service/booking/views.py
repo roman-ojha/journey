@@ -51,16 +51,20 @@ def book_vehicle_seats(request: Request):
     requestHeader = {"Authorization": os.environ.get(
         "KHALTI_LIVE_SECRET_KEY")}
     requestParameters = {
-        "return_url": os.environ.get("USER_VEHICLE_BOOKING_SERVICE_URL") + "/api/user/booking/payment/successful",
-        "website_url": os.environ.get("USER_VEHICLE_BOOKING_SERVICE_URL"),
+        "return_url": os.environ.get("KHALTI_RETURN_URL") + "/api/user/booking/payment/successful",
+        "website_url": os.environ.get("KHALTI_RETURL_WEBSITE_URL"),
         # "amount": res['data']['total_price'],
         "amount": 6400,
         "purchase_order_id": f"{Constants.APPLICATION_NAME}-khalti-{request.auth_user.id}-{random.randint(1000000000, 9999999999)}",
         "purchase_order_name": f"Vehicle seat booking payment",
     }
     # request to khalti to initiate the payment
+    print(requestParameters)
+    print(os.environ.get("KHALTI_PAYMENT_BASE_URL"))
     paymentInitResponse = requests.post(
         os.environ.get("KHALTI_PAYMENT_BASE_URL") + "/epayment/initiate/", headers=requestHeader, data=requestParameters)
+    print(paymentInitResponse.json())
+    print(paymentInitResponse.text)
     if paymentInitResponse.status_code != 200:
         return Response(data=CreateResponse.failResponse(message="Failed to initiate the payment, please try again."), status=StatusCode.BAD_REQUEST)
     paymentInitResData = paymentInitResponse.json()

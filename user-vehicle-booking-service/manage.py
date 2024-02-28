@@ -7,14 +7,6 @@ from dotenv import load_dotenv
 
 def main():
     """Run administrative tasks."""
-    # Override default port for 'runserver' command
-    # from django.core.management.commands.runserver import Command as runserver
-    load_dotenv(os.path.join(
-        os.path.dirname(os.path.dirname(__file__)), '.env.prod'))
-    # Override default port for 'runserver' command
-    from django.core.management.commands.runserver import Command as runserver
-    runserver.default_port = os.environ.get(
-        "USER_VEHICLE_BOOKING_SERVICE_PORT")
 
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
     try:

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from config import database
 from pathlib import Path
+import os
 database.connect()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -56,7 +57,7 @@ MIDDLEWARE = [
 ]
 
 
-# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 # if os.environ.get('ENVIRONMENT') == "development":
 #     ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0']
 # elif os.environ.get('ENVIRONMENT') == "docker" or os.environ.get('ENVIRONMENT') == "k8s":

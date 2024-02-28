@@ -373,20 +373,20 @@ class Repository(Database):
         if len(bookedSeats) > 0:
             return {"error": True, "message": f"Seats {[bookedSeats.get('name') for bookedSeats in bookedSeats]} are already booked, Please choose another seats."}
 
-        # # Finally now Book the seats
-        unBookedSeatsObjectId = [ObjectId(unBookedSeats['_id'])
-                                 for unBookedSeats in unBookedSeats]
-        # Add bookedExpiredSeatsObjectId into unBookedSeatsObjectId
-        unBookedSeatsObjectId.extend(bookedExpiredSeatsObjectId)
-        res = self.merchant_v_and_t_service_db.VehicleSeats.update_many(
-            {"_id": {"$in": unBookedSeatsObjectId}},
-            {"$set": {"is_booked": True, "user_id": user_id,
-                      "is_payed": False, "booked_at": datetime.utcnow()}}
-        )
-        if res.modified_count == 0:
-            return {"error": True, "message": "Failed to book the seats"}
-        if res.modified_count != len(unBookedSeatsObjectId):
-            return {"error": True, "message": "Some seats were not been able to get booked, Causing some problems."}
+        # # # Finally now Book the seats
+        # unBookedSeatsObjectId = [ObjectId(unBookedSeats['_id'])
+        #                          for unBookedSeats in unBookedSeats]
+        # # Add bookedExpiredSeatsObjectId into unBookedSeatsObjectId
+        # unBookedSeatsObjectId.extend(bookedExpiredSeatsObjectId)
+        # res = self.merchant_v_and_t_service_db.VehicleSeats.update_many(
+        #     {"_id": {"$in": unBookedSeatsObjectId}},
+        #     {"$set": {"is_booked": True, "user_id": user_id,
+        #               "is_payed": False, "booked_at": datetime.utcnow()}}
+        # )
+        # if res.modified_count == 0:
+        #     return {"error": True, "message": "Failed to book the seats"}
+        # if res.modified_count != len(unBookedSeatsObjectId):
+        #     return {"error": True, "message": "Some seats were not been able to get booked, Causing some problems."}
 
         # # Calculate Total price
         total_price = 0

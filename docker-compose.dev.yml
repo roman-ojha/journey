@@ -59,27 +59,33 @@ services:
   #   # ports:
   #   #   - "3001:3001"
 
-  # user-vehicle-review-service:
-  #   container_name: journey-user-vehicle-review-service
-  #   image: romanojha/journey-user-vehicle-review-service
-  #   build:
-  #     context: ./user-vehicle-review-service
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "8009:8009"
-  #   env_file:
-  #     - docker.env
+  user-vehicle-review-service:
+    container_name: journey-user-vehicle-review-service
+    image: romanojha/journey-user-vehicle-review-service
+    build:
+      context: ./user-vehicle-review-service
+      dockerfile: Dockerfile
+    env_file:
+      - docker.env
+    depends_on:
+      - mongo
+      - postgres
+      - mysql
 
-  # user-vehicle-booking-service:
-  #   container_name: journey-user-vehicle-booking-service
-  #   image: romanojha/journey-user-vehicle-booking-service
-  #   build:
-  #     context: ./user-vehicle-booking-service
-  #     dockerfile: Dockerfile
-  #   env_file:
-  #     - docker.env
-  #   depends_on:
-  #     - mongo
+  user-vehicle-booking-service:
+    container_name: journey-user-vehicle-booking-service
+    image: romanojha/journey-user-vehicle-booking-service
+    build:
+      context: ./user-vehicle-booking-service
+      dockerfile: Dockerfile
+    env_file:
+      - docker.env
+    depends_on:
+      - mongo
+    ports:
+      - "8008:8008"
+    volumes:
+      - ./user-vehicle-booking-service:/app
 
   # admin-client:
   #   container_name: journey-admin-client
@@ -149,7 +155,6 @@ services:
     ports:
       - "5555:5555"
     depends_on:
-      - user-service
       - postgres
 
   merchant-v-and-t-service-prisma-studio:
@@ -163,7 +168,6 @@ services:
     ports:
       - "5556:5556"
     depends_on:
-      - merchant-vehicle-and-travel-service
       - mongo
 
   user-vehicle-review-service-prisma-studio:
@@ -177,7 +181,6 @@ services:
     ports:
       - "5557:5557"
     depends_on:
-      - merchant-vehicle-and-travel-service
       - mongo
 
   postgres:
