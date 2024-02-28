@@ -12,8 +12,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from config import database
 from pathlib import Path
-import os
-print(os.environ.get("MERCHANT_V_AND_T_SERVICE_DATABASE_URL"))
 database.connect()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.

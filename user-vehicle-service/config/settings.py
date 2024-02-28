@@ -15,7 +15,7 @@ if args.env != 'dev' and args.env != 'prod':
         "Please specify an environment --env flag to run the server")
 elif args.env == 'dev':
     load_dotenv(os.path.join(
-        os.path.dirname(os.path.dirname(os.path.dirname(__file__))), '.env.dev'))
+        os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'docker.env'))
 
 
 class Settings(BaseSettings):
