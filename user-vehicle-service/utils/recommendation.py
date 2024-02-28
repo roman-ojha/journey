@@ -85,7 +85,6 @@ class Recommendation:
     def recommend(self, data_frame, user_id: int | None) -> list:
         user_rated_vehicles_list = self.get_user_rated_vehicles(
             data_frame=data_frame, user_id=user_id)
-        print(user_rated_vehicles_list)
         if len(user_rated_vehicles_list) == 0:
             # If user has not rated any vehicle then recommend popular vehicles
             # OR recommend popularity based vehicles for UnAuthorized user

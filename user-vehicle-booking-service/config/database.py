@@ -4,7 +4,7 @@ import os
 
 # Create a new client and connect to the server
 client = MongoClient(
-    os.environ.get("MERCHANT_V_AND_T_SERVICE_DATABASE_URL"), server_api=ServerApi('1'))
+    os.environ.get("MERCHANT_V_AND_T_SERVICE_DATABASE_URL"))
 
 
 def connect():
