@@ -159,15 +159,15 @@ services:
     depends_on:
       - mongo
 
-  #   # phpmyadmin:
-  #   #   container_name: journey-phpmyadmin
-  #   #   image: phpmyadmin:5.2.1-apache
-  #   #   ports:
-  #   #     - "8080:80"
-  #   #   env_file:
-  #   #     - docker.env
-  #   #   links:
-  #   #     - "mysql:db"
+  phpmyadmin:
+    container_name: journey-phpmyadmin
+    image: phpmyadmin:5.2.1-apache
+    ports:
+      - "8080:80"
+    env_file:
+      - docker.env
+    links:
+      - "mysql:db"
 
   user-service-prisma-studio:
     container_name: journey-user-service-prisma-studio

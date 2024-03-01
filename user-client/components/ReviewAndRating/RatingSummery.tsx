@@ -48,7 +48,7 @@ const RatingSummery: React.FC<RatingSummeryProps> = ({
       ) : (
         <div className={styles.rating_summery}>
           <span className={styles.rating_summery__average}>
-            <h2>{average_rating.toFixed(1)}</h2>
+            <h2>{average_rating?.toFixed(1)}</h2>
             <span className={styles.rating_summery__average__rating}>
               <RatingStar
                 rating={average_rating}
