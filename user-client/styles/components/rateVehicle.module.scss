@@ -1,0 +1,18 @@
+@use "../utils" as *;
+
+.vehicle_info_rate_vehicle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: get-spacing-px(1);
+  margin-right: 20px;
+  cursor: pointer;
+  p {
+    @include font-style(p, regular, primary);
+    color: get-color(null, foreground-primary);
+  }
+}
+.vehicle_rating_icon {
+  color: get-color(base, rating-star);
+  font-size: 1.4rem;
+}

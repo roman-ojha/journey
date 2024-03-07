@@ -4,9 +4,6 @@ from sklearn.metrics.pairwise import cosine_similarity
 from collections import defaultdict
 import pandas as pd
 
-vehicles_with_reviews = pickle.load(
-    open("data/trained-models/vehicles_with_reviews.pkl", 'rb'))  # load trained data model
-
 
 class Recommendation:
     def standardize_rating(self, row):
@@ -96,6 +93,8 @@ class Recommendation:
         return self.collaborative_filtering_recommendation(data_frame=data_frame, user_rated_vehicles_list=user_rated_vehicles_list)
 
     def explore_vehicle(self, user_id: int | None) -> list[str]:
+        vehicles_with_reviews = pickle.load(
+            open("data/trained-models/vehicles_with_reviews.pkl", 'rb'))  # load trained data model
         recommended_vehicles = self.recommend(vehicles_with_reviews, user_id)
         if len(recommended_vehicles) == 0:
             return []
@@ -107,6 +106,8 @@ class Recommendation:
     def search_vehicle(self, from_location: str, to_location: str, departure_at: str, user_id: int | None) -> list[str]:
         # NOTE: that we need to load the travels.csv file so that we can get upto date data
         vehicles_df = pd.read_csv('data/dataset/travels.csv')
+        vehicles_with_reviews = pickle.load(
+            open("data/trained-models/vehicles_with_reviews.pkl", 'rb'))  # load trained data model
         filtered_data = vehicles_with_reviews[(vehicles_with_reviews['from'] == from_location) & (
             vehicles_with_reviews['to'] == to_location) & (vehicles_with_reviews['departure_at'] == departure_at)]
         filtered_data_from_vehicles_df = vehicles_df[(vehicles_df['from'] == from_location) & (

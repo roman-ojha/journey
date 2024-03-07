@@ -5,10 +5,10 @@ import AppIcon from "@/components/appIcon/AppIcon";
 import { numberWithCommas } from "@/lib/utils";
 import getFormattedDateFromUTC from "@/lib/getFormattedDateFromUTC";
 import RatingStar from "@/components/RatingStar";
-import { useEffect, useState } from "react";
 import { Skeleton } from "@mui/material";
 import getCssVariable from "@/lib/getCssVariable";
 import { VehicleDetail } from "@/hooks/reactQuery/useVehicleDetail";
+import { RateVehicle } from "@/components/RateVehicle";
 
 type VehicleInfoProps = {
   isLoading: boolean;
@@ -98,6 +98,7 @@ const VehicleInfo: React.FC<VehicleInfoProps> = ({
                 />
               </span>
               <p>{vehicle ? numberWithCommas(vehicle?.no_of_reviews) : 0}</p>
+              <RateVehicle />
             </>
           )}
         </div>
