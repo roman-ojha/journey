@@ -98,7 +98,7 @@ const VehicleInfo: React.FC<VehicleInfoProps> = ({
                 />
               </span>
               <p>{vehicle ? numberWithCommas(vehicle?.no_of_reviews) : 0}</p>
-              <RateVehicle />
+              <RateVehicle rating={undefined} />
             </>
           )}
         </div>

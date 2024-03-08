@@ -36,6 +36,7 @@ module.exports = {
           "--clr-container-bg-primary-op-20"
         ),
         "container-border": getCssVariableForTailwind("--clr-container-border"),
+        "rating-star": getCssVariableForTailwind("--clr-base-rating-star"),
         primary: {
           DEFAULT: getCssVariableForTailwind("--clr-base-primary"),
           foreground: getCssVariableForTailwind("--clr-foreground-primary"),
