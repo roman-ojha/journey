@@ -5,111 +5,102 @@
 [![License](https://img.shields.io/github/license/roman-ojha/journey?color=%23d450cf&style=for-the-badge)](https://opensource.org/licenses/MIT)
 ![GitHub repo size](https://img.shields.io/github/repo-size/roman-ojha/journey?color=%234980cc&label=Size&logo=GitHub&style=for-the-badge)
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/roman-ojha/journey?color=%2300c2b8&logo=V&style=for-the-badge)
-# 🚗 Easier way to buy Bus, HiAce Ticket Online & Book Vehicles 🚌
+# 🚗 Easier way to book Bus, HiAce Seats Online 🚌
 </div>
 
 
 ## Disclaimer: Project is still under development Phase
 
-
 # System Overview:
+* Platform have 3 user: Admin, Client User, Merchant
+* Client User can search or explore vehicle which merchant have added on to our platform.
+* We have used Collaborative or Popularity based filtering ML Algorithms based on given user to recommend best vehicle.
+* Client User can book seats using given payment gateway service.
 * Whole System is been created in multiple technologies and uses Microservice Architecture.
 * Followed CI/CD pipeline and doing testing and deployment using Github Action.
 * Building the Docker Images of all the Microservice and pushing into Docker hub public registry.
 * Deploying the Kubernetes Manifests of all the Microservice Applications into Google GKE & AWS EKS Cluster.
 
-# Microservices & Application Explanation:
-## 1. [User Client:](https://github.com/roman-ojha/journey/tree/staging/user-client)
-* Short Explanation: (Todo.)
-* Technologies and Important Libraries Used:
-  * Next.js 14
-  * Sass
-  * TailwindCSS
-  * ShadCn UI
-  * Material UI
-  * React Query
-  * Redux Toolkit
-  * React Hook Form
-  * Zod
-## 2. [Admin Client:](https://github.com/roman-ojha/journey/tree/staging/admin-service)
-* Short Explanation:
-  * Initial Admin UI template is been fork from [altence/lightence-ant-design-react-template](https://github.com/altence/lightence-ant-design-react-template)
-
-## 3. [Merchant Client:](https://github.com/roman-ojha/journey/tree/staging/api-gateway)
-* Short Explanation: (Todo.)
-* Technologies Used:
-    * Flutter | React Native
-## 4. [Main Proxy:](https://github.com/roman-ojha/journey/tree/staging/temp-main-proxy)
-* Short Explanation:
-  * Disclaimer: Haven't implemented main proxy on Nginx, for now we have using Express proxy server
-  * (Todo.)
-* Technologies Used:
-  * Nginx (for Reverse Proxy)
-## 5. [API Gateway:](https://github.com/roman-ojha/journey/tree/staging/api-gateway)
-* Short Explanation: (Todo.)
-* Technologies Used:
-    * NodeJS & Express
-    * PostgreSQL
-    * MySQL
-    * PrismaORM
-## 6. [User Service:](https://github.com/roman-ojha/journey/tree/staging/user-service)
-* #### Short Explanation: (Todo.)
-* ### Technologies Used:
-  * NodeJS/ExpressJS
-  * PostgreSQL
-  * PrismaORM
-  * GCP Storage
-## 7. User Review Service:
-* #### Short Explanation: (Todo.)
-* ### Technologies Used:
-  * FastAPI
-  * MongoDB
-## 8. User Booking Service:
-* #### Short Explanation: (Todo.)
-* ### Technologies Used:
-  * NodeJS/ExpressJS
-  * MongoDB
-## 9. [User Vehicle Service](https://github.com/roman-ojha/journey/tree/staging/user-vehicle-service):
-* #### Short Explanation: (Todo.)
-* ### Technologies Used:
-  * FastAPI
-  * MongoDB
-## 10. [Admin Service:](https://github.com/roman-ojha/journey/tree/staging/admin-service)
-* #### Short Explanation: (Todo.)
-* #### Technologies Used:
-  * Django Rest Framework
-  * PostgreSQL
-  * MySQL
-  * MongoDB
-## 11. [Merchant Service:](https://github.com/roman-ojha/journey/tree/staging/merchant-service)
-* #### Short Explanation: (Todo.)
-* ### Technologies Used:
-  * Laravel
-  * MySQL
-## 12. [Merchant Vehicle & Travel Service:](https://github.com/roman-ojha/journey/tree/staging/merchant-vehicle-and-travel-service)
-* #### Short Explanation: (Todo.)
-* ### Technologies Used:
-  * NodeJS/ExpressJS
-  * MongoDB
-  * Prisma ORM
-## 13. Vehicle Booking Service:
-* #### Short Explanation: (Todo.)
-* ### Technologies Used:
-  * Django
-  * MongoDB
-## 14. [API Docs:](https://github.com/roman-ojha/journey/tree/staging/api-docs-service)
-* #### Short Explanation: (Todo.)
-* ### Technologies Used:
-  * NodeJS
-  * Swagger
-
 ### System Design
 [<img src="./assets/Design/System-Design.png"></img>](./assets/Design/System-Design.png)
+
+# Microservices & Application:
+## 1. [User Client:](https://github.com/roman-ojha/journey/tree/staging/user-client)
+* Main User interface to interact with our platform
+* Technologies and Important Libraries Used: Next.js 14, Sass, TailwindCSS, ShadCn UI, Material UI, React Query, Redux Toolkit, React Hook Form, Zod
+
+<!-- ## 3. [Merchant Client:](https://github.com/roman-ojha/journey/tree/staging/api-gateway)
+* Short Explanation: (Todo.)
+* Technologies Used:
+    * Flutter | React Native -->
+
+## 2. [Main Proxy:](https://github.com/roman-ojha/journey/tree/staging/main-proxy)
+* Main door to request for our application and forward the request to appropriate microservices
+* Technologies Used: Nginx
+
+## 3. [API Gateway:](https://github.com/roman-ojha/journey/tree/staging/api-gateway)
+* Authenticate User or Merchant and then forward the request to appropriate microservices.
+* Technologies Used: NodeJS with Express, PostgreSQL, MySQL, PrismaORM
+
+## 4. [User Service:](https://github.com/roman-ojha/journey/tree/staging/user-service)
+* Handle user registration, login etc...
+* Technologies Used: NodeJS/ExpressJS, PostgreSQL, PrismaORM, GCP Storage
+
+## 5. [User Vehicle Review Service](https://github.com/roman-ojha/journey/tree/staging/user-vehicle-review-service)
+* Handle reviewing vehicle or fetching information about vehicle reviews.
+* Technologies Used: NodeJS/ExpressJS, MongoDB, PostgreSQL, MySQL, PrismaORM
+
+## 6. [User Vehicle Booking Service](https://github.com/roman-ojha/journey/tree/staging/user-vehicle-booking-service):
+* Handle vehicle seats booking services.
+* Technologies Used: Django rest framework, MongoDB
+
+## 7. [User Vehicle Service](https://github.com/roman-ojha/journey/tree/staging/user-vehicle-service):
+* Handle exploring, searching vehicle related information.
+* Use Collaborative and Popularity based filtering Algorithms.
+  * [Vehicle recommendation system](./user-vehicle-service/explore_vehicle_recommendation_system.ipynb)
+* Technologies Used: FastAPI, MongoDB
+
+## 8. [Admin Service:](https://github.com/roman-ojha/journey/tree/staging/admin-service)
+* Handle all the request done by admin.
+* Technologies Used: Django Rest Framework, PostgreSQL, MySQL, MongoDB
+
+## 9. [Merchant Service:](https://github.com/roman-ojha/journey/tree/staging/merchant-service)
+* Handle merchant registration, login etc...
+* Technologies Used: Laravel, MySQL
+
+## 10. [Merchant Vehicle & Travel Service:](https://github.com/roman-ojha/journey/tree/staging/merchant-vehicle-and-travel-service)
+* Handle CRUD related to vehicle and travels done by auth merchant.
+* Technologies Used: NodeJS with ExpressJS, MongoDB, Prisma ORM
+
+## 11. [API Docs:](https://github.com/roman-ojha/journey/tree/staging/api-docs-service)
+* Done API documentation for testing.
+* Technologies Used: NodeJS, Swagger
+
+## 12. [Admin Client:](https://github.com/roman-ojha/journey/tree/staging/admin-service)
+* Initial Admin UI template has been fork from [altence/lightence-ant-design-react-template](https://github.com/altence/lightence-ant-design-react-template)
+
+
+
+### User Client Interface
+#### 1. Register Page
+[<img src="./assets/UI/user-register.png"></img>](./assets/UI/user-register.png)
+
+#### 2. Login Page
+[<img src="./assets/UI/user-login.png"></img>](./assets/UI/user-login.png)
+
+#### 3. Home Page
+[<img src="./assets/UI/user-home.png"></img>](./assets/UI/user-home.png)
+
+#### 4. Explore | Searched vehicle page
+[<img src="./assets/UI/user-explore.png"></img>](./assets/UI/user-explore.png)
+
+#### 5. Vehicle Detail page
+[<img src="./assets/UI/user-vehicle-detail.png"></img>](./assets/UI/user-vehicle-detail.png)
 
 ### ER Diagram
 [<img src="./assets/Design/ER-Diagram.drawio.png"></img>](./assets/Design/ER-Diagram.drawio.png)
 
-### Functional Requirement:
+### Functional Requirements:
 * User can be able to Register & logged into the system
 * User can be able to Pick From & To Places to find the best possible Vehicle.
 * User can View all the seats which are available and are already booked.
@@ -130,7 +121,3 @@
     * merge to staging brach so that developer can see the preview deployment of the application deployed on cloud service.
 3. main:
     * merge to main branch so that end user can access the application, Also we can called it as production branch.
-
-
-<!-- ### References:
-* MongoDB Integration on Laravel: https://www.mongodb.com/compatibility/mongodb-laravel-integration -->
