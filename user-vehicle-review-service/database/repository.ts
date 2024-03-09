@@ -15,6 +15,27 @@ class Repository extends Database {
       );
     }
   }
+
+  public async getVehicleReviewDoneByAuthUser(
+    user_id: number,
+    vehicle_id: string
+  ) {
+    try {
+      return await this.userReviewClient.review.findFirst({
+        where: {
+          user_id,
+          vehicle_id,
+        },
+      });
+    } catch (err) {
+      throw new APIError(
+        "API_ERROR",
+        STATUS_CODES.INTERNAL_ERROR,
+        (err as Error).message,
+        "Something when wrong while trying to interact with database"
+      );
+    }
+  }
 }
 
 export default Repository;

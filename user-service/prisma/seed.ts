@@ -42,4 +42,4 @@ const seedUser = async (item: number) => {
   }
 };
 
-seedUser(5);
+seedUser(120);

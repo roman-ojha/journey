@@ -12,7 +12,7 @@ export default (channel: amqplib.Channel) => {
 
   // Get Vehicle Review done by auth user
   router.get(
-    "/by-auth-user/:vehicle_slug",
+    "/by-auth-user/:vehicle_id",
     authenticate,
     controller.getVehicleReviewDoneByAuthUser
   );

@@ -811,7 +811,7 @@ paths:
         "500":
           $ref: "#/components/responses/InternalServerError"
 
-  /user/review-service/by-auth-user/{vehicle_slug}:
+  /user/review-service/by-auth-user/{vehicle_id}:
     get:
       summary: Get Vehicle Review
       description: Get Vehicle Review by Authenticated User
@@ -821,12 +821,12 @@ paths:
         - userAuth: []
         - swaggerAuth: []
       parameters:
-        - name: vehicle_slug
+        - name: vehicle_id
           in: path
           required: true
           schema:
             type: string
-            example: gilbert-delux-2C8A6B248187081EE84CA4711
+            example: 65dfbbbccb5bfd3e9cd00e9b
       responses:
         "401":
           $ref: "#/components/responses/Unauthorized"
