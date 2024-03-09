@@ -538,7 +538,6 @@ class Repository(Database):
             vehicle["no_of_reviews"] = 0
             vehicle["average_rating"] = 0
 
-        # Get Reviews for selected vehicle
         vehicleReviews = self.user_vehicle_reviews_db.Review.aggregate([
             {
                 "$match": {

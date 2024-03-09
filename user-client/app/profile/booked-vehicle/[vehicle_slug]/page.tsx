@@ -1,6 +1,6 @@
 "use client";
 import HorizontalSearchBox from "@/components/HorizontalSearchBox/HorizontalSearchBox";
-import VehicleInfo from "@/components/pages/profile/booked-vehicle/VehicleInfo/VehicleInfo";
+import VehicleInfo from "@/components/pages/vehicle/VehicleInfo/VehicleInfo";
 import VehicleReviewAndRating from "@/components/ReviewAndRating/VehicleReviewAndRating";
 import VehicleSeatsInfo from "@/components/pages/profile/booked-vehicle/VehicleSeatsInfo/VehicleSeatsInfo";
 import useGetBookedVehicleDetails, {
@@ -42,6 +42,7 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
         <VehicleReviewAndRating
           average_rating={data?.data.data?.average_rating}
           no_of_reviews={data?.data.data?.no_of_reviews}
+          reviews={data?.data.data?.reviews}
         />
       </main>
     );
