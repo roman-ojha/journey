@@ -45,9 +45,7 @@ jobs:
 
       - name: Build image
         run: |
-          nvm install 20.9.0
-          nvm use 20.9.0
-          corepack enable
+          npm install -g yarn
           yarn install
           yarn docker-build:prod
 
