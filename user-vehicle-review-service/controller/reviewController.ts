@@ -8,7 +8,7 @@ import {
 } from "../utils/responseObject";
 import amqplib from "amqplib";
 
-export default class VehicleController extends Controller {
+export default class ReviewController extends Controller {
   constructor(channel: amqplib.Channel) {
     super(channel);
     this.reviewVehicle = this.reviewVehicle.bind(this);
@@ -31,9 +31,7 @@ export default class VehicleController extends Controller {
   ) {
     try {
       if (!req.user) {
-        return res
-          .status(STATUS_CODES.UNAUTHORIZED)
-          .json(failResponse("Unauthorized User"));
+        return res.json(successResponse("Unauthorized User"));
       }
       const user_id = (req.user as any).id;
       const vehicle_id = req.params.vehicle_id;

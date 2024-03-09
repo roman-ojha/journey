@@ -158,11 +158,12 @@ const apiRoutes = {
     },
     review: {
       get_review_done_by_auth_user: async (
-        vehicle_id: number
-      ): Promise<AxiosResponse<VehicleReview>> => {
+        vehicle_id: string
+      ): Promise<APISuccessResponse<VehicleReview>> => {
         return await request({
           method: "GET",
-          url: `/user/vehicle-review-service/by-auth-user/${vehicle_id}`,
+          url: `/user/review-service/by-auth-user/${vehicle_id}`,
+          withCredentials: true,
         });
       },
     },

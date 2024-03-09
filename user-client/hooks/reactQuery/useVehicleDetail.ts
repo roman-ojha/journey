@@ -27,7 +27,6 @@ export type VehicleDetail = Vehicle & {
     {
       seat: ModelSeat;
     }[];
-  //NOTE: just adding rating & no_of_reviews we aren't getting from the server right now
   average_rating: number;
   no_of_reviews: number;
   reviews: z.infer<typeof vehicleReviewResponseSchema>[];
@@ -43,6 +42,4 @@ export default function useVehicleDetail(vehicle_slug: string) {
     queryFn: () => fetchBookedVehicleDetails(vehicle_slug),
     staleTime: 1000 * 60 * 5, // 5 minute
   });
-
-  // For temporary we are adding rating and no_of_reviews
 }

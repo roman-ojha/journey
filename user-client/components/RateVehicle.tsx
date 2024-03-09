@@ -12,6 +12,9 @@ import {
 import AppIcon from "./appIcon/AppIcon";
 import styles from "@/styles/components/rateVehicle.module.scss";
 import { Textarea } from "./ui/textarea";
+import useGetReviewDetailDoneByAuthUser from "@/hooks/reactQuery/useGetReviewDetailDoneByAuthUser";
+import { Skeleton } from "@mui/material";
+import getCssVariable from "@/lib/getCssVariable";
 
 const RatedStar = ({
   previousRating,
@@ -113,15 +116,33 @@ const RatedStar = ({
 
 export default RatedStar;
 
-export function RateVehicle({ rating }: { rating?: number }) {
+export function RateVehicle({
+  rating,
+  vehicle_id,
+}: {
+  rating?: number;
+  vehicle_id: string;
+}) {
+  const { data, isLoading, isError, error } =
+    useGetReviewDetailDoneByAuthUser(vehicle_id);
+  if (isLoading) {
+    return (
+      <Skeleton
+        variant="rectangular"
+        sx={{
+          bgcolor: getCssVariable("--clr-skeleton-background", true),
+        }}
+        className="w-16 rounded-sm"
+      />
+    );
+  }
   return (
     <Dialog>
       <DialogTrigger asChild>
         <span className={styles.vehicle_info_rate_vehicle}>
-          <div className="border-4 border-solid border-container-border rounded-full"></div>
-          {rating ? (
+          {data?.data.data ? (
             <>
-              <p>Your Rating: {rating}/5</p>
+              <p>Your Rating: {data.data.data.rating}/5</p>
             </>
           ) : (
             <>
@@ -140,10 +161,11 @@ export function RateVehicle({ rating }: { rating?: number }) {
           <DialogTitle>Rate & Review Vehicle</DialogTitle>
         </DialogHeader>
         <div className="flex flex-col items-center gap-4">
-          <RatedStar previousRating={rating} />
+          <RatedStar previousRating={data?.data?.data.rating} />
           <Textarea
             placeholder="Tell us about your experience with this vehicle"
             className="resize-none"
+            value={data?.data?.data?.review}
           />
         </div>
         <DialogFooter>

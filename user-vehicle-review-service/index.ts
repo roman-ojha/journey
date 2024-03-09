@@ -13,8 +13,11 @@ import cors from "cors";
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
-  // const ALLOWED_ORIGINS = [];
-  const ALLOWED_ORIGINS = "*"; // NOTE: This is for testing purposes only. In production, you should use the above line instead.
+  const ALLOWED_ORIGINS = [
+    process.env.USER_CLIENT_URL as string,
+    process.env.API_GATEWAY_URL as string,
+  ];
+  // const ALLOWED_ORIGINS = "*"; // NOTE: This is for testing purposes only. In production, you should use the above line instead.
 
   app.use(
     cors({
