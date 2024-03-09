@@ -30,18 +30,18 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build Admin Client Project
-        run: |
-          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-          export NVM_DIR="$HOME/.nvm"
-          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-          [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-          nvm install 16.5.0
-          nvm use 16.5.0
-          cd ./admin-client
-          corepack enable
-          yarn install
-          yarn build
+      # - name: Build Admin Client Project
+      #   run: |
+      #     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+      #     export NVM_DIR="$HOME/.nvm"
+      #     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+      #     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+      #     nvm install 16.5.0
+      #     nvm use 16.5.0
+      #     cd ./admin-client
+      #     corepack enable
+      #     yarn install
+      #     yarn build
 
       - name: Build image
         run: |
