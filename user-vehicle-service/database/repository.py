@@ -469,7 +469,7 @@ class Repository(Database):
         vehicle = Serializer(data=vehicle).data
 
         # Get Reviews for selected vehicle
-        vehicleReviews = self.user_vehicle_reviews_db.Review.aggregate([
+        vehicleReviewInfo = self.user_vehicle_reviews_db.Review.aggregate([
             {
                 "$match": {
                     "vehicle_id": ObjectId(vehicle.get("_id"))
@@ -528,13 +528,61 @@ class Repository(Database):
                 "$limit": 1
             }
         ])
-        vehicleReviews = Serializer(data=vehicleReviews, many=True).data
-        if len(vehicleReviews) > 0:
-            vehicle["no_of_reviews"] = vehicleReviews[0].get("no_of_reviews")
-            vehicle["average_rating"] = vehicleReviews[0].get("average_rating")
+        vehicleReviewInfo = Serializer(data=vehicleReviewInfo, many=True).data
+        if len(vehicleReviewInfo) > 0:
+            vehicle["no_of_reviews"] = vehicleReviewInfo[0].get(
+                "no_of_reviews")
+            vehicle["average_rating"] = vehicleReviewInfo[0].get(
+                "average_rating")
         else:
             vehicle["no_of_reviews"] = 0
             vehicle["average_rating"] = 0
+
+        # Get Reviews for selected vehicle
+        vehicleReviews = self.user_vehicle_reviews_db.Review.aggregate([
+            {
+                "$match": {
+                    "vehicle_id": ObjectId(vehicle.get("_id"))
+                }
+            },
+            {
+                "$project": {
+                    "created_at": 0,
+                    "vehicle_id": 0,
+                }
+            },
+            {
+                "$group": {
+                    "_id": "$user_id",
+                    "reviews": {
+                        "$push": "$$ROOT"
+                    }
+                }
+            },
+            {
+                "$project": {
+                    "_id": 0,
+                    "reviews": {
+                        "$slice": [
+                            "$reviews",
+                            0,
+                            1  # only get first review done by user
+                        ]
+                    }
+                }
+            },
+            {
+                "$unwind": "$reviews",
+            },
+            {
+                "$limit": 20,
+            }
+        ])
+        vehicleReviews = Serializer(data=vehicleReviews, many=True).data
+        vehicleReviews = [vehicleReview.get(
+            "reviews") for vehicleReview in vehicleReviews]
+        # TODO: Also need to grab the user name
+        vehicle["reviews"] = vehicleReviews
         return vehicle
 
     def get_all_places(self):
