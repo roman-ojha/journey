@@ -9,6 +9,8 @@ import { VehicleModel } from "@/schema/VehicleModel";
 import apiRoutes from "@/services/api/routes";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError, AxiosResponse } from "axios";
+import { z } from "zod";
+import { vehicleReviewResponseSchema } from "@/schema/VehicleReview";
 
 export type VehicleDetail = Vehicle & {
   model: VehicleModel;
@@ -28,6 +30,7 @@ export type VehicleDetail = Vehicle & {
   //NOTE: just adding rating & no_of_reviews we aren't getting from the server right now
   average_rating: number;
   no_of_reviews: number;
+  reviews: z.infer<typeof vehicleReviewResponseSchema>[];
 };
 
 const fetchBookedVehicleDetails = async (vehicle_slug: string) =>

@@ -41,6 +41,7 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
       <VehicleReviewAndRating
         average_rating={data?.data?.average_rating as number}
         no_of_reviews={data?.data?.no_of_reviews as number}
+        reviews={data?.data?.reviews as VehicleDetailType["reviews"]}
       />
     </main>
   );
