@@ -4,6 +4,6 @@ import amqplib from "amqplib";
 
 export default (channel: amqplib.Channel) => {
   const router = Router();
-  router.use("/review", reviewRouter(channel));
+  router.use("/", reviewRouter(channel));
   return router;
 };

@@ -10,5 +10,12 @@ export default (channel: amqplib.Channel) => {
   // Review Vehicle
   router.post("/", authenticate, controller.reviewVehicle);
 
+  // Get Vehicle Review done by auth user
+  router.get(
+    "/by-auth-user/:vehicle_slug",
+    authenticate,
+    controller.getVehicleReviewDoneByAuthUser
+  );
+
   return router;
 };

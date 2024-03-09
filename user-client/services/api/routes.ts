@@ -15,6 +15,7 @@ import { request } from "@/services/api/axios";
 import { BookedVehicles } from "@/hooks/reactQuery/useGetBookedVehicles";
 import { BookedVehicleDetails } from "@/hooks/reactQuery/useGetBookedVehicleDetails";
 import { SearchParameterObj } from "@/components/pages/explore/Main";
+import { VehicleReview } from "@/schema/VehicleReview";
 
 export type APISuccessResponse<T> = AxiosResponse<{
   message: string;
@@ -152,6 +153,16 @@ const apiRoutes = {
           headers: {
             "Content-Type": "application/json",
           },
+        });
+      },
+    },
+    review: {
+      get_review_done_by_auth_user: async (
+        vehicle_id: number
+      ): Promise<AxiosResponse<VehicleReview>> => {
+        return await request({
+          method: "GET",
+          url: `/user/vehicle-review-service/by-auth-user/${vehicle_id}`,
         });
       },
     },

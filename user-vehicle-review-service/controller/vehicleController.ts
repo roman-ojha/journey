@@ -21,4 +21,18 @@ export default class VehicleController extends Controller {
       return next(err);
     }
   }
+
+  public async getVehicleReviewDoneByAuthUser(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    try {
+      return res.json({
+        status: "success",
+      });
+    } catch (err) {
+      return next(err);
+    }
+  }
 }

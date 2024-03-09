@@ -26,7 +26,7 @@ const NavBar = (): React.JSX.Element => {
     refetch();
   };
 
-  if (NO_NAVBAR_FOR_ROUTES.includes(pathName) || isLoading) {
+  if (NO_NAVBAR_FOR_ROUTES.includes(pathName)) {
     return <></>;
   }
 

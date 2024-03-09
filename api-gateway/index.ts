@@ -49,6 +49,14 @@ app.use(
 );
 
 app.use(
+  "/api/user/review-service/",
+  userAuthenticate,
+  proxy(process.env.USER_VEHICLE_REVIEW_SERVICE_URL as string, {
+    // parseReqBody: false,
+  })
+);
+
+app.use(
   "/api/user",
   userAuthenticate,
   proxy(process.env.USER_SERVICE_URL as string, { parseReqBody: false }) // don't parse the request body which will effect on uploading the file 'multipart/form-data'
