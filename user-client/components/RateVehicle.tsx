@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogClose,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -24,8 +25,13 @@ export function RateVehicle({ vehicle_id }: { vehicle_id: string }) {
   const router = useRouter();
   const pathname = usePathname();
 
-  const { data, isLoading, isError, error, refetch } =
-    useGetReviewDetailDoneByAuthUser(vehicle_id);
+  const {
+    data,
+    isLoading,
+    isError,
+    error,
+    refetch: refetchReviewDetail,
+  } = useGetReviewDetailDoneByAuthUser(vehicle_id);
   const isAuthenticated = useAppSelector((state) =>
     authUserSelector.isAuthenticated(state)
   );
@@ -42,6 +48,8 @@ export function RateVehicle({ vehicle_id }: { vehicle_id: string }) {
   const reviewVehicleMut = useReviewVehicleMutation();
 
   const [reviewForm, setReview] = useState<string>("");
+
+  const closeDialogButton = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
     setReview(data?.data?.data?.review || "");
@@ -87,7 +95,6 @@ export function RateVehicle({ vehicle_id }: { vehicle_id: string }) {
 
   const rateAndReviewVehicle = () => {
     if (!isAuthenticated) router.push("/login?next=" + pathname);
-    console.log(ratingForm.selectedValue, reviewForm);
     reviewVehicleMut.mutate({
       vehicle_id,
       rating: ratingForm.selectedValue,
@@ -96,8 +103,15 @@ export function RateVehicle({ vehicle_id }: { vehicle_id: string }) {
   };
 
   useEffect(() => {
-    refetch();
-  }, [isAuthenticated, refetch]);
+    refetchReviewDetail();
+  }, [isAuthenticated, refetchReviewDetail]);
+
+  useEffect(() => {
+    if (reviewVehicleMut.isSuccess) {
+      refetchReviewDetail();
+      closeDialogButton.current?.click();
+    }
+  }, [refetchReviewDetail, reviewVehicleMut.isSuccess]);
 
   if (isLoading) {
     return (
@@ -210,6 +224,16 @@ export function RateVehicle({ vehicle_id }: { vehicle_id: string }) {
           >
             Rate and Review
           </Button>
+          <DialogClose asChild>
+            <Button
+              type="button"
+              variant="secondary"
+              ref={closeDialogButton}
+              style={{ display: "none" }}
+            >
+              Close
+            </Button>
+          </DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>

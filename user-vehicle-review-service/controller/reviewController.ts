@@ -51,8 +51,23 @@ export default class ReviewController extends Controller {
     try {
       const { vehicle_id, rating, review } = req.body;
       const user_id = (req.user as any).id;
-      console.log(vehicle_id, parseInt(rating), review, user_id);
-      return res.json({});
+      const resVehicle = await this.repository.getVehicleById(vehicle_id);
+      if (!resVehicle) {
+        return res
+          .status(STATUS_CODES.NOT_FOUND)
+          .json(failResponse("Given vehicle not found"));
+      }
+      return res.json(
+        successResponse(
+          "Review added successfully",
+          await this.repository.reviewVehicle(
+            vehicle_id,
+            parseInt(rating),
+            review,
+            user_id
+          )
+        )
+      );
     } catch (err) {
       return next(err);
     }
