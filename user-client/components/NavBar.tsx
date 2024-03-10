@@ -12,6 +12,7 @@ import useGetAuthUserQuery from "@/hooks/reactQuery/useGetAuthUserQuery";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { eraseCookie, getCookie } from "@/lib/cookie";
 import { useRouter } from "next/navigation";
+import useLogoutUserQuery from "@/hooks/reactQuery/useLogoutUserQuery";
 
 const NavBar = (): React.JSX.Element => {
   const pathName = usePathname();
@@ -25,12 +26,22 @@ const NavBar = (): React.JSX.Element => {
     isLoading,
   } = useGetAuthUserQuery({
     retry: false,
+    enabled: false,
   });
 
+  const { refetch: refetchLogout } = useLogoutUserQuery(refetchUser);
+
   const handleLogout = () => {
-    eraseCookie(AUTH_USER_COOKIE_NAME);
-    refetchUser();
+    // eraseCookie(AUTH_USER_COOKIE_NAME);
+    refetchLogout();
+    // refetchUser();
   };
+
+  useEffect(() => {
+    if (getCookie(AUTH_USER_COOKIE_NAME)) {
+      refetchUser();
+    }
+  }, [refetchUser]);
 
   if (NO_NAVBAR_FOR_ROUTES.includes(pathName)) {
     return <></>;
@@ -88,24 +99,6 @@ const NavBar = (): React.JSX.Element => {
         </ul>
         <div className={styles.navbar__right_part}>
           <ThemeSwitcher />
-          {isError ? (
-            <>
-              <AppLink
-                backgroundColor="transparent"
-                href="/login"
-                width="content-width"
-              >
-                Login
-              </AppLink>
-              <AppLink
-                backgroundColor="primary"
-                width="content-width"
-                href="/register"
-              >
-                Sign Up
-              </AppLink>
-            </>
-          ) : null}
           {isSuccess ? (
             <>
               <Button
@@ -127,7 +120,24 @@ const NavBar = (): React.JSX.Element => {
                 </AvatarFallback>
               </Avatar>
             </>
-          ) : null}
+          ) : (
+            <>
+              <AppLink
+                backgroundColor="transparent"
+                href="/login"
+                width="content-width"
+              >
+                Login
+              </AppLink>
+              <AppLink
+                backgroundColor="primary"
+                width="content-width"
+                href="/register"
+              >
+                Sign Up
+              </AppLink>
+            </>
+          )}
         </div>
       </nav>
       <div className={styles.navbar_divider}></div>

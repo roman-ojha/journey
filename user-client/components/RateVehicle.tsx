@@ -128,7 +128,7 @@ export function RateVehicle({
   const { data, isLoading, isError, error } =
     useGetReviewDetailDoneByAuthUser(vehicle_id);
   const isAuthenticated = useAppSelector((state) =>
-    authUserSelector.authUser(state)
+    authUserSelector.isAuthenticated(state)
   );
   console.log(isAuthenticated);
   const rateAndReviewVehicle = () => {};

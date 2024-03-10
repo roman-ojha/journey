@@ -82,6 +82,11 @@ export const UserLoginResponse = z.object({
 
 export type UserLoginResponse = z.infer<typeof UserLoginResponse>;
 
+export type UserLogoutResponse = {
+  token: null;
+  user: null;
+};
+
 const user = userSchema.merge(baseUserWithSecret);
 
 type User = z.infer<typeof user>;

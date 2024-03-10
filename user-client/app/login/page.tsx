@@ -40,8 +40,6 @@ const Login = (): React.JSX.Element => {
     loginUser(data);
   };
 
-  console.log();
-
   useEffect(() => {
     if (isSuccess) {
       router.push("/");

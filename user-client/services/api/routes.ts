@@ -5,6 +5,7 @@ import User, {
   UserLogin,
   UserLoginResponse,
   SafeUser,
+  UserLogoutResponse,
 } from "@/schema/User";
 import { ExploreVehicle } from "@/hooks/reactQuery/useExploreAndSearchedVehicles";
 import { VehicleDetail } from "@/hooks/reactQuery/useVehicleDetail";
@@ -56,6 +57,16 @@ const apiRoutes = {
             "Content-Type": "application/json",
           },
           data,
+          withCredentials: true,
+        });
+      },
+      logout: async (): Promise<APISuccessResponse<UserLogoutResponse>> => {
+        return await axios({
+          method: "GET",
+          url: "/user/auth/logout",
+          headers: {
+            "Content-Type": "application/json",
+          },
           withCredentials: true,
         });
       },

@@ -6,13 +6,15 @@ import apiRoutes, {
 import User, { UserLogin, UserLoginResponse } from "@/schema/User";
 import { AxiosError } from "axios";
 import queryKeys from "@/data/queryKeys";
+import { useAppDispatch } from "../useAppStore";
+import { setAuthUser } from "@/services/store/features/authUser/authUserSlice";
 
 //
 const loginUser = (data: UserLogin) => apiRoutes.user.auth.login(data);
 
 export default function useLoginUser() {
   const queryClient = useQueryClient();
-  return useMutation<
+  const res = useMutation<
     APISuccessResponse<UserLoginResponse>,
     APIFailResponse,
     UserLogin
@@ -28,4 +30,10 @@ export default function useLoginUser() {
       // });
     },
   });
+  const dispatch = useAppDispatch();
+  if (res.isSuccess) {
+    dispatch(setAuthUser(res.data.data.data.user));
+  }
+
+  return res;
 }

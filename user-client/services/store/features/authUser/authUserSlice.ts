@@ -4,7 +4,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 type UserTypeWithoutId = Omit<SafeUser, "id">;
 export type AuthUser = UserTypeWithoutId & { id: number | null };
 
-const initialState: AuthUser = {
+export const initialState: AuthUser = {
   email: "",
   f_name: "",
   gender: "FEMALE",
@@ -18,7 +18,7 @@ const authUserSlice = createSlice({
   name: "authUser",
   initialState,
   reducers: {
-    setAuthUser: (state, action: PayloadAction<SafeUser>) => {
+    setAuthUser: (state, action: PayloadAction<AuthUser>) => {
       return action.payload;
     },
   },
