@@ -19,13 +19,7 @@ import { useAppSelector } from "@/hooks/useAppStore";
 import { authUserSelector } from "@/services/store/features/authUser/authUserSlice";
 import { useRouter, usePathname } from "next/navigation";
 
-export function RateVehicle({
-  rating,
-  vehicle_id,
-}: {
-  rating?: number;
-  vehicle_id: string;
-}) {
+export function RateVehicle({ vehicle_id }: { vehicle_id: string }) {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -34,9 +28,63 @@ export function RateVehicle({
   const isAuthenticated = useAppSelector((state) =>
     authUserSelector.isAuthenticated(state)
   );
+  const [ratingForm, setRating] = useState<{
+    hoveredValue: number;
+    selectedValue: number;
+    mode: "hover" | "selected";
+  }>({
+    hoveredValue: 0,
+    selectedValue: 0,
+    mode: "hover",
+  });
+
+  const [reviewForm, setReview] = useState<string>("");
+
+  useEffect(() => {
+    setReview(data?.data?.data?.review || "");
+    setRating((prev) => ({
+      ...prev,
+      selectedValue: data?.data?.data?.rating || 0,
+      hoveredValue: data?.data?.data?.rating || 0,
+    }));
+  }, [data?.data?.data?.review, data?.data?.data?.rating]);
+
+  const ratingStars = [
+    {
+      rating: 0,
+      desc: "Give us a rating",
+      star: ["outline", "outline", "outline", "outline", "outline"],
+    },
+    {
+      rating: 1,
+      desc: "😔 Very Bad",
+      star: ["full", "outline", "outline", "outline", "outline"],
+    },
+    {
+      rating: 2,
+      desc: "😟 Bad",
+      star: ["full", "full", "outline", "outline", "outline"],
+    },
+    {
+      rating: 3,
+      desc: "🙂 Good",
+      star: ["full", "full", "full", "outline", "outline"],
+    },
+    {
+      rating: 4,
+      desc: "😍 Very Good",
+      star: ["full", "full", "full", "full", "outline"],
+    },
+    {
+      rating: 4,
+      desc: "🥰 Excellent",
+      star: ["full", "full", "full", "full", "full"],
+    },
+  ];
 
   const rateAndReviewVehicle = () => {
     if (!isAuthenticated) router.push("/login?next=" + pathname);
+    // console.log(ratingForm.selectedValue, reviewForm);
   };
 
   useEffect(() => {
@@ -82,11 +130,68 @@ export function RateVehicle({
           <DialogTitle>Rate & Review Vehicle</DialogTitle>
         </DialogHeader>
         <div className="flex flex-col items-center gap-4">
-          <RatedStar previousRating={data?.data?.data?.rating} />
+          <span className="flex flex-col justify-center items-center gap-2">
+            <p>
+              {
+                ratingStars[
+                  ratingForm.mode == "hover"
+                    ? ratingForm.hoveredValue
+                    : ratingForm.selectedValue
+                ].desc
+              }
+            </p>
+            <span
+              className="flex gap-2"
+              onMouseLeave={() => {
+                setRating({
+                  ...ratingForm,
+                  hoveredValue: ratingForm.selectedValue,
+                  mode: "hover",
+                });
+              }}
+            >
+              {ratingStars[
+                ratingForm.mode == "hover"
+                  ? ratingForm.hoveredValue
+                  : ratingForm.selectedValue
+              ].star.map((star, index) => {
+                return (
+                  <AppIcon
+                    iconName={
+                      star == "full"
+                        ? "typcn:star-full-outline"
+                        : star == "half"
+                        ? "ic:round-star-half"
+                        : "typcn:star-outline"
+                    }
+                    use="iconify"
+                    className="text-3xl text-rating-star cursor-pointer"
+                    key={index}
+                    onMouseEnter={() =>
+                      setRating({
+                        ...ratingForm,
+                        hoveredValue: index + 1,
+                      })
+                    }
+                    onClick={() =>
+                      setRating({
+                        ...ratingForm,
+                        selectedValue: index + 1,
+                        mode: "selected",
+                      })
+                    }
+                  />
+                );
+              })}
+            </span>
+          </span>
           <Textarea
             placeholder="Tell us about your experience with this vehicle"
             className="resize-none"
-            value={data?.data?.data?.review}
+            value={reviewForm}
+            onChange={(e) => {
+              setReview(e.target.value);
+            }}
           />
         </div>
         <DialogFooter>
@@ -102,101 +207,3 @@ export function RateVehicle({
     </Dialog>
   );
 }
-
-const RatedStar = ({
-  previousRating,
-}: {
-  previousRating?: number;
-}): React.JSX.Element => {
-  const [rating, setRating] = useState<{
-    hoveredValue: number;
-    selectedValue: number;
-    mode: "hover" | "selected";
-  }>({
-    hoveredValue: previousRating || 0,
-    selectedValue: previousRating || 0,
-    mode: "hover",
-  });
-
-  const ratingStars = [
-    {
-      rating: 0,
-      desc: "Give us a rating",
-      star: ["outline", "outline", "outline", "outline", "outline"],
-    },
-    {
-      rating: 1,
-      desc: "😔 Very Bad",
-      star: ["full", "outline", "outline", "outline", "outline"],
-    },
-    {
-      rating: 2,
-      desc: "😟 Bad",
-      star: ["full", "full", "outline", "outline", "outline"],
-    },
-    {
-      rating: 3,
-      desc: "🙂 Good",
-      star: ["full", "full", "full", "outline", "outline"],
-    },
-    {
-      rating: 4,
-      desc: "😍 Very Good",
-      star: ["full", "full", "full", "full", "outline"],
-    },
-    {
-      rating: 4,
-      desc: "🥰 Excellent",
-      star: ["full", "full", "full", "full", "full"],
-    },
-  ];
-
-  return (
-    <>
-      <span className="flex flex-col justify-center items-center gap-2">
-        <p>
-          {
-            ratingStars[
-              rating.mode == "hover"
-                ? rating.hoveredValue
-                : rating.selectedValue
-            ].desc
-          }
-        </p>
-        <span className="flex gap-2">
-          {ratingStars[
-            rating.mode == "hover" ? rating.hoveredValue : rating.selectedValue
-          ].star.map((star, index) => {
-            return (
-              <AppIcon
-                iconName={
-                  star == "full"
-                    ? "typcn:star-full-outline"
-                    : star == "half"
-                    ? "ic:round-star-half"
-                    : "typcn:star-outline"
-                }
-                use="iconify"
-                className="text-3xl text-rating-star cursor-pointer"
-                key={index}
-                onMouseEnter={() =>
-                  setRating({
-                    ...rating,
-                    hoveredValue: index + 1,
-                  })
-                }
-                onClick={() =>
-                  setRating({
-                    ...rating,
-                    selectedValue: index + 1,
-                    mode: "selected",
-                  })
-                }
-              />
-            );
-          })}
-        </span>
-      </span>
-    </>
-  );
-};
