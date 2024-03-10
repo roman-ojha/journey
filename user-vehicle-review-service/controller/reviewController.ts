@@ -7,6 +7,7 @@ import {
   validationErrorResponse,
 } from "../utils/responseObject";
 import amqplib from "amqplib";
+import { body, check } from "express-validator";
 
 export default class ReviewController extends Controller {
   constructor(channel: amqplib.Channel) {
@@ -16,8 +17,41 @@ export default class ReviewController extends Controller {
       this.getVehicleReviewDoneByAuthUser.bind(this);
   }
 
+  validateReviewVehicle = [
+    check("vehicle_id").notEmpty().withMessage("Vehicle id is required"),
+    check("rating")
+      .isNumeric()
+      .withMessage("Rating should be a number")
+      .notEmpty()
+      .withMessage("Rating is required")
+      .custom(async (value) => {
+        const rating = parseInt(value);
+        if (
+          rating !== 1 &&
+          rating !== 2 &&
+          rating !== 3 &&
+          rating !== 4 &&
+          rating !== 5
+        ) {
+          throw Error("Rating should be between 1 to 5");
+        }
+        return rating;
+      }),
+    check("review")
+      .trim()
+      .notEmpty()
+      .withMessage("Review is required")
+      .isString()
+      .withMessage("Review should be a string")
+      .isLength({ min: 5, max: 500 })
+      .withMessage("Review should be between 5 to 500 characters"),
+  ];
+
   public async reviewVehicle(req: Request, res: Response, next: NextFunction) {
     try {
+      const { vehicle_id, rating, review } = req.body;
+      const user_id = (req.user as any).id;
+      console.log(vehicle_id, parseInt(rating), review, user_id);
       return res.json({});
     } catch (err) {
       return next(err);

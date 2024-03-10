@@ -18,6 +18,7 @@ import getCssVariable from "@/lib/getCssVariable";
 import { useAppSelector } from "@/hooks/useAppStore";
 import { authUserSelector } from "@/services/store/features/authUser/authUserSlice";
 import { useRouter, usePathname } from "next/navigation";
+import useReviewVehicleMutation from "@/hooks/reactMutation/userReviewVehicleMutation";
 
 export function RateVehicle({ vehicle_id }: { vehicle_id: string }) {
   const router = useRouter();
@@ -37,6 +38,8 @@ export function RateVehicle({ vehicle_id }: { vehicle_id: string }) {
     selectedValue: 0,
     mode: "hover",
   });
+
+  const reviewVehicleMut = useReviewVehicleMutation();
 
   const [reviewForm, setReview] = useState<string>("");
 
@@ -84,7 +87,12 @@ export function RateVehicle({ vehicle_id }: { vehicle_id: string }) {
 
   const rateAndReviewVehicle = () => {
     if (!isAuthenticated) router.push("/login?next=" + pathname);
-    // console.log(ratingForm.selectedValue, reviewForm);
+    console.log(ratingForm.selectedValue, reviewForm);
+    reviewVehicleMut.mutate({
+      vehicle_id,
+      rating: ratingForm.selectedValue,
+      review: reviewForm,
+    });
   };
 
   useEffect(() => {

@@ -177,6 +177,18 @@ const apiRoutes = {
           withCredentials: true,
         });
       },
+      review_vehicle: async (
+        vehicle_id: string,
+        rating: number,
+        review: string
+      ): Promise<APISuccessResponse<VehicleReview>> => {
+        return await request({
+          method: "POST",
+          url: "/user/review-service",
+          withCredentials: true,
+          data: JSON.stringify({ vehicle_id, rating, review }),
+        });
+      },
     },
   },
 };

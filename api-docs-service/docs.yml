@@ -832,6 +832,40 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "500":
           $ref: "#/components/responses/InternalServerError"
+
+  /user/review-service:
+    post:
+      summary: Review Vehicle
+      description: Review Vehicle by Authenticated User
+      tags:
+        - "User.VehicleReview"
+      security:
+        - userAuth: []
+        - swaggerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - "vehicle_id"
+                - "rating"
+                - "review"
+              properties:
+                vehicle_id:
+                  type: string
+                  example: "65d97439b020df0fbbfc1c99"
+                rating:
+                  type: number
+                  example: 4
+                review:
+                  type: string
+                  example: "This is a good vehicle"
+      responses:
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
   # ===============================================================
 
   # Admin Service
