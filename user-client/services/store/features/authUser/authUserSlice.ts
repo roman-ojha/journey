@@ -24,8 +24,10 @@ const authUserSlice = createSlice({
   },
   selectors: {
     authUser: (state) => state,
+    isAuthenticated: (state) => state.id !== null,
   },
 });
 
 export default authUserSlice.reducer;
+export const authUserSelector = authUserSlice.selectors;
 export const { setAuthUser } = authUserSlice.actions;

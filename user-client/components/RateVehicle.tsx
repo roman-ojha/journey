@@ -15,6 +15,8 @@ import { Textarea } from "./ui/textarea";
 import useGetReviewDetailDoneByAuthUser from "@/hooks/reactQuery/useGetReviewDetailDoneByAuthUser";
 import { Skeleton } from "@mui/material";
 import getCssVariable from "@/lib/getCssVariable";
+import { useAppSelector } from "@/hooks/useAppStore";
+import { authUserSelector } from "@/services/store/features/authUser/authUserSlice";
 
 const RatedStar = ({
   previousRating,
@@ -125,6 +127,12 @@ export function RateVehicle({
 }) {
   const { data, isLoading, isError, error } =
     useGetReviewDetailDoneByAuthUser(vehicle_id);
+  const isAuthenticated = useAppSelector((state) =>
+    authUserSelector.authUser(state)
+  );
+  console.log(isAuthenticated);
+  const rateAndReviewVehicle = () => {};
+
   if (isLoading) {
     return (
       <Skeleton
@@ -135,6 +143,9 @@ export function RateVehicle({
         className="w-16 rounded-sm"
       />
     );
+  }
+  if (isError) {
+    return <>Error...</>;
   }
   return (
     <Dialog>
@@ -161,7 +172,7 @@ export function RateVehicle({
           <DialogTitle>Rate & Review Vehicle</DialogTitle>
         </DialogHeader>
         <div className="flex flex-col items-center gap-4">
-          <RatedStar previousRating={data?.data?.data.rating} />
+          <RatedStar previousRating={data?.data?.data?.rating} />
           <Textarea
             placeholder="Tell us about your experience with this vehicle"
             className="resize-none"
@@ -169,7 +180,11 @@ export function RateVehicle({
           />
         </div>
         <DialogFooter>
-          <Button className="w-full" type="submit">
+          <Button
+            className="w-full"
+            type="submit"
+            onClick={rateAndReviewVehicle}
+          >
             Rate and Review
           </Button>
         </DialogFooter>

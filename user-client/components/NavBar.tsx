@@ -17,13 +17,19 @@ const NavBar = (): React.JSX.Element => {
   const pathName = usePathname();
   const router = useRouter();
 
-  const { data, isSuccess, isError, refetch, isLoading } = useGetAuthUserQuery({
+  const {
+    data,
+    isSuccess,
+    isError,
+    refetch: refetchUser,
+    isLoading,
+  } = useGetAuthUserQuery({
     retry: false,
   });
 
   const handleLogout = () => {
     eraseCookie(AUTH_USER_COOKIE_NAME);
-    refetch();
+    refetchUser();
   };
 
   if (NO_NAVBAR_FOR_ROUTES.includes(pathName)) {

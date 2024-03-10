@@ -161,19 +161,39 @@ class AuthController extends Controller {
       res.cookie("UserAuthToken", token.token, {
         maxAge: 25892000000,
         // httpOnly: true,
-        // domain: process.env.ORIGIN_HOSTNAME,
-        // domain: "localhost",
+        domain: process.env.USER_CLIENT_DOMAIN,
         // domain: the domain that we pass here is the domain where cookie get stored and domain is the domain of the server
         secure: true,
         // signed: true,
         sameSite: "none",
         // NOTE: 'sameSite: "none"' will help to set and access token for different domain
+        path: "/",
       });
       return res.json(
         successResponse("Login Successfully", {
           token: token.token,
           expires_in: token.expiresIn,
           user: await this.repository.findFirstSecureUserUsingEmail(email),
+        })
+      );
+    } catch (err) {
+      return next(err);
+    }
+  }
+
+  async logoutUser(req: Request, res: Response, next: NextFunction) {
+    try {
+      res.clearCookie("UserAuthToken", {
+        domain: process.env.USER_CLIENT_DOMAIN,
+        secure: true,
+        sameSite: "none",
+        path: "/",
+      });
+      return res.json(
+        successResponse("Logout Successfully", {
+          token: null,
+          expires_in: null,
+          user: null,
         })
       );
     } catch (err) {
