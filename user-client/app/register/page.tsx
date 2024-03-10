@@ -14,12 +14,15 @@ import { FormControlLabel, RadioGroup } from "@mui/material";
 import Radio from "@/components/Radio";
 import useRegisterUser from "@/hooks/reactMutation/userRegisterUser";
 import { APIValidationErrorResponse } from "@/services/api/routes";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import FormFieldError from "@/components/FormFieldError";
 
 const Register = (): React.JSX.Element => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const nextPath = searchParams.get("next");
+
   const {
     register,
     handleSubmit,
@@ -43,9 +46,9 @@ const Register = (): React.JSX.Element => {
 
   useEffect(() => {
     if (isSuccess) {
-      router.push("/login");
+      router.push(`/login${nextPath ? "?next=" + nextPath : ""}`);
     }
-  }, [isSuccess, router]);
+  }, [isSuccess, nextPath, router]);
 
   const renderError = (field: keyof UserSignUp) => {
     if (error?.response?.status === 422) {
@@ -319,7 +322,9 @@ const Register = (): React.JSX.Element => {
         </form>
         <span className={authStyles.auth_form__auth_link}>
           <p>Have an account?</p>
-          <Link href="/login">SignIn</Link>
+          <Link href={`/login${nextPath ? "?next=" + nextPath : ""}`}>
+            SignIn
+          </Link>
         </span>
       </section>
       <section className={authStyles.auth_illustration}>

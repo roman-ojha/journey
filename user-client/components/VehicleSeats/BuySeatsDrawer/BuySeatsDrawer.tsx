@@ -25,6 +25,8 @@ import {
 } from "@/services/store/features/vehicleSeat/vehicleSeatSlice";
 import { useAppSelector } from "@/hooks/useAppStore";
 import useBookSeats from "@/hooks/reactMutation/useBookSeats";
+import { authUserSelector } from "@/services/store/features/authUser/authUserSlice";
+import { usePathname, useRouter } from "next/navigation";
 
 type BuySeatsDrawerProps = {
   disabled?: boolean;
@@ -35,27 +37,33 @@ export function BuySeatsDrawer({
   disabled = false,
   vehicle_id,
 }: BuySeatsDrawerProps) {
+  const router = useRouter();
+  const pathname = usePathname();
   const selectedSeats = getSelectedSeats({
     vehicleSeats: useAppSelector((state) => state.vehicleSeats),
   });
 
   const { mutate: bookSeats, data, isSuccess, isError } = useBookSeats();
 
+  const isAuthenticated = useAppSelector((state) =>
+    authUserSelector.isAuthenticated(state)
+  );
+
   function handleBookSeats() {
-    bookSeats({
-      vehicle_id: vehicle_id as string,
-      seats: selectedSeats.map(
-        (selectedSeat) => selectedSeat.seatNumber
-      ) as string[],
-    });
+    if (!isAuthenticated) router.push("/login?next=" + pathname);
+    else if (selectedSeats.length > 0) {
+      bookSeats({
+        vehicle_id: vehicle_id as string,
+        seats: selectedSeats.map(
+          (selectedSeat) => selectedSeat.seatNumber
+        ) as string[],
+      });
+    }
   }
 
   if (isSuccess) {
-    // console.log(data.data.data.payment_url);
-    // window.location.href = data.data.data.payment_url;
-    // NOTE: just for college final defense:
-    window.location.href =
-      "https://test-pay.khalti.com/?pidx=xPWa2iBDN8N6ZdDBBrDCCX";
+    // console.log(data.data.data);
+    window.location.href = data.data.data.payment_url;
   }
 
   return (
