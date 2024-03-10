@@ -1,10 +1,10 @@
 import styles from "@/styles/page/vehicle/index.module.scss";
 import BookedSeats from "./BookedSeats";
 import getCssVariable from "@/lib/getCssVariable";
-import VehicleSeats from "@/components/VehicleSeats/VehicleSeats";
+import VehicleSeats from "@/components/VehicleSeats/Seats/VehicleSeats";
 import { VehicleModel } from "@/schema/VehicleModel";
 import { VehicleDetail } from "@/hooks/reactQuery/useVehicleDetail";
-import SelectedSeats from "./SelectedSeats";
+import SelectedSeats from "@/components/VehicleSeats/SelectedSeats/SelectedSeats";
 
 export type VehicleSeatsInfoProps = {
   vehicleType?: VehicleModel["name"];

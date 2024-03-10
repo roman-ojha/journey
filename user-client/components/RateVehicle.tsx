@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -17,6 +17,91 @@ import { Skeleton } from "@mui/material";
 import getCssVariable from "@/lib/getCssVariable";
 import { useAppSelector } from "@/hooks/useAppStore";
 import { authUserSelector } from "@/services/store/features/authUser/authUserSlice";
+import { useRouter, usePathname } from "next/navigation";
+
+export function RateVehicle({
+  rating,
+  vehicle_id,
+}: {
+  rating?: number;
+  vehicle_id: string;
+}) {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const { data, isLoading, isError, error, refetch } =
+    useGetReviewDetailDoneByAuthUser(vehicle_id);
+  const isAuthenticated = useAppSelector((state) =>
+    authUserSelector.isAuthenticated(state)
+  );
+
+  const rateAndReviewVehicle = () => {
+    if (!isAuthenticated) router.push("/login?next=" + pathname);
+  };
+
+  useEffect(() => {
+    refetch();
+  }, [isAuthenticated, refetch]);
+
+  if (isLoading) {
+    return (
+      <Skeleton
+        variant="rectangular"
+        sx={{
+          bgcolor: getCssVariable("--clr-skeleton-background", true),
+        }}
+        className="w-16 rounded-sm"
+      />
+    );
+  }
+  if (isError) {
+    return <>Error...</>;
+  }
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <span className={styles.vehicle_info_rate_vehicle}>
+          {data?.data.data ? (
+            <>
+              <p>Your Rating: {data.data.data.rating}/5</p>
+            </>
+          ) : (
+            <>
+              <AppIcon
+                iconName="typcn:star-outline"
+                use="iconify"
+                className={styles.vehicle_rating_icon}
+              />
+              <p>Rate</p>
+            </>
+          )}
+        </span>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Rate & Review Vehicle</DialogTitle>
+        </DialogHeader>
+        <div className="flex flex-col items-center gap-4">
+          <RatedStar previousRating={data?.data?.data?.rating} />
+          <Textarea
+            placeholder="Tell us about your experience with this vehicle"
+            className="resize-none"
+            value={data?.data?.data?.review}
+          />
+        </div>
+        <DialogFooter>
+          <Button
+            className="w-full"
+            type="submit"
+            onClick={rateAndReviewVehicle}
+          >
+            Rate and Review
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
 
 const RatedStar = ({
   previousRating,
@@ -115,80 +200,3 @@ const RatedStar = ({
     </>
   );
 };
-
-export default RatedStar;
-
-export function RateVehicle({
-  rating,
-  vehicle_id,
-}: {
-  rating?: number;
-  vehicle_id: string;
-}) {
-  const { data, isLoading, isError, error } =
-    useGetReviewDetailDoneByAuthUser(vehicle_id);
-  const isAuthenticated = useAppSelector((state) =>
-    authUserSelector.isAuthenticated(state)
-  );
-  console.log(isAuthenticated);
-  const rateAndReviewVehicle = () => {};
-
-  if (isLoading) {
-    return (
-      <Skeleton
-        variant="rectangular"
-        sx={{
-          bgcolor: getCssVariable("--clr-skeleton-background", true),
-        }}
-        className="w-16 rounded-sm"
-      />
-    );
-  }
-  if (isError) {
-    return <>Error...</>;
-  }
-  return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <span className={styles.vehicle_info_rate_vehicle}>
-          {data?.data.data ? (
-            <>
-              <p>Your Rating: {data.data.data.rating}/5</p>
-            </>
-          ) : (
-            <>
-              <AppIcon
-                iconName="typcn:star-outline"
-                use="iconify"
-                className={styles.vehicle_rating_icon}
-              />
-              <p>Rate</p>
-            </>
-          )}
-        </span>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Rate & Review Vehicle</DialogTitle>
-        </DialogHeader>
-        <div className="flex flex-col items-center gap-4">
-          <RatedStar previousRating={data?.data?.data?.rating} />
-          <Textarea
-            placeholder="Tell us about your experience with this vehicle"
-            className="resize-none"
-            value={data?.data?.data?.review}
-          />
-        </div>
-        <DialogFooter>
-          <Button
-            className="w-full"
-            type="submit"
-            onClick={rateAndReviewVehicle}
-          >
-            Rate and Review
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-  );
-}

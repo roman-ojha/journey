@@ -1,7 +1,7 @@
 "use client";
 import getCssVariable from "@/lib/getCssVariable";
 import { Skeleton } from "@mui/material";
-import { VehicleSeatsInfoProps } from "../pages/vehicle/VehicleSeatsInfo/VehicleSeatsInfo";
+import { VehicleSeatsInfoProps } from "../../pages/vehicle/VehicleSeatsInfo/VehicleSeatsInfo";
 import AppIcon from "@/components/appIcon/AppIcon";
 import { useAppDispatch, useAppSelector } from "@/hooks/useAppStore";
 import styles from "@/styles/page/vehicle/vehicleSeats.module.scss";

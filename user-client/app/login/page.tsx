@@ -14,11 +14,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import FormFieldError from "@/components/FormFieldError";
 import useLoginUser from "@/hooks/reactMutation/useLoginUser";
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 
 const Login = (): React.JSX.Element => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const nextPath = searchParams.get("next");
   const {
     register,
     handleSubmit,
@@ -42,9 +44,10 @@ const Login = (): React.JSX.Element => {
 
   useEffect(() => {
     if (isSuccess) {
-      router.push("/");
+      if (nextPath) router.push(nextPath);
+      else router.push("/");
     }
-  }, [isSuccess, router]);
+  }, [isSuccess, router, nextPath]);
 
   useEffect(() => {
     if (isError) {
@@ -169,7 +172,9 @@ const Login = (): React.JSX.Element => {
         </form>
         <span className={authStyles.auth_form__auth_link}>
           <p>Don&apos;t have an account?</p>
-          <Link href="/register">Register</Link>
+          <Link href={`/register${nextPath ? "?next=" + nextPath : ""}`}>
+            Register
+          </Link>
         </span>
       </section>
     </main>
