@@ -1,5 +1,5 @@
 *) Journey (i.e: Sahayatri.com):
-    -> Platform help user to buy Bus & Hiace's, Cars ticket online for Long Distance travels.
+    ->  Platform help user to buy Seats of Bus & Hiace's, Cars ticket online.
     *> Current Problem:
         -> People in nepal have to physically go to the ticket counters and on some festival like: dashain & tihar people even have to wait in a line for hours to buy tickets.
         -> Also some people do phone calls to these Bus & Hiace owner and ask to seat and negotiate for the price and is not guarantee that they will going to get the exact same that they ask for.
