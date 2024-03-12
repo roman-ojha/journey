@@ -51,14 +51,14 @@ services:
     depends_on:
       - postgres
 
-  # user-client:
-  #   container_name: journey-user-client
-  #   image: romanojha/journey-user-client
-  #   build:
-  #     context: ./user-client
-  #     dockerfile: Dockerfile
-  #   # ports:
-  #   #   - "3001:3001"
+  user-client:
+    container_name: journey-user-client
+    image: romanojha/journey-user-client
+    build:
+      context: ./user-client
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
 
   user-vehicle-review-service:
     container_name: journey-user-vehicle-review-service
