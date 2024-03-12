@@ -1,0 +1,23 @@
+server {
+        # ssl for https protocal
+        listen 443 ssl;
+        server_name journey.uk.to www.journey.uk.to;
+        ssl_certificate /etc/letsencrypt/live/journey.uk.to/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/journey.uk.to/privkey.pem;
+        location / {
+                proxy_pass http://0.0.0.0:8003;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+        }
+
+}
+
+server {
+        listen 80;
+        listen [::]:80;
+        root /var/www/html;
+        server_name journey.uk.to www.journey.uk.to;
+        return 301 https://$host$request_uri; # if user reqest on http then it will request to https
+}
