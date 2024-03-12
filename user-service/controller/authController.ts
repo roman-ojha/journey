@@ -161,7 +161,7 @@ class AuthController extends Controller {
       res.cookie("UserAuthToken", token.token, {
         maxAge: 25892000000,
         // httpOnly: true,
-        domain: process.env.USER_CLIENT_DOMAIN,
+        // domain: process.env.USER_CLIENT_DOMAIN,
         // domain: the domain that we pass here is the domain where cookie get stored and domain is the domain of the server
         secure: true,
         // signed: true,
