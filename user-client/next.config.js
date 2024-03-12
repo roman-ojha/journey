@@ -82,6 +82,66 @@ const nextConfig = {
         protocol: "https",
         hostname: "www.genevacountyschools.com",
       },
+      {
+        protocol: "https",
+        hostname: "media.gettyimages.com",
+      },
+      {
+        protocol: "https",
+        hostname: "st3.depositphotos.com",
+      },
+      {
+        protocol: "https",
+        hostname: "st.depositphotos.com",
+      },
+      {
+        protocol: "https",
+        hostname: "st4.depositphotos.com",
+      },
+      {
+        protocol: "https",
+        hostname: "media.istockphoto.com",
+      },
+      {
+        protocol: "https",
+        hostname: "morguefile.nyc3.cdn.digitaloceanspaces.com",
+      },
+      {
+        protocol: "https",
+        hostname: "www.istockphoto.com",
+      },
+      {
+        protocol: "https",
+        hostname: "as1.ftcdn.net",
+      },
+      {
+        protocol: "https",
+        hostname: "as2.ftcdn.net",
+      },
+      {
+        protocol: "https",
+        hostname: "th.bing.com",
+      },
+      {
+        protocol: "https",
+        hostname: "i.pinimg.com",
+      },
+      {
+        protocol: "https",
+        hostname: "jamaicaclassifiedonline.com",
+      },
+      {
+        protocol: "https",
+        hostname: "www.nepalrentalcar.com",
+      },
+      {
+        protocol: "https",
+        hostname: "www.gracefuladventure.com",
+      },
+      {
+        protocol: "https",
+        hostname: "www.oneindia.com",
+      },
     ],
   },
 };
