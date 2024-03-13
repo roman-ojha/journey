@@ -12,7 +12,10 @@ RUN yarn install
 
 COPY . .
 
-RUN yarn prisma:generate
+# RUN yarn prisma:generate
+RUN npx prisma generate --schema ./prisma/schema.prisma
+RUN npx prisma generate --schema ./prisma/merchant-v-and-t-service.prisma
+RUN npx prisma generate --schema ./prisma/user-service.prisma
 
 RUN tsc
 

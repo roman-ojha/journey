@@ -22,6 +22,12 @@ const Profile = (): React.JSX.Element => {
               <div className="grid grid-cols-3 text-center order-last md:order-first mt-20 md:mt-0">
                 <div>
                   <p className="font-bold text-primary-foreground text-xl">
+                    10
+                  </p>
+                  <p className="text-primary-foreground">Booked Vehicles</p>
+                </div>
+                <div>
+                  <p className="font-bold text-primary-foreground text-xl">
                     22
                   </p>
                   <p className="text-primary-foreground">Booked Seats</p>
@@ -41,8 +47,9 @@ const Profile = (): React.JSX.Element => {
                 <div className="w-48 h-48 bg-indigo-100 mx-auto rounded-full shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500">
                   <Avatar className="w-48 h-48">
                     <AvatarImage src={data?.data?.picture} />
-                    <AvatarFallback className="capitalize bg-secondary text-3xl text-white">
-                      CN
+                    <AvatarFallback className="capitalize bg-secondary text-4xl text-white">
+                      {data?.data?.f_name.slice(0, 1)}
+                      {data?.data?.l_name.slice(0, 1)}
                     </AvatarFallback>
                   </Avatar>
                 </div>

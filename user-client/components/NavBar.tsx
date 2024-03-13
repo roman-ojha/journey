@@ -116,7 +116,8 @@ const NavBar = (): React.JSX.Element => {
               >
                 <AvatarImage src={data?.data?.picture} />
                 <AvatarFallback className="capitalize bg-secondary w-9 h-9 text-xs text-white">
-                  RO
+                  {data?.data?.f_name.slice(0, 1)}
+                  {data?.data?.l_name.slice(0, 1)}
                 </AvatarFallback>
               </Avatar>
             </>

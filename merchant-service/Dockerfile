@@ -25,11 +25,12 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 
 
 # Add wait-for-it.sh
-ADD https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh /usr/bin/wait-for-it
-RUN chmod +x /usr/bin/wait-for-it
+# ADD https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh /usr/bin/wait-for-it
+# RUN chmod +x /usr/bin/wait-for-it
 
 EXPOSE 8005
 
-CMD ["sh", "-c", "wait-for-it mysql:3306 -- php artisan migrate && php artisan serve"]
+# CMD ["sh", "-c", "wait-for-it mysql:3306 -- php artisan migrate && php artisan serve"]
+CMD ["sh", "-c", "php artisan migrate && php artisan serve"]
 
 # ENTRYPOINT [ "../docker/merchant-service-entrypoint.sh" ]
