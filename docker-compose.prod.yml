@@ -43,14 +43,14 @@ services:
     depends_on:
       - postgres
 
-  # user-client:
-  #   container_name: journey-user-client
-  #   image: romanojha/journey-user-client
-  #   build:
-  #     context: ./user-client
-  #     dockerfile: Dockerfile
-  #   # ports:
-  #   #   - "3001:3001"
+  user-client:
+    container_name: journey-user-client
+    image: romanojha/journey-user-client
+    build:
+      context: ./user-client
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
 
   user-vehicle-review-service:
     container_name: journey-user-vehicle-review-service
@@ -96,14 +96,14 @@ services:
       - ./user-vehicle-service/data/dataset:/app/data/dataset
       - ./user-vehicle-service/data/trained-models:/app/data/trained-models
 
-  #   # admin-client:
-  #   #   container_name: journey-admin-client
-  #   #   image: romanojha/journey-admin-client
-  #   #   build:
-  #   #     context: ./admin-client
-  #   #     dockerfile: Dockerfile
-  #   #   ports:
-  #   #     - "3000:3000"
+  admin-client:
+    container_name: journey-admin-client
+    image: romanojha/journey-admin-client
+    build:
+      context: ./admin-client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
 
   admin-service:
     container_name: journey-admin-service
