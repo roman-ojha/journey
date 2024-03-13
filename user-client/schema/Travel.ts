@@ -6,7 +6,7 @@ export const travelSchema = z.object({
   to: z.string(),
   is_active: z.boolean().default(true),
   seat_average_price: z.number(),
-  departure_at: z.date(),
+  departure_at: z.string(),
   route: z.string().nullable(),
   driver_no: z.number(),
   vehicle_id: z.string(),
