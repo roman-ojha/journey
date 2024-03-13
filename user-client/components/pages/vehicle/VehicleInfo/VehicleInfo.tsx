@@ -130,9 +130,9 @@ const VehicleInfo: React.FC<VehicleInfoProps> = ({
               />
               <p data-vehicle-info-p="key">Departure AT:</p>
               <p data-vehicle-info-p="value">
-                {getFormattedDateFromUTC(
-                  vehicle ? vehicle.travel.departure_at : new Date()
-                )}
+                {vehicle
+                  ? getFormattedDateFromUTC(vehicle.travel.departure_at)
+                  : ""}
               </p>
             </>
           )}
