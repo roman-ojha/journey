@@ -4,6 +4,9 @@ server {
         server_name journey.uk.to www.journey.uk.to;
         ssl_certificate /etc/letsencrypt/live/journey.uk.to/fullchain.pem;
         ssl_certificate_key /etc/letsencrypt/live/journey.uk.to/privkey.pem;
+        # Ref:
+        # https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-18-04
+        # https://github.com/geekyshow1/GeekyShowsNotes/blob/main/nginx/SSL_Cert_Nginx.md
         location / {
                 proxy_pass http://0.0.0.0:8003;
                 proxy_set_header Host $host;
