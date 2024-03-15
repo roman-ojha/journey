@@ -14,7 +14,7 @@ export default (channel: amqplib.Channel) => {
   router.get("/", (req, res) => {
     publishMessage(
       channel,
-      constants.USER_VEHICLE_SERVICE_RABBIT_MQ_BINDING_KEY,
+      constants.MERCHANT_VEHICLE_AND_TRAVEL_SERVICE_RABBIT_MQ_BINDING_KEY,
       {
         vehicle_id: "xyzabc123pqrve" + Math.floor(Math.random() * 1000000),
         travel_id: "xyzabc123pqrtravelid" + Math.floor(Math.random() * 1000000),

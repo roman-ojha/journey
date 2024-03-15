@@ -42,17 +42,18 @@ class PikaClient:
     def consume(self):
         # Declare the queue
         try:
-            self.channel.queue_declare(queue=Constant.ADD_TRAVEL_QUEUE)
+            self.channel.queue_declare(
+                queue=Constant.ADD_OR_UPDATE_REVIEW_QUEUE)
             # Bind the queue to the exchange with the binding key
-            self.channel.queue_bind(exchange=Constant.RABBIT_MQ_EXCHANGE_NAME, queue=Constant.ADD_TRAVEL_QUEUE,
-                                    routing_key=Constant.MERCHANT_VEHICLE_AND_TRAVEL_SERVICE_RABBIT_MQ_BINDING_KEY)
+            self.channel.queue_bind(exchange=Constant.RABBIT_MQ_EXCHANGE_NAME, queue=Constant.ADD_OR_UPDATE_REVIEW_QUEUE,
+                                    routing_key=Constant.USER_VEHICLE_REVIEW_SERVICE_RABBIT_MQ_BINDING_KEY)
 
             # Set prefetch count to 1 to ensure that RabbitMQ sends only one message at a time
             self.channel.basic_qos(prefetch_count=1)
 
             # # now we need to create a configuration to consume our messages from our 'video' queue
             self.channel.basic_consume(
-                queue=Constant.ADD_TRAVEL_QUEUE, on_message_callback=self.add_new_travel_to_dataset
+                queue=Constant.ADD_OR_UPDATE_REVIEW_QUEUE, on_message_callback=self.add_or_update_review
                 # whenever the message get pulls off from the queue then 'callback' function will get execute
             )
             # print('Waiting for messages. To exit, press CTRL+C')
@@ -62,11 +63,11 @@ class PikaClient:
         except Exception as e:
             print(e)
 
-    def add_new_travel_to_dataset(self, ch, method, properties, body):
+    def add_or_update_review(self, ch, method, properties, body):
         try:
 
-            travel = body.decode()
-            print(travel)
+            review = body.decode()
+            print(review)
             # convert string to dictionary
             # travel: dict = json.loads(travel)
             # if travel.get('vehicle_id') and travel.get('travel_id') and travel.get('departure_at') and travel.get('from') and travel.get('to'):
