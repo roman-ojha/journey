@@ -24,14 +24,14 @@ async function connect() {
     .catch((err: any) => {
       console.log(err);
     });
-  // await userClient
-  //   .$connect()
-  //   .then(() => {
-  //     console.log("Connected to user service database");
-  //   })
-  //   .catch((err: any) => {
-  //     console.log(err);
-  //   });
+  await userClient
+    .$connect()
+    .then(() => {
+      console.log("Connected to user service database");
+    })
+    .catch((err: any) => {
+      console.log(err);
+    });
 }
 
 async function disconnect() {

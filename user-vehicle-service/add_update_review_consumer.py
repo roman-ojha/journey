@@ -1,4 +1,4 @@
-# This will consume the message from the queue and add the new travel to the dataset
+# This will consume the message from the queue and add or update the rating data inside dataset
 import pika
 import os
 import ssl
@@ -67,24 +67,39 @@ class PikaClient:
         try:
 
             review = body.decode()
-            print(review)
             # convert string to dictionary
-            # travel: dict = json.loads(travel)
-            # if travel.get('vehicle_id') and travel.get('travel_id') and travel.get('departure_at') and travel.get('from') and travel.get('to'):
-            #     travel['departure_at'] = pd.to_datetime(
-            #         travel['departure_at']).date()
-            #     # Create a DataFrame with the desired order of columns
-            #     dfTravel = pd.DataFrame(
-            #         [travel], columns=['vehicle_id', 'travel_id', 'departure_at', 'from', 'to'])
-            #     # Append the new travel data to the existing CSV file
-            #     with open('data/dataset/travels.csv', 'a') as f:
-            #         dfTravel.to_csv(f, header=f.tell() == 0,
-            #                         index=False, lineterminator='\n')
-            # # acknowledge the message so that it will get remove from the queue
+            review: dict = json.loads(review)
+            if review.get('id') and review.get('vehicle_id') and review.get('rating') and review.get('user_id'):
+                # Create a DataFrame with the desired order of columns
+                dfReview = pd.DataFrame(
+                    [review], columns=['id', 'vehicle_id', 'user_id', 'rating'])
+                # print(dfReview)
+                reviews_df = pd.read_csv('data/dataset/reviews.csv')
+                # check whether review already exist or not
+                checked_review_df = reviews_df[reviews_df['id']
+                                               == review['id']]
+                if review['id'] in reviews_df['id'].values and review['user_id'] in reviews_df['user_id'].values and review['vehicle_id'] in reviews_df['vehicle_id'].values:
+                    # Review already exist update it
+                    if (review['rating']
+                            in checked_review_df['rating'].values) == False:
+                        # Save new rating only if rating is different
+                        print("User rated different rating")
+                        reviews_df.loc[reviews_df['id']
+                                       == review['id'], 'rating'] = review['rating']
+                        reviews_df.to_csv(
+                            "data/dataset/reviews.csv", index=False)
+                        # Now again train model with the updated rating data
+                        train_model()
+                else:
+                    # Review doesn't exist add it
+                    # Append the new review data to the existing CSV file
+                    with open('data/dataset/reviews.csv', 'a') as f:
+                        dfReview.to_csv(f, header=f.tell() == 0,
+                                        index=False, lineterminator='\n')
+                    # Now again train model with the new data
+                    train_model()
+            # acknowledge the message so that it will get remove from the queue
             ch.basic_ack(delivery_tag=method.delivery_tag)
-
-            # # Now again train model with the new data
-            # train_model()
         except Exception as e:
             print(e)
 

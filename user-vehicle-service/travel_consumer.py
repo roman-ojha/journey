@@ -66,24 +66,20 @@ class PikaClient:
         try:
 
             travel = body.decode()
-            print(travel)
             # convert string to dictionary
-            # travel: dict = json.loads(travel)
-            # if travel.get('vehicle_id') and travel.get('travel_id') and travel.get('departure_at') and travel.get('from') and travel.get('to'):
-            #     travel['departure_at'] = pd.to_datetime(
-            #         travel['departure_at']).date()
-            #     # Create a DataFrame with the desired order of columns
-            #     dfTravel = pd.DataFrame(
-            #         [travel], columns=['vehicle_id', 'travel_id', 'departure_at', 'from', 'to'])
-            #     # Append the new travel data to the existing CSV file
-            #     with open('data/dataset/travels.csv', 'a') as f:
-            #         dfTravel.to_csv(f, header=f.tell() == 0,
-            #                         index=False, lineterminator='\n')
-            # # acknowledge the message so that it will get remove from the queue
+            travel: dict = json.loads(travel)
+            if travel.get('vehicle_id') and travel.get('travel_id') and travel.get('departure_at') and travel.get('from') and travel.get('to'):
+                travel['departure_at'] = pd.to_datetime(
+                    travel['departure_at']).date()
+                # Create a DataFrame with the desired order of columns
+                dfTravel = pd.DataFrame(
+                    [travel], columns=['vehicle_id', 'travel_id', 'departure_at', 'from', 'to'])
+                # Append the new travel data to the existing CSV file
+                with open('data/dataset/travels.csv', 'a') as f:
+                    dfTravel.to_csv(f, header=f.tell() == 0,
+                                    index=False, lineterminator='\n')
+            # acknowledge the message so that it will get remove from the queue
             ch.basic_ack(delivery_tag=method.delivery_tag)
-
-            # # Now again train model with the new data
-            # train_model()
         except Exception as e:
             print(e)
 

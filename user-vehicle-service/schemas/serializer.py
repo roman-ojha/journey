@@ -2,7 +2,7 @@ from bson import ObjectId
 
 
 class Serializer:
-    def __init__(self, data, many=False, exclude: list = []):
+    def __init__(self, data: dict | list | None, many=False, exclude: list = []):
         if data == None:
             raise ValueError("Data is required")
         elif many == False:
