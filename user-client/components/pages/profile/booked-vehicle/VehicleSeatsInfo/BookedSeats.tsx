@@ -8,7 +8,6 @@ import {
   getBookedSeats,
   getTotalSeatPrice,
 } from "@/services/store/features/vehicleSeat/vehicleSeatSlice";
-import { useEffect, useState } from "react";
 import Button from "@/components/buttons/Button";
 
 const BookedSeats = (): React.JSX.Element => {
@@ -42,25 +41,7 @@ const BookedSeats = (): React.JSX.Element => {
             );
           }
         })}
-        {/* {selectedSeats.map((seat, index) => (
-          <span className={styles.vehicle_seat} key={index}>
-            <AppIcon
-              iconName="mdi:seat"
-              use="iconify"
-              className={styles.vehicle_seat__icon}
-              style={{
-                color: getCssVariable("--clr-base-secondary"),
-              }}
-            />
-            <b>{seat.seatNumber}</b>
-            <p>Rs. {seat.seatPrice}</p>
-          </span>
-        ))} */}
       </div>
-      {/* <div className="flex gap-2">
-        <b>Payment status:</b>
-        <p>Pending</p>
-      </div> */}
       <div className={styles.selected_seats_total_price}>
         <b>Total Price: </b>
         <p>Rs. {getTotalSeatPrice(authUserBookedSeats)}</p>

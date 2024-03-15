@@ -7,6 +7,7 @@ import useGetBookedVehicleDetails, {
   BookedVehicleDetails,
 } from "@/hooks/reactQuery/useGetBookedVehicleDetails";
 import styles from "@/styles/page/vehicle/index.module.scss";
+import BookedSeatsTicket from "@/components/pages/profile/booked-vehicle/BookedSeatsTicket/BookedSeatsTicket";
 
 type VehicleDetailProps = {
   params: {
@@ -39,11 +40,7 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
           seats={data?.data.data?.seats}
           vehicle_id={data?.data.data?._id}
         />
-        <VehicleReviewAndRating
-          average_rating={data?.data.data?.average_rating}
-          no_of_reviews={data?.data.data?.no_of_reviews}
-          reviews={data?.data.data?.reviews}
-        />
+        <BookedSeatsTicket />
       </main>
     );
   }
