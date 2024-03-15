@@ -91,7 +91,17 @@ services:
     image: romanojha/journey-mq-travel-consumer-service
     build:
       context: ./user-vehicle-service
-      dockerfile: Dockerfile.consumer
+      dockerfile: travelConsumer.Dockerfile
+    volumes:
+      - ./user-vehicle-service/data/dataset:/app/data/dataset
+      - ./user-vehicle-service/data/trained-models:/app/data/trained-models
+
+  review-mq-consumer-service:
+    container_name: journey-mq-review-consumer-service
+    image: romanojha/journey-mq-review-consumer-service
+    build:
+      context: ./user-vehicle-service
+      dockerfile: reviewConsumer.Dockerfile
     volumes:
       - ./user-vehicle-service/data/dataset:/app/data/dataset
       - ./user-vehicle-service/data/trained-models:/app/data/trained-models
