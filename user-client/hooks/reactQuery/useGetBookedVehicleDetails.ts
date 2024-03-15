@@ -27,10 +27,11 @@ export type BookedVehicleDetails = Vehicle & {
     {
       seat: ModelSeat;
     }[];
-  //NOTE: just adding rating & no_of_reviews we aren't getting from the server right now
   average_rating: number;
   no_of_reviews: number;
   reviews: z.infer<typeof vehicleReviewResponseSchema>[];
+  //TODO: need to create the actual object of this ticket in future
+  ticket: object;
 };
 
 const fetchBookedVehicleDetails = async (vehicle_slug: string) =>

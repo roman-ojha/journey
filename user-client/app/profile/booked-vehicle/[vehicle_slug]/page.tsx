@@ -22,29 +22,31 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
     params.vehicle_slug
   );
 
-  if (isSuccess) {
-    return (
-      <main className={styles.vehicle_page}>
-        {/* <HorizontalSearchBox /> */}
-        <VehicleInfo
-          isLoading={isLoading}
-          isSuccess={isSuccess}
-          isError={isError}
-          vehicle={data?.data.data as BookedVehicleDetails}
-        />
-        <VehicleSeatsInfo
-          vehicleType={data?.data.data?.model?.name}
-          isError={isError}
-          isSuccess={isSuccess}
-          isLoading={isLoading}
-          seats={data?.data.data?.seats}
-          vehicle_id={data?.data.data?._id}
-        />
-        <BookedSeatsTicket />
-      </main>
-    );
-  }
-  return <></>;
+  return (
+    <main className={styles.vehicle_page}>
+      {/* <HorizontalSearchBox /> */}
+      <VehicleInfo
+        isLoading={isLoading}
+        isSuccess={isSuccess}
+        isError={isError}
+        vehicle={data?.data.data as BookedVehicleDetails}
+      />
+      <VehicleSeatsInfo
+        vehicleType={data?.data.data?.model?.name}
+        isError={isError}
+        isSuccess={isSuccess}
+        isLoading={isLoading}
+        seats={data?.data.data?.seats}
+        vehicle_id={data?.data.data?._id}
+      />
+      <BookedSeatsTicket
+        ticket={data?.data.data?.ticket}
+        isLoading={isLoading}
+        isError={isError}
+        isSuccess={isSuccess}
+      />
+    </main>
+  );
 };
 
 export default VehicleDetail;

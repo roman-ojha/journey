@@ -741,6 +741,15 @@ class Repository(Database):
             "reviews") for vehicleReview in vehicleReviews]
         # TODO: Also need to grab the user name
         vehicle["reviews"] = vehicleReviews
+        bookedSeats = []
+        totalPrice = 0
+        for vehicleSeat in vehicle['seats']:
+            if vehicleSeat.get('user_id') == user_id:
+                bookedSeats.append(vehicleSeat['seat']['name'])
+                totalPrice += vehicleSeat['price']
+        print(bookedSeats)
+        vehicle["ticket"] = {'from': vehicle['travel']['from_place']['district']['name']+", "+vehicle['travel']['from_place']['name'], 'to': vehicle['travel']['to_place']['district']['name']+", "+vehicle['travel']
+                             ['to_place']['name'], 'departure_at': vehicle['travel']['departure_at'], 'booked_seats': bookedSeats, 'total_price': totalPrice, 'vehicle_id': vehicle.get('_id'), 'travel_id': vehicle.get('travel').get('_id')}
         return vehicle
 
 
