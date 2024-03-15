@@ -25,19 +25,19 @@ export default (channel: amqplib.Channel) => {
     controller.getVehicleReviewDoneByAuthUser
   );
 
-  router.get("/test", (req, res) => {
-    publishMessage(
-      channel,
-      constants.USER_VEHICLE_REVIEW_SERVICE_RABBIT_MQ_BINDING_KEY,
-      {
-        id: "65ec8239848575ceeca4d580",
-        vehicle_id: "65dfbb9ecb5bfd3e9cd0037d",
-        user_id: 18,
-        rating: 3,
-      }
-    );
-    res.json({ msg: "send review" });
-  });
+  // router.get("/test", (req, res) => {
+  //   publishMessage(
+  //     channel,
+  //     constants.USER_VEHICLE_REVIEW_SERVICE_RABBIT_MQ_BINDING_KEY,
+  //     {
+  //       id: "65ec8239848575ceeca4d580",
+  //       vehicle_id: "65dfbb9ecb5bfd3e9cd0037d",
+  //       user_id: 18,
+  //       rating: 3,
+  //     }
+  //   );
+  //   res.json({ msg: "send review" });
+  // });
 
   return router;
 };

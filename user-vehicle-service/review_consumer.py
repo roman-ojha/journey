@@ -83,7 +83,6 @@ class PikaClient:
                     if (review['rating']
                             in checked_review_df['rating'].values) == False:
                         # Save new rating only if rating is different
-                        print("User rated different rating")
                         reviews_df.loc[reviews_df['id']
                                        == review['id'], 'rating'] = review['rating']
                         reviews_df.to_csv(

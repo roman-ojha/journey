@@ -8,6 +8,8 @@ import {
 } from "../utils/responseObject";
 import amqplib from "amqplib";
 import { body, check } from "express-validator";
+import constants from "../data/constants";
+import { publishMessage } from "../utils/rabbitMQ";
 
 export default class ReviewController extends Controller {
   constructor(channel: amqplib.Channel) {
@@ -57,17 +59,26 @@ export default class ReviewController extends Controller {
           .status(STATUS_CODES.NOT_FOUND)
           .json(failResponse("Given vehicle not found"));
       }
-      return res.json(
-        successResponse(
-          "Review added successfully",
-          await this.repository.reviewVehicle(
-            vehicle_id,
-            parseInt(rating),
-            review,
-            user_id
-          )
-        )
+      const resReview = await this.repository.reviewVehicle(
+        vehicle_id,
+        parseInt(rating),
+        review,
+        user_id
       );
+      if (!resReview) {
+        return res.json(successResponse("Review added successfully", null));
+      }
+      publishMessage(
+        this.rabbitMQChannel,
+        constants.USER_VEHICLE_REVIEW_SERVICE_RABBIT_MQ_BINDING_KEY,
+        {
+          id: resReview.id,
+          vehicle_id: resReview.vehicle_id,
+          user_id: resReview.user_id,
+          rating: resReview.rating,
+        }
+      );
+      return res.json(successResponse("Review added successfully", resReview));
     } catch (err) {
       return next(err);
     }
