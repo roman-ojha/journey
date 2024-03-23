@@ -9,7 +9,7 @@ tmux rename-window dev
 
 
 # Windows Lazygit ============================
-tmux new-window -t  journey:2 -n 'term' '/bin/bash'
+tmux new-window -t  journey:2 -n 'term'
 # ===========================================
 
 
@@ -36,11 +36,11 @@ tmux split-window -t journey:5 -v '/bin/bash'
 tmux select-pane -t journey:5.1
 # ===========================================
 
-sleep 1 # wait for all the panes to get created
+sleep 3 # wait for all the panes to get created
 
 # Now Execute Commands ========================
 # First Opening Powershell
-tmux send-keys -t journey:2.1 'cmd.exe' C-m
+tmux send-keys -t journey:2.1 'pwsh.exe' C-m
 tmux send-keys -t journey:3.1 'cmd.exe' C-m
 tmux send-keys -t journey:3.2 'cmd.exe' C-m
 tmux send-keys -t journey:3.3 'cmd.exe' C-m
@@ -84,7 +84,7 @@ tmux send-keys -t journey:5.3 'cd ./admin-service/.venv/Scripts && .\activate &&
 
 # Run Other Command =========================
 tmux send-keys -t journey:1.1 'nvim .' C-m
-tmux send-keys -t journey:2.1 'lazygit' C-m
+# tmux send-keys -t journey:2.1 'lazygit' C-m
 
 # Attach to the tmux session
 tmux attach-session -t journey
