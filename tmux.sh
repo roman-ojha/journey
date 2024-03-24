@@ -38,8 +38,6 @@ createNewSession(){
   tmux select-pane -t $SESSION_NAME:5.1
   # ===========================================
 
-  # sleep 1 # wait for commandline to get started
-
   # Now go to the required directroy ========================
   tmux send-keys -t $SESSION_NAME:3.1 'cd ./user-client' C-m
   tmux send-keys -t $SESSION_NAME:3.2 'cd ./admin-client' C-m
@@ -53,6 +51,7 @@ createNewSession(){
   tmux send-keys -t $SESSION_NAME:5.2 'cd ./merchant-vehicle-and-travel-service' C-m
   tmux send-keys -t $SESSION_NAME:5.3 'cd ./admin-service/.venv/Scripts && .\activate && cd ../..' C-m
 
+  sleep 1 # wait for commandline to get started
 
   # Now Run the Server ========================
   tmux send-keys -t $SESSION_NAME:3.1 'yarn dev' C-m
