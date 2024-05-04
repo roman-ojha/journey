@@ -1,8 +1,10 @@
 "use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import styles from "@/styles/components/navbar.module.scss";
 
-const NavbarLinks = ({ pathName }: { pathName: string }) => {
+const NavbarLinks = () => {
+  const pathName = usePathname();
   return (
     <>
       <ul className={styles.navbar__nav_list}>

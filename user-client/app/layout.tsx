@@ -4,7 +4,7 @@ import "@/styles/base/global.scss";
 import "@/types/CssVariables";
 import Main from "@/app/main";
 import Footer from "@/components/footer/Footer";
-import NavBar from "@/components/Navbar/Navbar";
+import NavBar from "@/components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
