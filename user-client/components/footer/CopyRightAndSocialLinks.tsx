@@ -1,3 +1,4 @@
+"use client";
 import { APPLICATION_NAME } from "@/data/constants";
 import { Icon } from "@iconify/react";
 import styles from "@/styles/components/footer/copyright-and-social-links.module.scss";

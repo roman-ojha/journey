@@ -1,3 +1,4 @@
+"use client";
 import styles from "@/styles/components/footer/available-on.module.scss";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
