@@ -1,11 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
 import useGetTheme from "@/hooks/useGetTheme";
-import NavBar from "@/components/NavBar";
 import ShadeGradient from "@/components/ShadeGradient";
-import Footer from "@/components/footer/Footer";
 import StoreProvider from "./storeProvider";
-import useGetAuthUserQuery from "@/hooks/reactQuery/useGetAuthUserQuery";
+// import useGetAuthUserQuery from "@/hooks/reactQuery/useGetAuthUserQuery";
 import AppQueryClientProvider from "@/app/appQueryClientProvider";
 
 export default function Main({ children }: { children: React.ReactNode }) {
@@ -30,10 +28,7 @@ export default function Main({ children }: { children: React.ReactNode }) {
     <>
       <ShadeGradient />
       <StoreProvider>
-        <AppQueryClientProvider>
-          {/* <NavBar /> */}
-          {children}
-        </AppQueryClientProvider>
+        <AppQueryClientProvider>{children}</AppQueryClientProvider>
       </StoreProvider>
     </>
   );
