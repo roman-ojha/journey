@@ -1,7 +1,6 @@
-"use client";
 import styles from "@/styles/components/footer/available-on.module.scss";
-import { Icon } from "@iconify/react";
 import Link from "next/link";
+import Iconify from "../Iconify";
 
 interface Props {
   type: "app-store" | "google-store";
@@ -18,7 +17,7 @@ const AppDownloadOn: React.FC<Props> = ({ type }): React.JSX.Element => {
       }
       target="_blank"
     >
-      <Icon
+      <Iconify
         icon={type == "app-store" ? "ic:baseline-apple" : "mdi:google-play"}
         className={styles.app_download_on__icon}
       />
