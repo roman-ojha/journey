@@ -36,6 +36,7 @@ createNewSession(){
   tmux split-window -t $SESSION_NAME:5 -h 'cmd.exe' 
   tmux split-window -t $SESSION_NAME:5 -v 'cmd.exe'
   tmux select-pane -t $SESSION_NAME:5.1
+  tmux split-window -t $SESSION_NAME:5 -v 'cmd.exe'
   # ===========================================
 
   # Now go to the required directroy ========================
