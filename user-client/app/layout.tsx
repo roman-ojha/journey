@@ -3,7 +3,7 @@ import "@/styles/base/reset.scss";
 import "@/styles/base/global.scss";
 import "@/types/CssVariables";
 import Main from "@/app/main";
-import Footer from "@/components/footer/Footer";
+import Footer from "@/components/footer";
 import NavBar from "@/components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
