@@ -31,7 +31,7 @@ export default function Main({ children }: { children: React.ReactNode }) {
       <ShadeGradient />
       <StoreProvider>
         <AppQueryClientProvider>
-          <NavBar />
+          {/* <NavBar /> */}
           {children}
         </AppQueryClientProvider>
       </StoreProvider>

@@ -4,9 +4,9 @@ import { APPLICATION_NAME } from "@/data/constants";
 import styles from "@/styles/page/home/index.module.scss";
 import { Metadata } from "next";
 
-// export const metadata: Metadata = {
-//   title: APPLICATION_NAME,
-// };
+export const metadata: Metadata = {
+  title: APPLICATION_NAME,
+};
 
 export default function Home() {
   return (

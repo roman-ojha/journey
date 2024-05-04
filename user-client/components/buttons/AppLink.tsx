@@ -26,10 +26,10 @@ const AppLink: React.FC<Props> = ({
     backgroundColor == "primary"
       ? styles.background_primary
       : backgroundColor == "secondary"
-      ? styles.background_secondary
-      : backgroundColor == "tertiary"
-      ? styles.background_tertiary
-      : styles.background_transparent
+        ? styles.background_secondary
+        : backgroundColor == "tertiary"
+          ? styles.background_tertiary
+          : styles.background_transparent
   }
   ${border ? styles.border : ""}
   ${width === "100%" ? styles.width_full : ""}
