@@ -1,9 +1,9 @@
 "use client";
 import styles from "@/styles/page/explore/index.module.scss";
 import HorizontalSearchBox from "@/components/HorizontalSearchBox/HorizontalSearchBox";
-import CardHeader from "@/components/pages/explore/CardHeader/CardHeader";
-import CardFilter from "@/components/pages/explore/CardFilter/CardFilter";
-import VehicleCards from "@/components/pages/explore/VehicleCards";
+import CardHeader from "./CardHeader/CardHeader";
+import CardFilter from "./CardFilter/CardFilter";
+import VehicleCards from "./VehicleCards";
 import useExploreAndSearchedVehicles from "@/hooks/reactQuery/useExploreAndSearchedVehicles";
 import { useSearchParams } from "next/navigation";
 
