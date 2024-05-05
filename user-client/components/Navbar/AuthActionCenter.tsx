@@ -8,9 +8,12 @@ import { useRouter } from "next/navigation";
 import useLogoutUserQuery from "@/hooks/reactQuery/useLogoutUserQuery";
 import Button from "@/components/buttons/Button";
 import { AUTH_USER_COOKIE_NAME } from "@/data/constants";
+import { useAppDispatch } from "@/hooks/useAppStore";
+import { setAuthUser } from "@/services/store/features/authUser/authUserSlice";
 
 const AuthActionCenter = () => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   const {
     data,
@@ -34,6 +37,12 @@ const AuthActionCenter = () => {
       refetchUser();
     }
   }, [refetchUser]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(setAuthUser(data.data));
+    }
+  }, [isSuccess, dispatch, data?.data]);
 
   return (
     <>

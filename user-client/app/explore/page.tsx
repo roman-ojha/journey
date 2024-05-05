@@ -1,7 +1,7 @@
 import { APPLICATION_NAME } from "@/data/constants";
 import { Metadata } from "next";
 import styles from "@/styles/page/explore/index.module.scss";
-import MainExplore from "./_components/Main.tsx";
+import MainExplore from "./_components/Main";
 
 export const metadata: Metadata = {
   title: `Explore | ${APPLICATION_NAME}`,

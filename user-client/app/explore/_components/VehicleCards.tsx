@@ -2,24 +2,47 @@
 import VehicleCard, {
   VehicleCardType,
 } from "@/components/VehicleCard/VehicleCard";
-import { ExploreVehicle } from "@/hooks/reactQuery/useExploreAndSearchedVehicles";
 import { useAppSelector } from "@/hooks/useAppStore";
 import getFormattedDateFromUTC from "@/lib/getFormattedDateFromUTC";
 import styles from "@/styles/page/explore/index.module.scss";
+import useExploreAndSearchedVehicles from "@/hooks/reactQuery/useExploreAndSearchedVehicles";
+import { useSearchParams } from "next/navigation";
 
-type VehicleCardsProps = {
-  travelVehicles?: ExploreVehicle[];
-  isLoading: boolean;
-  isError: boolean;
-  isSuccess: boolean;
+export type SearchParameterObj = {
+  from: { district: string; place: string };
+  to: { district: string; place: string };
+  departure_at: string;
 };
 
-const VehicleCards: React.FC<VehicleCardsProps> = ({
-  travelVehicles,
-  isLoading,
-  isError,
-  isSuccess,
-}): React.JSX.Element => {
+const VehicleCards = (): React.JSX.Element => {
+  const searchParams = useSearchParams();
+  let searchParameter: SearchParameterObj | null = null;
+  if (
+    searchParams.get("from-district") &&
+    searchParams.get("from-place") &&
+    searchParams.get("to-district") &&
+    searchParams.get("to-place") &&
+    searchParams.get("departure_at")
+  ) {
+    searchParameter = {
+      from: {
+        district: searchParams.get("from-district")!,
+        place: searchParams.get("from-place")!,
+      },
+      to: {
+        district: searchParams.get("to-district")!,
+        place: searchParams.get("to-place")!,
+      },
+      departure_at: searchParams.get("departure_at")!,
+    };
+  }
+  const {
+    data: travelVehicles,
+    isError,
+    isSuccess,
+    isLoading,
+  } = useExploreAndSearchedVehicles(searchParameter);
+
   const vehicleCardLayout = useAppSelector((state) => state.vehicleCardLayout);
 
   // Mock Setup ==================================
@@ -151,32 +174,31 @@ const VehicleCards: React.FC<VehicleCardsProps> = ({
 
   return (
     <section
-      className={`${styles.card_container} ${
-        vehicleCardLayout.layout == "grid"
+      className={`${styles.card_container} ${vehicleCardLayout.layout == "grid"
           ? styles.card_container_grid_view
           : styles.card_container_list_view
-      }`}
+        }`}
     >
       {isLoading
         ? Array.from({ length: 10 }).map((_, index) => (
-            <VehicleCard
-              image={""}
-              title={""}
-              rating={0}
-              no_of_review={0}
-              departure_at={""}
-              price={0}
-              vehicle_type={""}
-              slug={""}
-              key={index}
-              isLoading={isLoading}
-              href="/"
-              departure_from=""
-              destination_place=""
-            />
-          ))
-        : isSuccess && travelVehicles
-        ? travelVehicles.map((tVehicle, index) => (
+          <VehicleCard
+            image={""}
+            title={""}
+            rating={0}
+            no_of_review={0}
+            departure_at={""}
+            price={0}
+            vehicle_type={""}
+            slug={""}
+            key={index}
+            isLoading={isLoading}
+            href="/"
+            departure_from=""
+            destination_place=""
+          />
+        ))
+        : isSuccess && travelVehicles?.data
+          ? travelVehicles?.data.map((tVehicle, index) => (
             <VehicleCard
               image={tVehicle.vehicle.images[0].image}
               title={tVehicle.vehicle.name}
@@ -193,7 +215,7 @@ const VehicleCards: React.FC<VehicleCardsProps> = ({
               destination_place={`${tVehicle.to_place.name}, ${tVehicle.to_place.district.name}`}
             />
           ))
-        : ""}
+          : ""}
     </section>
   );
 };

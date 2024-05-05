@@ -1,4 +1,4 @@
-import { SearchParameterObj } from "@/components/pages/explore/Main";
+import { SearchParameterObj } from "@/app/explore/_components/VehicleCards";
 import queryKeys from "@/data/queryKeys";
 import { District } from "@/schema/District";
 import { Place } from "@/schema/Place";
@@ -13,7 +13,7 @@ import { useAppSelector } from "../useAppStore";
 
 const fetchExploreVehicle = async (
   searchParams: SearchParameterObj | null = null,
-  userId: number | null
+  userId: number | null,
 ) => await apiRoutes.user.vehicle.explore(searchParams, userId);
 
 export type ExploreVehicle = Travel & {
@@ -33,7 +33,7 @@ export type ExploreVehicle = Travel & {
 };
 
 export default function useExploreAndSearchedVehicles(
-  searchParams: SearchParameterObj | null
+  searchParams: SearchParameterObj | null,
 ) {
   // Temporary getting user_id
   const authUser = useAppSelector((state) => state.authUser);

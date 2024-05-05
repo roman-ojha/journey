@@ -73,7 +73,7 @@ const HorizontalSearchBox = (): React.JSX.Element => {
       place: searchParams.get("to-place") || "",
     },
     departure_at: new Date(
-      searchParams.get("departure_at") || format(new Date(), "yyyy-MM-dd")
+      searchParams.get("departure_at") || format(new Date(), "yyyy-MM-dd"),
     ),
   });
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -116,11 +116,9 @@ const HorizontalSearchBox = (): React.JSX.Element => {
       formData.departure_at
     ) {
       router.push(
-        `/explore?from-district=${formData.from.district}&from-place=${
-          formData.from.place
-        }&to-district=${formData.to.district}&to-place=${
-          formData.to.place
-        }&departure_at=${format(formData.departure_at, "yyyy-MM-dd")}`
+        `/explore?from-district=${formData.from.district}&from-place=${formData.from.place
+        }&to-district=${formData.to.district}&to-place=${formData.to.place
+        }&departure_at=${format(formData.departure_at, "yyyy-MM-dd")}`,
       );
       // console.log(
       //   queryKeys.exploreOrSearchedVehicles(
@@ -151,7 +149,7 @@ const HorizontalSearchBox = (): React.JSX.Element => {
         place: searchParams.get("to-place") || "",
       },
       departure_at: new Date(
-        searchParams.get("departure_at") || format(new Date(), "yyyy-MM-dd")
+        searchParams.get("departure_at") || format(new Date(), "yyyy-MM-dd"),
       ),
     });
   }, [searchParams]);
