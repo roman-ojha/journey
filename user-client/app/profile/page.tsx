@@ -1,10 +1,10 @@
 "use client";
-import ProfileCardHeaders from "@/components/pages/profile/CardHeader/ProfileCardHeader";
+import ProfileCardHeaders from "./_components/CardHeader/ProfileCardHeader";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import useGetAuthUserQuery from "@/hooks/reactQuery/useGetAuthUserQuery";
 import { useQueryClient } from "@tanstack/react-query";
 import styles from "@/styles/page/profile/index.module.scss";
-import ProfileVehicleCards from "@/components/pages/profile/ProfileVehicleCards";
+import ProfileVehicleCards from "./_components/ProfileVehicleCards";
 
 const Profile = (): React.JSX.Element => {
   const queryClient = useQueryClient();

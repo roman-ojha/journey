@@ -2,7 +2,7 @@ import { Inter } from "next/font/google";
 import "@/styles/base/reset.scss";
 import "@/styles/base/global.scss";
 import "@/types/CssVariables";
-import Main from "@/app/main";
+import Main from "./_components/main";
 import Footer from "@/components/footer";
 import NavBar from "@/components/Navbar";
 

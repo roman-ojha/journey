@@ -4,7 +4,7 @@ import useGetTheme from "@/hooks/useGetTheme";
 import ShadeGradient from "@/components/ShadeGradient";
 import StoreProvider from "./storeProvider";
 // import useGetAuthUserQuery from "@/hooks/reactQuery/useGetAuthUserQuery";
-import AppQueryClientProvider from "@/app/appQueryClientProvider";
+import AppQueryClientProvider from "./appQueryClientProvider";
 
 export default function Main({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);

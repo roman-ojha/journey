@@ -1,7 +1,7 @@
 "use client";
 import getCssVariable from "@/lib/getCssVariable";
 import { Skeleton } from "@mui/material";
-import { VehicleSeatsInfoProps } from "../../pages/vehicle/VehicleSeatsInfo/VehicleSeatsInfo";
+import { VehicleSeatsInfoProps } from "@/app/vehicle/[vehicle_slug]/_components/VehicleSeatsInfo/VehicleSeatsInfo";
 import AppIcon from "@/components/appIcon/AppIcon";
 import { useAppDispatch, useAppSelector } from "@/hooks/useAppStore";
 import styles from "@/styles/page/vehicle/vehicleSeats.module.scss";
@@ -51,8 +51,8 @@ const VehicleSeats: React.FC<VehicleSeatsInfoProps> = ({
               vehicleType == "SUPER_DELUX_BUS"
                 ? styles.super_deluxe_vehicle_seats
                 : vehicleType == "HIASE"
-                ? styles.hiaCe_vehicle_seats
-                : ""
+                  ? styles.hiaCe_vehicle_seats
+                  : ""
             }`}
           >
             {vehicleSeats.map((row, rowIndex) =>
@@ -79,7 +79,7 @@ const VehicleSeats: React.FC<VehicleSeatsInfoProps> = ({
                               handleSelect({
                                 rowIndex,
                                 columnIndex,
-                              })
+                              }),
                             )
                           }
                           style={
@@ -91,14 +91,16 @@ const VehicleSeats: React.FC<VehicleSeatsInfoProps> = ({
                                   }
                                 : {
                                     color: getCssVariable(
-                                      "--clr-base-tertiary"
+                                      "--clr-base-tertiary",
                                     ),
                                   }
                               : seat.isSelected
-                              ? {
-                                  color: getCssVariable("--clr-base-secondary"),
-                                }
-                              : {}
+                                ? {
+                                    color: getCssVariable(
+                                      "--clr-base-secondary",
+                                    ),
+                                  }
+                                : {}
                           }
                         />
                         <b>{seat.seatNumber}</b>
@@ -107,7 +109,7 @@ const VehicleSeats: React.FC<VehicleSeatsInfoProps> = ({
                     )
                   )}
                 </span>
-              ))
+              )),
             )}
           </div>
         </section>
