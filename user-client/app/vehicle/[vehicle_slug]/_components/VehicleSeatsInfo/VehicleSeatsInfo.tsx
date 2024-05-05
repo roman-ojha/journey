@@ -1,5 +1,5 @@
 import styles from "@/styles/page/vehicle/index.module.scss";
-import SelectedSeats from "../../../VehicleSeats/SelectedSeats/SelectedSeats";
+import SelectedSeats from "@/components/VehicleSeats/SelectedSeats/SelectedSeats";
 import getCssVariable from "@/lib/getCssVariable";
 import VehicleSeats from "@/components/VehicleSeats/Seats/VehicleSeats";
 import { VehicleModel } from "@/schema/VehicleModel";

@@ -1,8 +1,8 @@
 "use client";
-import HorizontalSearchBox from "@/components/HorizontalSearchBox/HorizontalSearchBox";
-import VehicleInfo from "@/components/pages/vehicle/VehicleInfo/VehicleInfo";
+// import HorizontalSearchBox from "@/components/HorizontalSearchBox/HorizontalSearchBox";
+import VehicleInfo from "./_components/VehicleInfo/VehicleInfo";
 import VehicleReviewAndRating from "@/components/ReviewAndRating/VehicleReviewAndRating";
-import VehicleSeatsInfo from "@/components/pages/vehicle/VehicleSeatsInfo/VehicleSeatsInfo";
+import VehicleSeatsInfo from "./_components/VehicleSeatsInfo/VehicleSeatsInfo";
 import useVehicleDetail, {
   VehicleDetail as VehicleDetailType,
 } from "@/hooks/reactQuery/useVehicleDetail";
@@ -18,7 +18,7 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
   params,
 }): React.JSX.Element => {
   const { data, isError, isSuccess, isLoading } = useVehicleDetail(
-    params.vehicle_slug
+    params.vehicle_slug,
   );
 
   return (
