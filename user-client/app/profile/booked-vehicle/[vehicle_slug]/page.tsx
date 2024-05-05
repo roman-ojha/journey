@@ -1,13 +1,13 @@
 "use client";
 import HorizontalSearchBox from "@/components/HorizontalSearchBox/HorizontalSearchBox";
-import VehicleInfo from "@/components/pages/vehicle/VehicleInfo/VehicleInfo";
+import VehicleInfo from "@/app/vehicle/[vehicle_slug]/_components/VehicleInfo/VehicleInfo";
 import VehicleReviewAndRating from "@/components/ReviewAndRating/VehicleReviewAndRating";
-import VehicleSeatsInfo from "@/components/pages/profile/booked-vehicle/VehicleSeatsInfo/VehicleSeatsInfo";
+import VehicleSeatsInfo from "./_components/VehicleSeatsInfo/VehicleSeatsInfo";
 import useGetBookedVehicleDetails, {
   BookedVehicleDetails,
 } from "@/hooks/reactQuery/useGetBookedVehicleDetails";
 import styles from "@/styles/page/vehicle/index.module.scss";
-import BookedSeatsTicket from "@/components/pages/profile/booked-vehicle/BookedSeatsTicket/BookedSeatsTicket";
+import BookedSeatsTicket from "./_components/BookedSeatsTicket/BookedSeatsTicket";
 
 type VehicleDetailProps = {
   params: {
@@ -19,7 +19,7 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
   params,
 }): React.JSX.Element => {
   const { data, isError, isSuccess, isLoading } = useGetBookedVehicleDetails(
-    params.vehicle_slug
+    params.vehicle_slug,
   );
 
   return (
