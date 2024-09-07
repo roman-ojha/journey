@@ -1,3 +1,10 @@
 {
-  "cSpell.words": ["Iconify", "KHALTI", "Laravel", "romanojha"]
+  "cSpell.words": ["Iconify", "KHALTI", "Laravel", "romanojha"],
+  "workbench.editor.customLabels.patterns": {
+    "**/app/**/page.tsx": "${dirname}-page.tsx",
+    "**/app/**/index.tsx": "${dirname}-index.tsx",
+    "**/app/**/layout.tsx": "${dirname}-layout.tsx",
+    "**/app/**/template.tsx": "${dirname}-template.tsx",
+    "**/components/**/index.tsx": "${dirname}-component"
+  }
 }
